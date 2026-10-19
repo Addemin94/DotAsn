@@ -9,7 +9,10 @@
 | `protocol-messages/` | an information object class, an object set, and a table-constrained open type |
 | `telemetry/` | a compact UPER device protocol: extensible enumerations, sequences and choices, an extension group, DEFAULT values, SIZE constraints, named bits |
 
-Try:
+Every sample can also be loaded in [DotAsn Studio](https://addemin94.github.io/DotAsn/) (*Schema > Load sample*),
+which compiles, encodes and decodes in the browser without installing anything.
+
+With the [`asn1` CLI](../README.md#install):
 
 ```sh
 asn1 lint samples --encoding-rules uper

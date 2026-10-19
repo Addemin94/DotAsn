@@ -1,7 +1,14 @@
 # DotAsn: an ASN.1 toolchain for .NET
 
+[![CI](https://github.com/Addemin94/DotAsn/actions/workflows/ci.yml/badge.svg)](https://github.com/Addemin94/DotAsn/actions/workflows/ci.yml)
+[![Studio](https://github.com/Addemin94/DotAsn/actions/workflows/pages.yml/badge.svg)](https://addemin94.github.io/DotAsn/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 DotAsn compiles ASN.1 specifications, lints them, generates strongly typed C#, and encodes and decodes messages
-with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is written in C# for .NET 10 and has no third-party ASN.1 dependency.
+with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is written in C# for .NET 10 and has no
+third-party ASN.1 dependency.
+
+**[Try it in your browser: DotAsn Studio](https://addemin94.github.io/DotAsn/)** · [Releases](https://github.com/Addemin94/DotAsn/releases) · [Documentation](#documentation)
 
 ```text
 .asn files ─► parser ─► semantic model ─┬─► linter (asn1 lint)
@@ -10,13 +17,61 @@ with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is writ
 generated C# ─► Asn1.Runtime descriptors ─► BER · CER · DER · APER · UPER · OER · COER · JER · XER · CXER
 ```
 
+## Features
+
+* **Compiler** for X.680–X.683: modules, imports, automatic tagging, constraints, information object classes and
+  sets, parameterization, with precise diagnostics (text, JSON or SARIF).
+* **Linter** for standards violations, style and interoperability risks (for example PER-unfriendly constructs).
+* **C# generator** producing partial classes, enums and typed descriptors, built as a Roslyn syntax tree.
+* **Runtime** with ten encoding rules, strict canonical decoders (DER, CER, COER, CXER), constraint validation,
+  extension handling and relaying of unknown extensions, and limits against hostile input.
+* **`asn1` CLI** for linting, checking, code generation, encoding, decoding, validation and inspection.
+* **DotAsn Studio**, a browser workbench running the same toolchain client-side.
+
+## Install
+
+**Standalone CLI (no .NET needed).** Download the archive for your platform (Linux x64/arm64, Windows x64, macOS
+x64/arm64) from [Releases](https://github.com/Addemin94/DotAsn/releases), unpack it and run `asn1`. On macOS a
+downloaded executable may need `xattr -d com.apple.quarantine asn1` once.
+
+**.NET tool and libraries.** The packages are published to
+[GitHub Packages](https://github.com/Addemin94?tab=packages&repo_name=DotAsn). GitHub Packages requires a personal
+access token (classic) with the `read:packages` scope to install NuGet packages, even public ones. Add the feed:
+
+```xml
+<!-- nuget.config next to your solution -->
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="dotasn" value="https://nuget.pkg.github.com/Addemin94/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <dotasn>
+      <add key="Username" value="YOUR_GITHUB_USER" />
+      <add key="ClearTextPassword" value="%DOTASN_PACKAGES_TOKEN%" />
+    </dotasn>
+  </packageSourceCredentials>
+</configuration>
+```
+
+```sh
+dotnet tool install --global DotAsn.Cli          # the asn1 command (needs the .NET 10 runtime)
+dotnet add package DotAsn.Serialization          # runtime with all encoding rules (for generated code)
+dotnet add package DotAsn.Dynamic                # schema-driven values without generated code
+```
+
+**From source.** With the .NET 10 SDK:
+
+```sh
+git clone https://github.com/Addemin94/DotAsn.git
+cd DotAsn
+dotnet build Asn1Toolchain.sln
+dotnet run --project src/Asn1.Cli -- --help
+```
+
 ## Quick start
 
 ```sh
-dotnet build Asn1Toolchain.sln
-dotnet test --project tests/Asn1.InteroperabilityTests   # or any other test project
-
-# The CLI (src/Asn1.Cli, executable "asn1"):
 asn1 lint samples/telemetry --encoding-rules uper
 asn1 check samples/telemetry/telemetry.asn --dump
 asn1 generate-csharp samples/telemetry --output generated --namespace Telemetry
@@ -28,7 +83,7 @@ asn1 inspect --format der --hex 300A800107810500EE6B2800
 asn1 standards
 ```
 
-Run the CLI from source with `dotnet run --project src/Asn1.Cli -- <command>`.
+Values are written in the JSON value notation described in [docs/value-notation-json.md](docs/value-notation-json.md).
 
 ## Using generated code
 
@@ -50,10 +105,11 @@ Generated types are `partial` classes with XML documentation taken from the ASN.
 descriptor through `T.Asn1Type`. Encoding rules interpret the descriptors, so adding an encoding rule never requires
 regenerating code. See [docs/architecture.md](docs/architecture.md).
 
-## DotAsn Studio (browser workbench)
+## DotAsn Studio
 
-`tools/Asn1.Studio` is a single-page Blazor WebAssembly app that runs the toolchain entirely in the browser. Nothing
-is sent to a server: schemas and values stay on the page (the last schema is kept in the browser's local storage).
+**[addemin94.github.io/DotAsn](https://addemin94.github.io/DotAsn/)** runs the toolchain entirely in the browser
+(Blazor WebAssembly). Nothing is sent to a server: schemas and values stay on the page, and the last schema is kept
+in the browser's local storage.
 
 * **Schema:** edit or load a sample, compile and lint (optionally for a target encoding), click a diagnostic to see
   the source line, browse types with their definitions and runtime descriptors.
@@ -63,69 +119,22 @@ is sent to a server: schemas and values stay on the page (the last schema is kep
   another rule.
 * **Inspect:** schema-less BER/DER/CER TLV dump. **Model:** the resolved model. **C#:** the generated code.
 
-```sh
-dotnet run --project tools/Asn1.Studio          # http://localhost:5119
-scripts/publish-studio.sh /DotAsn/               # static site in artifacts/studio/publish/wwwroot
-```
-
-**GitHub Pages:** in the repository settings choose *Pages > Build and deployment > Source: GitHub Actions*. The
-workflow `.github/workflows/pages.yml` then publishes the studio on every push to `main`, at
-`https://<owner>.github.io/<repository>/` (the base path is taken from the Pages configuration, so user sites and
-custom domains work too). Before deploying, it runs `scripts/studio_e2e.py`, which serves the site the way GitHub
-Pages does and exercises every tab in headless Chromium:
-
-```sh
-.venv/bin/pip install playwright && .venv/bin/playwright install chromium
-.venv/bin/python scripts/studio_e2e.py artifacts/studio/publish/wwwroot --base /DotAsn/
-```
-
 The first load downloads about 10 MB (the .NET runtime and the toolchain); the C# generator and Roslyn (another
-10 MB) load only when the C# tab is used.
+10 MB) load only when the C# tab is used. Run it locally with `dotnet run --project tools/Asn1.Studio`
+(http://localhost:5119).
 
-## Releases: NuGet packages and the CLI
+## Documentation
 
-Push a version tag to release; both workflows also run manually (*Actions > Run workflow*) with an explicit version.
-
-```sh
-git tag v0.1.0 && git push origin v0.1.0
-```
-
-* **`.github/workflows/nuget.yml`** builds and tests, packs every library in `src/` as `DotAsn.*` packages plus the
-  `asn1` .NET tool (`DotAsn.Cli`), smoke-tests them from a local feed (`scripts/pack.sh`), and pushes them to GitHub
-  Packages. Packages there are private to the repository owner unless made public in the package settings.
-* **`.github/workflows/cli.yml`** builds self-contained single-file `asn1` executables for linux-x64, linux-arm64,
-  win-x64, osx-x64 and osx-arm64 (`scripts/publish-cli.sh`), smoke-tests them on Linux, Windows and macOS, and
-  attaches the archives with SHA-256 checksums to a GitHub Release.
-
-Both scripts run locally too, e.g. `scripts/pack.sh 0.1.0-local` or `scripts/publish-cli.sh linux-x64 0.1.0-local`.
-
-**Using the private packages.** Create a personal access token (classic) with the `read:packages` scope and add the
-feed (replace `OWNER`):
-
-```xml
-<!-- nuget.config next to your solution -->
-<configuration>
-  <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-    <add key="dotasn" value="https://nuget.pkg.github.com/OWNER/index.json" />
-  </packageSources>
-  <packageSourceCredentials>
-    <dotasn>
-      <add key="Username" value="YOUR_GITHUB_USER" />
-      <add key="ClearTextPassword" value="%DOTASN_PACKAGES_TOKEN%" />
-    </dotasn>
-  </packageSourceCredentials>
-</configuration>
-```
-
-```sh
-dotnet add package DotAsn.Serialization          # runtime with all encoding rules (for generated code)
-dotnet add package DotAsn.Dynamic                # schema-driven values without generated code
-dotnet tool install --global DotAsn.Cli          # the asn1 command
-```
-
-**Using the standalone CLI.** Download the archive for your platform from the release, unpack it and run `asn1`; no
-.NET installation is needed. On macOS, a downloaded executable may need `xattr -d com.apple.quarantine asn1` once.
+| Document | Contents |
+|---|---|
+| [Architecture](docs/architecture.md) | Projects, pipeline and design principles |
+| [Standards support](docs/standards-support.md) | What is implemented per standard and per type, with evidence and known deviations of other tools |
+| [Language support](docs/language-support.md) | Supported X.680–X.683 notation |
+| [Encoding rules](docs/encoding-rules.md) | Details and limitations of each encoding rule |
+| [JSON value notation](docs/value-notation-json.md) | How values are written for the CLI, the studio and `DotAsn.Dynamic` |
+| [Diagnostics](docs/diagnostics.md) | Every diagnostic ID with its meaning |
+| [Security](docs/security.md) | Resource limits and hardening for untrusted input |
+| [Decisions](docs/decisions/) | Architecture decision records |
 
 ## Repository layout
 
@@ -174,3 +183,42 @@ instructions and EXTENDED-XER are not implemented; the CLI reports EXTENDED-XER 
 
 Where asn1tools deviates from the ITU-T texts, the text wins. The deviations are documented in
 [ADR 0003](docs/decisions/0003-standards-editions.md).
+
+## Building and contributing
+
+Issues and pull requests are welcome. The build treats warnings as errors and CI checks formatting:
+
+```sh
+dotnet build Asn1Toolchain.sln
+dotnet format Asn1Toolchain.sln --verify-no-changes
+for p in tests/*/; do dotnet test --project "$p" || break; done   # xunit v3 on Microsoft Testing Platform
+scripts/fetch-extended-corpus.sh                                   # optional: 3GPP/ETSI corpus for ExtendedCorpusTests
+```
+
+Test vectors are described in [test-vectors/README.md](test-vectors/README.md).
+
+## Releasing (maintainers)
+
+Push a version tag; both release workflows also run manually (*Actions > Run workflow*) with an explicit version.
+
+```sh
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+* **[nuget.yml](.github/workflows/nuget.yml)** builds and tests, packs every library in `src/` as `DotAsn.*` plus the
+  `DotAsn.Cli` .NET tool, smoke-tests them from a local feed (`scripts/pack.sh`) and pushes them to GitHub Packages.
+  New packages may start out private; change their visibility in each package's settings if needed.
+* **[cli.yml](.github/workflows/cli.yml)** builds self-contained single-file `asn1` executables for linux-x64,
+  linux-arm64, win-x64, osx-x64 and osx-arm64 (`scripts/publish-cli.sh`), smoke-tests them on Linux, Windows and
+  macOS, and attaches the archives with SHA-256 checksums to a GitHub Release.
+* **[pages.yml](.github/workflows/pages.yml)** publishes DotAsn Studio on every push to `main`
+  (*Settings > Pages > Source: GitHub Actions*). It builds with `scripts/publish-studio.sh` and first checks the site in
+  headless Chromium with `scripts/studio_e2e.py`, served the way GitHub Pages serves it.
+
+All three scripts run locally, e.g. `scripts/pack.sh 0.1.0-local`, `scripts/publish-cli.sh linux-x64 0.1.0-local` or
+`scripts/publish-studio.sh /DotAsn/`.
+
+## License
+
+[MIT](LICENSE). The third-party specifications in `test-vectors/corpus/` keep their own licenses (see
+[test-vectors/README.md](test-vectors/README.md)).
