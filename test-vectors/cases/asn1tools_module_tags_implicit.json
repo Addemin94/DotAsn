@@ -1,0 +1,388 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/module_tags_implicit.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "ModuleTagsImplicit.A",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsImplicit.A",
+      "value": "-18446744073709551568"
+    },
+    {
+      "type": "ModuleTagsImplicit.A",
+      "value": 0
+    },
+    {
+      "type": "ModuleTagsImplicit.A",
+      "value": "16800964465037309551"
+    },
+    {
+      "type": "ModuleTagsImplicit.A",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsImplicit.AI",
+      "value": 766204943232
+    },
+    {
+      "type": "ModuleTagsImplicit.AI",
+      "value": "-1267650600228229401496703205276"
+    },
+    {
+      "type": "ModuleTagsImplicit.AI",
+      "value": "29561934294517290872853062806"
+    },
+    {
+      "type": "ModuleTagsImplicit.AI",
+      "value": "11600643282603909358"
+    },
+    {
+      "type": "ModuleTagsImplicit.AI",
+      "value": "1056359822941470104312205095526"
+    },
+    {
+      "type": "ModuleTagsImplicit.BA",
+      "value": -1099511627707
+    },
+    {
+      "type": "ModuleTagsImplicit.BA",
+      "value": "-18446743302503479142"
+    },
+    {
+      "type": "ModuleTagsImplicit.BA",
+      "value": 901903199152
+    },
+    {
+      "type": "ModuleTagsImplicit.BA",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsImplicit.BA",
+      "value": "524142835596855571959802354696"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIA",
+      "value": "6067883992489263961"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIA",
+      "value": "649891116272004287888400283457"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIA",
+      "value": -70000
+    },
+    {
+      "type": "ModuleTagsImplicit.BIA",
+      "value": -1099511627776
+    },
+    {
+      "type": "ModuleTagsImplicit.BIA",
+      "value": "-18446744073709551590"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIAI",
+      "value": "1267650600228229400397191577600"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIAI",
+      "value": -69925
+    },
+    {
+      "type": "ModuleTagsImplicit.BIAI",
+      "value": -1099511627676
+    },
+    {
+      "type": "ModuleTagsImplicit.BIAI",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsImplicit.BIAI",
+      "value": 0
+    },
+    {
+      "type": "ModuleTagsImplicit.CBA",
+      "value": "-1267650600228229401496703205276"
+    },
+    {
+      "type": "ModuleTagsImplicit.CBA",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsImplicit.CBA",
+      "value": -62
+    },
+    {
+      "type": "ModuleTagsImplicit.CBA",
+      "value": -69949
+    },
+    {
+      "type": "ModuleTagsImplicit.CBA",
+      "value": 242011572900
+    },
+    {
+      "type": "ModuleTagsImplicit.CBIAI",
+      "value": "15773565534138475911"
+    },
+    {
+      "type": "ModuleTagsImplicit.CBIAI",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsImplicit.CBIAI",
+      "value": "-556755592045286453447841241453"
+    },
+    {
+      "type": "ModuleTagsImplicit.CBIAI",
+      "value": -1099511627776
+    },
+    {
+      "type": "ModuleTagsImplicit.CBIAI",
+      "value": -1099511624430
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIA",
+      "value": -70000
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIA",
+      "value": -93
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIA",
+      "value": "1267650600209782657422993653755"
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIA",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIA",
+      "value": 667285048488
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIAI",
+      "value": "-1267650600225482687215351879294"
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIAI",
+      "value": -1099511627676
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIAI",
+      "value": 36710
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIAI",
+      "value": "-1016910871581202959303846375965"
+    },
+    {
+      "type": "ModuleTagsImplicit.CIBIAI",
+      "value": -1099511557776
+    },
+    {
+      "type": "ModuleTagsImplicit.S1",
+      "value": {"a":69900,"b":false}
+    },
+    {
+      "type": "ModuleTagsImplicit.S1",
+      "value": {"a":"1202721224755010619732542838","b":true}
+    },
+    {
+      "type": "ModuleTagsImplicit.S1",
+      "value": {"a":-1099511627732}
+    },
+    {
+      "type": "ModuleTagsImplicit.S1",
+      "value": {"a":0,"b":false}
+    },
+    {
+      "type": "ModuleTagsImplicit.S1",
+      "value": {"a":-1099511589365,"b":false}
+    },
+    {
+      "type": "ModuleTagsImplicit.S2",
+      "value": {"a":"-1267650600228229401496703205322","b":{"a":"-14238255835169794390"},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S2",
+      "value": {"a":"-18446744073709503526","b":{"a":-100},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S2",
+      "value": {"a":-1099511557776,"b":{"a":0},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S2",
+      "value": {"a":"-1267650600228229401496703205311","b":{"a":-1099511558712},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S2",
+      "value": {"a":"-18446743569943322746","b":{"a":-1099511627776,"b":true},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S3",
+      "value": {"a":"18446744073709481621","b":{"a":68194,"b":false},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S3",
+      "value": {"a":2261,"b":{"a":"-1267650600228229400578902022705","b":false},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S3",
+      "value": {"a":-1099511583594,"b":{"a":"837663598291265684425151427930","b":true},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S3",
+      "value": {"a":-100,"b":{"a":-70000},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S3",
+      "value": {"a":-253921634503,"b":{"a":-1099511627762},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S4",
+      "value": {"a":"-18446744073709551618","b":{"a":{"a":"18446744073709481621"}},"c":{"a":0},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S4",
+      "value": {"a":-1099511573371,"b":{"a":{"a":-1099511627776}},"c":{"a":0,"b":false},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S4",
+      "value": {"a":"-1267650600228229401496703135376","b":{"a":{"a":"-18446743197368107374"}},"c":{"a":37047},"d":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S4",
+      "value": {"a":-1099511627776,"b":{"a":{"a":"5697732169325965693"}},"c":{"a":"-1267650600228229401496703172957"},"d":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S4",
+      "value": {"a":-100,"b":{"a":{"a":"-18446742974197923845"}},"c":{"a":"1267650600228229400397191577600","b":false},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S5",
+      "value": {"a":-1099511605595,"b":{"a":"14493352181822210544","b":false},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S5",
+      "value": {"a":-968382760082,"b":{"a":"-1267650600228229401496703182721","b":false},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S5",
+      "value": {"a":0,"b":{"a":0},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S5",
+      "value": {"a":"9571623298705644948","b":{"a":-100},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S5",
+      "value": {"a":0,"b":{"a":-69968},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsImplicit.S6",
+      "value": {"a":-1099511582326}
+    },
+    {
+      "type": "ModuleTagsImplicit.S6",
+      "value": {"a":-100}
+    },
+    {
+      "type": "ModuleTagsImplicit.S6",
+      "value": {"a":-21105}
+    },
+    {
+      "type": "ModuleTagsImplicit.S6",
+      "value": {"a":-70000}
+    },
+    {
+      "type": "ModuleTagsImplicit.S6",
+      "value": {"a":534412619900}
+    },
+    {
+      "type": "ModuleTagsImplicit.S7",
+      "value": {"a":-50107}
+    },
+    {
+      "type": "ModuleTagsImplicit.S7",
+      "value": {"a":"-18446744073709551621"}
+    },
+    {
+      "type": "ModuleTagsImplicit.S7",
+      "value": {"a":"218990016531998507745687479027","b":false}
+    },
+    {
+      "type": "ModuleTagsImplicit.S7",
+      "value": {"a":-850931906631}
+    },
+    {
+      "type": "ModuleTagsImplicit.S7",
+      "value": {"a":"-1267650600218010431531169965243"}
+    },
+    {
+      "type": "ModuleTagsImplicit.S8",
+      "value": {"a":[{"b":false},{"b":false},{"a":"1267650600228229400397191577600"}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S8",
+      "value": {"a":[]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S8",
+      "value": {"a":[{"b":true},{"b":false},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S8",
+      "value": {"a":[{"a":-1099511561417},{"a":1099511557776}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S8",
+      "value": {"a":[{"b":false},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S9",
+      "value": {"a":[{"b":false},{"b":true},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S9",
+      "value": {"a":[{"a":"-18446744073709495718"}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S9",
+      "value": {"a":[{"a":"-1267650600228229401201884980637"},{"a":"17276644381815698693"},{"a":"732497665066093715669648811510"}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S9",
+      "value": {"a":[]}
+    },
+    {
+      "type": "ModuleTagsImplicit.S9",
+      "value": {"a":[{"b":false},{"a":222322524710},{"a":"630157898067038297087070781777"}]}
+    },
+    {
+      "type": "ModuleTagsImplicit.C1",
+      "value": {"a":{"a":"-1267650600228229401496703205354"}}
+    },
+    {
+      "type": "ModuleTagsImplicit.C1",
+      "value": {"a":{"a":0}}
+    },
+    {
+      "type": "ModuleTagsImplicit.C1",
+      "value": {"a":{"a":54941}}
+    },
+    {
+      "type": "ModuleTagsImplicit.C1",
+      "value": {"a":{"a":"-1267650600209782657422993653755"}}
+    },
+    {
+      "type": "ModuleTagsImplicit.C1",
+      "value": {"a":{"a":"9677168736663488890"}}
+    }
+  ]
+}

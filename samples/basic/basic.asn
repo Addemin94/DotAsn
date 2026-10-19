@@ -1,0 +1,20 @@
+-- Basic types and value assignments.
+Basic-Example DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+-- A person record.
+Person ::= SEQUENCE {
+    name        UTF8String (SIZE (1..64)),   -- Display name
+    age         INTEGER (0..150) OPTIONAL,   -- Age in years
+    email       IA5String OPTIONAL,
+    roles       SEQUENCE OF Role,
+    active      BOOLEAN DEFAULT TRUE
+}
+
+Role ::= ENUMERATED { reader, writer, admin }
+
+defaultRole Role ::= reader
+maxAge INTEGER ::= 150
+exampleOid OBJECT IDENTIFIER ::= { iso(1) member-body(2) 840 113549 }
+
+END

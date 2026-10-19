@@ -1,0 +1,71 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "der",
+ "specs": [
+  "test-vectors/corpus/asn1tools/named_numbers.asn"
+ ],
+ "cases": [
+  {
+   "type": "Foo.Constants",
+   "value": -1,
+   "hex": "0201FF",
+   "decoded": -1
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 0,
+   "hex": "020100",
+   "decoded": 0
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 2,
+   "hex": "020102",
+   "decoded": 2
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 1,
+   "hex": "020101",
+   "decoded": 1
+  },
+  {
+   "type": "Foo.A",
+   "value": -1,
+   "hex": "0201FF",
+   "decoded": -1
+  },
+  {
+   "type": "Foo.A",
+   "value": 1,
+   "hex": "020101",
+   "decoded": 1
+  },
+  {
+   "type": "Foo.A",
+   "value": 0,
+   "hex": "020100",
+   "decoded": 0
+  },
+  {
+   "type": "Foo.B",
+   "value": 2,
+   "hex": "020102",
+   "decoded": 2
+  },
+  {
+   "type": "Foo.C",
+   "value": 1,
+   "hex": "020101",
+   "decoded": 1
+  },
+  {
+   "type": "Foo.C",
+   "value": 0,
+   "hex": "020100",
+   "decoded": 0
+  }
+ ],
+ "skipped": []
+}

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Rule-based ASN.1 linter: standards, style, maintainability and encoding-rule interoperability rules with configuration, severity overrides and inline suppressions. Works on incomplete specifications.</Description>
+    <RootNamespace>Asn1.Linter</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Semantics\Asn1.Semantics.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,81 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "xer",
+ "specs": [
+  "test-vectors/corpus/asn1tools/named_numbers.asn"
+ ],
+ "cases": [
+  {
+   "type": "Foo.Constants",
+   "value": -1,
+   "hex": "3C436F6E7374616E74733E2D313C2F436F6E7374616E74733E",
+   "decoded": -1,
+   "text": "<Constants>-1</Constants>"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 0,
+   "hex": "3C436F6E7374616E74733E303C2F436F6E7374616E74733E",
+   "decoded": 0,
+   "text": "<Constants>0</Constants>"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 2,
+   "hex": "3C436F6E7374616E74733E323C2F436F6E7374616E74733E",
+   "decoded": 2,
+   "text": "<Constants>2</Constants>"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 1,
+   "hex": "3C436F6E7374616E74733E313C2F436F6E7374616E74733E",
+   "decoded": 1,
+   "text": "<Constants>1</Constants>"
+  },
+  {
+   "type": "Foo.A",
+   "value": -1,
+   "hex": "3C413E2D313C2F413E",
+   "decoded": -1,
+   "text": "<A>-1</A>"
+  },
+  {
+   "type": "Foo.A",
+   "value": 1,
+   "hex": "3C413E313C2F413E",
+   "decoded": 1,
+   "text": "<A>1</A>"
+  },
+  {
+   "type": "Foo.A",
+   "value": 0,
+   "hex": "3C413E303C2F413E",
+   "decoded": 0,
+   "text": "<A>0</A>"
+  },
+  {
+   "type": "Foo.B",
+   "value": 2,
+   "hex": "3C423E323C2F423E",
+   "decoded": 2,
+   "text": "<B>2</B>"
+  },
+  {
+   "type": "Foo.C",
+   "value": 1,
+   "hex": "3C433E313C2F433E",
+   "decoded": 1,
+   "text": "<C>1</C>"
+  },
+  {
+   "type": "Foo.C",
+   "value": 0,
+   "hex": "3C433E303C2F433E",
+   "decoded": 0,
+   "text": "<C>0</C>"
+  }
+ ],
+ "skipped": []
+}

@@ -1,0 +1,108 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/x691_a1.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "X691-A1.PersonnelRecord",
+      "value": {"name":{"givenName":"","initial":"r\"fU0","familyName":"\"z\"Mdi<*/(&n"},"title":"xs^+&X{dUn-5","number":"29561934294517290872853062806","dateOfHire":"^kx-(I*sH=D2","nameOfSpouse":{"givenName":"9C]N33q1~","initial":"-IS!VV'ihPCW","familyName":""},"children":[]}
+    },
+    {
+      "type": "X691-A1.PersonnelRecord",
+      "value": {"name":{"givenName":"We","initial":";rp1hw","familyName":"0r#"},"title":"ksQdjV]FN$MZ","number":"649891116272004287888400283457","dateOfHire":"","nameOfSpouse":{"givenName":"","initial":"*Q?iyJ{>M","familyName":""},"children":[]}
+    },
+    {
+      "type": "X691-A1.PersonnelRecord",
+      "value": {"name":{"givenName":"2","initial":"1 I#9","familyName":""},"title":"","number":"-1267650600228229401496703205376","dateOfHire":"Mp1FuFJ',b$$","nameOfSpouse":{"givenName":".*!","initial":"FND/'q\"Uzp`c","familyName":"K5vex=?4,kER"}}
+    },
+    {
+      "type": "X691-A1.PersonnelRecord",
+      "value": {"name":{"givenName":"DSNjwQ7B4*,)","initial":"r>*]|7D'[\"2A","familyName":"H ?"},"title":"","number":"-18446743755511861239","dateOfHire":"4G/0b,<wLXVw","nameOfSpouse":{"givenName":"q","initial":"8","familyName":""},"children":[{"name":{"givenName":"","initial":"","familyName":""},"dateOfBirth":"3zj2Sn<N!({l"}]}
+    },
+    {
+      "type": "X691-A1.PersonnelRecord",
+      "value": {"name":{"givenName":"0T4O{oKk","initial":"","familyName":""},"title":"","number":842398996590,"dateOfHire":"","nameOfSpouse":{"givenName":"","initial":"5}$rL\"5Hb?i|","familyName":"d]DC;Kp.hy+o"},"children":[{"name":{"givenName":"C7FH`^>oub*j","initial":"","familyName":"H`CO5x'5)f[u"},"dateOfBirth":"TP1>4cc{"},{"name":{"givenName":".9c5..P@c2I0","initial":"","familyName":""},"dateOfBirth":""},{"name":{"givenName":"","initial":"c-3|_SY}[VyM","familyName":"&!,tj"},"dateOfBirth":"Eu7.w{)Q yS`"}]}
+    },
+    {
+      "type": "X691-A1.ChildInformation",
+      "value": {"name":{"givenName":"ZDK*hiB35E{S","initial":"","familyName":""},"dateOfBirth":""}
+    },
+    {
+      "type": "X691-A1.ChildInformation",
+      "value": {"name":{"givenName":"\"Qm.JfJX_hYM","initial":">Ui[R#wR~Un~","familyName":"a/CD.2By<Y>Z"},"dateOfBirth":"e3x4NlqG6XS@"}
+    },
+    {
+      "type": "X691-A1.ChildInformation",
+      "value": {"name":{"givenName":"","initial":"+(uOD5>>.D9/","familyName":"k[ZOmO9xioma"},"dateOfBirth":"$:rO_e5mbt/^"}
+    },
+    {
+      "type": "X691-A1.ChildInformation",
+      "value": {"name":{"givenName":"","initial":"","familyName":"y<X\\UYEP\\:{"},"dateOfBirth":"TV}wd@/\"*"}
+    },
+    {
+      "type": "X691-A1.ChildInformation",
+      "value": {"name":{"givenName":"HVw2')^3=DR","initial":"y2q3K]+fb~Y-","familyName":"c+1g.)9j=P4R"},"dateOfBirth":"ljQ0^"}
+    },
+    {
+      "type": "X691-A1.Name",
+      "value": {"givenName":"","initial":"","familyName":""}
+    },
+    {
+      "type": "X691-A1.Name",
+      "value": {"givenName":"D:6.tA~w2","initial":"B$@$O1K>#=%e","familyName":""}
+    },
+    {
+      "type": "X691-A1.Name",
+      "value": {"givenName":"GO:!i9 C\\p~","initial":"6uVx/&6","familyName":""}
+    },
+    {
+      "type": "X691-A1.Name",
+      "value": {"givenName":"9WwE","initial":"1(`","familyName":""}
+    },
+    {
+      "type": "X691-A1.Name",
+      "value": {"givenName":"%+UUA8AwZ)","initial":"=Xd& +oav[@g","familyName":"$YaAMCAa2.\"B"}
+    },
+    {
+      "type": "X691-A1.EmployeeNumber",
+      "value": 0
+    },
+    {
+      "type": "X691-A1.EmployeeNumber",
+      "value": -78
+    },
+    {
+      "type": "X691-A1.EmployeeNumber",
+      "value": "10231791896637570936"
+    },
+    {
+      "type": "X691-A1.EmployeeNumber",
+      "value": "2265086432546119136"
+    },
+    {
+      "type": "X691-A1.EmployeeNumber",
+      "value": -1099511627680
+    },
+    {
+      "type": "X691-A1.Date",
+      "value": "{hC4s'D_1EP3"
+    },
+    {
+      "type": "X691-A1.Date",
+      "value": "-NDW"
+    },
+    {
+      "type": "X691-A1.Date",
+      "value": "V%#ygfrbb&Y_"
+    },
+    {
+      "type": "X691-A1.Date",
+      "value": ""
+    },
+    {
+      "type": "X691-A1.Date",
+      "value": "?UbSx:8}&"
+    }
+  ]
+}

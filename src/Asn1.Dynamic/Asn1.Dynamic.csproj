@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Builds runtime descriptors directly from the semantic model (no code generation) with a dynamic value model and a lossless JSON value notation; used by the CLI and interoperability tests.</Description>
+    <RootNamespace>Asn1.Dynamic</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Runtime\Asn1.Runtime.csproj" />
+    <ProjectReference Include="..\Asn1.Semantics\Asn1.Semantics.csproj" />
+  </ItemGroup>
+</Project>

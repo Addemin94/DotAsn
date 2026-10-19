@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Source text, locations, diagnostics model, diagnostic catalog and text/JSON/SARIF reporters shared by every DotAsn compiler phase.</Description>
+    <RootNamespace>Asn1.Diagnostics</RootNamespace>
+  </PropertyGroup>
+</Project>

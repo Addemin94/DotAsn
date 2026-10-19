@@ -1,0 +1,128 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/x691_a2.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "X691-A2.PersonnelRecord",
+      "value": {"name":{"givenName":"R","initial":"x","familyName":"EtTpQs.mcHXS.x.XknOEGCBqGbwth"},"title":"","number":"-1267650600216521130536647400454","dateOfHire":"70410182","nameOfSpouse":{"givenName":"howFCVDtVOSIQYudIcMRgYJJsIzzWFVb-ccCnnZSdOK.QqFgIcfkmWwHdlNuVEVN","initial":"H","familyName":"BuoQLHsAARotZlocgTYAYewWsxGY"}}
+    },
+    {
+      "type": "X691-A2.PersonnelRecord",
+      "value": {"name":{"givenName":"hdvUsLsBPbnFBeEaPnxWxPXN.STihVFPBvuBXCIKmsEPH-V.MHAyLJuQ","initial":"T","familyName":"UWCFjAALdkjDIGE-wRTYSHCs.cxrikSdWKvlwOPJFoTaapFxZSbYovZLRJ"},"title":"","number":237502716715,"dateOfHire":"13575324","nameOfSpouse":{"givenName":"G","initial":"a","familyName":"RkIIEwKZJUGHjFOvXddvXqtukDsMkVPEMd-RVqCTRLPvALOI-LUIxoIbqOY-Cypn"},"children":[{"name":{"givenName":"c","initial":"x","familyName":"phMX-EGXTXbEQBPTWbq-QHCBmojoKzAsX.JUjQnytVlhSRNWrGnwErEfdIkJVSLT"},"dateOfBirth":"63887178"},{"name":{"givenName":"iSZKwCJDmfuerZfbbZIPJkkyfxWhGMkKGGZQkIVHIPw.VKAIYKOekFJyibeygcxX","initial":"W","familyName":"B.FuoiaTuLGvxDZ-wbiHdWb"},"dateOfBirth":"41773223"},{"name":{"givenName":"P","initial":"-","familyName":"S"},"dateOfBirth":"58147456"}]}
+    },
+    {
+      "type": "X691-A2.PersonnelRecord",
+      "value": {"name":{"givenName":"ZPcnfaAvazcqzfRjGSSGIRwOePfnglIwJYpsUKebQYYaLPWECuYSKPPGSMGOvNNp","initial":"f","familyName":"nrpjsUANtZilKpjtHhXGCNfBJjlfkxOdgceTZgNyJtVUeccyvlQG.EsYJmYH"},"title":"Vw2')^3=DRCP","number":"1267650600228229401496703205276","dateOfHire":"17696155","nameOfSpouse":{"givenName":"m","initial":"M","familyName":"Z"},"children":[{"name":{"givenName":"poZHhfzOqBxldPBZdxCEfSNKGtRzvIJyCgpRAQAZIWPAOBlIG-txjYkUZN-nM-Sg","initial":"h","familyName":"jWKudwGBKvDGGqvPLMdvTsnPNKHCiIPTpiXbgAEccQMRvfDHWPelB-ErjvfQmCSA"},"dateOfBirth":"34336110"},{"name":{"givenName":"ThF-fReeQocfslVopYxJmKMfpDgTdAgCKMZxJmW-W-RcvlYxnRJtCShHTZIalI.N","initial":"T","familyName":"X"},"dateOfBirth":"09778670"},{"name":{"givenName":"q","initial":"s","familyName":"c"},"dateOfBirth":"92290443"}]}
+    },
+    {
+      "type": "X691-A2.PersonnelRecord",
+      "value": {"name":{"givenName":"gvOkpFvBc","initial":"S","familyName":"ytutZDhYnpMMkjvPTivsKj-suT.JjGeAwqwsTwglXFGZVaUJGKUnWgONtAyECWpe"},"title":"","number":"-1267650600228229401496703205376","dateOfHire":"01305543","nameOfSpouse":{"givenName":"W","initial":"d","familyName":"hzQxah-PcOIIaWCOwlNLJmRffFNTRrRh.SDCeaaaSnyIKGWRyGpDNBNvflPSSfyk"}}
+    },
+    {
+      "type": "X691-A2.PersonnelRecord",
+      "value": {"name":{"givenName":"-jUJmtWnHSXivUI.MRyDHWtIFGmoMLjzO-xWTuaHrGWQskWInijHIAHcqJBeEhYw","initial":"S","familyName":"mgSqoM.-bQVjb-dcZpMrTgHqwBHhagSQbl..OQToFbNtgvcguRHhDBBDWbulCSYu"},"title":"","number":"-1220189387365049399996062491146","dateOfHire":"24695746","nameOfSpouse":{"givenName":"S","initial":"m","familyName":"QE-LfRKmGStKcfPVKsiHBzYkmowozSfMmtT.VXeDVHUSdVFFlwjiBceRgOZrVWnn"}}
+    },
+    {
+      "type": "X691-A2.ChildInformation",
+      "value": {"name":{"givenName":"O","initial":"M","familyName":"FPgpAAj"},"dateOfBirth":"12031976"}
+    },
+    {
+      "type": "X691-A2.ChildInformation",
+      "value": {"name":{"givenName":"xwWvVwxUYqkoaHIIfTkCpVOUHvsnZunXvYHSItfDmajRcLsyocAdjcqafAlZBHvd","initial":"t","familyName":"oeQNlxrwBuzwsHnQhhmGGDAceDNPRpyybOpCKapiIpWHHylt"},"dateOfBirth":"33085657"}
+    },
+    {
+      "type": "X691-A2.ChildInformation",
+      "value": {"name":{"givenName":"cLv.SbSjEFrCxRhsTfSTsrVgujkEZWrHzjKILFdHZnULYzuK-jSBKMglqNEjqMHh","initial":"C","familyName":"X"},"dateOfBirth":"02904119"}
+    },
+    {
+      "type": "X691-A2.ChildInformation",
+      "value": {"name":{"givenName":"lAYRx-uQKemxqugDbCE..RbOgGJuQGRcZlQJgDiKEshYiKO-GTclymvSYHlop","initial":"C","familyName":"W"},"dateOfBirth":"44448916"}
+    },
+    {
+      "type": "X691-A2.ChildInformation",
+      "value": {"name":{"givenName":"efempylWRtVEsdKYnJWlwEPCsniVbPxeMBYgdkOdjzCbVoNEqGggm--XOZu.N","initial":"A","familyName":"evBvsAw"},"dateOfBirth":"60455363"}
+    },
+    {
+      "type": "X691-A2.Name",
+      "value": {"givenName":"-","initial":"p","familyName":"T"}
+    },
+    {
+      "type": "X691-A2.Name",
+      "value": {"givenName":"evX.KKcktyBVZtqcljaRezenCMsMhdgs-GAG-bRFEeyNycqHzkbjbh.fPkwxSOBO","initial":"V","familyName":"QTLz-OoaWiMx."}
+    },
+    {
+      "type": "X691-A2.Name",
+      "value": {"givenName":"FVrNeUnpbiynEWRPGRRGT.e-vTZkADMRuCJTqLdwfVVQQ.TzPwpheHwDqqSJuAnV","initial":"t","familyName":"x"}
+    },
+    {
+      "type": "X691-A2.Name",
+      "value": {"givenName":"dLiu-ZTDOfnkFDc-tS.dizxlGRmRVutHgyadFXIThiForGuFSY-TTwNdOwlhn.","initial":"l","familyName":"G"}
+    },
+    {
+      "type": "X691-A2.Name",
+      "value": {"givenName":"wzsGu-WezxuXnkjwMJlbff.lAKCmbSfeKn-NlFAlI","initial":"j","familyName":"r"}
+    },
+    {
+      "type": "X691-A2.EmployeeNumber",
+      "value": "11796837869057298363"
+    },
+    {
+      "type": "X691-A2.EmployeeNumber",
+      "value": "18446744073709551521"
+    },
+    {
+      "type": "X691-A2.EmployeeNumber",
+      "value": "315551532248891422242454857183"
+    },
+    {
+      "type": "X691-A2.EmployeeNumber",
+      "value": "842560017437002214496114632376"
+    },
+    {
+      "type": "X691-A2.EmployeeNumber",
+      "value": "-18446744073709551544"
+    },
+    {
+      "type": "X691-A2.Date",
+      "value": "57693224"
+    },
+    {
+      "type": "X691-A2.Date",
+      "value": "33629050"
+    },
+    {
+      "type": "X691-A2.Date",
+      "value": "83190750"
+    },
+    {
+      "type": "X691-A2.Date",
+      "value": "04232966"
+    },
+    {
+      "type": "X691-A2.Date",
+      "value": "50940836"
+    },
+    {
+      "type": "X691-A2.NameString",
+      "value": "s"
+    },
+    {
+      "type": "X691-A2.NameString",
+      "value": "bkuakHLlttEO.z"
+    },
+    {
+      "type": "X691-A2.NameString",
+      "value": "qSjwHTwPHcblmv-WxpJUUoKdEkBekdyGDudqsn"
+    },
+    {
+      "type": "X691-A2.NameString",
+      "value": "o"
+    },
+    {
+      "type": "X691-A2.NameString",
+      "value": "G"
+    }
+  ]
+}

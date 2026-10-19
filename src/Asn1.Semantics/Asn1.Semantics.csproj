@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Semantic analysis: module and symbol resolution, imports/exports, tagging (including automatic tagging), parameterization, information objects, value and constraint resolution, producing the resolved, encoding-independent ASN.1 type model.</Description>
+    <RootNamespace>Asn1.Semantics</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Core\Asn1.Core.csproj" />
+    <ProjectReference Include="..\Asn1.Diagnostics\Asn1.Diagnostics.csproj" />
+    <ProjectReference Include="..\Asn1.Syntax\Asn1.Syntax.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,3679 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "per",
+ "specs": [
+  "samples/telemetry/telemetry.asn"
+ ],
+ "cases": [
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "timeSyncRequest",
+   "hex": "10",
+   "decoded": "timeSyncRequest"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "timeSyncResponse",
+   "hex": "20",
+   "decoded": "timeSyncResponse"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "firmwareChunk",
+   "hex": "70",
+   "decoded": "firmwareChunk"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "heartbeat",
+   "hex": "00",
+   "decoded": "heartbeat"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "configurationQuery",
+   "hex": "50",
+   "decoded": "configurationQuery"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "configurationReport",
+   "hex": "60",
+   "decoded": "configurationReport"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "measurementReport",
+   "hex": "30",
+   "decoded": "measurementReport"
+  },
+  {
+   "type": "Telemetry-Protocol.MessageType",
+   "value": "measurementBatch",
+   "hex": "40",
+   "decoded": "measurementBatch"
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 255,
+    "uptimeSeconds": 3668946765
+   },
+   "hex": "FFC0DAAFAF4D",
+   "decoded": {
+    "sequenceNumber": 255,
+    "uptimeSeconds": 3668946765
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 4294967295
+   },
+   "hex": "00C0FFFFFFFF",
+   "decoded": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 181,
+    "uptimeSeconds": 4294967295
+   },
+   "hex": "B5C0FFFFFFFF",
+   "decoded": {
+    "sequenceNumber": 181,
+    "uptimeSeconds": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 50,
+    "uptimeSeconds": 4294967295
+   },
+   "hex": "32C0FFFFFFFF",
+   "decoded": {
+    "sequenceNumber": 50,
+    "uptimeSeconds": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 47,
+    "uptimeSeconds": 3402184805
+   },
+   "hex": "2FC0CAC93865",
+   "decoded": {
+    "sequenceNumber": 47,
+    "uptimeSeconds": 3402184805
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 207,
+    "uptimeSeconds": 0
+   },
+   "hex": "CF0000",
+   "decoded": {
+    "sequenceNumber": 207,
+    "uptimeSeconds": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 255,
+    "uptimeSeconds": 0
+   },
+   "hex": "FF0000",
+   "decoded": {
+    "sequenceNumber": 255,
+    "uptimeSeconds": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 175,
+    "uptimeSeconds": 1458374187
+   },
+   "hex": "AFC056ED062B",
+   "decoded": {
+    "sequenceNumber": 175,
+    "uptimeSeconds": 1458374187
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 234,
+    "uptimeSeconds": 0
+   },
+   "hex": "EA0000",
+   "decoded": {
+    "sequenceNumber": 234,
+    "uptimeSeconds": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 245,
+    "uptimeSeconds": 0
+   },
+   "hex": "F50000",
+   "decoded": {
+    "sequenceNumber": 245,
+    "uptimeSeconds": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 90,
+    "uptimeSeconds": 4294967295
+   },
+   "hex": "5AC0FFFFFFFF",
+   "decoded": {
+    "sequenceNumber": 90,
+    "uptimeSeconds": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 2032749999
+   },
+   "hex": "00C079294DAF",
+   "decoded": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 2032749999
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 0
+   },
+   "hex": "000000",
+   "decoded": {
+    "sequenceNumber": 0,
+    "uptimeSeconds": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 138,
+    "uptimeSeconds": 2025411663
+   },
+   "hex": "8AC078B9544F",
+   "decoded": {
+    "sequenceNumber": 138,
+    "uptimeSeconds": 2025411663
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Heartbeat",
+   "value": {
+    "sequenceNumber": 81,
+    "uptimeSeconds": 664479452
+   },
+   "hex": "51C0279B26DC",
+   "decoded": {
+    "sequenceNumber": 81,
+    "uptimeSeconds": 664479452
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 4294967295
+   },
+   "hex": "00C0FFFFFFFF",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 191,
+    "deviceTime": 3076991724
+   },
+   "hex": "BFC0B7672AEC",
+   "decoded": {
+    "requestId": 191,
+    "deviceTime": 3076991724
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 128,
+    "deviceTime": 3304773755
+   },
+   "hex": "80C0C4FAD87B",
+   "decoded": {
+    "requestId": 128,
+    "deviceTime": 3304773755
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 305921098
+   },
+   "hex": "00C0123BFC4A",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 305921098
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 1099113651
+   },
+   "hex": "00C0418324B3",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 1099113651
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 202,
+    "deviceTime": 2608544639
+   },
+   "hex": "CAC09B7B3B7F",
+   "decoded": {
+    "requestId": 202,
+    "deviceTime": 2608544639
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 37,
+    "deviceTime": 4294967295
+   },
+   "hex": "25C0FFFFFFFF",
+   "decoded": {
+    "requestId": 37,
+    "deviceTime": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 55,
+    "deviceTime": 4294967295
+   },
+   "hex": "37C0FFFFFFFF",
+   "decoded": {
+    "requestId": 55,
+    "deviceTime": 4294967295
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 1704330294
+   },
+   "hex": "00C065960436",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 1704330294
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 0
+   },
+   "hex": "000000",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 2594727934
+   },
+   "hex": "00C09AA867FE",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 2594727934
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 1528068818
+   },
+   "hex": "00C05B147AD2",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 1528068818
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 255,
+    "deviceTime": 0
+   },
+   "hex": "FF0000",
+   "decoded": {
+    "requestId": 255,
+    "deviceTime": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 25,
+    "deviceTime": 959810410
+   },
+   "hex": "19C039358B6A",
+   "decoded": {
+    "requestId": 25,
+    "deviceTime": 959810410
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncRequest",
+   "value": {
+    "requestId": 0,
+    "deviceTime": 18639866
+   },
+   "hex": "00C0011C6BFA",
+   "decoded": {
+    "requestId": 0,
+    "deviceTime": 18639866
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 131,
+    "serverTime": 3005311576
+   },
+   "hex": "0083C0B3216A58",
+   "decoded": {
+    "requestId": 131,
+    "serverTime": 3005311576,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 83,
+    "serverTime": 3123389832,
+    "correctionMs": 1155
+   },
+   "hex": "8053C0BA2B25888483",
+   "decoded": {
+    "requestId": 83,
+    "serverTime": 3123389832,
+    "correctionMs": 1155
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 101,
+    "serverTime": 871712060,
+    "correctionMs": 0
+   },
+   "hex": "0065C033F5453C",
+   "decoded": {
+    "requestId": 101,
+    "serverTime": 871712060,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 194,
+    "serverTime": 0
+   },
+   "hex": "00C20000",
+   "decoded": {
+    "requestId": 194,
+    "serverTime": 0,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 255,
+    "serverTime": 3561347201
+   },
+   "hex": "00FFC0D445D881",
+   "decoded": {
+    "requestId": 255,
+    "serverTime": 3561347201,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 255,
+    "serverTime": 2899077825
+   },
+   "hex": "00FFC0ACCC6AC1",
+   "decoded": {
+    "requestId": 255,
+    "serverTime": 2899077825,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 0,
+    "serverTime": 4294967295
+   },
+   "hex": "0000C0FFFFFFFF",
+   "decoded": {
+    "requestId": 0,
+    "serverTime": 4294967295,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 0,
+    "serverTime": 491779278,
+    "correctionMs": 32767
+   },
+   "hex": "8000C01D4FF4CEFFFF",
+   "decoded": {
+    "requestId": 0,
+    "serverTime": 491779278,
+    "correctionMs": 32767
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 101,
+    "serverTime": 1006669840,
+    "correctionMs": -32768
+   },
+   "hex": "8065C03C0090100000",
+   "decoded": {
+    "requestId": 101,
+    "serverTime": 1006669840,
+    "correctionMs": -32768
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 0,
+    "serverTime": 135521935
+   },
+   "hex": "0000C00813E68F",
+   "decoded": {
+    "requestId": 0,
+    "serverTime": 135521935,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 33,
+    "serverTime": 1962306366
+   },
+   "hex": "0021C074F66B3E",
+   "decoded": {
+    "requestId": 33,
+    "serverTime": 1962306366,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 255,
+    "serverTime": 0
+   },
+   "hex": "00FF0000",
+   "decoded": {
+    "requestId": 255,
+    "serverTime": 0,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 0,
+    "serverTime": 3904527974
+   },
+   "hex": "0000C0E8BA5E66",
+   "decoded": {
+    "requestId": 0,
+    "serverTime": 3904527974,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 84,
+    "serverTime": 2214745199
+   },
+   "hex": "0054C08402546F",
+   "decoded": {
+    "requestId": 84,
+    "serverTime": 2214745199,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.TimeSyncResponse",
+   "value": {
+    "requestId": 25,
+    "serverTime": 0,
+    "correctionMs": 0
+   },
+   "hex": "00190000",
+   "decoded": {
+    "requestId": 25,
+    "serverTime": 0,
+    "correctionMs": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -900000000,
+    "longitude": -1103725638,
+    "altitudeM": 6925
+   },
+   "hex": "8000C029804DBA1EF5",
+   "decoded": {
+    "latitude": -900000000,
+    "longitude": -1103725638,
+    "altitudeM": 6925
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 900000000,
+    "longitude": -511525817
+   },
+   "hex": "306B49D200C04CCC8E47",
+   "decoded": {
+    "latitude": 900000000,
+    "longitude": -511525817
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 900000000,
+    "longitude": -1800000000,
+    "accuracyM": 0
+   },
+   "hex": "706B49D20000000000",
+   "decoded": {
+    "latitude": 900000000,
+    "longitude": -1800000000,
+    "accuracyM": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 0,
+    "longitude": 0,
+    "altitudeM": 5575
+   },
+   "hex": "B035A4E900C06B49D20019AF",
+   "decoded": {
+    "latitude": 0,
+    "longitude": 0,
+    "altitudeM": 5575
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 0,
+    "longitude": -1800000000,
+    "altitudeM": 2891
+   },
+   "hex": "B035A4E90000000F33",
+   "decoded": {
+    "latitude": 0,
+    "longitude": -1800000000,
+    "altitudeM": 2891
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 0,
+    "longitude": 1201375523,
+    "accuracyM": 26774
+   },
+   "hex": "7035A4E900C0B2E55B236896",
+   "decoded": {
+    "latitude": 0,
+    "longitude": 1201375523,
+    "accuracyM": 26774
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 900000000,
+    "longitude": -1800000000,
+    "accuracyM": 22185
+   },
+   "hex": "706B49D200000056A9",
+   "decoded": {
+    "latitude": 900000000,
+    "longitude": -1800000000,
+    "accuracyM": 22185
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 0,
+    "longitude": 1790586471,
+    "accuracyM": 0
+   },
+   "hex": "7035A4E900C0D60400670000",
+   "decoded": {
+    "latitude": 0,
+    "longitude": 1790586471,
+    "accuracyM": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -900000000,
+    "longitude": 1661037989,
+    "altitudeM": 10000
+   },
+   "hex": "8000C0CE4B3FA52AF8",
+   "decoded": {
+    "latitude": -900000000,
+    "longitude": 1661037989,
+    "altitudeM": 10000
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -806324105,
+    "longitude": -129244314,
+    "altitudeM": 8119,
+    "accuracyM": 45308
+   },
+   "hex": "F005956177C06395B566239FB0FC",
+   "decoded": {
+    "latitude": -806324105,
+    "longitude": -129244314,
+    "altitudeM": 8119,
+    "accuracyM": 45308
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -900000000,
+    "longitude": -1715500808,
+    "accuracyM": 0
+   },
+   "hex": "4000C005095AF80000",
+   "decoded": {
+    "latitude": -900000000,
+    "longitude": -1715500808,
+    "accuracyM": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": 900000000,
+    "longitude": -1022228208,
+    "altitudeM": 10000
+   },
+   "hex": "B06B49D200C02E5BDB102AF8",
+   "decoded": {
+    "latitude": 900000000,
+    "longitude": -1022228208,
+    "altitudeM": 10000
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -900000000,
+    "longitude": -1658552147,
+    "altitudeM": 0,
+    "accuracyM": 0
+   },
+   "hex": "C000C0086E52AD03E80000",
+   "decoded": {
+    "latitude": -900000000,
+    "longitude": -1658552147,
+    "altitudeM": 0,
+    "accuracyM": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -202762118,
+    "longitude": -1599447648,
+    "altitudeM": -1000,
+    "accuracyM": 25748
+   },
+   "hex": "F0298F017AC00BF42FA000006494",
+   "decoded": {
+    "latitude": -202762118,
+    "longitude": -1599447648,
+    "altitudeM": -1000,
+    "accuracyM": 25748
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Position",
+   "value": {
+    "latitude": -666016593,
+    "longitude": 0
+   },
+   "hex": "300DF24DAFC06B49D200",
+   "decoded": {
+    "latitude": -666016593,
+    "longitude": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "batteryMv": 3508,
+    "position": {
+     "latitude": -900000000,
+     "longitude": 1800000000,
+     "altitudeM": 0
+    }
+   },
+   "hex": "10000DB48000C0D693A40003E8",
+   "decoded": {
+    "timestamp": 0,
+    "batteryMv": 3508,
+    "position": {
+     "latitude": -900000000,
+     "longitude": 1800000000,
+     "altitudeM": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 3344464117,
+    "temperature": 336,
+    "humidity": 19,
+    "batteryMv": 1332
+   },
+   "hex": "6CC75878F502E0260534",
+   "decoded": {
+    "timestamp": 3344464117,
+    "temperature": 336,
+    "humidity": 19,
+    "batteryMv": 1332
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "batteryMv": 2556
+   },
+   "hex": "000009FC",
+   "decoded": {
+    "timestamp": 0,
+    "batteryMv": 2556
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "temperature": -400,
+    "batteryMv": 1488,
+    "position": {
+     "latitude": 298489570,
+     "longitude": 1800000000,
+     "altitudeM": -480
+    }
+   },
+   "hex": "5000000005D0B0476F7FE2C0D693A4000208",
+   "decoded": {
+    "timestamp": 0,
+    "temperature": -400,
+    "batteryMv": 1488,
+    "position": {
+     "latitude": 298489570,
+     "longitude": 1800000000,
+     "altitudeM": -480
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 4294967295,
+    "batteryMv": 1693,
+    "pressurePa": 69660
+   },
+   "hex": "8CFFFFFFFF069D0103A09AEC",
+   "decoded": {
+    "timestamp": 4294967295,
+    "batteryMv": 1693,
+    "pressurePa": 69660
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "batteryMv": 308
+   },
+   "hex": "00000134",
+   "decoded": {
+    "timestamp": 0,
+    "batteryMv": 308
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 3620609589,
+    "temperature": -400,
+    "humidity": 100,
+    "batteryMv": 5000
+   },
+   "hex": "6CD7CE1E350000C81388",
+   "decoded": {
+    "timestamp": 3620609589,
+    "temperature": -400,
+    "humidity": 100,
+    "batteryMv": 5000
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "temperature": -245,
+    "humidity": 100,
+    "batteryMv": 0
+   },
+   "hex": "6000009BC80000",
+   "decoded": {
+    "timestamp": 0,
+    "temperature": -245,
+    "humidity": 100,
+    "batteryMv": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 4294967295,
+    "temperature": 199,
+    "batteryMv": 2278,
+    "position": {
+     "latitude": -766181211,
+     "longitude": 0,
+     "accuracyM": 65535
+    }
+   },
+   "hex": "5CFFFFFFFF025708E67007F9E9A5C06B49D200FFFF",
+   "decoded": {
+    "timestamp": 4294967295,
+    "temperature": 199,
+    "batteryMv": 2278,
+    "position": {
+     "latitude": -766181211,
+     "longitude": 0,
+     "accuracyM": 65535
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 4294967295,
+    "temperature": -400,
+    "batteryMv": 0,
+    "position": {
+     "latitude": 149102419,
+     "longitude": 1800000000,
+     "altitudeM": 3929,
+     "accuracyM": 18802
+    }
+   },
+   "hex": "5CFFFFFFFF00000000F03E880853C0D693A40013414972",
+   "decoded": {
+    "timestamp": 4294967295,
+    "temperature": -400,
+    "batteryMv": 0,
+    "position": {
+     "latitude": 149102419,
+     "longitude": 1800000000,
+     "altitudeM": 3929,
+     "accuracyM": 18802
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 4294967295,
+    "batteryMv": 0,
+    "position": {
+     "latitude": -900000000,
+     "longitude": -1561749624,
+     "accuracyM": 0
+    }
+   },
+   "hex": "1CFFFFFFFF00004000C00E3369880000",
+   "decoded": {
+    "timestamp": 4294967295,
+    "batteryMv": 0,
+    "position": {
+     "latitude": -900000000,
+     "longitude": -1561749624,
+     "accuracyM": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 0,
+    "temperature": 1207,
+    "batteryMv": 4017
+   },
+   "hex": "400006470FB1",
+   "decoded": {
+    "timestamp": 0,
+    "temperature": 1207,
+    "batteryMv": 4017
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 4294967295,
+    "temperature": 100,
+    "humidity": 40,
+    "batteryMv": 1623,
+    "position": {
+     "latitude": -900000000,
+     "longitude": -1800000000,
+     "altitudeM": 0
+    }
+   },
+   "hex": "7CFFFFFFFF01F45006578000000003E8",
+   "decoded": {
+    "timestamp": 4294967295,
+    "temperature": 100,
+    "humidity": 40,
+    "batteryMv": 1623,
+    "position": {
+     "latitude": -900000000,
+     "longitude": -1800000000,
+     "altitudeM": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 467600135,
+    "humidity": 0,
+    "batteryMv": 5000
+   },
+   "hex": "2C1BDF0307001388",
+   "decoded": {
+    "timestamp": 467600135,
+    "humidity": 0,
+    "batteryMv": 5000
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Measurement",
+   "value": {
+    "timestamp": 2200386590,
+    "humidity": 6,
+    "batteryMv": 3924,
+    "pressurePa": 35182
+   },
+   "hex": "AC83273C1E0C0F540103A0143E",
+   "decoded": {
+    "timestamp": 2200386590,
+    "humidity": 6,
+    "batteryMv": 3924,
+    "pressurePa": 35182
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "781451A5E4D9A5E3",
+    "measurements": [
+     {
+      "timestamp": 566117777,
+      "humidity": 56,
+      "batteryMv": 4979,
+      "position": {
+       "latitude": 332667580,
+       "longitude": -15836753,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -397,
+      "batteryMv": 3561,
+      "position": {
+       "latitude": -837105477,
+       "longitude": -1800000000,
+       "altitudeM": 5768,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 3867878359,
+      "temperature": 1250,
+      "humidity": 9,
+      "batteryMv": 2578,
+      "position": {
+       "latitude": 0,
+       "longitude": -1800000000,
+       "accuracyM": 0
+      },
+      "pressurePa": 85430
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 3387,
+      "position": {
+       "latitude": -900000000,
+       "longitude": -1397406574,
+       "altitudeM": 0
+      }
+     },
+     {
+      "timestamp": 84008037,
+      "temperature": 55,
+      "humidity": 100,
+      "batteryMv": 0,
+      "position": {
+       "latitude": -145728783,
+       "longitude": -1749943252
+      },
+      "pressurePa": 53963
+     }
+    ]
+   },
+   "hex": "781451A5E4D9A5E321E021BE459170137370497903BCC06A582BAFFFFF500000030DE9F003BFB1BB00001A70FFFFFCE68B23D70672120A127035A4E900000000000103A0D8863000000D3B8000C017FF169203E8FC0501DC6501C7C80000302CF543F1C002FBCE2C0103A05D9B",
+   "decoded": {
+    "deviceId": "781451A5E4D9A5E3",
+    "measurements": [
+     {
+      "timestamp": 566117777,
+      "humidity": 56,
+      "batteryMv": 4979,
+      "position": {
+       "latitude": 332667580,
+       "longitude": -15836753,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -397,
+      "batteryMv": 3561,
+      "position": {
+       "latitude": -837105477,
+       "longitude": -1800000000,
+       "altitudeM": 5768,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 3867878359,
+      "temperature": 1250,
+      "humidity": 9,
+      "batteryMv": 2578,
+      "position": {
+       "latitude": 0,
+       "longitude": -1800000000,
+       "accuracyM": 0
+      },
+      "pressurePa": 85430
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 3387,
+      "position": {
+       "latitude": -900000000,
+       "longitude": -1397406574,
+       "altitudeM": 0
+      }
+     },
+     {
+      "timestamp": 84008037,
+      "temperature": 55,
+      "humidity": 100,
+      "batteryMv": 0,
+      "position": {
+       "latitude": -145728783,
+       "longitude": -1749943252
+      },
+      "pressurePa": 53963
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "2991AFDF797EC094",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "temperature": 0,
+      "batteryMv": 3505
+     },
+     {
+      "timestamp": 1316040944,
+      "humidity": 93,
+      "batteryMv": 4803,
+      "position": {
+       "latitude": -455306437,
+       "longitude": -1412321524,
+       "altitudeM": -1000,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0
+     }
+    ]
+   },
+   "hex": "2991AFDF797EC0941260FFFFFFFF01900DB13C4E7130F0BA12C3F01A817C3BC0171B810C0000FFFF00000000",
+   "decoded": {
+    "deviceId": "2991AFDF797EC094",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "temperature": 0,
+      "batteryMv": 3505
+     },
+     {
+      "timestamp": 1316040944,
+      "humidity": 93,
+      "batteryMv": 4803,
+      "position": {
+       "latitude": -455306437,
+       "longitude": -1412321524,
+       "altitudeM": -1000,
+       "accuracyM": 65535
+      }
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "E51C742833CF1B7F",
+    "measurements": [
+     {
+      "timestamp": 1310446802,
+      "temperature": 0,
+      "humidity": 66,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 802837868,
+       "longitude": -1544604117
+      }
+     }
+    ]
+   },
+   "hex": "E51C742833CF1B7F03E04E1BD4D2019084138830657F3E6CC00F39082B",
+   "decoded": {
+    "deviceId": "E51C742833CF1B7F",
+    "measurements": [
+     {
+      "timestamp": 1310446802,
+      "temperature": 0,
+      "humidity": 66,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 802837868,
+       "longitude": -1544604117
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "0BDCFF1F550786FB",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "temperature": -129,
+      "humidity": 87,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 0
+      }
+     },
+     {
+      "timestamp": 401275117,
+      "batteryMv": 0,
+      "pressurePa": 110000
+     },
+     {
+      "timestamp": 1188642573,
+      "humidity": 100,
+      "batteryMv": 2072,
+      "position": {
+       "latitude": -516228959,
+       "longitude": 1581804653,
+       "accuracyM": 65535
+      },
+      "pressurePa": 43149
+     }
+    ]
+   },
+   "hex": "0BDCFF1F550786FB13E0FFFFFFFF010FAE0000306B49D200C06B49D2008C17EAF8ED00000104C0013880BC46D93F0DC808187016DFE1A1C0C9923E6DFFFF0103A0335D",
+   "decoded": {
+    "deviceId": "0BDCFF1F550786FB",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "temperature": -129,
+      "humidity": 87,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 0
+      }
+     },
+     {
+      "timestamp": 401275117,
+      "batteryMv": 0,
+      "pressurePa": 110000
+     },
+     {
+      "timestamp": 1188642573,
+      "humidity": 100,
+      "batteryMv": 2072,
+      "position": {
+       "latitude": -516228959,
+       "longitude": 1581804653,
+       "accuracyM": 65535
+      },
+      "pressurePa": 43149
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "4B52E3B24F24B6E2",
+    "measurements": [
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1354646773,
+       "altitudeM": 1430,
+       "accuracyM": 65535
+      }
+     }
+    ]
+   },
+   "hex": "4B52E3B24F24B6E202800000001388C000C0BC0816F5097EFFFF",
+   "decoded": {
+    "deviceId": "4B52E3B24F24B6E2",
+    "measurements": [
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1354646773,
+       "altitudeM": 1430,
+       "accuracyM": 65535
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "71ADD53D9FE3F44F",
+    "measurements": [
+     {
+      "timestamp": 1117376148,
+      "humidity": 0,
+      "batteryMv": 886
+     },
+     {
+      "timestamp": 0,
+      "temperature": 0,
+      "humidity": 39,
+      "batteryMv": 5000
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": -400,
+      "humidity": 25,
+      "batteryMv": 2708
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0
+     }
+    ]
+   },
+   "hex": "71ADD53D9FE3F44F19604299CE94000376600001904E13886CFFFFFFFF0000320A9400000000",
+   "decoded": {
+    "deviceId": "71ADD53D9FE3F44F",
+    "measurements": [
+     {
+      "timestamp": 1117376148,
+      "humidity": 0,
+      "batteryMv": 886
+     },
+     {
+      "timestamp": 0,
+      "temperature": 0,
+      "humidity": 39,
+      "batteryMv": 5000
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": -400,
+      "humidity": 25,
+      "batteryMv": 2708
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "E2B6C28CAA107643",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 0
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": 1184,
+      "humidity": 43,
+      "batteryMv": 3542,
+      "position": {
+       "latitude": -748300645,
+       "longitude": -1769654642
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -33,
+      "batteryMv": 0
+     }
+    ]
+   },
+   "hex": "E2B6C28CAA1076431060FFFFFFFF00007CFFFFFFFF0630560DD630090ABF9BC001CF088E4000016F0000",
+   "decoded": {
+    "deviceId": "E2B6C28CAA107643",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 0
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": 1184,
+      "humidity": 43,
+      "batteryMv": 3542,
+      "position": {
+       "latitude": -748300645,
+       "longitude": -1769654642
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -33,
+      "batteryMv": 0
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "D64E538F44373A84",
+    "measurements": [
+     {
+      "timestamp": 3241345580,
+      "temperature": 1250,
+      "humidity": 0,
+      "batteryMv": 333
+     },
+     {
+      "timestamp": 0,
+      "temperature": 0,
+      "batteryMv": 1990
+     }
+    ]
+   },
+   "hex": "D64E538F44373A840B60C133022C067200014D4000019007C6",
+   "decoded": {
+    "deviceId": "D64E538F44373A84",
+    "measurements": [
+     {
+      "timestamp": 3241345580,
+      "temperature": 1250,
+      "humidity": 0,
+      "batteryMv": 333
+     },
+     {
+      "timestamp": 0,
+      "temperature": 0,
+      "batteryMv": 1990
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "03BC2BF36F50EDA9",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 0
+     }
+    ]
+   },
+   "hex": "03BC2BF36F50EDA90060FFFFFFFF0000",
+   "decoded": {
+    "deviceId": "03BC2BF36F50EDA9",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 0
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "23929C5CC42A51ED",
+    "measurements": [
+     {
+      "timestamp": 0,
+      "humidity": 37,
+      "batteryMv": 16,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 1100967855,
+       "altitudeM": 8899
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 0
+     },
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 692118615,
+       "accuracyM": 0
+      }
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": -243,
+      "humidity": 13,
+      "batteryMv": 5000
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 4046,
+      "position": {
+       "latitude": 243634393,
+       "longitude": 1800000000
+      }
+     }
+    ]
+   },
+   "hex": "23929C5CC42A51ED2180004A0010B06B49D200C0ACE941AF26AB400000000000500000001388706B49D200C0948AB65700006CFFFFFFFF009D1A13883000000FCE30442A79D9C0D693A400",
+   "decoded": {
+    "deviceId": "23929C5CC42A51ED",
+    "measurements": [
+     {
+      "timestamp": 0,
+      "humidity": 37,
+      "batteryMv": 16,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 1100967855,
+       "altitudeM": 8899
+      }
+     },
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 0
+     },
+     {
+      "timestamp": 0,
+      "temperature": -400,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 692118615,
+       "accuracyM": 0
+      }
+     },
+     {
+      "timestamp": 4294967295,
+      "temperature": -243,
+      "humidity": 13,
+      "batteryMv": 5000
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 4046,
+      "position": {
+       "latitude": 243634393,
+       "longitude": 1800000000
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "B47C4BC9578E57AF",
+    "measurements": [
+     {
+      "timestamp": 1298393266,
+      "temperature": -400,
+      "batteryMv": 0,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1800000000,
+       "accuracyM": 0
+      }
+     }
+    ]
+   },
+   "hex": "B47C4BC9578E57AF02E04D63E8B2000000004000C0D693A4000000",
+   "decoded": {
+    "deviceId": "B47C4BC9578E57AF",
+    "measurements": [
+     {
+      "timestamp": 1298393266,
+      "temperature": -400,
+      "batteryMv": 0,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1800000000,
+       "accuracyM": 0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "5A3E3292DDF0873C",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 0
+      }
+     }
+    ]
+   },
+   "hex": "5A3E3292DDF0873C00E0FFFFFFFF1388306B49D200C06B49D200",
+   "decoded": {
+    "deviceId": "5A3E3292DDF0873C",
+    "measurements": [
+     {
+      "timestamp": 4294967295,
+      "batteryMv": 5000,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 0
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "32C96E58F2015F7F",
+    "measurements": [
+     {
+      "timestamp": 3312705536,
+      "temperature": 963,
+      "batteryMv": 4529
+     }
+    ]
+   },
+   "hex": "32C96E58F2015F7F0260C573E000055311B1",
+   "decoded": {
+    "deviceId": "32C96E58F2015F7F",
+    "measurements": [
+     {
+      "timestamp": 3312705536,
+      "temperature": 963,
+      "batteryMv": 4529
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "09BCB9CEFD2C2CE6",
+    "measurements": [
+     {
+      "timestamp": 4249437977,
+      "batteryMv": 680,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 1800000000
+      }
+     },
+     {
+      "timestamp": 675280825,
+      "humidity": 0,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 101285385,
+       "longitude": -1770954446,
+       "accuracyM": 0
+      }
+     },
+     {
+      "timestamp": 0,
+      "humidity": 34,
+      "batteryMv": 2044,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1065774798,
+       "accuracyM": 909
+      }
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 0,
+       "longitude": 257030354,
+       "altitudeM": 7203,
+       "accuracyM": 44098
+      }
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 1670,
+      "position": {
+       "latitude": 738898158,
+       "longitude": 0,
+       "altitudeM": 916
+      }
+     }
+    ]
+   },
+   "hex": "09BCB9CEFD2C2CE620E0FD49471902A8306B49D200C0D693A4003C283FF7B9000000703BAE6709C001BB3332000030004407FC4000C0AAD040CE038D10000000F035A4E900C07A9BCAD2200BAC423000000686B061AF99EEC06B49D200077C",
+   "decoded": {
+    "deviceId": "09BCB9CEFD2C2CE6",
+    "measurements": [
+     {
+      "timestamp": 4249437977,
+      "batteryMv": 680,
+      "position": {
+       "latitude": 900000000,
+       "longitude": 1800000000
+      }
+     },
+     {
+      "timestamp": 675280825,
+      "humidity": 0,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 101285385,
+       "longitude": -1770954446,
+       "accuracyM": 0
+      }
+     },
+     {
+      "timestamp": 0,
+      "humidity": 34,
+      "batteryMv": 2044,
+      "position": {
+       "latitude": -900000000,
+       "longitude": 1065774798,
+       "accuracyM": 909
+      }
+     },
+     {
+      "timestamp": 0,
+      "batteryMv": 0,
+      "position": {
+       "latitude": 0,
+       "longitude": 257030354,
+       "altitudeM": 7203,
+       "accuracyM": 44098
+      }
+     },
+     {
+      "timestamp": 0,
+      "humidity": 0,
+      "batteryMv": 1670,
+      "position": {
+       "latitude": 738898158,
+       "longitude": 0,
+       "altitudeM": 916
+      }
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "value": {
+    "deviceId": "695D8B428018CC4D",
+    "measurements": [
+     {
+      "timestamp": 1239845299,
+      "humidity": 0,
+      "batteryMv": 2047,
+      "pressurePa": 110000
+     },
+     {
+      "timestamp": 0,
+      "temperature": 1250,
+      "batteryMv": 2538,
+      "position": {
+       "latitude": -895809379,
+       "longitude": -652545343,
+       "altitudeM": 8450
+      }
+     },
+     {
+      "timestamp": 525098781,
+      "humidity": 0,
+      "batteryMv": 856
+     }
+    ]
+   },
+   "hex": "695D8B428018CC4D156049E689B30007FF0104C00138805000067209EAA03FF19DC04464C4C124EA2C1F4C5F1D000358",
+   "decoded": {
+    "deviceId": "695D8B428018CC4D",
+    "measurements": [
+     {
+      "timestamp": 1239845299,
+      "humidity": 0,
+      "batteryMv": 2047,
+      "pressurePa": 110000
+     },
+     {
+      "timestamp": 0,
+      "temperature": 1250,
+      "batteryMv": 2538,
+      "position": {
+       "latitude": -895809379,
+       "longitude": -652545343,
+       "altitudeM": 8450
+      }
+     },
+     {
+      "timestamp": 525098781,
+      "humidity": 0,
+      "batteryMv": 856
+     }
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ReportingMode",
+   "value": "periodic",
+   "hex": "00",
+   "decoded": "periodic"
+  },
+  {
+   "type": "Telemetry-Protocol.ReportingMode",
+   "value": "onChange",
+   "hex": "20",
+   "decoded": "onChange"
+  },
+  {
+   "type": "Telemetry-Protocol.ReportingMode",
+   "value": "onDemand",
+   "hex": "40",
+   "decoded": "onDemand"
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "periodic",
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    }
+   },
+   "hex": "0B",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "onChange",
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   },
+   "hex": "4260",
+   "decoded": {
+    "mode": "onChange",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "onDemand",
+    "intervalSeconds": 86400,
+    "sensorsEnabled": {
+     "hex": "70",
+     "length": 4
+    }
+   },
+   "hex": "650001517670",
+   "decoded": {
+    "mode": "onDemand",
+    "intervalSeconds": 86400,
+    "sensorsEnabled": {
+     "hex": "70",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "intervalSeconds": 51637,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   },
+   "hex": "24C9AB30",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 51637,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "onChange",
+    "sensorsEnabled": {
+     "hex": "D0",
+     "length": 4
+    },
+    "label": "~ ~ \u00dfz\u03a99\u00e9~\u00e9\u0436a~\u4e2d\u00e90~9\u20ac\u00df\u00e9\u20ac\u00dfa\u4e2dA \u0436zAa"
+   },
+   "hex": "53A0327E207E20C39F7ACEA939C3A97EC3A9D0B6617EE4B8ADC3A9307E39E282ACC39FC3A9E282ACC39F61E4B8AD4120D0B67A4161",
+   "decoded": {
+    "mode": "onChange",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "D0",
+     "length": 4
+    },
+    "label": "~ ~ \u00dfz\u03a99\u00e9~\u00e9\u0436a~\u4e2d\u00e90~9\u20ac\u00df\u00e9\u20ac\u00dfa\u4e2dA \u0436zAa"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "sensorsEnabled": {
+     "hex": "50",
+     "length": 4
+    }
+   },
+   "hex": "05",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "50",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "intervalSeconds": 10,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    },
+    "label": ""
+   },
+   "hex": "30003000",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 10,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    },
+    "label": ""
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "periodic",
+    "sensorsEnabled": {
+     "hex": "90",
+     "length": 4
+    }
+   },
+   "hex": "09",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "90",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "intervalSeconds": 49958,
+    "sensorsEnabled": {
+     "hex": "50",
+     "length": 4
+    },
+    "label": "\u00e9A\u03a9\u03a9\u4e2d9 \u00e9\u04369~"
+   },
+   "hex": "34C31C5012C3A941CEA9CEA9E4B8AD3920C3A9D0B6397E",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 49958,
+    "sensorsEnabled": {
+     "hex": "50",
+     "length": 4
+    },
+    "label": "\u00e9A\u03a9\u03a9\u4e2d9 \u00e9\u04369~"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "onDemand",
+    "intervalSeconds": 45445,
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    },
+    "label": ""
+   },
+   "hex": "7480B17BB000",
+   "decoded": {
+    "mode": "onDemand",
+    "intervalSeconds": 45445,
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    },
+    "label": ""
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    },
+    "label": " \u03a9\u00df\u00df\u03a9\u03a9A\u00e90\u0436A\u4e2dz\u4e2dz9  ~\u4e2d\u0436\u00df\u00dfa00\u00df\u0436a~\u20ac\u4e2d"
+   },
+   "hex": "1B3620CEA9C39FC39FCEA9CEA941C3A930D0B641E4B8AD7AE4B8AD7A3920207EE4B8ADD0B6C39FC39F613030C39FD0B6617EE282ACE4B8AD",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "B0",
+     "length": 4
+    },
+    "label": " \u03a9\u00df\u00df\u03a9\u03a9A\u00e90\u0436A\u4e2dz\u4e2dz9  ~\u4e2d\u0436\u00df\u00dfa00\u00df\u0436a~\u20ac\u4e2d"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "mode": "periodic",
+    "sensorsEnabled": {
+     "hex": "F0",
+     "length": 4
+    }
+   },
+   "hex": "0F",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "F0",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "sensorsEnabled": {
+     "hex": "70",
+     "length": 4
+    }
+   },
+   "hex": "07",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "70",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   },
+   "hex": "03",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 900,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Configuration",
+   "value": {
+    "intervalSeconds": 3021,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    },
+    "label": "a\u00e9"
+   },
+   "hex": "340BC3300361C3A9",
+   "decoded": {
+    "mode": "periodic",
+    "intervalSeconds": 3021,
+    "sensorsEnabled": {
+     "hex": "30",
+     "length": 4
+    },
+    "label": "a\u00e9"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 165,
+    "keys": [
+     "z",
+     "p",
+     "UN\"lfK.-$\\wk*DFS",
+     "S"
+    ]
+   },
+   "hex": "80A520007A0070F0554E226C664B2E2D245C776B2A4446530053",
+   "decoded": {
+    "requestId": 165,
+    "keys": [
+     "z",
+     "p",
+     "UN\"lfK.-$\\wk*DFS",
+     "S"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 212,
+    "keys": []
+   },
+   "hex": "80D400",
+   "decoded": {
+    "requestId": 212,
+    "keys": []
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 0
+   },
+   "hex": "0000",
+   "decoded": {
+    "requestId": 0
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 95,
+    "keys": [
+     "dwGj3=;HeHoX4K$A",
+     "SNQ(7Y%9P;"
+    ]
+   },
+   "hex": "805F17806477476A333D3B4865486F58344B244190534E512837592539503B",
+   "decoded": {
+    "requestId": 95,
+    "keys": [
+     "dwGj3=;HeHoX4K$A",
+     "SNQ(7Y%9P;"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 143,
+    "keys": [
+     "**O0cZL*<={_B{1I",
+     ".4,v",
+     "0",
+     "iLI}AC[,z{"
+    ]
+   },
+   "hex": "808F27802A2A4F30635A4C2A3C3D7B5F427B3149302E342C76003090694C497D41435B2C7A7B",
+   "decoded": {
+    "requestId": 143,
+    "keys": [
+     "**O0cZL*<={_B{1I",
+     ".4,v",
+     "0",
+     "iLI}AC[,z{"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 255,
+    "keys": []
+   },
+   "hex": "80FF00",
+   "decoded": {
+    "requestId": 255,
+    "keys": []
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 130,
+    "keys": [
+     "h)WNgKS=?U91!k]S"
+    ]
+   },
+   "hex": "80820F806829574E674B533D3F553931216B5D53",
+   "decoded": {
+    "requestId": 130,
+    "keys": [
+     "h)WNgKS=?U91!k]S"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 255
+   },
+   "hex": "00FF",
+   "decoded": {
+    "requestId": 255
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 122,
+    "keys": [
+     "y7?hr",
+     ".5)mB",
+     "pJh'",
+     "RB5NjbepUy2Mgg^\""
+    ]
+   },
+   "hex": "807A220079373F6872402E35296D4230704A6827F05242354E6A6265705579324D67675E22",
+   "decoded": {
+    "requestId": 122,
+    "keys": [
+     "y7?hr",
+     ".5)mB",
+     "pJh'",
+     "RB5NjbepUy2Mgg^\""
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 255,
+    "keys": [
+     "8#>6QA,PKN88H#C3",
+     "m|O|*yb&t0}-XE&J",
+     "IP-`Ah]+AWr<xX>X"
+    ]
+   },
+   "hex": "80FF1F8038233E3651412C504B4E383848234333F06D7C4F7C2A79622674307D2D5845264AF049502D6041685D2B4157723C78583E58",
+   "decoded": {
+    "requestId": 255,
+    "keys": [
+     "8#>6QA,PKN88H#C3",
+     "m|O|*yb&t0}-XE&J",
+     "IP-`Ah]+AWr<xX>X"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 173,
+    "keys": [
+     "q1|(yhcG-[f?}W*",
+     "7Em iTK_P%|`3E6@",
+     "Fu3~nZ1Nt8yykH8r",
+     "N"
+    ]
+   },
+   "hex": "80AD270071317C28796863472D5B663F7D572AF037456D2069544B5F50257C6033453640F04675337E6E5A314E743879796B483872004E",
+   "decoded": {
+    "requestId": 173,
+    "keys": [
+     "q1|(yhcG-[f?}W*",
+     "7Em iTK_P%|`3E6@",
+     "Fu3~nZ1Nt8yykH8r",
+     "N"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 47,
+    "keys": [
+     "<D7V3n:_2dV9"
+    ]
+   },
+   "hex": "802F0D803C443756336E3A5F32645639",
+   "decoded": {
+    "requestId": 47,
+    "keys": [
+     "<D7V3n:_2dV9"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 255,
+    "keys": [
+     "+sJT_gz0bc{NJU:'",
+     "I1<XRE-JaywX`J",
+     "d IiFUpLp7SU6Xl%",
+     "{,A"
+    ]
+   },
+   "hex": "80FF27802B734A545F677A3062637B4E4A553A27D049313C5852452D4A61797758604AF0642049694655704C7037535536586C25207B2C41",
+   "decoded": {
+    "requestId": 255,
+    "keys": [
+     "+sJT_gz0bc{NJU:'",
+     "I1<XRE-JaywX`J",
+     "d IiFUpLp7SU6Xl%",
+     "{,A"
+    ]
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 202
+   },
+   "hex": "00CA",
+   "decoded": {
+    "requestId": 202
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.ConfigurationQuery",
+   "value": {
+    "requestId": 233
+   },
+   "hex": "00E9",
+   "decoded": {
+    "requestId": 233
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 27719,
+    "offset": 0,
+    "data": "37B21E64A32D095C023ABDB0CA8EDEBCBA8D9BBCE0F95DCE3ECBF79C309BB7AAA082F5BA28080A00CA",
+    "last": false
+   },
+   "hex": "6C470000002837B21E64A32D095C023ABDB0CA8EDEBCBA8D9BBCE0F95DCE3ECBF79C309BB7AAA082F5BA28080A00CA00",
+   "decoded": {
+    "imageId": 27719,
+    "offset": 0,
+    "data": "37B21E64A32D095C023ABDB0CA8EDEBCBA8D9BBCE0F95DCE3ECBF79C309BB7AAA082F5BA28080A00CA",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 22746,
+    "offset": 0,
+    "data": "3E554F26D8366D2C6682121048982394B2829AF2BD7E511A637348C3A68013436B65B765D9E232CA5DF6148AA2CA1016B5F56922CC425FBF0435C265EDA986E66FCEA4E2E1BEBACF4FD094C66AC6789862320EB016F0772906F760A31FCDDDB46F2E1BD3252D34F63B99D2FCAD98553DBD2902BA9AD6CF7E577BDBEA5D17B082F2E0573CABA47334FE17747C1D7B7B6EA123E6F5CB2219995E9C7BAA52499923E95009CC41199118B6CDBC82615260DCFF6D483A30BAB7D0C7BDDD0F29C9E2B47E5093CD71AF2D8891CD3FFD6596370C3C9EAAE5015FF22F993805833C82EFEDEA08",
+    "last": false
+   },
+   "hex": "58DA000000E13E554F26D8366D2C6682121048982394B2829AF2BD7E511A637348C3A68013436B65B765D9E232CA5DF6148AA2CA1016B5F56922CC425FBF0435C265EDA986E66FCEA4E2E1BEBACF4FD094C66AC6789862320EB016F0772906F760A31FCDDDB46F2E1BD3252D34F63B99D2FCAD98553DBD2902BA9AD6CF7E577BDBEA5D17B082F2E0573CABA47334FE17747C1D7B7B6EA123E6F5CB2219995E9C7BAA52499923E95009CC41199118B6CDBC82615260DCFF6D483A30BAB7D0C7BDDD0F29C9E2B47E5093CD71AF2D8891CD3FFD6596370C3C9EAAE5015FF22F993805833C82EFEDEA0800",
+   "decoded": {
+    "imageId": 22746,
+    "offset": 0,
+    "data": "3E554F26D8366D2C6682121048982394B2829AF2BD7E511A637348C3A68013436B65B765D9E232CA5DF6148AA2CA1016B5F56922CC425FBF0435C265EDA986E66FCEA4E2E1BEBACF4FD094C66AC6789862320EB016F0772906F760A31FCDDDB46F2E1BD3252D34F63B99D2FCAD98553DBD2902BA9AD6CF7E577BDBEA5D17B082F2E0573CABA47334FE17747C1D7B7B6EA123E6F5CB2219995E9C7BAA52499923E95009CC41199118B6CDBC82615260DCFF6D483A30BAB7D0C7BDDD0F29C9E2B47E5093CD71AF2D8891CD3FFD6596370C3C9EAAE5015FF22F993805833C82EFEDEA08",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 0,
+    "data": "A8",
+    "last": false
+   },
+   "hex": "000000000000A800",
+   "decoded": {
+    "imageId": 0,
+    "offset": 0,
+    "data": "A8",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 16777215,
+    "data": "8A1EFDB21F5E633339AAA94C0EDE52125D92264DA9335AA541B68FB4DFCDD4FD6BB064CEED55E4B25B5F31A59674998428A60D9E5F842956C3587169CEAE536CD6ACE15E79832507AD74F14902B50FCD1C0A8C39BF359DE7860D0A95E37BE4AC0BC5CFE9933B0AA48005F1EB92DF540E48A44CC3221AACA10EF9D76C789024318F453E3DE52539E1FFE8B8B943B254A7B9FC4C3F2F208AF0192EDA99639E2BF0E1BF5B4CA01728226A6BC43962F25D5CA530B27C44E5026FBB4D24B74BA07E60BDC7D883560707A2D329D4C35C508E26D07DF333ECAEACFCBDEC9152F270D7CAED637C9A1AD9059D2810A91A113E136ABFFDE7CDAC4A740E1BDBC66A76B4AF625209D6F8D3F30CF777560ADB0492EB7ED82693F5890A1DA2EE6E7F3E139B27746046C807681A96CBF1F0555540",
+    "last": false
+   },
+   "hex": "000080FFFFFF012C8A1EFDB21F5E633339AAA94C0EDE52125D92264DA9335AA541B68FB4DFCDD4FD6BB064CEED55E4B25B5F31A59674998428A60D9E5F842956C3587169CEAE536CD6ACE15E79832507AD74F14902B50FCD1C0A8C39BF359DE7860D0A95E37BE4AC0BC5CFE9933B0AA48005F1EB92DF540E48A44CC3221AACA10EF9D76C789024318F453E3DE52539E1FFE8B8B943B254A7B9FC4C3F2F208AF0192EDA99639E2BF0E1BF5B4CA01728226A6BC43962F25D5CA530B27C44E5026FBB4D24B74BA07E60BDC7D883560707A2D329D4C35C508E26D07DF333ECAEACFCBDEC9152F270D7CAED637C9A1AD9059D2810A91A113E136ABFFDE7CDAC4A740E1BDBC66A76B4AF625209D6F8D3F30CF777560ADB0492EB7ED82693F5890A1DA2EE6E7F3E139B27746046C807681A96CBF1F055554000",
+   "decoded": {
+    "imageId": 0,
+    "offset": 16777215,
+    "data": "8A1EFDB21F5E633339AAA94C0EDE52125D92264DA9335AA541B68FB4DFCDD4FD6BB064CEED55E4B25B5F31A59674998428A60D9E5F842956C3587169CEAE536CD6ACE15E79832507AD74F14902B50FCD1C0A8C39BF359DE7860D0A95E37BE4AC0BC5CFE9933B0AA48005F1EB92DF540E48A44CC3221AACA10EF9D76C789024318F453E3DE52539E1FFE8B8B943B254A7B9FC4C3F2F208AF0192EDA99639E2BF0E1BF5B4CA01728226A6BC43962F25D5CA530B27C44E5026FBB4D24B74BA07E60BDC7D883560707A2D329D4C35C508E26D07DF333ECAEACFCBDEC9152F270D7CAED637C9A1AD9059D2810A91A113E136ABFFDE7CDAC4A740E1BDBC66A76B4AF625209D6F8D3F30CF777560ADB0492EB7ED82693F5890A1DA2EE6E7F3E139B27746046C807681A96CBF1F0555540",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 12197967,
+    "data": "330A6574CDE3DC2F957BBDC9E415BE90C70499B4C7615564F64ECB09D753A66E801A34103157230C7926AB1E4BBF0B31D3BF59B53F9324D1B5017D7F18D35741D44F49C9E1AE5E6FE18D3BA1B637183742993618FAF02EECF5635A2FDAA3F4A5CE6949FB7642502460E9D4B258831B7DE8463D7E9C3F47E3215CD47D532F953D9995D24DED1DC1FF4911B8101B7C947248DD47936575098E2265DA196ED2D131549719C2B0CD8FCB853D358B8736C8A5C8623576E701D8238C432B8842A791763F86BB8462D1C17A4D7B0E27407D07EB9D34510C9D5B4953BFF5366CA20788DDABBE4B007B4342F6A0BB286BF3B0E30E3C40EA0E5685D9E43D68C56C9A54D846F3307C8131066F5AF15A6BE132DD5F0E122730611C7A8725E567C3127DD55B4CE3E278C23461DD35D0901CFC1A",
+    "last": false
+   },
+   "hex": "000080BA204F012C330A6574CDE3DC2F957BBDC9E415BE90C70499B4C7615564F64ECB09D753A66E801A34103157230C7926AB1E4BBF0B31D3BF59B53F9324D1B5017D7F18D35741D44F49C9E1AE5E6FE18D3BA1B637183742993618FAF02EECF5635A2FDAA3F4A5CE6949FB7642502460E9D4B258831B7DE8463D7E9C3F47E3215CD47D532F953D9995D24DED1DC1FF4911B8101B7C947248DD47936575098E2265DA196ED2D131549719C2B0CD8FCB853D358B8736C8A5C8623576E701D8238C432B8842A791763F86BB8462D1C17A4D7B0E27407D07EB9D34510C9D5B4953BFF5366CA20788DDABBE4B007B4342F6A0BB286BF3B0E30E3C40EA0E5685D9E43D68C56C9A54D846F3307C8131066F5AF15A6BE132DD5F0E122730611C7A8725E567C3127DD55B4CE3E278C23461DD35D0901CFC1A00",
+   "decoded": {
+    "imageId": 0,
+    "offset": 12197967,
+    "data": "330A6574CDE3DC2F957BBDC9E415BE90C70499B4C7615564F64ECB09D753A66E801A34103157230C7926AB1E4BBF0B31D3BF59B53F9324D1B5017D7F18D35741D44F49C9E1AE5E6FE18D3BA1B637183742993618FAF02EECF5635A2FDAA3F4A5CE6949FB7642502460E9D4B258831B7DE8463D7E9C3F47E3215CD47D532F953D9995D24DED1DC1FF4911B8101B7C947248DD47936575098E2265DA196ED2D131549719C2B0CD8FCB853D358B8736C8A5C8623576E701D8238C432B8842A791763F86BB8462D1C17A4D7B0E27407D07EB9D34510C9D5B4953BFF5366CA20788DDABBE4B007B4342F6A0BB286BF3B0E30E3C40EA0E5685D9E43D68C56C9A54D846F3307C8131066F5AF15A6BE132DD5F0E122730611C7A8725E567C3127DD55B4CE3E278C23461DD35D0901CFC1A",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 23222,
+    "offset": 16777215,
+    "data": "A9569BC9435DDC1CFE1EFE50659CDAB14AFB918C5D8A0BEEB66309C77BE8286CB9FE19DDC613F173B400FDFCF861FA6BDBA92828E49D1B1E4BAC13E05315A015F591976683FDEA36091ED85D8D0EF654689EEBD2C000881BE3FB9219FF111F9E60E80666CA94E8DEBEF11EC6C4BE913CB6BF77B529CD55F5097B82876AD137F8FE39FDA5088F8AD4B50D14CEE1C157256A566240996A749292115C4F116173ECBA26C78BC0EC332734A3FF1CB8871347245D1D146FF65F94C46A12F7323BC254992714BBFACB647E223A0BF56A58D90BFD142BB4435F7DC3C632C655D93CF4F9E1AB839073584D58F89EF134EB692A6C9107F91D100E103AAA50F4C7040FA5E5461214BED54897A5C7D2BBA56D48D75D085AC4D143D6E9D29B48E622638553E9F90BEED9556C96486F53563D53",
+    "last": false
+   },
+   "hex": "5AB680FFFFFF012CA9569BC9435DDC1CFE1EFE50659CDAB14AFB918C5D8A0BEEB66309C77BE8286CB9FE19DDC613F173B400FDFCF861FA6BDBA92828E49D1B1E4BAC13E05315A015F591976683FDEA36091ED85D8D0EF654689EEBD2C000881BE3FB9219FF111F9E60E80666CA94E8DEBEF11EC6C4BE913CB6BF77B529CD55F5097B82876AD137F8FE39FDA5088F8AD4B50D14CEE1C157256A566240996A749292115C4F116173ECBA26C78BC0EC332734A3FF1CB8871347245D1D146FF65F94C46A12F7323BC254992714BBFACB647E223A0BF56A58D90BFD142BB4435F7DC3C632C655D93CF4F9E1AB839073584D58F89EF134EB692A6C9107F91D100E103AAA50F4C7040FA5E5461214BED54897A5C7D2BBA56D48D75D085AC4D143D6E9D29B48E622638553E9F90BEED9556C96486F53563D5300",
+   "decoded": {
+    "imageId": 23222,
+    "offset": 16777215,
+    "data": "A9569BC9435DDC1CFE1EFE50659CDAB14AFB918C5D8A0BEEB66309C77BE8286CB9FE19DDC613F173B400FDFCF861FA6BDBA92828E49D1B1E4BAC13E05315A015F591976683FDEA36091ED85D8D0EF654689EEBD2C000881BE3FB9219FF111F9E60E80666CA94E8DEBEF11EC6C4BE913CB6BF77B529CD55F5097B82876AD137F8FE39FDA5088F8AD4B50D14CEE1C157256A566240996A749292115C4F116173ECBA26C78BC0EC332734A3FF1CB8871347245D1D146FF65F94C46A12F7323BC254992714BBFACB647E223A0BF56A58D90BFD142BB4435F7DC3C632C655D93CF4F9E1AB839073584D58F89EF134EB692A6C9107F91D100E103AAA50F4C7040FA5E5461214BED54897A5C7D2BBA56D48D75D085AC4D143D6E9D29B48E622638553E9F90BEED9556C96486F53563D53",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 49047,
+    "offset": 0,
+    "data": "28",
+    "last": true
+   },
+   "hex": "BF97000000002880",
+   "decoded": {
+    "imageId": 49047,
+    "offset": 0,
+    "data": "28",
+    "last": true
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 13794882,
+    "data": "FE",
+    "last": true
+   },
+   "hex": "000080D27E420000FE80",
+   "decoded": {
+    "imageId": 0,
+    "offset": 13794882,
+    "data": "FE",
+    "last": true
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 61281,
+    "offset": 0,
+    "data": "84A9CCC5AA9D26697FB013480AE6FA1114BF80C06A077A8F23E5CF71B2EE7DC2F30FDDCB757CD43485F8DA4EF453B99567DE6CECFE6F117C2F3DA1C4CEB4B791325154FA082E9C97EA4C3A722C2B9BD02B3A0AD48191C383FE619C38DA0F66D040491BA2FEBF8C3841D401B2349F4F03A1D19993A9E30FA18DD0FCA79264BDDBE66A31E310F8D16CADD292AD90114F5F1198960876D2265D3A7A152DC3E5A5DD1725CBCA6D6CF3A8002CE6D75062107C819D95F9CDB4641343D3A895E3A3A9C72DB4956A4584F1A4A5EE0849EC4F0CD86A99AC2550AB1063C1B78699C45DC45C831EAA9CCCA636FCABF054DFAB1A27F4C7D02B4AF7837781A332A98EFE58E04729ACC6CDA5700CC462AF7A5F5731B7A69092D2F3327A6400A728F89AFCA7FE53100CB6FE54594E56C467E74809",
+    "last": false
+   },
+   "hex": "EF610000012C84A9CCC5AA9D26697FB013480AE6FA1114BF80C06A077A8F23E5CF71B2EE7DC2F30FDDCB757CD43485F8DA4EF453B99567DE6CECFE6F117C2F3DA1C4CEB4B791325154FA082E9C97EA4C3A722C2B9BD02B3A0AD48191C383FE619C38DA0F66D040491BA2FEBF8C3841D401B2349F4F03A1D19993A9E30FA18DD0FCA79264BDDBE66A31E310F8D16CADD292AD90114F5F1198960876D2265D3A7A152DC3E5A5DD1725CBCA6D6CF3A8002CE6D75062107C819D95F9CDB4641343D3A895E3A3A9C72DB4956A4584F1A4A5EE0849EC4F0CD86A99AC2550AB1063C1B78699C45DC45C831EAA9CCCA636FCABF054DFAB1A27F4C7D02B4AF7837781A332A98EFE58E04729ACC6CDA5700CC462AF7A5F5731B7A69092D2F3327A6400A728F89AFCA7FE53100CB6FE54594E56C467E7480900",
+   "decoded": {
+    "imageId": 61281,
+    "offset": 0,
+    "data": "84A9CCC5AA9D26697FB013480AE6FA1114BF80C06A077A8F23E5CF71B2EE7DC2F30FDDCB757CD43485F8DA4EF453B99567DE6CECFE6F117C2F3DA1C4CEB4B791325154FA082E9C97EA4C3A722C2B9BD02B3A0AD48191C383FE619C38DA0F66D040491BA2FEBF8C3841D401B2349F4F03A1D19993A9E30FA18DD0FCA79264BDDBE66A31E310F8D16CADD292AD90114F5F1198960876D2265D3A7A152DC3E5A5DD1725CBCA6D6CF3A8002CE6D75062107C819D95F9CDB4641343D3A895E3A3A9C72DB4956A4584F1A4A5EE0849EC4F0CD86A99AC2550AB1063C1B78699C45DC45C831EAA9CCCA636FCABF054DFAB1A27F4C7D02B4AF7837781A332A98EFE58E04729ACC6CDA5700CC462AF7A5F5731B7A69092D2F3327A6400A728F89AFCA7FE53100CB6FE54594E56C467E74809",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 65026,
+    "offset": 4763157,
+    "data": "7771C7BBB1264E4B7BB85136437B2FCA921CF78EFF861FF9A991CD23F607B68E33D2DF52A02C97E2C9DDF7C1B1C8280ABC4A1C2CCE977CF152CD111F592B547402C303719CDD2A658414C5218F5D48E168C266ABEA8ABF9B55EDFFD21B77889D8882BFEEC4B76DDF20B6A7BAD25A62F4852FB696C4A9897703671BAEDD584A0D8B27990C9D5A1CB055878B34E305C9FA8B0B4DEBC0F2D9DFF948EA5D9CBE01C86B992EAAC155562A1306413D1D5494FD9E2023D20A5F4C994EB912556FBF149686C3C849D61E3835B422D8BAB19CC1A4B3EDBE7B9B2EBD0C4D955C084200BA53F1ABB65A8B4B2680E8ED1EE78692E7B2F76EA2820098FA5705BCFC41C230F3B36884C806E5661868C63E93AE0FD586BAADAA10D45E385258B05F55CF4EE5BDB7FA6B7F01C9E1CC905539BCC205",
+    "last": false
+   },
+   "hex": "FE028048AE15012C7771C7BBB1264E4B7BB85136437B2FCA921CF78EFF861FF9A991CD23F607B68E33D2DF52A02C97E2C9DDF7C1B1C8280ABC4A1C2CCE977CF152CD111F592B547402C303719CDD2A658414C5218F5D48E168C266ABEA8ABF9B55EDFFD21B77889D8882BFEEC4B76DDF20B6A7BAD25A62F4852FB696C4A9897703671BAEDD584A0D8B27990C9D5A1CB055878B34E305C9FA8B0B4DEBC0F2D9DFF948EA5D9CBE01C86B992EAAC155562A1306413D1D5494FD9E2023D20A5F4C994EB912556FBF149686C3C849D61E3835B422D8BAB19CC1A4B3EDBE7B9B2EBD0C4D955C084200BA53F1ABB65A8B4B2680E8ED1EE78692E7B2F76EA2820098FA5705BCFC41C230F3B36884C806E5661868C63E93AE0FD586BAADAA10D45E385258B05F55CF4EE5BDB7FA6B7F01C9E1CC905539BCC20500",
+   "decoded": {
+    "imageId": 65026,
+    "offset": 4763157,
+    "data": "7771C7BBB1264E4B7BB85136437B2FCA921CF78EFF861FF9A991CD23F607B68E33D2DF52A02C97E2C9DDF7C1B1C8280ABC4A1C2CCE977CF152CD111F592B547402C303719CDD2A658414C5218F5D48E168C266ABEA8ABF9B55EDFFD21B77889D8882BFEEC4B76DDF20B6A7BAD25A62F4852FB696C4A9897703671BAEDD584A0D8B27990C9D5A1CB055878B34E305C9FA8B0B4DEBC0F2D9DFF948EA5D9CBE01C86B992EAAC155562A1306413D1D5494FD9E2023D20A5F4C994EB912556FBF149686C3C849D61E3835B422D8BAB19CC1A4B3EDBE7B9B2EBD0C4D955C084200BA53F1ABB65A8B4B2680E8ED1EE78692E7B2F76EA2820098FA5705BCFC41C230F3B36884C806E5661868C63E93AE0FD586BAADAA10D45E385258B05F55CF4EE5BDB7FA6B7F01C9E1CC905539BCC205",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 1974296,
+    "data": "114919E080DBB4A45584F1CBDD7F7F247B9052641725990D51A597DB164FCF588C467F0B20DB412A98A3D9B14FC83AA09F30B4A11DF16FECAF0B8EDA44D88E06B5983F970073049F4F28CC744BE8BE896BF63BE59B2E3B9BD7925C144C66E6BF14D3FCB688A3A02C2C1452F424FAA1C74D056F4D9CA86A865DA3BF6D16EF52E8420C5F77EB0700C7560FB986DC4676DCF1",
+    "last": true
+   },
+   "hex": "0000801E20180090114919E080DBB4A45584F1CBDD7F7F247B9052641725990D51A597DB164FCF588C467F0B20DB412A98A3D9B14FC83AA09F30B4A11DF16FECAF0B8EDA44D88E06B5983F970073049F4F28CC744BE8BE896BF63BE59B2E3B9BD7925C144C66E6BF14D3FCB688A3A02C2C1452F424FAA1C74D056F4D9CA86A865DA3BF6D16EF52E8420C5F77EB0700C7560FB986DC4676DCF180",
+   "decoded": {
+    "imageId": 0,
+    "offset": 1974296,
+    "data": "114919E080DBB4A45584F1CBDD7F7F247B9052641725990D51A597DB164FCF588C467F0B20DB412A98A3D9B14FC83AA09F30B4A11DF16FECAF0B8EDA44D88E06B5983F970073049F4F28CC744BE8BE896BF63BE59B2E3B9BD7925C144C66E6BF14D3FCB688A3A02C2C1452F424FAA1C74D056F4D9CA86A865DA3BF6D16EF52E8420C5F77EB0700C7560FB986DC4676DCF1",
+    "last": true
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 8857,
+    "offset": 14935384,
+    "data": "C2",
+    "last": false
+   },
+   "hex": "229980E3E5580000C200",
+   "decoded": {
+    "imageId": 8857,
+    "offset": 14935384,
+    "data": "C2",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 0,
+    "offset": 10945606,
+    "data": "E4AA162DE37C82280AF0A9E9F40E76AE1BE324F97CC471955E41C7B980434FA2957B84CA42B800B69314B779072FA61B6597E9C3D29373203881CEA1B4C8A7C7A007547889AB6C63E26D66670CF88D2E9AAC53E95A8CD001086492C1E95F02CA6CEFD900DA2E91BA2B86E0642D0B1340F4A0070775BE6D1436526F2519AB79836B9CFB1C1F8C546B1B99BDD4AB6CD4FD5051CD4957FA55AD82C4CA88BE6BA0800C5DF89010F621674B9BECDB009969CA7D72D4C7DE302C71464D9A5AC1CBADAFF83DC74D7343EC5A2F65FDBC0D79ACE95B000B4B97D9A1DB31874AC25CC7A580EE3DE2C2D11B5639857A9778326F63CDA0B1FFC1C061171F9CEB1CECF92AFE68BF7CCDD097E9173FAAD1C61D4129A9C1237C21ABC8E4C08D25C226E5FE693F5B7C2FB8B5A19336B699BF17EE9B",
+    "last": true
+   },
+   "hex": "000080A70446012CE4AA162DE37C82280AF0A9E9F40E76AE1BE324F97CC471955E41C7B980434FA2957B84CA42B800B69314B779072FA61B6597E9C3D29373203881CEA1B4C8A7C7A007547889AB6C63E26D66670CF88D2E9AAC53E95A8CD001086492C1E95F02CA6CEFD900DA2E91BA2B86E0642D0B1340F4A0070775BE6D1436526F2519AB79836B9CFB1C1F8C546B1B99BDD4AB6CD4FD5051CD4957FA55AD82C4CA88BE6BA0800C5DF89010F621674B9BECDB009969CA7D72D4C7DE302C71464D9A5AC1CBADAFF83DC74D7343EC5A2F65FDBC0D79ACE95B000B4B97D9A1DB31874AC25CC7A580EE3DE2C2D11B5639857A9778326F63CDA0B1FFC1C061171F9CEB1CECF92AFE68BF7CCDD097E9173FAAD1C61D4129A9C1237C21ABC8E4C08D25C226E5FE693F5B7C2FB8B5A19336B699BF17EE9B80",
+   "decoded": {
+    "imageId": 0,
+    "offset": 10945606,
+    "data": "E4AA162DE37C82280AF0A9E9F40E76AE1BE324F97CC471955E41C7B980434FA2957B84CA42B800B69314B779072FA61B6597E9C3D29373203881CEA1B4C8A7C7A007547889AB6C63E26D66670CF88D2E9AAC53E95A8CD001086492C1E95F02CA6CEFD900DA2E91BA2B86E0642D0B1340F4A0070775BE6D1436526F2519AB79836B9CFB1C1F8C546B1B99BDD4AB6CD4FD5051CD4957FA55AD82C4CA88BE6BA0800C5DF89010F621674B9BECDB009969CA7D72D4C7DE302C71464D9A5AC1CBADAFF83DC74D7343EC5A2F65FDBC0D79ACE95B000B4B97D9A1DB31874AC25CC7A580EE3DE2C2D11B5639857A9778326F63CDA0B1FFC1C061171F9CEB1CECF92AFE68BF7CCDD097E9173FAAD1C61D4129A9C1237C21ABC8E4C08D25C226E5FE693F5B7C2FB8B5A19336B699BF17EE9B",
+    "last": true
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 51547,
+    "offset": 12376992,
+    "data": "C3",
+    "last": true
+   },
+   "hex": "C95B80BCDBA00000C380",
+   "decoded": {
+    "imageId": 51547,
+    "offset": 12376992,
+    "data": "C3",
+    "last": true
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.FirmwareChunk",
+   "value": {
+    "imageId": 41066,
+    "offset": 0,
+    "data": "466B1208CCD1F22AE4B3A2A2A0C253298EDDF961E862F3667ED75C3059CB024F3C39369D40970FEB4E7FEF0F8F9DA0CF17778392F9BDA6E477AB89F574C1D118B05266668CB5E8F6CE0E136872E4D6E0368D19E24870567E935226950E19768CAED65E3D373A42618E8DC4EBAA3D7192D4A9BEE7A8EED040FCE7D33A8F53E8B49886BA9C8599A9FC4AB753BAAB6AD355E093C0645A8EE4BF051D404F6608D13BA410532483D50D3B00C29CF09B159592147D59FC93835909A2FA966759599541E518169B16AFD10A86846498F1F324F088AE3BE8AED5A720B64A81893FA5E2A62C5A0A83FFF97B64AC4F760E1FC117AED5A6DFAA1EAC931070F5E5CC2D48CBE1A2BE6B97E9A1F08F33D63C5F5F9801F432D3B399C537877FC7FA120A14AE376483956C615580C534B550774870",
+    "last": false
+   },
+   "hex": "A06A0000012C466B1208CCD1F22AE4B3A2A2A0C253298EDDF961E862F3667ED75C3059CB024F3C39369D40970FEB4E7FEF0F8F9DA0CF17778392F9BDA6E477AB89F574C1D118B05266668CB5E8F6CE0E136872E4D6E0368D19E24870567E935226950E19768CAED65E3D373A42618E8DC4EBAA3D7192D4A9BEE7A8EED040FCE7D33A8F53E8B49886BA9C8599A9FC4AB753BAAB6AD355E093C0645A8EE4BF051D404F6608D13BA410532483D50D3B00C29CF09B159592147D59FC93835909A2FA966759599541E518169B16AFD10A86846498F1F324F088AE3BE8AED5A720B64A81893FA5E2A62C5A0A83FFF97B64AC4F760E1FC117AED5A6DFAA1EAC931070F5E5CC2D48CBE1A2BE6B97E9A1F08F33D63C5F5F9801F432D3B399C537877FC7FA120A14AE376483956C615580C534B55077487000",
+   "decoded": {
+    "imageId": 41066,
+    "offset": 0,
+    "data": "466B1208CCD1F22AE4B3A2A2A0C253298EDDF961E862F3667ED75C3059CB024F3C39369D40970FEB4E7FEF0F8F9DA0CF17778392F9BDA6E477AB89F574C1D118B05266668CB5E8F6CE0E136872E4D6E0368D19E24870567E935226950E19768CAED65E3D373A42618E8DC4EBAA3D7192D4A9BEE7A8EED040FCE7D33A8F53E8B49886BA9C8599A9FC4AB753BAAB6AD355E093C0645A8EE4BF051D404F6608D13BA410532483D50D3B00C29CF09B159592147D59FC93835909A2FA966759599541E518169B16AFD10A86846498F1F324F088AE3BE8AED5A720B64A81893FA5E2A62C5A0A83FFF97B64AC4F760E1FC117AED5A6DFAA1EAC931070F5E5CC2D48CBE1A2BE6B97E9A1F08F33D63C5F5F9801F432D3B399C537877FC7FA120A14AE376483956C615580C534B550774870",
+    "last": false
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncRequest": {
+     "requestId": 153,
+     "deviceTime": 3946211867
+    }
+   },
+   "hex": "1099C0EB366A1B",
+   "decoded": {
+    "timeSyncRequest": {
+     "requestId": 153,
+     "deviceTime": 3946211867
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "heartbeat": {
+     "sequenceNumber": 132,
+     "uptimeSeconds": 0
+    }
+   },
+   "hex": "00840000",
+   "decoded": {
+    "heartbeat": {
+     "sequenceNumber": 132,
+     "uptimeSeconds": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "firmwareChunk": {
+     "imageId": 3762,
+     "offset": 999359,
+     "data": "16",
+     "last": true
+    }
+   },
+   "hex": "700EB2800F3FBF00001680",
+   "decoded": {
+    "firmwareChunk": {
+     "imageId": 3762,
+     "offset": 999359,
+     "data": "16",
+     "last": true
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "firmwareChunk": {
+     "imageId": 378,
+     "offset": 13608406,
+     "data": "AC5352E64B144FA5ABF6DC3AA655CF576FC2078B4F2A75340137DA14A0CC97773D618EC3D12D91BB01D456348D763050FF7E83E690CA9781DE1DE5143A3A04DE5F64FC44C70C8541304C8A7BD340A68B078A142248B0E772CA0CE5B3487D81C6CF78D52979EB88F2F842B543401CAD9D77590CAF26E295AE7C8A7ABA27D2F8B3CBC3AB5B6A7D121C01222A06FAA432AD5F473CEF71D1A0EDE226ACEF71",
+     "last": false
+    }
+   },
+   "hex": "70017A80CFA5D6009CAC5352E64B144FA5ABF6DC3AA655CF576FC2078B4F2A75340137DA14A0CC97773D618EC3D12D91BB01D456348D763050FF7E83E690CA9781DE1DE5143A3A04DE5F64FC44C70C8541304C8A7BD340A68B078A142248B0E772CA0CE5B3487D81C6CF78D52979EB88F2F842B543401CAD9D77590CAF26E295AE7C8A7ABA27D2F8B3CBC3AB5B6A7D121C01222A06FAA432AD5F473CEF71D1A0EDE226ACEF7100",
+   "decoded": {
+    "firmwareChunk": {
+     "imageId": 378,
+     "offset": 13608406,
+     "data": "AC5352E64B144FA5ABF6DC3AA655CF576FC2078B4F2A75340137DA14A0CC97773D618EC3D12D91BB01D456348D763050FF7E83E690CA9781DE1DE5143A3A04DE5F64FC44C70C8541304C8A7BD340A68B078A142248B0E772CA0CE5B3487D81C6CF78D52979EB88F2F842B543401CAD9D77590CAF26E295AE7C8A7ABA27D2F8B3CBC3AB5B6A7D121C01222A06FAA432AD5F473CEF71D1A0EDE226ACEF71",
+     "last": false
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "heartbeat": {
+     "sequenceNumber": 120,
+     "uptimeSeconds": 4014471730
+    }
+   },
+   "hex": "0078C0EF47FA32",
+   "decoded": {
+    "heartbeat": {
+     "sequenceNumber": 120,
+     "uptimeSeconds": 4014471730
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "configurationReport": {
+     "mode": "periodic",
+     "sensorsEnabled": {
+      "hex": "50",
+      "length": 4
+     },
+     "label": "\u20ac9\u20ac~\u20ac Az\u4e2d0\u00e9\u4e2d990\u00e9\u4e2d0 \u20ac\u00e9A \u00df\u00e900\u4e2dAa"
+    }
+   },
+   "hex": "615033E282AC39E282AC7EE282AC20417AE4B8AD30C3A9E4B8AD393930C3A9E4B8AD3020E282ACC3A94120C39FC3A93030E4B8AD4161",
+   "decoded": {
+    "configurationReport": {
+     "mode": "periodic",
+     "intervalSeconds": 900,
+     "sensorsEnabled": {
+      "hex": "50",
+      "length": 4
+     },
+     "label": "\u20ac9\u20ac~\u20ac Az\u4e2d0\u00e9\u4e2d990\u00e9\u4e2d0 \u20ac\u00e9A \u00df\u00e900\u4e2dAa"
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "measurementBatch": {
+     "deviceId": "B3D8EF2924447BAC",
+     "measurements": [
+      {
+       "timestamp": 0,
+       "temperature": 1250,
+       "humidity": 37,
+       "batteryMv": 0,
+       "position": {
+        "latitude": 654856317,
+        "longitude": 1800000000,
+        "altitudeM": 10000,
+        "accuracyM": 46977
+       }
+      },
+      {
+       "timestamp": 4259134495,
+       "temperature": 988,
+       "humidity": 0,
+       "batteryMv": 0,
+       "position": {
+        "latitude": -737994473,
+        "longitude": 1792004616,
+        "altitudeM": 7012,
+        "accuracyM": 1922
+       }
+      },
+      {
+       "timestamp": 0,
+       "humidity": 39,
+       "batteryMv": 0,
+       "position": {
+        "latitude": -662875530,
+        "longitude": -1649849015
+       }
+      },
+      {
+       "timestamp": 0,
+       "temperature": 0,
+       "batteryMv": 5000
+      },
+      {
+       "timestamp": 3549489128,
+       "humidity": 0,
+       "batteryMv": 0
+      }
+     ]
+    }
+   },
+   "hex": "40B3D8EF2924447BAC23800006724A0000F05CAD397DC0D693A4002AF8B7817CFDDD3C1F056C000000F009A80217C0D619A4081F4C078230004E0000300E223B76C008F31F494000019013882CD390E7E8000000",
+   "decoded": {
+    "measurementBatch": {
+     "deviceId": "B3D8EF2924447BAC",
+     "measurements": [
+      {
+       "timestamp": 0,
+       "temperature": 1250,
+       "humidity": 37,
+       "batteryMv": 0,
+       "position": {
+        "latitude": 654856317,
+        "longitude": 1800000000,
+        "altitudeM": 10000,
+        "accuracyM": 46977
+       }
+      },
+      {
+       "timestamp": 4259134495,
+       "temperature": 988,
+       "humidity": 0,
+       "batteryMv": 0,
+       "position": {
+        "latitude": -737994473,
+        "longitude": 1792004616,
+        "altitudeM": 7012,
+        "accuracyM": 1922
+       }
+      },
+      {
+       "timestamp": 0,
+       "humidity": 39,
+       "batteryMv": 0,
+       "position": {
+        "latitude": -662875530,
+        "longitude": -1649849015
+       }
+      },
+      {
+       "timestamp": 0,
+       "temperature": 0,
+       "batteryMv": 5000
+      },
+      {
+       "timestamp": 3549489128,
+       "humidity": 0,
+       "batteryMv": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "configurationQuery": {
+     "requestId": 255
+    }
+   },
+   "hex": "50FF",
+   "decoded": {
+    "configurationQuery": {
+     "requestId": 255
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncResponse": {
+     "requestId": 0,
+     "serverTime": 95410804
+    }
+   },
+   "hex": "2000C005AFDA74",
+   "decoded": {
+    "timeSyncResponse": {
+     "requestId": 0,
+     "serverTime": 95410804,
+     "correctionMs": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncResponse": {
+     "requestId": 167,
+     "serverTime": 2232406304
+    }
+   },
+   "hex": "20A7C0850FD120",
+   "decoded": {
+    "timeSyncResponse": {
+     "requestId": 167,
+     "serverTime": 2232406304,
+     "correctionMs": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "configurationQuery": {
+     "requestId": 17
+    }
+   },
+   "hex": "5011",
+   "decoded": {
+    "configurationQuery": {
+     "requestId": 17
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "measurementBatch": {
+     "deviceId": "7EF7841BF8879ECB",
+     "measurements": [
+      {
+       "timestamp": 2194237547,
+       "temperature": 177,
+       "batteryMv": 5000
+      },
+      {
+       "timestamp": 0,
+       "temperature": 844,
+       "humidity": 0,
+       "batteryMv": 0,
+       "position": {
+        "latitude": 0,
+        "longitude": 1800000000,
+        "altitudeM": -1000
+       },
+       "pressurePa": 88744
+      },
+      {
+       "timestamp": 1942517161,
+       "temperature": 704,
+       "humidity": 73,
+       "batteryMv": 3914,
+       "position": {
+        "latitude": 0,
+        "longitude": 224039446,
+        "accuracyM": 7539
+       }
+      },
+      {
+       "timestamp": 884943719,
+       "humidity": 16,
+       "batteryMv": 490
+      },
+      {
+       "timestamp": 4294967295,
+       "humidity": 0,
+       "batteryMv": 5000,
+       "position": {
+        "latitude": -557205360,
+        "longitude": -1249938375,
+        "altitudeM": 3083
+       }
+      }
+     ]
+    }
+   },
+   "hex": "407EF7841BF8879ECB226082C9686B02411388F00004DC000000B035A4E900C0D693A40000000103A0E5787C73C875A90450920F4A7035A4E900C078A464161D732C34BF2B672001EA3CFFFFFFFF001388B0146EA190C020C946390FF3",
+   "decoded": {
+    "measurementBatch": {
+     "deviceId": "7EF7841BF8879ECB",
+     "measurements": [
+      {
+       "timestamp": 2194237547,
+       "temperature": 177,
+       "batteryMv": 5000
+      },
+      {
+       "timestamp": 0,
+       "temperature": 844,
+       "humidity": 0,
+       "batteryMv": 0,
+       "position": {
+        "latitude": 0,
+        "longitude": 1800000000,
+        "altitudeM": -1000
+       },
+       "pressurePa": 88744
+      },
+      {
+       "timestamp": 1942517161,
+       "temperature": 704,
+       "humidity": 73,
+       "batteryMv": 3914,
+       "position": {
+        "latitude": 0,
+        "longitude": 224039446,
+        "accuracyM": 7539
+       }
+      },
+      {
+       "timestamp": 884943719,
+       "humidity": 16,
+       "batteryMv": 490
+      },
+      {
+       "timestamp": 4294967295,
+       "humidity": 0,
+       "batteryMv": 5000,
+       "position": {
+        "latitude": -557205360,
+        "longitude": -1249938375,
+        "altitudeM": 3083
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncResponse": {
+     "requestId": 255,
+     "serverTime": 2847490046
+    }
+   },
+   "hex": "20FFC0A9B93FFE",
+   "decoded": {
+    "timeSyncResponse": {
+     "requestId": 255,
+     "serverTime": 2847490046,
+     "correctionMs": 0
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncRequest": {
+     "requestId": 196,
+     "deviceTime": 533476102
+    }
+   },
+   "hex": "10C4C01FCC3306",
+   "decoded": {
+    "timeSyncRequest": {
+     "requestId": 196,
+     "deviceTime": 533476102
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Payload",
+   "value": {
+    "timeSyncRequest": {
+     "requestId": 0,
+     "deviceTime": 3066852445
+    }
+   },
+   "hex": "1000C0B6CC745D",
+   "decoded": {
+    "timeSyncRequest": {
+     "requestId": 0,
+     "deviceTime": 3066852445
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "configurationReport",
+    "payload": {
+     "configurationReport": {
+      "sensorsEnabled": {
+       "hex": "F0",
+       "length": 4
+      }
+     }
+    },
+    "crc": "096BEBE8"
+   },
+   "hex": "5983C0096BEBE8",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "configurationReport",
+    "payload": {
+     "configurationReport": {
+      "mode": "periodic",
+      "intervalSeconds": 900,
+      "sensorsEnabled": {
+       "hex": "F0",
+       "length": 4
+      }
+     }
+    },
+    "crc": "096BEBE8"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "timeSyncResponse",
+    "payload": {
+     "measurementBatch": {
+      "deviceId": "005680F6F8747F61",
+      "measurements": [
+       {
+        "timestamp": 1006707567,
+        "temperature": 1250,
+        "humidity": 70,
+        "batteryMv": 1035,
+        "position": {
+         "latitude": 0,
+         "longitude": -366795111,
+         "altitudeM": -1000,
+         "accuracyM": 0
+        }
+       },
+       {
+        "timestamp": 2301521497,
+        "humidity": 100,
+        "batteryMv": 2098,
+        "position": {
+         "latitude": 0,
+         "longitude": -506305629,
+         "altitudeM": 5884
+        }
+       },
+       {
+        "timestamp": 2531225770,
+        "humidity": 1,
+        "batteryMv": 0
+       },
+       {
+        "timestamp": 0,
+        "humidity": 0,
+        "batteryMv": 5000
+       },
+       {
+        "timestamp": 0,
+        "batteryMv": 4678
+       }
+      ]
+     }
+    },
+    "crc": "F2BAC397"
+   },
+   "hex": "4900005680F6F8747F6123E03C01236F06728C040BF035A4E900C0556CF899000000003C892E6E59C80832B035A4E900C04D1C35A31AE42C96DF70AA020000200000138800001246F2BAC397",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "timeSyncResponse",
+    "payload": {
+     "measurementBatch": {
+      "deviceId": "005680F6F8747F61",
+      "measurements": [
+       {
+        "timestamp": 1006707567,
+        "temperature": 1250,
+        "humidity": 70,
+        "batteryMv": 1035,
+        "position": {
+         "latitude": 0,
+         "longitude": -366795111,
+         "altitudeM": -1000,
+         "accuracyM": 0
+        }
+       },
+       {
+        "timestamp": 2301521497,
+        "humidity": 100,
+        "batteryMv": 2098,
+        "position": {
+         "latitude": 0,
+         "longitude": -506305629,
+         "altitudeM": 5884
+        }
+       },
+       {
+        "timestamp": 2531225770,
+        "humidity": 1,
+        "batteryMv": 0
+       },
+       {
+        "timestamp": 0,
+        "humidity": 0,
+        "batteryMv": 5000
+       },
+       {
+        "timestamp": 0,
+        "batteryMv": 4678
+       }
+      ]
+     }
+    },
+    "crc": "F2BAC397"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "measurementReport",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 0,
+      "offset": 16777215,
+      "data": "82E31CE5105CAF84A0D7F4CB26E1BB84DCB160BA5F29C6C55C1427101FB39BB1975D1DAF7A0DA966E7FD9314",
+      "last": true
+     }
+    }
+   },
+   "hex": "0DC0000080FFFFFF002B82E31CE5105CAF84A0D7F4CB26E1BB84DCB160BA5F29C6C55C1427101FB39BB1975D1DAF7A0DA966E7FD931480",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "measurementReport",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 0,
+      "offset": 16777215,
+      "data": "82E31CE5105CAF84A0D7F4CB26E1BB84DCB160BA5F29C6C55C1427101FB39BB1975D1DAF7A0DA966E7FD9314",
+      "last": true
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "measurementBatch",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 157,
+      "serverTime": 0
+     }
+    }
+   },
+   "hex": "10809D0000",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "measurementBatch",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 157,
+      "serverTime": 0,
+      "correctionMs": 0
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "configurationQuery",
+    "payload": {
+     "heartbeat": {
+      "sequenceNumber": 52,
+      "uptimeSeconds": 0
+     }
+    }
+   },
+   "hex": "1400340000",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "configurationQuery",
+    "payload": {
+     "heartbeat": {
+      "sequenceNumber": 52,
+      "uptimeSeconds": 0
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "configurationReport",
+    "payload": {
+     "configurationQuery": {
+      "requestId": 154,
+      "keys": [
+       "VQrq:LTLyz);Nlq`",
+       "Z",
+       "t",
+       "*4p W=Ia"
+      ]
+     }
+    },
+    "crc": "4B59C78A"
+   },
+   "hex": "59609A2780565172713A4C544C797A293B4E6C7160005A0074702A347020573D49614B59C78A",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "configurationReport",
+    "payload": {
+     "configurationQuery": {
+      "requestId": 154,
+      "keys": [
+       "VQrq:LTLyz);Nlq`",
+       "Z",
+       "t",
+       "*4p W=Ia"
+      ]
+     }
+    },
+    "crc": "4B59C78A"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "firmwareChunk",
+    "payload": {
+     "configurationReport": {
+      "sensorsEnabled": {
+       "hex": "F0",
+       "length": 4
+      },
+      "label": "\u03a9\u0436 ~z\u00e90~\u0436A\u03a9\u00df~  00\u0436 z~ 0 9z\u4e2d\u00e9\u20ac"
+     }
+    }
+   },
+   "hex": "1D87C029CEA9D0B6207E7AC3A9307ED0B641CEA9C39F7E20203030D0B6207A7E203020397AE4B8ADC3A9E282AC",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "firmwareChunk",
+    "payload": {
+     "configurationReport": {
+      "mode": "periodic",
+      "intervalSeconds": 900,
+      "sensorsEnabled": {
+       "hex": "F0",
+       "length": 4
+      },
+      "label": "\u03a9\u0436 ~z\u00e90~\u0436A\u03a9\u00df~  00\u0436 z~ 0 9z\u4e2d\u00e9\u20ac"
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "configurationReport",
+    "payload": {
+     "timeSyncRequest": {
+      "requestId": 255,
+      "deviceTime": 2338786526
+     }
+    }
+   },
+   "hex": "1840FFC08B670CDE",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "configurationReport",
+    "payload": {
+     "timeSyncRequest": {
+      "requestId": 255,
+      "deviceTime": 2338786526
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "firmwareChunk",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 93,
+      "serverTime": 0
+     }
+    },
+    "crc": "68D6FF45"
+   },
+   "hex": "5C805D000068D6FF45",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "firmwareChunk",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 93,
+      "serverTime": 0,
+      "correctionMs": 0
+     }
+    },
+    "crc": "68D6FF45"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "protocolVersion": 15,
+    "messageType": "measurementReport",
+    "payload": {
+     "configurationReport": {
+      "mode": "periodic",
+      "intervalSeconds": 10,
+      "sensorsEnabled": {
+       "hex": "D0",
+       "length": 4
+      },
+      "label": ""
+     }
+    },
+    "crc": "B921CAE9"
+   },
+   "hex": "F8D8C000D000B921CAE9",
+   "decoded": {
+    "protocolVersion": 15,
+    "messageType": "measurementReport",
+    "payload": {
+     "configurationReport": {
+      "mode": "periodic",
+      "intervalSeconds": 10,
+      "sensorsEnabled": {
+       "hex": "D0",
+       "length": 4
+      },
+      "label": ""
+     }
+    },
+    "crc": "B921CAE9"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "protocolVersion": 7,
+    "messageType": "heartbeat",
+    "payload": {
+     "configurationQuery": {
+      "requestId": 0,
+      "keys": [
+       "~Zj^vk*5goLFjF0K",
+       "u",
+       "QAsqA:X",
+       "?^Iy|@f~z2j8Zu@J"
+      ]
+     }
+    }
+   },
+   "hex": "98160027807E5A6A5E766B2A35676F4C466A46304B00756051417371413A58F03F5E49797C40667E7A326A385A75404A",
+   "decoded": {
+    "protocolVersion": 7,
+    "messageType": "heartbeat",
+    "payload": {
+     "configurationQuery": {
+      "requestId": 0,
+      "keys": [
+       "~Zj^vk*5goLFjF0K",
+       "u",
+       "QAsqA:X",
+       "?^Iy|@f~z2j8Zu@J"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "measurementBatch",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 0,
+      "offset": 0,
+      "data": "5D3424B2405420CC546611F4CFF723CECC9DDCD6B83309B97D4F917126642A337528A85D57949682D36E1B3FC9FB0F9D5ADDEC028B3F182A2B6B34F0C3AEA5EF3BDD7FA64FC577370659024917C9F08140F417497828A735107E31EC5FA5BF24C92B04EB7C694E9466B4FB323CCE13627AB3B0CF975B7712364A95D0948AD8619ADE80EBC50405D6A682E3C42C75F8426BCF71ACF5F08C6DB4F1B531D37D00DBDB9A975E4D279C75ADD9291478B2E5C0515365C4182C6CAA511336D44FD303288207E892DD9AF44332FCFE1BC778F4020BF5E080173BC3AF2EED0C3AF1C826D9D6009270C953E2B65E22921C2D50E3D91E",
+      "last": true
+     }
+    },
+    "crc": "82114744"
+   },
+   "hex": "51C00000000000F05D3424B2405420CC546611F4CFF723CECC9DDCD6B83309B97D4F917126642A337528A85D57949682D36E1B3FC9FB0F9D5ADDEC028B3F182A2B6B34F0C3AEA5EF3BDD7FA64FC577370659024917C9F08140F417497828A735107E31EC5FA5BF24C92B04EB7C694E9466B4FB323CCE13627AB3B0CF975B7712364A95D0948AD8619ADE80EBC50405D6A682E3C42C75F8426BCF71ACF5F08C6DB4F1B531D37D00DBDB9A975E4D279C75ADD9291478B2E5C0515365C4182C6CAA511336D44FD303288207E892DD9AF44332FCFE1BC778F4020BF5E080173BC3AF2EED0C3AF1C826D9D6009270C953E2B65E22921C2D50E3D91E8082114744",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "measurementBatch",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 0,
+      "offset": 0,
+      "data": "5D3424B2405420CC546611F4CFF723CECC9DDCD6B83309B97D4F917126642A337528A85D57949682D36E1B3FC9FB0F9D5ADDEC028B3F182A2B6B34F0C3AEA5EF3BDD7FA64FC577370659024917C9F08140F417497828A735107E31EC5FA5BF24C92B04EB7C694E9466B4FB323CCE13627AB3B0CF975B7712364A95D0948AD8619ADE80EBC50405D6A682E3C42C75F8426BCF71ACF5F08C6DB4F1B531D37D00DBDB9A975E4D279C75ADD9291478B2E5C0515365C4182C6CAA511336D44FD303288207E892DD9AF44332FCFE1BC778F4020BF5E080173BC3AF2EED0C3AF1C826D9D6009270C953E2B65E22921C2D50E3D91E",
+      "last": true
+     }
+    },
+    "crc": "82114744"
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "protocolVersion": 7,
+    "messageType": "timeSyncRequest",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 34022,
+      "offset": 16065066,
+      "data": "DD",
+      "last": true
+     }
+    }
+   },
+   "hex": "985C84E680F5222A0000DD80",
+   "decoded": {
+    "protocolVersion": 7,
+    "messageType": "timeSyncRequest",
+    "payload": {
+     "firmwareChunk": {
+      "imageId": 34022,
+      "offset": 16065066,
+      "data": "DD",
+      "last": true
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "messageType": "measurementReport",
+    "payload": {
+     "measurementBatch": {
+      "deviceId": "4B2C90EEF228A3D0",
+      "measurements": [
+       {
+        "timestamp": 0,
+        "temperature": 1250,
+        "batteryMv": 0,
+        "position": {
+         "latitude": 900000000,
+         "longitude": 710183141,
+         "altitudeM": -1000,
+         "accuracyM": 51623
+        }
+       }
+      ]
+     }
+    }
+   },
+   "hex": "0D004B2C90EEF228A3D002800006720000F06B49D200C0959E5AE50000C9A7",
+   "decoded": {
+    "protocolVersion": 1,
+    "messageType": "measurementReport",
+    "payload": {
+     "measurementBatch": {
+      "deviceId": "4B2C90EEF228A3D0",
+      "measurements": [
+       {
+        "timestamp": 0,
+        "temperature": 1250,
+        "batteryMv": 0,
+        "position": {
+         "latitude": 900000000,
+         "longitude": 710183141,
+         "altitudeM": -1000,
+         "accuracyM": 51623
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  {
+   "type": "Telemetry-Protocol.Message",
+   "value": {
+    "protocolVersion": 2,
+    "messageType": "measurementBatch",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 0,
+      "serverTime": 2410533620,
+      "correctionMs": -32768
+     }
+    }
+   },
+   "hex": "850A00C08FADD2F40000",
+   "decoded": {
+    "protocolVersion": 2,
+    "messageType": "measurementBatch",
+    "payload": {
+     "timeSyncResponse": {
+      "requestId": 0,
+      "serverTime": 2410533620,
+      "correctionMs": -32768
+     }
+    }
+   }
+  }
+ ],
+ "skipped": []
+}

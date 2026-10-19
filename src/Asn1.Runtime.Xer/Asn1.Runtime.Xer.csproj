@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>X.693 XML Encoding Rules: BASIC-XER and CANONICAL-XER (no EXTENDED-XER).</Description>
+    <RootNamespace>Asn1.Runtime.Xer</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Runtime\Asn1.Runtime.csproj" />
+  </ItemGroup>
+</Project>

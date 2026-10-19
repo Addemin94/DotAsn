@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Encoding-independent ASN.1 building blocks shared by the compiler and the runtime: tags, value types (BIT STRING, OBJECT IDENTIFIER, NULL), character repertoires and the structured constraint model.</Description>
+    <RootNamespace>Asn1</RootNamespace>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,708 @@
+{
+  "specs": [
+    "test-vectors/corpus/derived/zforce_not_implied.asn"
+  ],
+  "seed": 11,
+  "cases": [
+    {
+      "type": "ProtocolMessage.ProtocolMessage",
+      "value": {"response":{"deviceAddress":"EADE","touchFormat":{"touchDescriptor":{"hex":"","length":0}},"operationMode":{"signals":true,"gestures":true},"deviceCount":{"airDevices":55,"plusDevices":100},"resultCode":"-18446744073709551621","diagnosticsSettings":{"signalMaximum":true},"storageOperation":{"storageIdentifier":59,"operationType":-70000,"offset":"-1267650600210479308940948540757","size":"-18446744073709516849"},"signalsLayout":{"data":"CAE6D587B0CF4A06D763CDD1"},"errorInformation":{"systemTests":{"cpu":{"hex":"","length":0},"flashProgramChecksum":{"hex":"","length":0},"ram":{"hex":"","length":0},"lsi":{"hex":"","length":0},"hse":{"hex":"A7E583A040E4CA19","length":64},"testFlowCheckpoint1":{"hex":"B240","length":10},"nvmLogFull":{"hex":"CA8BE94AB3DEABE5","length":64},"stackOverflow":{"hex":"","length":0},"hardFault":{"hex":"","length":0},"logicError":{"hex":"","length":0}},"asics":[{"index":69900,"irLeds":{"componentOpen":{"hex":"","length":0},"componentOpenApplicable":{"hex":"","length":0},"componentShort":{"hex":"","length":0},"componentShortApplicable":{"hex":"","length":0}},"irPds":{"componentShortApplicable":{"hex":"584A0AEBCD157AD1","length":64}},"overTemperatureExternalSensor":{"hex":"","length":0},"porFault":{"hex":"","length":0},"memoryOverflow":{"hex":"B91F714CC1D8","length":45}},{"irLeds":{"componentOpenApplicable":{"hex":"95036580","length":25},"componentShort":{"hex":"472D8B32B752F754","length":64},"componentShortApplicable":{"hex":"A390C4FE721F543A","length":64}},"irPds":{"componentShortApplicable":{"hex":"C522EA","length":23}},"offline":{"hex":"","length":0},"analogOrVbgFault":{"hex":"128F0E1F70309791","length":64},"internalThermalShutdown":{"hex":"F6466F31AE9D8E6F","length":64},"proxResultOverflow":{"hex":"3E42CD54","length":30}},{"index":1037581111806,"irLeds":{"componentOpen":{"hex":"4C731C6A88F92768","length":64},"componentShort":{"hex":"","length":0}},"offline":{"hex":"54F92B5840E549F5","length":64},"timeout":{"hex":"D24CFEF55A30","length":44},"porFault":{"hex":"FE2BA29B18","length":37},"analogOrVbgFault":{"hex":"EC7AE70C8DD2758F","length":64}}],"visibleLedDrivers":[]},"errorLog":-4177,"errorThresholds":{"asicsThresholds":[],"visibleLedDriversThresholds":[{"visibleLedDriverIdentifier":-1099511627744,"visibleLedShortThresholds":{"low":"-18446742974197923845","high":-1099511627776}}]}}}
+    },
+    {
+      "type": "ProtocolMessage.ProtocolMessage",
+      "value": {"request":{"deviceAddress":"9C2F","touchFormat":{"touchDescriptor":{"hex":"09AB5202AD","length":40}},"operationMode":{"ledLevels":false,"gestures":true},"frequency":{"finger":"-1267650600228229401496703138215","stylus":286203822975,"idle":"-18446744073709551601"},"resolution":{"x":"-1267650600228229401496703135376"},"status":{"counters":{"scanningCounter":57554,"preparedTouchCounter":0}},"resultCode":0,"diagnosticsSettings":{"forceCalibration":-70000,"calibrationStorageAreaInUse":0},"storageOperation":{"storageIdentifier":110,"operationType":"-1267650600228229401496703164850","offset":0,"size":-1099511627776,"operationStatusCode":"-1267650600228229401496703205376"},"signalsLayout":{"shape":[],"data":"DCB7BA3481EB9E8EA7A54C8D"},"lowSignal":{},"errorInformation":{"systemTests":{"internalWatchdog":{"hex":"","length":0},"flashProgramChecksum":{"hex":"","length":0},"ram":{"hex":"CBE4812DD9813213","length":64},"startupTestChecksum2":{"hex":"2FEC851E6DFF9A8F","length":64},"hse":{"hex":"80","length":1},"hseSwitch":{"hex":"","length":0},"nvmLogFull":{"hex":"F471606F914F3DCD","length":64},"hardFault":{"hex":"8733BA","length":23},"asicSyncSwitch":{"hex":"84D170AB7397","length":48}},"asics":[]},"errorLog":-674059695700}}
+    },
+    {
+      "type": "ProtocolMessage.ProtocolMessage",
+      "value": {"notification":{"notificationMessage":{"touchNotifications":["","8659E02780DE683593D1C467","16D320512B4CEED0BBDB044D"]}}}
+    },
+    {
+      "type": "ProtocolMessage.ProtocolMessage",
+      "value": {"notification":{"notificationMessage":{"bootCompleteNotification":{"asicStatus":"-18446744073709494974","resetSource":{"hex":"","length":0},"globalState":{"hex":"BAF7E3B5E0","length":35}}}}}
+    },
+    {
+      "type": "ProtocolMessage.ProtocolMessage",
+      "value": {"request":{"touchFormat":{},"deviceInformation":{"deviceInstanceInformation":{"physicalWidth":7876,"numberOfSignalAxes":27629,"ledPdPlacementPerPhysicalAxis":[]}},"deviceCount":{"totalNumberOfDevices":0,"coreDevices":127,"airDevices":0},"status":{"counters":{"currentContacts":91,"scanningCounter":0,"preparedTouchCounter":0,"sentTouchCounter":3006,"invalidTouchCounter":0}},"resultCode":-9,"diagnosticsSettings":{"forceCalibration":-711102616050,"rawSignalFiltering":-65,"calibrationStorageAreaInUse":0},"storageOperation":{"storageIdentifier":0,"operationType":"-18446744073709551521","offset":-69974,"size":"1267650600228229401496703205276","operationStatusCode":-360553213992},"lowSignal":{"lowSignalInfo":{"hex":"A559D66A2B7EA867","length":64}},"errorInformation":{"systemTests":{"cpu":{"hex":"","length":0},"startupTestChecksum2":{"hex":"","length":0},"abnormalTermination":{"hex":"385B8240","length":26},"testFlowCheckpoint1":{"hex":"B7D4DEE135E28E59","length":64},"nvmLogFull":{"hex":"C78F386CD3","length":40},"stackOverflow":{"hex":"73FC3767F1","length":40},"logicError":{"hex":"","length":0}},"asics":[{"index":"-1267650600209782657422993653755","porFault":{"hex":"","length":0},"internalThermalShutdown":{"hex":"4585F9D51812009D","length":64},"proxResultOverflow":{"hex":"CE70819645B3D407","length":64}},{"index":0,"irLeds":{"componentOpen":{"hex":"94F78E","length":23},"componentOpenApplicable":{"hex":"1D0FDBA90600","length":41},"componentShortApplicable":{"hex":"","length":0}},"irPds":{"componentOpen":{"hex":"0151588411A3EB1B","length":64},"componentShortApplicable":{"hex":"","length":0}},"porFault":{"hex":"DABA","length":15},"memoryOverflow":{"hex":"80D13BFF9B204FDB","length":64},"proxResultOverflow":{"hex":"","length":0}},{"irPds":{"componentOpen":{"hex":"5B91B3518A9066E5","length":64},"componentOpenApplicable":{"hex":"9B80","length":10},"componentShort":{"hex":"","length":0}},"offline":{"hex":"","length":0},"overTemperatureExternalSensor":{"hex":"","length":0},"porFault":{"hex":"","length":0}}],"visibleLedDrivers":[]},"errorLog":"15805588095635581354"}}
+    },
+    {
+      "type": "ProtocolMessage.Message",
+      "value": {"deviceAddress":"D0D7","enable":{"enable":0},"touchFormat":{},"frequency":{"finger":"1138772851035758573","idle":"-841282579986863517919845346453"},"resultCode":"540349192068307613928836538466","deviceConfiguration":{"trackingMinDistanceMove":11280,"subTouchActiveArea":{"highBoundX":2578},"referenceSignalConfig":255,"sizeRestriction":{"minSize":0},"detectionMode":"-1267650600228229401496703135672","numberOfReportedTouches":117},"diagnosticsSettings":{"rawSignalFiltering":107730267345,"calibrationStorageAreaInUse":78},"storageOperation":{"storageIdentifier":104,"operationType":-70000,"offset":"-1150549057699582053566794786589","size":-1099511565730},"lowSignal":{},"errorLog":-69900,"errorThresholds":{}}
+    },
+    {
+      "type": "ProtocolMessage.Message",
+      "value": {"deviceAddress":"73ED","enable":{"disable":null,"enable":86},"touchFormat":{},"operationMode":{"detection":false,"ledLevels":false,"gestures":false},"frequency":{"finger":"-18446744073709547013"},"resolution":{"x":"-18446744073709551621"},"deviceInformation":{"deviceInstanceInformation":{"productVersionMajor":0,"productVersionMinor":8063,"physicalWidth":22729,"signalsPerSignalAxis":[0,"4158549187787446882",0],"ledsPerPhysicalAxis":[1099511627676,"-18446744073709551621"]},"storageInformation":{"storageAreas":[],"maxReadSize":69900,"maxWriteSize":"-1267650600228229400697755442943"},"lightingInformation":{"numberOfLeds":"834706762718979854903011722840","bitsPerLedChannel":["-436736088485736963887733749701",-1099511627749,-100]}},"deviceCount":{"airDevices":127,"plusDevices":0},"status":{"counters":{"currentContacts":96,"sentTouchCounter":3473}},"deviceConfiguration":{"numberOfTrackedTouches":0,"trackingMinDistanceMove":0,"sizeRestriction":{"minSizeEnabled":false}},"diagnosticsSettings":{"forceCalibration":-25279,"rawSignalFiltering":-70000,"calibrationStorageAreaInUse":0},"lighting":{},"errorCounterClear":null,"errorInformation":{"systemTests":{"ram":{"hex":"0E8383530A","length":39},"startupTestChecksum2":{"hex":"","length":0},"lsi":{"hex":"0D1045CE636963D1","length":64},"hse":{"hex":"83250C5E10","length":36},"hseSwitch":{"hex":"","length":0},"externalClockSource":{"hex":"49552E761C","length":38},"abnormalTermination":{"hex":"1081AE189653CB49","length":64},"testFlowCheckpoint1":{"hex":"590FB718B70C5161","length":64},"testFlowCheckpoint2":{"hex":"E980","length":9},"nvmFlashCorrupt":{"hex":"7F15B8EA923D766B","length":64},"hardFault":{"hex":"","length":0},"asicSyncSwitch":{"hex":"","length":0}},"visibleLedDrivers":[]},"errorThresholds":{"asicsThresholds":[{"asicIdentifier":0,"irLedOpenThresholds":{"low":45320,"high":"8048476919925988359"},"irPdOpenThresholds":{},"irPdShortThresholds":{}},{"irLedShortThresholds":{"low":"-18446744073709543224","high":"-1267650600228229401496703205376"},"irPdOpenThresholds":{"low":"-17687226301636653733","high":"70505962571615669171288780911"}},{"irLedShortThresholds":{"high":-36689},"irPdOpenThresholds":{"low":69900}}]}}
+    },
+    {
+      "type": "ProtocolMessage.Message",
+      "value": {"deviceAddress":"9275","operationMode":{"detection":false,"signals":false,"ledLevels":false,"detectionHid":false},"deviceCount":{"plusDevices":36,"lightingDevices":96},"status":{},"resultCode":"-1267650600228229401339097522781","deviceConfiguration":{"numberOfTrackedTouches":0,"subTouchActiveArea":{"reverseY":true},"sizeRestriction":{},"detectionMode":"-676770149435603983742916289378","numberOfReportedTouches":0},"diagnosticsSettings":{"forceCalibration":-70000,"rawSignalFiltering":67635426131},"lowSignal":{"lowSignalInfo":{"hex":"","length":0}}}
+    },
+    {
+      "type": "ProtocolMessage.Message",
+      "value": {"deviceAddress":"9E21","operationMode":{"signals":false,"gestures":true},"resolution":{"y":"-18446743444760642389"},"openShort":{"openShortInfo":[],"errorCount":48},"deviceInformation":{"platformInformation":{"platformVersionMinor":0,"protocolVersionMajor":32767,"hardwareIdentifier":"E}","hardwareVersion":"$\u001C8\u001D\u0002o\u0006F%A\u00011","asicType":"-1267650600228092295741020269336","platformReference":"`K\u0012\u0005\u0015\fc\u0018 C\u0013\u001B","buildTime":"o5m(}\u0005kqR<:D","buildDate":""},"storageInformation":{"storageAreas":[{"storageIdentifier":27,"storageType":0,"storageLocation":0,"storageSize":"-1267650600215614185658279575003"},{"storageIdentifier":0,"storageType":"7183705835877117947","storageSize":"-18446742974197923845"}],"maxReadSize":"-18446744073709551558","maxWriteSize":"-18446744073709481621"},"lightingInformation":{"bitsPerLedChannel":[]}},"resultCode":"726385479550181797159279904323","diagnosticsSettings":{"fixedStrength":0,"rawSignalFiltering":"18446744073709551521","calibrationStorageAreaInUse":60},"storageOperation":{"storageIdentifier":0,"operationType":0,"offset":-69995,"size":-69997,"operationStatusCode":"632029911674339304042719070971"},"signalsLayout":{"dataType":"uint12","shape":[]},"lighting":{"state":"","globalIntensity":24804},"lowSignal":{},"errorCounterClear":null,"errorInformation":{"asics":[]},"errorThresholds":{"asicsThresholds":[{"asicIdentifier":"-1267650600223699418985926214032"},{"asicIdentifier":"192377570459849124021499238531"},{"asicIdentifier":-70000,"irLedOpenThresholds":{"low":-1099511627730,"high":-70000},"irLedShortThresholds":{"low":-470314480592},"irPdOpenThresholds":{"high":"-1267650600228229401034569092653"}}]}}
+    },
+    {
+      "type": "ProtocolMessage.Message",
+      "value": {"enable":{"disable":null,"enable":121},"touchFormat":{"touchDescriptor":{"hex":"B5930652","length":31}},"operationMode":{"detection":false,"detectionHid":true},"resolution":{"x":0,"y":-533085550984,"z":-1099511627776},"deviceInformation":{"deviceInstanceInformation":{"productVersionMajor":0,"physicalWidth":32767,"numberOfSignalAxes":14172,"signalsPerSignalAxis":[-69900,0,"-18446743092178824327"],"ledsPerPhysicalAxis":[],"pdsPerPhysicalAxis":["-18446744044892445611",-50,"-1267650600228229401496703205376"]},"lightingInformation":{"numberOfLeds":0}},"lowSignal":{},"errorInformation":{},"errorThresholds":{"visibleLedDriversThresholds":[{"visibleLedOpenThresholds":{},"visibleLedShortThresholds":{}},{"visibleLedDriverIdentifier":-1099511627776},{"visibleLedOpenThresholds":{}}]}}
+    },
+    {
+      "type": "ProtocolMessage.Notification",
+      "value": {"deviceAddress":"4380","notificationMessage":{"coreSignals":[]}}
+    },
+    {
+      "type": "ProtocolMessage.Notification",
+      "value": {"deviceAddress":"B5BB","notificationMessage":{"statusNotification":{"hardwareError":null,"singleAxisTouchError":false,"touchesIgnored":false,"lowSignalError":false,"error":{"errorEntry":{"systemTest":{"cpu":{"hex":"36FD7CD7FBA99D5C","length":62},"internalWatchdog":{"hex":"BB49A30EE20C523F","length":64},"flashProgramChecksum":{"hex":"40A89CDB80","length":33},"lsi":{"hex":"","length":0},"hse":{"hex":"B9C4965FAED21207","length":64},"hseSwitch":{"hex":"94DA33BB","length":32},"externalClockSource":{"hex":"6090A1201B36886D","length":64},"testFlowCheckpoint2":{"hex":"","length":0},"nvmLogFull":{"hex":"91394FD437BAD579","length":64},"stackOverflow":{"hex":"","length":0},"hardFault":{"hex":"FF1D","length":16},"logicError":{"hex":"213F363B40FB0C1F","length":64}}}},"errorLog":{"sessionIdentifier":13548,"timestamp":"-1267650600228229401496703205376","isLastEntry":null,"errorEntry":{"asic":{"irPdIndex":-1099511627775,"open":false,"short":false,"overTemperatureExternalSensor":false,"porFault":true,"analogOrVbgFault":false,"internalThermalShutdown":true,"proxResultOverflow":false}},"resetCause":"408294859314926477041391809069"}}},"notificationLatency":708934091718}
+    },
+    {
+      "type": "ProtocolMessage.Notification",
+      "value": {"deviceAddress":"9E9C","notificationMessage":{"airSignals":{"data":"9DDC84FF8C323C60F3D39927"}},"notificationLatency":-69900}
+    },
+    {
+      "type": "ProtocolMessage.Notification",
+      "value": {"notificationMessage":{"airSignals":{"shape":[]}},"notificationTimestamp":"-1267650600228229401496703191225","notificationLatency":"1267650600209782657422993653755"}
+    },
+    {
+      "type": "ProtocolMessage.Notification",
+      "value": {"notificationMessage":{"airMaximum":{"dataType":"int8","shape":["-1267650600228229401496703205376"]}}}
+    },
+    {
+      "type": "ProtocolMessage.DeviceAddress",
+      "value": "0656"
+    },
+    {
+      "type": "ProtocolMessage.DeviceAddress",
+      "value": "8301"
+    },
+    {
+      "type": "ProtocolMessage.DeviceAddress",
+      "value": "2A2B"
+    },
+    {
+      "type": "ProtocolMessage.DeviceAddress",
+      "value": "00A4"
+    },
+    {
+      "type": "ProtocolMessage.DeviceAddress",
+      "value": "C0E5"
+    },
+    {
+      "type": "ProtocolMessage.TouchDescriptor",
+      "value": {"hex":"","length":0}
+    },
+    {
+      "type": "ProtocolMessage.TouchDescriptor",
+      "value": {"hex":"5CC7D42372906F9F","length":64}
+    },
+    {
+      "type": "ProtocolMessage.TouchDescriptor",
+      "value": {"hex":"DFE7DBA5C4E6EE6F","length":64}
+    },
+    {
+      "type": "ProtocolMessage.TouchDescriptor",
+      "value": {"hex":"E7917BAC36BC2DE5","length":64}
+    },
+    {
+      "type": "ProtocolMessage.TouchDescriptor",
+      "value": {"hex":"E17821123F","length":40}
+    },
+    {
+      "type": "ProtocolMessage.TouchNotification",
+      "value": "44EF74EB2E5E8CA1"
+    },
+    {
+      "type": "ProtocolMessage.TouchNotification",
+      "value": ""
+    },
+    {
+      "type": "ProtocolMessage.TouchNotification",
+      "value": "6F4A854D8A1D20DAD3F0FA2D"
+    },
+    {
+      "type": "ProtocolMessage.TouchNotification",
+      "value": "ED76D637BDC2D1FF85DDF7BC"
+    },
+    {
+      "type": "ProtocolMessage.TouchNotification",
+      "value": "AADC87A3F51E611A53996A1B"
+    },
+    {
+      "type": "ProtocolMessage.Timestamp",
+      "value": "-18446743752254623245"
+    },
+    {
+      "type": "ProtocolMessage.Timestamp",
+      "value": "1008050834431322287530309518559"
+    },
+    {
+      "type": "ProtocolMessage.Timestamp",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ProtocolMessage.Timestamp",
+      "value": -1099511570427
+    },
+    {
+      "type": "ProtocolMessage.Timestamp",
+      "value": 1099511557776
+    },
+    {
+      "type": "ProtocolMessage.Latency",
+      "value": "11552418368247234441"
+    },
+    {
+      "type": "ProtocolMessage.Latency",
+      "value": -1099511627676
+    },
+    {
+      "type": "ProtocolMessage.Latency",
+      "value": "-18446744073709551605"
+    },
+    {
+      "type": "ProtocolMessage.Latency",
+      "value": 0
+    },
+    {
+      "type": "ProtocolMessage.Latency",
+      "value": "-18446744073709515557"
+    },
+    {
+      "type": "ProtocolMessage.AsicType",
+      "value": 0
+    },
+    {
+      "type": "ProtocolMessage.AsicType",
+      "value": -1099511627776
+    },
+    {
+      "type": "ProtocolMessage.AsicType",
+      "value": "-1267650600228229400397191577600"
+    },
+    {
+      "type": "ProtocolMessage.AsicType",
+      "value": -1099511627724
+    },
+    {
+      "type": "ProtocolMessage.AsicType",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ProtocolMessage.StorageIdentifier",
+      "value": 89
+    },
+    {
+      "type": "ProtocolMessage.StorageIdentifier",
+      "value": 127
+    },
+    {
+      "type": "ProtocolMessage.StorageIdentifier",
+      "value": 0
+    },
+    {
+      "type": "ProtocolMessage.StorageIdentifier",
+      "value": 41
+    },
+    {
+      "type": "ProtocolMessage.StorageIdentifier",
+      "value": 23
+    },
+    {
+      "type": "ProtocolMessage.SignedInteger",
+      "value": "-18446743540831644928"
+    },
+    {
+      "type": "ProtocolMessage.SignedInteger",
+      "value": "635783910070651148866205212149"
+    },
+    {
+      "type": "ProtocolMessage.SignedInteger",
+      "value": "-18446744073709548664"
+    },
+    {
+      "type": "ProtocolMessage.SignedInteger",
+      "value": -70000
+    },
+    {
+      "type": "ProtocolMessage.SignedInteger",
+      "value": "-1267650600228229401205482268180"
+    },
+    {
+      "type": "ProtocolMessage.LedPdPlacement",
+      "value": 0
+    },
+    {
+      "type": "ProtocolMessage.LedPdPlacement",
+      "value": "-18446742974197923845"
+    },
+    {
+      "type": "ProtocolMessage.LedPdPlacement",
+      "value": "815388483547805174706018636118"
+    },
+    {
+      "type": "ProtocolMessage.LedPdPlacement",
+      "value": "-4881003028218134695"
+    },
+    {
+      "type": "ProtocolMessage.LedPdPlacement",
+      "value": "-18446744073709551621"
+    },
+    {
+      "type": "ProtocolMessage.GestureNotification",
+      "value": {"gestureStatus":"-1267650600228229401496703205276","gestureIdentifier":0,"gestureType":"17416935690601276697","originX":"2744424312193869088","sizeX":"-1267650600217068212989050580896","sizeY":-100,"deltaY":-69942}
+    },
+    {
+      "type": "ProtocolMessage.GestureNotification",
+      "value": {"gestureStatus":"-18446742974197923845","gestureIdentifier":-587166364842,"gestureType":"23449438448014193691044329202","originX":-70000,"originY":"-1267650600228229401091765668323","sizeY":"1248395854526023283579148047704","deltaX":"-18446744073709551621","deltaY":"3304417056247385336"}
+    },
+    {
+      "type": "ProtocolMessage.GestureNotification",
+      "value": {"gestureStatus":43404,"gestureIdentifier":"-1267650600228229400789273933277","gestureType":50833,"originX":"-1267650600217574285262962280719","sizeX":"2015831307430994342","sizeY":20854}
+    },
+    {
+      "type": "ProtocolMessage.GestureNotification",
+      "value": {"gestureStatus":"-1267650600228229401496703185066","gestureType":"5801831651713416130","originY":"618916817619301743631660246565","sizeX":-1099511627776,"deltaY":"-18446744073709481621"}
+    },
+    {
+      "type": "ProtocolMessage.GestureNotification",
+      "value": {"gestureStatus":"539268679057042370884406619796","gestureIdentifier":0,"gestureType":69900,"originX":0,"deltaX":-100,"deltaY":-1099511627774}
+    },
+    {
+      "type": "ProtocolMessage.BootCompleteNotification",
+      "value": {"asicStatus":-69952,"resetSource":{"hex":"","length":0},"globalState":{"hex":"D198","length":13}}
+    },
+    {
+      "type": "ProtocolMessage.BootCompleteNotification",
+      "value": {"asicStatus":-1099511610761,"resetSource":{"hex":"","length":0},"globalState":{"hex":"70","length":4}}
+    },
+    {
+      "type": "ProtocolMessage.BootCompleteNotification",
+      "value": {"asicStatus":0,"resetSource":{"hex":"0812CF6BDC51189F","length":64},"globalState":{"hex":"D056B6FEE13340","length":50}}
+    },
+    {
+      "type": "ProtocolMessage.BootCompleteNotification",
+      "value": {"asicStatus":"-1267650600209782657422993653755","resetSource":{"hex":"","length":0},"globalState":{"hex":"D2D7C337343D9329","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.BootCompleteNotification",
+      "value": {"asicStatus":-321445458064,"resetSource":{"hex":"","length":0},"globalState":{"hex":"67F304DC988ACEC1","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.RawData",
+      "value": [{"uint8":""},{"uint16":"4C1853539533"},{"uint16":""}]
+    },
+    {
+      "type": "ProtocolMessage.RawData",
+      "value": []
+    },
+    {
+      "type": "ProtocolMessage.RawData",
+      "value": [{"uint8":""},{"uint12":"4745E9"},{"uint12":"07C415A11E149F6EA8D3631A"}]
+    },
+    {
+      "type": "ProtocolMessage.RawData",
+      "value": [{"uint8":"34590CFB8985BE93E34EEDDB"},{"uint12":"F9B7A8476DBBA2CA0DBD11AC"},{"uint8":"CFE5032E0B20FAC88C1B5F80"}]
+    },
+    {
+      "type": "ProtocolMessage.RawData",
+      "value": [{"uint16":"5A918FFE3D77D96D33"},{"uint8":""},{"uint12":"1C2B0D"}]
+    },
+    {
+      "type": "ProtocolMessage.VariableSizeIntegerString",
+      "value": {"uint8":""}
+    },
+    {
+      "type": "ProtocolMessage.VariableSizeIntegerString",
+      "value": {"uint16":""}
+    },
+    {
+      "type": "ProtocolMessage.VariableSizeIntegerString",
+      "value": {"uint12":""}
+    },
+    {
+      "type": "ProtocolMessage.VariableSizeIntegerString",
+      "value": {"uint16":"4D2AA1B220CB3EB16776B2"}
+    },
+    {
+      "type": "ProtocolMessage.VariableSizeIntegerString",
+      "value": {"uint16":"E1ED8903"}
+    },
+    {
+      "type": "ProtocolMessage.OpenShortInformation",
+      "value": {"ledOpen":{"hex":"A0A5C6C7D39100","length":49},"ledShort":{"hex":"20B3CEAC4F122D6F","length":64},"pdShort":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.OpenShortInformation",
+      "value": {"asicIndex":-1099511627776,"ledOpen":{"hex":"","length":0},"ledShort":{"hex":"","length":0},"pdOpen":{"hex":"A82F2E40","length":26},"pdShort":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.OpenShortInformation",
+      "value": {"asicIndex":"-1267650600228229401496703176194","ledOpen":{"hex":"","length":0},"ledShort":{"hex":"A4DDCF80DED04340","length":63},"pdOpen":{"hex":"314AAFC0D0","length":37},"pdShort":{"hex":"58BAF8E301439468","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.OpenShortInformation",
+      "value": {"ledOpen":{"hex":"5CAD400C7011CD15","length":64},"ledShort":{"hex":"28","length":8},"pdOpen":{"hex":"","length":0},"pdShort":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.OpenShortInformation",
+      "value": {"ledOpen":{"hex":"8BEF8B6A9F48","length":46},"ledShort":{"hex":"","length":0},"pdOpen":{"hex":"027323E7DB0AD7D8","length":64},"pdShort":{"hex":"06FB28B629CC851B","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.StorageArea",
+      "value": {"storageIdentifier":127,"storageDescription":"","storageType":"-18446744073709551621","storageSize":"-18446743763391029505"}
+    },
+    {
+      "type": "ProtocolMessage.StorageArea",
+      "value": {"storageIdentifier":5,"storageDescription":"","storageSize":"-18446742974197923845"}
+    },
+    {
+      "type": "ProtocolMessage.StorageArea",
+      "value": {"storageIdentifier":0,"storageDescription":"\u0005FY8l!gF' Nez\t6f)a>XKq,\u000B.\u000Bw\u001F]}-Y","storageType":-1099511621488,"storageLocation":-1099511627716,"storageSize":"-18446744073709484854"}
+    },
+    {
+      "type": "ProtocolMessage.StorageArea",
+      "value": {"storageIdentifier":0,"storageType":"-1267650600228229401496703199074","storageLocation":"-1267650600228229401496703140239","storageSize":-1099511595210}
+    },
+    {
+      "type": "ProtocolMessage.StorageArea",
+      "value": {"storageIdentifier":45,"storageDescription":"\u0007\u0013{aVD1\u0002n_\u0007,TE1","storageLocation":"-18446744073709481621","storageSize":-100}
+    },
+    {
+      "type": "ProtocolMessage.Vector",
+      "value": {"dataType":"uint32","data":"A2738BF8234057252F7D4EDA"}
+    },
+    {
+      "type": "ProtocolMessage.Vector",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.Vector",
+      "value": {"dataType":"uint32"}
+    },
+    {
+      "type": "ProtocolMessage.Vector",
+      "value": {"dataType":"uint12","shape":[-1099511614272,"-18446743314765059020",579958727669]}
+    },
+    {
+      "type": "ProtocolMessage.Vector",
+      "value": {"shape":["-1267650600219195430982958039765",-601208966626,"2310990360692582799"],"data":"8B20C6C0A5D783"}
+    },
+    {
+      "type": "ProtocolMessage.StatusNotification",
+      "value": {"lowSignalError":false,"error":{"errorEntry":{"systemTest":{"internalWatchdog":{"hex":"E9F5C6469811E8D1","length":64},"lsi":{"hex":"84E5E9F761","length":40},"hseSwitch":{"hex":"23ACEC3537D1FA5F","length":64},"externalClockSource":{"hex":"C260778E842AD369","length":64},"nvmLogFull":{"hex":"","length":0},"stackOverflow":{"hex":"075FC9EEC0","length":34},"hardFault":{"hex":"5DF660B1EA737580","length":57},"logicError":{"hex":"BA00AEA0CC2C","length":46},"asicSyncSwitch":{"hex":"00DDC311FE20","length":43}}}},"errorLog":{"sessionIdentifier":"-18446744073709502347","timestamp":-70000,"isLastEntry":null}}
+    },
+    {
+      "type": "ProtocolMessage.StatusNotification",
+      "value": {"hardwareError":null,"touchesIgnored":false,"error":{"errorEntry":{"asic":{"index":"-1267650600228229401496703205376","offline":false,"overTemperatureExternalSensor":false,"porFault":false,"analogOrVbgFault":false,"internalThermalShutdown":true}}}}
+    },
+    {
+      "type": "ProtocolMessage.StatusNotification",
+      "value": {"hardwareError":null,"error":{},"errorLog":{"sessionIdentifier":"-18446743049487901319","timestamp":0}}
+    },
+    {
+      "type": "ProtocolMessage.StatusNotification",
+      "value": {"hardwareError":null,"singleAxisTouchError":false,"touchesIgnored":true}
+    },
+    {
+      "type": "ProtocolMessage.StatusNotification",
+      "value": {"error":{}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorInformation",
+      "value": {"asics":[{"irLeds":{"componentOpen":{"hex":"E32670","length":21},"componentOpenApplicable":{"hex":"","length":0}},"irPds":{"componentOpen":{"hex":"2ADBCD894C797C28","length":64},"componentShort":{"hex":"0B4807C68F629047","length":64}},"offline":{"hex":"9A459FE8451E80","length":49},"overTemperatureExternalSensor":{"hex":"","length":0},"memoryOverflow":{"hex":"","length":0},"internalThermalShutdown":{"hex":"90","length":4}},{"index":"1267650600228229401496703135376","irLeds":{"componentShort":{"hex":"F112E6A002654F25","length":64},"componentShortApplicable":{"hex":"40","length":3}},"irPds":{"componentOpenApplicable":{"hex":"493E37C220","length":38},"componentShortApplicable":{"hex":"34FDE7E94D9C9057","length":64}},"overTemperatureExternalSensor":{"hex":"","length":0},"porFault":{"hex":"","length":0},"analogOrVbgFault":{"hex":"25BDF72380","length":33},"proxResultOverflow":{"hex":"","length":0}},{"offline":{"hex":"","length":0},"timeout":{"hex":"FB372F2C1CA40227","length":64},"overTemperatureExternalSensor":{"hex":"","length":0},"porFault":{"hex":"31A8C7B260731893","length":64},"memoryOverflow":{"hex":"","length":0},"internalThermalShutdown":{"hex":"54CA1F630BA9EE8F","length":64},"proxResultOverflow":{"hex":"","length":0}}]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorInformation",
+      "value": {"visibleLedDrivers":[]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorInformation",
+      "value": {"systemTests":{"cpu":{"hex":"7AEA4B6C7E848B0F","length":64},"internalWatchdog":{"hex":"","length":0},"flashProgramChecksum":{"hex":"","length":0},"ram":{"hex":"","length":0},"pll":{"hex":"4DDA4ECEA6F510D3","length":64},"hse":{"hex":"","length":0},"externalClockSource":{"hex":"","length":0},"abnormalTermination":{"hex":"5E2E5FED2A","length":39},"nvmLogFull":{"hex":"","length":0},"nvmFlashCorrupt":{"hex":"","length":0},"stackOverflow":{"hex":"8874B937D52AB061","length":64},"logicError":{"hex":"10A5965B1619EFA1","length":64}},"visibleLedDrivers":[]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorInformation",
+      "value": {"systemTests":{"cpu":{"hex":"","length":0},"internalWatchdog":{"hex":"FFEB347DFDEB40","length":50},"flashProgramChecksum":{"hex":"","length":0},"pll":{"hex":"87ADDB7D7F8E95E3","length":64},"startupTestChecksum2":{"hex":"","length":0},"externalClockSource":{"hex":"905F7C162DBA224B","length":64},"abnormalTermination":{"hex":"","length":0},"nvmFlashCorrupt":{"hex":"","length":0},"stackOverflow":{"hex":"5895A8491D8E0A13","length":64},"asicSyncSwitch":{"hex":"F6ED59F2B8","length":37}},"asics":[],"visibleLedDrivers":[]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorInformation",
+      "value": {"systemTests":{"flashProgramChecksum":{"hex":"","length":0},"pll":{"hex":"22C2","length":15},"startupTestChecksum2":{"hex":"686F25","length":24},"hse":{"hex":"E61899325CB2B33D","length":64},"abnormalTermination":{"hex":"","length":0},"testFlowCheckpoint1":{"hex":"87CF80","length":17},"testFlowCheckpoint2":{"hex":"","length":0},"stackOverflow":{"hex":"","length":0}},"visibleLedDrivers":[]}
+    },
+    {
+      "type": "ProtocolMessage.SystemErrorInformation",
+      "value": {"cpu":{"hex":"","length":0},"internalWatchdog":{"hex":"BA4B423726C427DB","length":64},"flashProgramChecksum":{"hex":"6A28195FDDF7065D","length":64},"ram":{"hex":"","length":0},"pll":{"hex":"A85F1849F62B","length":48},"startupTestChecksum2":{"hex":"95EC447CB34E6E","length":55},"hse":{"hex":"68299B4F8D1ABC35","length":64},"hseSwitch":{"hex":"","length":0},"externalClockSource":{"hex":"D6DDB01F58","length":37},"testFlowCheckpoint2":{"hex":"43DA7107CD2F10","length":52},"nvmFlashCorrupt":{"hex":"A466EB8040B4D65D","length":64},"stackOverflow":{"hex":"692280","length":17},"hardFault":{"hex":"","length":0},"logicError":{"hex":"06C0","length":10}}
+    },
+    {
+      "type": "ProtocolMessage.SystemErrorInformation",
+      "value": {"ram":{"hex":"C151EB630CE57339","length":64},"startupTestChecksum2":{"hex":"5CA677E24DB6BF87","length":64},"hse":{"hex":"","length":0},"hseSwitch":{"hex":"ABD95974CC089B19","length":64},"testFlowCheckpoint1":{"hex":"","length":0},"testFlowCheckpoint2":{"hex":"1F00D7372752F645","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.SystemErrorInformation",
+      "value": {"cpu":{"hex":"","length":0},"startupTestChecksum2":{"hex":"321D58","length":21},"lsi":{"hex":"4560C45C3080","length":41},"hse":{"hex":"80","length":1},"hseSwitch":{"hex":"9953FA1C89B274BB","length":64},"externalClockSource":{"hex":"","length":0},"abnormalTermination":{"hex":"","length":0},"nvmLogFull":{"hex":"FF75A67E9F","length":40},"nvmFlashCorrupt":{"hex":"E19805E8F84493EB","length":64},"stackOverflow":{"hex":"AAB2F6041D22C3EB","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.SystemErrorInformation",
+      "value": {"cpu":{"hex":"893DCE3BCC118B97","length":64},"ram":{"hex":"","length":0},"pll":{"hex":"F240FCCD4F087089","length":64},"startupTestChecksum2":{"hex":"94F367308165DCBB","length":64},"hse":{"hex":"","length":0},"externalClockSource":{"hex":"","length":0},"testFlowCheckpoint2":{"hex":"CB0D872787B5CC81","length":64},"nvmFlashCorrupt":{"hex":"98BE231C3CAF3440","length":58},"hardFault":{"hex":"","length":0},"logicError":{"hex":"E008FAB0103988D7","length":64},"asicSyncSwitch":{"hex":"B0CC61B4C640","length":42}}
+    },
+    {
+      "type": "ProtocolMessage.SystemErrorInformation",
+      "value": {"internalWatchdog":{"hex":"972B9F7211E4C92F","length":64},"flashProgramChecksum":{"hex":"ED7C087A0FE732EB","length":64},"ram":{"hex":"","length":0},"pll":{"hex":"6B581F95977BFDAF","length":64},"startupTestChecksum2":{"hex":"E963DE4D46F8B9DB","length":64},"lsi":{"hex":"AE","length":7},"hse":{"hex":"8BAA9925808B3ED3","length":64},"hseSwitch":{"hex":"84549CE48E04A255","length":64},"externalClockSource":{"hex":"C198","length":13},"testFlowCheckpoint2":{"hex":"843AEFD409CC46","length":55},"nvmLogFull":{"hex":"","length":0},"logicError":{"hex":"","length":0},"asicSyncSwitch":{"hex":"482F60","length":19}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorFlags",
+      "value": {"hex":"F3714D6C5860","length":43}
+    },
+    {
+      "type": "ProtocolMessage.ErrorFlags",
+      "value": {"hex":"","length":0}
+    },
+    {
+      "type": "ProtocolMessage.ErrorFlags",
+      "value": {"hex":"26","length":7}
+    },
+    {
+      "type": "ProtocolMessage.ErrorFlags",
+      "value": {"hex":"D5A156C1A8F2C063","length":64}
+    },
+    {
+      "type": "ProtocolMessage.ErrorFlags",
+      "value": {"hex":"CA575A6A23B0","length":44}
+    },
+    {
+      "type": "ProtocolMessage.AsicInformation",
+      "value": {"index":"14996249023697722888","irLeds":{"componentOpenApplicable":{"hex":"E100","length":9}},"irPds":{"componentOpen":{"hex":"3E7BBCB070C7909E","length":64},"componentOpenApplicable":{"hex":"","length":0}},"offline":{"hex":"A7F8EFB91B7BE699","length":64},"timeout":{"hex":"","length":0},"overTemperatureExternalSensor":{"hex":"EEFFF1B8","length":29},"porFault":{"hex":"1B98473AED9F40","length":50},"analogOrVbgFault":{"hex":"CE","length":7}}
+    },
+    {
+      "type": "ProtocolMessage.AsicInformation",
+      "value": {"index":-100,"analogOrVbgFault":{"hex":"CFBC85E0928F4B5D","length":64},"memoryOverflow":{"hex":"","length":0},"internalThermalShutdown":{"hex":"B221652123969C2F","length":64},"proxResultOverflow":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.AsicInformation",
+      "value": {"index":"-1267650600228229401496703191038","irLeds":{"componentOpen":{"hex":"8AD8","length":14},"componentOpenApplicable":{"hex":"","length":0},"componentShortApplicable":{"hex":"A1A630","length":21}},"irPds":{"componentOpen":{"hex":"22","length":8}},"offline":{"hex":"8B8A78BDC3A04FB3","length":64},"timeout":{"hex":"A9F8B4E915D0A3BD","length":64},"porFault":{"hex":"C8A1E1F4D20DDDC1","length":64},"memoryOverflow":{"hex":"1ABE0998AF1B80","length":49},"internalThermalShutdown":{"hex":"23ECBF3D439ECD59","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.AsicInformation",
+      "value": {"irPds":{"componentOpenApplicable":{"hex":"51F50C830CC4DB38","length":61},"componentShort":{"hex":"FD6DFE30216C6836","length":64},"componentShortApplicable":{"hex":"","length":0}},"offline":{"hex":"C0","length":2},"overTemperatureExternalSensor":{"hex":"2C0B9BC99365092D","length":64},"porFault":{"hex":"2CE280F3B8393465","length":64},"memoryOverflow":{"hex":"C3560E8F78B012E3","length":64},"internalThermalShutdown":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.AsicInformation",
+      "value": {"index":"-620486380880698882997801693982","irLeds":{"componentOpen":{"hex":"09C0","length":13},"componentOpenApplicable":{"hex":"EB06236811C22D5E","length":64},"componentShortApplicable":{"hex":"","length":0}},"memoryOverflow":{"hex":"C0","length":2},"internalThermalShutdown":{"hex":"EF435B80","length":25},"proxResultOverflow":{"hex":"2C","length":6}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverInformation",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverInformation",
+      "value": {"offline":{"hex":"07BB3B4D9A0050C5","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverInformation",
+      "value": {"offline":{"hex":"B5517E9C8F29FFE1","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverInformation",
+      "value": {"visibleLeds":{"componentOpen":{"hex":"D908A17B230CCAFD","length":64},"componentOpenApplicable":{"hex":"","length":0},"componentShort":{"hex":"","length":0}},"offline":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverInformation",
+      "value": {"index":-43,"offline":{"hex":"0A37F0C9EBAC13D5","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.DiodeComponentInformation",
+      "value": {"componentOpen":{"hex":"4A5CD3BC312E78D7","length":64},"componentShort":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.DiodeComponentInformation",
+      "value": {"componentOpenApplicable":{"hex":"","length":0},"componentShort":{"hex":"54D10236","length":31},"componentShortApplicable":{"hex":"","length":0}}
+    },
+    {
+      "type": "ProtocolMessage.DiodeComponentInformation",
+      "value": {"componentOpenApplicable":{"hex":"4E2BA048","length":29},"componentShort":{"hex":"756ECA2593B701A0","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.DiodeComponentInformation",
+      "value": {"componentOpen":{"hex":"5F2B41E9800439BC","length":64},"componentOpenApplicable":{"hex":"","length":0},"componentShortApplicable":{"hex":"F9E56274565C5C94","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.DiodeComponentInformation",
+      "value": {"componentShort":{"hex":"5278E70915EF22EA","length":64},"componentShortApplicable":{"hex":"6C3B1903B317CE64","length":64}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorLog",
+      "value": {"sessionIdentifier":"-1267650600228229401496703205276","isLastEntry":null,"errorEntry":{"visibleLedDriver":{"offline":false}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorLog",
+      "value": {"sessionIdentifier":"-18446744073709512107","timestamp":"-1267650600228229401496703205348","isLastEntry":null,"errorEntry":{"visibleLedDriver":{}},"resetCause":-1099511627776}
+    },
+    {
+      "type": "ProtocolMessage.ErrorLog",
+      "value": {"timestamp":"1253735179818248144190825468562","isLastEntry":null,"errorEntry":{"visibleLedDriver":{"ledChannelIndex":0}},"resetCause":"-18446744073709551593"}
+    },
+    {
+      "type": "ProtocolMessage.ErrorLog",
+      "value": {"isLastEntry":null,"errorEntry":{"visibleLedDriver":{"offline":false}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorLog",
+      "value": {"sessionIdentifier":0,"timestamp":-105133579419,"isLastEntry":null,"errorEntry":{"visibleLedDriver":{}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorNotification",
+      "value": {"errorEntry":{"visibleLedDriver":{"short":true,"offline":true}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorNotification",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.ErrorNotification",
+      "value": {"errorEntry":{"asic":{"index":"1193455859929061087727143686066","irPdIndex":69900,"offline":false,"timeout":true,"porFault":false,"memoryOverflow":true}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorNotification",
+      "value": {"errorEntry":{"asic":{"offline":true,"overTemperatureExternalSensor":true,"analogOrVbgFault":true}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorNotification",
+      "value": {"errorEntry":{"asic":{"index":"-18446744073709495614","irLedIndex":732465618765,"irPdIndex":"-18446744073709547732","short":false,"offline":false,"timeout":false,"overTemperatureExternalSensor":false,"porFault":false,"analogOrVbgFault":false,"memoryOverflow":true,"proxResultOverflow":true}}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorEntry",
+      "value": {"asic":{"irPdIndex":"-18446744073709496137","open":false,"timeout":true,"overTemperatureExternalSensor":false,"analogOrVbgFault":true,"internalThermalShutdown":false,"proxResultOverflow":false}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorEntry",
+      "value": {"visibleLedDriver":{"offline":true}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorEntry",
+      "value": {"visibleLedDriver":{"index":"18446744073709551521","ledChannelIndex":-14}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorEntry",
+      "value": {"asic":{"index":-100,"irLedIndex":"-18446744073709551549","irPdIndex":"-1267650600228229401496703205376","short":false,"offline":true,"timeout":false,"overTemperatureExternalSensor":true,"analogOrVbgFault":false,"memoryOverflow":false,"internalThermalShutdown":false,"proxResultOverflow":false}}
+    },
+    {
+      "type": "ProtocolMessage.ErrorEntry",
+      "value": {"asic":{"index":"542757196260635573934467016331","irPdIndex":"683086177470978458","short":false,"offline":true,"timeout":false,"porFault":true,"internalThermalShutdown":false}}
+    },
+    {
+      "type": "ProtocolMessage.AsicErrorEntry",
+      "value": {"open":true,"timeout":true,"overTemperatureExternalSensor":true,"porFault":true,"analogOrVbgFault":true,"memoryOverflow":false}
+    },
+    {
+      "type": "ProtocolMessage.AsicErrorEntry",
+      "value": {"irLedIndex":"395829496554271477331882610797","irPdIndex":"-18446743893413667320","open":false,"offline":true,"porFault":true,"memoryOverflow":true,"internalThermalShutdown":true,"proxResultOverflow":true}
+    },
+    {
+      "type": "ProtocolMessage.AsicErrorEntry",
+      "value": {"index":"18190061021993943156","irLedIndex":"1154904132612406763056919648254","open":false,"timeout":false,"porFault":true,"internalThermalShutdown":false}
+    },
+    {
+      "type": "ProtocolMessage.AsicErrorEntry",
+      "value": {"irPdIndex":0,"timeout":false,"porFault":false,"analogOrVbgFault":true,"memoryOverflow":false,"internalThermalShutdown":true}
+    },
+    {
+      "type": "ProtocolMessage.AsicErrorEntry",
+      "value": {"open":false,"memoryOverflow":false,"internalThermalShutdown":false,"proxResultOverflow":true}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverErrorEntry",
+      "value": {"index":"-18446744073709551621","open":true,"short":true,"offline":false}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverErrorEntry",
+      "value": {"ledChannelIndex":"-18446743018574366074"}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverErrorEntry",
+      "value": {"open":false,"short":true,"offline":false}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverErrorEntry",
+      "value": {"index":"-18446744073709551621","offline":false}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverErrorEntry",
+      "value": {"index":-1099511615158}
+    },
+    {
+      "type": "ProtocolMessage.ErrorThresholds",
+      "value": {"asicsThresholds":[{"irPdOpenThresholds":{}},{"asicIdentifier":-70000,"irLedOpenThresholds":{"high":"674747031810977870494034832679"}}]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorThresholds",
+      "value": {"visibleLedDriversThresholds":[{"visibleLedDriverIdentifier":"-1267650600228229401496703205376","visibleLedOpenThresholds":{"low":"12351359174525139191"},"visibleLedShortThresholds":{"low":"-18446744073709551590"}}]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorThresholds",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.ErrorThresholds",
+      "value": {"asicsThresholds":[{"irPdShortThresholds":{}},{"irPdOpenThresholds":{"low":-1099511627689,"high":"692493993326090864640216133039"}},{"irLedShortThresholds":{},"irPdOpenThresholds":{"high":"142381582257299109093927739531"}}]}
+    },
+    {
+      "type": "ProtocolMessage.ErrorThresholds",
+      "value": {"asicsThresholds":[],"visibleLedDriversThresholds":[{},{"visibleLedDriverIdentifier":17739,"visibleLedOpenThresholds":{"low":-70000,"high":"-18446744073709544605"}},{"visibleLedDriverIdentifier":"1085507887601521738829090158070"}]}
+    },
+    {
+      "type": "ProtocolMessage.AsicThresholds",
+      "value": {"irPdShortThresholds":{"low":"-1267650600228229401496703205376","high":0}}
+    },
+    {
+      "type": "ProtocolMessage.AsicThresholds",
+      "value": {"asicIdentifier":"831198462495400258933444819027","irLedOpenThresholds":{},"irLedShortThresholds":{},"irPdShortThresholds":{"low":"-1267650600228229401496703205276","high":"-1267650600228229401496703205281"}}
+    },
+    {
+      "type": "ProtocolMessage.AsicThresholds",
+      "value": {"asicIdentifier":"18446744073709481621","irPdOpenThresholds":{"low":"6764142094461829323","high":"-1267650600228229401496703205340"},"irPdShortThresholds":{"low":"406487661812263930588257522472","high":"-1267650600228229401496703205376"}}
+    },
+    {
+      "type": "ProtocolMessage.AsicThresholds",
+      "value": {"irLedOpenThresholds":{},"irLedShortThresholds":{},"irPdOpenThresholds":{"low":"-1267650600228229401496703135376","high":"-18446743916023603543"},"irPdShortThresholds":{"high":0}}
+    },
+    {
+      "type": "ProtocolMessage.AsicThresholds",
+      "value": {"asicIdentifier":"-18446744073709551573","irPdShortThresholds":{"high":"-18446742974197923845"}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverThresholds",
+      "value": {"visibleLedOpenThresholds":{"low":0},"visibleLedShortThresholds":{"low":"-1267650600228229401496703205376"}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverThresholds",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverThresholds",
+      "value": {"visibleLedOpenThresholds":{"high":0}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverThresholds",
+      "value": {"visibleLedOpenThresholds":{"low":"-1267650600228229401496703205376","high":-1099511627776}}
+    },
+    {
+      "type": "ProtocolMessage.VisibleLedDriverThresholds",
+      "value": {"visibleLedOpenThresholds":{}}
+    },
+    {
+      "type": "ProtocolMessage.Thresholds",
+      "value": {}
+    },
+    {
+      "type": "ProtocolMessage.Thresholds",
+      "value": {"low":"-1267650600209782657422993653755","high":"-18446744073709551621"}
+    },
+    {
+      "type": "ProtocolMessage.Thresholds",
+      "value": {"low":0}
+    },
+    {
+      "type": "ProtocolMessage.Thresholds",
+      "value": {"low":"-18446744073709551543"}
+    },
+    {
+      "type": "ProtocolMessage.Thresholds",
+      "value": {"high":"-1267650600228229400427750513933"}
+    }
+  ]
+}

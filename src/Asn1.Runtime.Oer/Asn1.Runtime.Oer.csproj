@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>X.696 Octet Encoding Rules: BASIC-OER and CANONICAL-OER (COER), with OER-visible constraint analysis.</Description>
+    <RootNamespace>Asn1.Runtime.Oer</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Runtime\Asn1.Runtime.csproj" />
+  </ItemGroup>
+</Project>

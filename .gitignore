@@ -1,0 +1,17 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/shelf/
+TestResults/
+artifacts/
+*.nupkg
+.venv*/
+__pycache__/
+/generated/
+BenchmarkDotNet.Artifacts/
+.cache/

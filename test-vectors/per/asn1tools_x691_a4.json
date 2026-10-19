@@ -1,0 +1,111 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "per",
+ "specs": [
+  "test-vectors/corpus/asn1tools/x691_a4.asn"
+ ],
+ "cases": [
+  {
+   "type": "X691-A4.Ax",
+   "value": {
+    "a": 252,
+    "b": true,
+    "c": {
+     "e": true
+    },
+    "i": "a\u0436 \u03a99\u0436A\u20ac\u00e9z~ ",
+    "j": ""
+   },
+   "hex": "760001800C00610436002003A900390436004120AC00E9007A007E002000",
+   "decoded": {
+    "a": 252,
+    "b": true,
+    "c": {
+     "e": true
+    },
+    "i": "a\u0436 \u03a99\u0436A\u20ac\u00e9z~ ",
+    "j": ""
+   }
+  },
+  {
+   "type": "X691-A4.Ax",
+   "value": {
+    "a": 250,
+    "b": false,
+    "c": {
+     "f": "wpT\u000f\bLz[Hj\u0012\u001c"
+    }
+   },
+   "hex": "02040D0C7770540F084C7A5B486A121C",
+   "decoded": {
+    "a": 250,
+    "b": false,
+    "c": {
+     "f": "wpT\u000f\bLz[Hj\u0012\u001c"
+    }
+   }
+  },
+  {
+   "type": "X691-A4.Ax",
+   "value": {
+    "a": 250,
+    "b": true,
+    "c": {
+     "d": -100
+    },
+    "j": "v1-K/rJAG5CO"
+   },
+   "hex": "24019C0C76312D4B2F724A414735434F",
+   "decoded": {
+    "a": 250,
+    "b": true,
+    "c": {
+     "d": -100
+    },
+    "j": "v1-K/rJAG5CO"
+   }
+  },
+  {
+   "type": "X691-A4.Ax",
+   "value": {
+    "a": 253,
+    "b": true,
+    "c": {
+     "e": false
+    },
+    "i": "\u00e9A\u00e9\u00e9a\u03a9\u20ac"
+   },
+   "hex": "5E0001000700E9004100E900E9006103A920AC",
+   "decoded": {
+    "a": 253,
+    "b": true,
+    "c": {
+     "e": false
+    },
+    "i": "\u00e9A\u00e9\u00e9a\u03a9\u20ac"
+   }
+  },
+  {
+   "type": "X691-A4.Ax",
+   "value": {
+    "a": 253,
+    "b": false,
+    "c": {
+     "e": false
+    },
+    "j": "ehKu3Vf?sK0K"
+   },
+   "hex": "3A0001000C65684B753356663F734B304B",
+   "decoded": {
+    "a": 253,
+    "b": false,
+    "c": {
+     "e": false
+    },
+    "j": "ehKu3Vf?sK0K"
+   }
+  }
+ ],
+ "skipped": []
+}

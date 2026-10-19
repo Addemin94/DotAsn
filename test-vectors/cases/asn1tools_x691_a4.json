@@ -1,0 +1,28 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/x691_a4.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "X691-A4.Ax",
+      "value": {"a":252,"b":true,"c":{"e":true},"i":"aж Ω9жA€éz~ ","j":""}
+    },
+    {
+      "type": "X691-A4.Ax",
+      "value": {"a":250,"b":false,"c":{"f":"wpT\u000F\bLz[Hj\u0012\u001C"}}
+    },
+    {
+      "type": "X691-A4.Ax",
+      "value": {"a":250,"b":true,"c":{"d":-100},"j":"v1-K/rJAG5CO"}
+    },
+    {
+      "type": "X691-A4.Ax",
+      "value": {"a":253,"b":true,"c":{"e":false},"i":"éAééaΩ€"}
+    },
+    {
+      "type": "X691-A4.Ax",
+      "value": {"a":253,"b":false,"c":{"e":false},"j":"ehKu3Vf?sK0K"}
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "oer",
+ "specs": [
+  "test-vectors/corpus/asn1tools/enumerated.asn"
+ ],
+ "cases": [
+  {
+   "type": "E.A",
+   "value": "b",
+   "hex": "01",
+   "decoded": "b"
+  },
+  {
+   "type": "E.A",
+   "value": "a",
+   "hex": "00",
+   "decoded": "a"
+  },
+  {
+   "type": "E.A",
+   "value": "c",
+   "hex": "02",
+   "decoded": "c"
+  },
+  {
+   "type": "E.B",
+   "value": "a",
+   "hex": "01",
+   "decoded": "a"
+  },
+  {
+   "type": "E.B",
+   "value": "c",
+   "hex": "00",
+   "decoded": "c"
+  },
+  {
+   "type": "E.B",
+   "value": "b",
+   "hex": "02",
+   "decoded": "b"
+  },
+  {
+   "type": "E.B",
+   "value": "d",
+   "hex": "03",
+   "decoded": "d"
+  },
+  {
+   "type": "E.C",
+   "value": "b",
+   "hex": "01",
+   "decoded": "b"
+  },
+  {
+   "type": "E.C",
+   "value": "a",
+   "hex": "00",
+   "decoded": "a"
+  },
+  {
+   "type": "E.C",
+   "value": "d",
+   "hex": "04",
+   "decoded": "d"
+  },
+  {
+   "type": "E.C",
+   "value": "c",
+   "hex": "03",
+   "decoded": "c"
+  },
+  {
+   "type": "E.D",
+   "value": "a",
+   "hex": "00",
+   "decoded": "a"
+  },
+  {
+   "type": "E.D",
+   "value": "z",
+   "hex": "19",
+   "decoded": "z"
+  },
+  {
+   "type": "E.D",
+   "value": "d",
+   "hex": "01",
+   "decoded": "d"
+  },
+  {
+   "type": "E.E",
+   "value": "f",
+   "hex": "04",
+   "decoded": "f"
+  },
+  {
+   "type": "E.E",
+   "value": "e",
+   "hex": "19",
+   "decoded": "e"
+  },
+  {
+   "type": "E.E",
+   "value": "c",
+   "hex": "00",
+   "decoded": "c"
+  },
+  {
+   "type": "E.E",
+   "value": "g",
+   "hex": "05",
+   "decoded": "g"
+  },
+  {
+   "type": "E.E",
+   "value": "b",
+   "hex": "02",
+   "decoded": "b"
+  },
+  {
+   "type": "E.F",
+   "value": "a",
+   "hex": "00",
+   "decoded": "a"
+  },
+  {
+   "type": "E.G",
+   "value": "a",
+   "hex": "00",
+   "decoded": "a"
+  },
+  {
+   "type": "E.H",
+   "value": "a",
+   "hex": "0A",
+   "decoded": "a"
+  }
+ ],
+ "skipped": []
+}

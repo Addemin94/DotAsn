@@ -1,0 +1,447 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "uper",
+ "specs": [
+  "test-vectors/corpus/asn1tools/x691_a3.asn"
+ ],
+ "cases": [
+  {
+   "type": "X691-A3.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "R",
+     "initial": "x",
+     "familyName": "EtTpQs.mcHXS.x.XknOEGCBqGbwth"
+    },
+    "title": "",
+    "number": 2693,
+    "dateOfHire": "87958616",
+    "nameOfSpouse": {
+     "givenName": "X",
+     "initial": "G",
+     "familyName": "."
+    }
+   },
+   "hex": "0013CCE0D7AB5A570343C4B2A03982CCD4A0310207610EE57C62A14010F2B0C2C00C900010",
+   "decoded": {
+    "name": {
+     "givenName": "R",
+     "initial": "x",
+     "familyName": "EtTpQs.mcHXS.x.XknOEGCBqGbwth"
+    },
+    "number": 2693,
+    "title": "",
+    "dateOfHire": "87958616",
+    "nameOfSpouse": {
+     "givenName": "X",
+     "initial": "G",
+     "familyName": "."
+    }
+   }
+  },
+  {
+   "type": "X691-A3.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "DtVOSIQYudIcMRgYJJsIzzWFVb-cc",
+     "initial": "n",
+     "familyName": "dOK.QqFgIcfkmWwHdlNuVEVNtrHnvqqVBuoQLHsAARotZlocgTYAYewWsxGYgSkR"
+    },
+    "title": "",
+    "number": 3289,
+    "dateOfHire": "28035710",
+    "nameOfSpouse": {
+     "givenName": "PnxWxPXN.STihVFPBvuBXCIKmsEPH-V.MHAyLJuQDfTYsHUuUWCFjAALdkjDIGE-",
+     "initial": "T",
+     "familyName": "HCs.cxrikSdWKvlwOPJFoTaapFxZSbYovZLRJDFDIctPEgyLSCf.IQenbQJU-QOG"
+    }
+   },
+   "hex": "0705BD74142926B07CA78E4E268B2EE2B5D581D774079EA5FBE8180A560F114F43350C644BF39F82E32E7DF6934E3658B8785491A4DC1049D57B73D4F44AB4135064C5D990D44A4C98CD9001401AB881FA34E6C668B2782A2B246B8E8878E01B221465170C89202E09C485A1A5E090B0AAD5C4AD82CC083CA1046BF34A29440C02AFC912E05ECED92651F60CC67C9044B1EA55C72B1F36D475AAB16CD4CB14714A7AF4468B435412104A4A0A5D48B580490200",
+   "decoded": {
+    "name": {
+     "givenName": "DtVOSIQYudIcMRgYJJsIzzWFVb-cc",
+     "initial": "n",
+     "familyName": "dOK.QqFgIcfkmWwHdlNuVEVNtrHnvqqVBuoQLHsAARotZlocgTYAYewWsxGYgSkR"
+    },
+    "number": 3289,
+    "title": "",
+    "dateOfHire": "28035710",
+    "nameOfSpouse": {
+     "givenName": "PnxWxPXN.STihVFPBvuBXCIKmsEPH-V.MHAyLJuQDfTYsHUuUWCFjAALdkjDIGE-",
+     "initial": "T",
+     "familyName": "HCs.cxrikSdWKvlwOPJFoTaapFxZSbYovZLRJDFDIctPEgyLSCf.IQenbQJU-QOG"
+    }
+   }
+  },
+  {
+   "type": "X691-A3.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "RkIIEwKZJUGHjFOvXddvXqtukDsMkVPEMd-RVqCTRLPvALOI-LUIxoIbqOY-Cypn",
+     "initial": "v",
+     "familyName": "w"
+    },
+    "title": "P0T4O{oKk^9L",
+    "number": 0,
+    "dateOfHire": "34513034",
+    "nameOfSpouse": {
+     "givenName": "CBmojoKzAsX.",
+     "initial": "j",
+     "familyName": "lhSRNWrGnwErEfdIkJVSLTVihPru"
+    }
+   },
+   "hex": "0FD398A286C8C6CB5882651D0C597DFC59B2FC2616E3A65D118E7C04D7B04553351C423502803562B3A8A76C41A004D2BA7101900000CA0C2A349FEF7CBD779CCC1A28981A05881D154B519A857320CA6E78D44CF62D229C86B4685F2A62D750D55792346DC0",
+   "decoded": {
+    "name": {
+     "givenName": "RkIIEwKZJUGHjFOvXddvXqtukDsMkVPEMd-RVqCTRLPvALOI-LUIxoIbqOY-Cypn",
+     "initial": "v",
+     "familyName": "w"
+    },
+    "number": 0,
+    "title": "P0T4O{oKk^9L",
+    "dateOfHire": "34513034",
+    "nameOfSpouse": {
+     "givenName": "CBmojoKzAsX.",
+     "initial": "j",
+     "familyName": "lhSRNWrGnwErEfdIkJVSLTVihPru"
+    }
+   }
+  },
+  {
+   "type": "X691-A3.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "u",
+     "initial": "i",
+     "familyName": "KwCJDmfuerZfbbZIPJkkyfxWhGMkKGGZQkIVHIPw.VKAIYKOekFJyibeygcxXviW"
+    },
+    "title": "&!,tj",
+    "number": 5245,
+    "dateOfHire": "91509561",
+    "nameOfSpouse": {
+     "givenName": "fSWEnnRJKTxbj-PIz-JCSU.ZpGWmWehmeXZZPcnfaAvazcqzfRjGSSGIRwOePfng",
+     "initial": "w",
+     "familyName": "psUKebQYYaLPWECuYSKPPGSMGOvNNpoffZqYMwnrpjsUANtZilKpjtHhXGCNfBJj"
+    }
+   },
+   "hex": "003091F9990858B4438416B70BAEB65225CD3690E6C4641D318410DA5314B92523902B98114D1884130E5E923B06913D9B38C8C147D054C85674D4915095613F854606A694CB315CDD94044AD402C451605BAC86286208E88196DB45EA61702C5CD5EB3585394851420A4F2420461A62C9FD772C640EA4D34E1A8B0309834A188A242871086279F5D50C2DD8D1D9536D72DCB047DEDC93995CB7931B24087C219728",
+   "decoded": {
+    "name": {
+     "givenName": "u",
+     "initial": "i",
+     "familyName": "KwCJDmfuerZfbbZIPJkkyfxWhGMkKGGZQkIVHIPw.VKAIYKOekFJyibeygcxXviW"
+    },
+    "number": 5245,
+    "title": "&!,tj",
+    "dateOfHire": "91509561",
+    "nameOfSpouse": {
+     "givenName": "fSWEnnRJKTxbj-PIz-JCSU.ZpGWmWehmeXZZPcnfaAvazcqzfRjGSSGIRwOePfng",
+     "initial": "w",
+     "familyName": "psUKebQYYaLPWECuYSKPPGSMGOvNNpoffZqYMwnrpjsUANtZilKpjtHhXGCNfBJj"
+    }
+   }
+  },
+  {
+   "type": "X691-A3.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "d",
+     "initial": "e",
+     "familyName": "gNyJtVUeccyvlQG.EsYJmYHjVcvICDhJOSaSZwIsJWhEmjzeFcZkEImGDMoOZJaW"
+    },
+    "title": "jQ0^[~<n%zeV",
+    "number": 0,
+    "dateOfHire": "90163221",
+    "nameOfSpouse": {
+     "givenName": "yCgpRAQAZIWPAO",
+     "initial": "I",
+     "familyName": "t"
+    }
+   },
+   "hex": "001F81FC47E85DEBAD03CF698CE91008D7345D0D132AEF625082C65A0A38A37915716C463512EB00EF3730C55040A7548365B8C00000CD54585EB7F9E6E4BEB2D6480B191086E82455A612413653088481402F",
+   "decoded": {
+    "name": {
+     "givenName": "d",
+     "initial": "e",
+     "familyName": "gNyJtVUeccyvlQG.EsYJmYHjVcvICDhJOSaSZwIsJWhEmjzeFcZkEImGDMoOZJaW"
+    },
+    "number": 0,
+    "title": "jQ0^[~<n%zeV",
+    "dateOfHire": "90163221",
+    "nameOfSpouse": {
+     "givenName": "yCgpRAQAZIWPAO",
+     "initial": "I",
+     "familyName": "t"
+    }
+   }
+  },
+  {
+   "type": "X691-A3.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "ZN-nM-SgrzhwZjWKudwGBKvDGGqvPLMdvTsnPNKHCiIPTpiXbgAEccQMRvfDHWPe",
+     "initial": "-",
+     "familyName": "QmCSAejRYRRiIG.RAeUThF-fReeQocfslVopYxJm"
+    },
+    "dateOfBirth": "68163506"
+   },
+   "hex": "1FB678149C02915BAC79372B0660FE44066622904598A269CFE2ADD4A27984892148AB5C8CBB10433CF247278C2292C230009D2A045028254DA4D390A2014C28165631C08538204AA7A1BA75EAADACCBA0D02C6A0C",
+   "decoded": {
+    "name": {
+     "givenName": "ZN-nM-SgrzhwZjWKudwGBKvDGGqvPLMdvTsnPNKHCiIPTpiXbgAEccQMRvfDHWPe",
+     "initial": "-",
+     "familyName": "QmCSAejRYRRiIG.RAeUThF-fReeQocfslVopYxJm"
+    },
+    "dateOfBirth": "68163506"
+   }
+  },
+  {
+   "type": "X691-A3.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "xJmW-W-RcvlYxnRJtCShHTZIalI.NFYTdJXcB.xmmsjjBeifJqnzsfPcjbwNLzBU",
+     "initial": "v",
+     "familyName": "p"
+    },
+    "dateOfBirth": "16937819",
+    "sex": "female"
+   },
+   "hex": "9FE65D0C00C009BD8CED674A65DE229192AB653939409E3B4ABE5B2F060E745174B287049097653ADD0A2F4AEE479BA86B6202B0B49BC0C8080A00",
+   "decoded": {
+    "name": {
+     "givenName": "xJmW-W-RcvlYxnRJtCShHTZIalI.NFYTdJXcB.xmmsjjBeifJqnzsfPcjbwNLzBU",
+     "initial": "v",
+     "familyName": "p"
+    },
+    "dateOfBirth": "16937819",
+    "sex": "female"
+   }
+  },
+  {
+   "type": "X691-A3.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "aytutZDhYnpMMkjvPTivsKj-suT.JjGeAwqwsTwglXFGZVaUJGKUnWgONtAyECWp",
+     "initial": "K",
+     "familyName": "XAHSCaZVRypBWmqdOZhzQxah-PcOIIaWCOwlNLJmRffFNTRrRh.SDCeaaaSny"
+    },
+    "dateOfBirth": "14391802"
+   },
+   "hex": "1FB9A5F85ED8B1B54D671D34B8A2AC98DC64A05D82A09729100595995CAE514EC8E436BB8B16418B52C4481F785A0C231598F1908950471B5D3D2B0D8A2C7D06E3D52CDC8C045E40A29C6044329CF34BA138611CF553B538C150512071C714A740A1C8C010",
+   "decoded": {
+    "name": {
+     "givenName": "aytutZDhYnpMMkjvPTivsKj-suT.JjGeAwqwsTwglXFGZVaUJGKUnWgONtAyECWp",
+     "initial": "K",
+     "familyName": "XAHSCaZVRypBWmqdOZhzQxah-PcOIIaWCOwlNLJmRffFNTRrRh.SDCeaaaSny"
+    },
+    "dateOfBirth": "14391802"
+   }
+  },
+  {
+   "type": "X691-A3.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "lPSSfykxbGFQ-jUJmtWnHSXivUI.MRyDHWtIFGmoMLjzO-xWTuaHrGWQskWInijH",
+     "initial": "H",
+     "familyName": "EhYwjXSvXmgSqoM.-bQVjb-dcZpMrTgHqwBHhag"
+    },
+    "dateOfBirth": "57003337",
+    "sex": "female"
+   },
+   "hex": "9FCE8A8A43A4D9BA40E9012AC5D17B1492A33262B1409C9E8292C5E50E45151C6CBAA0066C2B8384DA43095D33055324A4929868DACA5654C59A2252CA8E0407525E57407DE6EB3AD56226CC832637222B80199B8080A000",
+   "decoded": {
+    "name": {
+     "givenName": "lPSSfykxbGFQ-jUJmtWnHSXivUI.MRyDHWtIFGmoMLjzO-xWTuaHrGWQskWInijH",
+     "initial": "H",
+     "familyName": "EhYwjXSvXmgSqoM.-bQVjb-dcZpMrTgHqwBHhag"
+    },
+    "dateOfBirth": "57003337",
+    "sex": "female"
+   }
+  },
+  {
+   "type": "X691-A3.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "RHhDBBDWbulCSYuxDGqzcLGUXjrROH.YamGWlKXhvcmWijnBSvbmmhQE-L",
+     "initial": "K",
+     "familyName": "S"
+    },
+    "dateOfBirth": "56342861",
+    "sex": "unknown"
+   },
+   "hex": "9CA64C628618AC3B84E228D6198A459ABC690B332DA9A0482D39410C4E6331E2F50C492D21A98BB4511A43006980142B1A14308080C000",
+   "decoded": {
+    "name": {
+     "givenName": "RHhDBBDWbulCSYuxDGqzcLGUXjrROH.YamGWlKXhvcmWijnBSvbmmhQE-L",
+     "initial": "K",
+     "familyName": "S"
+    },
+    "dateOfBirth": "56342861",
+    "sex": "unknown"
+   }
+  },
+  {
+   "type": "X691-A3.Name",
+   "value": {
+    "givenName": "zSfMmtT.VXeDVHUSdVFFlwjiBceRgOZrVWnnmfYjKOzmMdmtcD",
+    "initial": "g",
+    "familyName": "A"
+   },
+   "hex": "31D5484EA2F5415D98055C95947D71C79F29640DE8138906ED5D8A69A216A5310D6839FA2F78588004",
+   "decoded": {
+    "givenName": "zSfMmtT.VXeDVHUSdVFFlwjiBceRgOZrVWnnmfYjKOzmMdmtcD",
+    "initial": "g",
+    "familyName": "A"
+   }
+  },
+  {
+   "type": "X691-A3.Name",
+   "value": {
+    "givenName": "H",
+    "initial": "S",
+    "familyName": "UhfxwWvVwxUYqkoaHIIfTkCpVOUHvsnZunXvYHSItfDmajRcLsyocAdjcqafAlZ"
+   },
+   "hex": "002547CB470E79318AF966B3564D538494542ACC256BA0B138DD4B7852CE2D12A157C22D0E4A9BC6DDA54F04FCAF58E4214ED8",
+   "decoded": {
+    "givenName": "H",
+    "initial": "S",
+    "familyName": "UhfxwWvVwxUYqkoaHIIfTkCpVOUHvsnZunXvYHSItfDmajRcLsyocAdjcqafAlZ"
+   }
+  },
+  {
+   "type": "X691-A3.Name",
+   "value": {
+    "givenName": "tAzp-loeQNlxrwBu",
+    "initial": "s",
+    "familyName": "mGGDAceDNPRpyybOpCKapiIpWHHyltXaSQBsdicnif"
+   },
+   "hex": "0FBC2D6B027AA048F9F3B720F0B94D0410284F4029E8A75E9A3A856218E572155B0493A4F7B2E2890773F23D4C9080",
+   "decoded": {
+    "givenName": "tAzp-loeQNlxrwBu",
+    "initial": "s",
+    "familyName": "mGGDAceDNPRpyybOpCKapiIpWHHyltXaSQBsdicnif"
+   }
+  },
+  {
+   "type": "X691-A3.Name",
+   "value": {
+    "givenName": "Lv.SbSjEFrCxRhsTfSTsrVgujkEZWrHzjKILFdHZnULYzuK-jSBKMglqNEjqMHhN",
+    "initial": "M",
+    "familyName": "fL.JuCUHFvoYDqCoxlAYRx-uQKemxqugDbCE..RbOgGJuQGRcZlQJgDiKEshYiKO"
+   },
+   "hex": "3F3710547549461ED1334E3B9585456EB578B096619B62D27594C28D1DF25BA5635AD703009540CC3A29EC3C696C3898CF39FC26825E022C48F8D4D0B609567384D2798182464146766110AE883020A6EA11105E09109BCDCE91710B21835D1B521880",
+   "decoded": {
+    "givenName": "Lv.SbSjEFrCxRhsTfSTsrVgujkEZWrHzjKILFdHZnULYzuK-jSBKMglqNEjqMHhN",
+    "initial": "M",
+    "familyName": "fL.JuCUHFvoYDqCoxlAYRx-uQKemxqugDbCE..RbOgGJuQGRcZlQJgDiKEshYiKO"
+   }
+  },
+  {
+   "type": "X691-A3.Name",
+   "value": {
+    "givenName": "clymvSYHlop--CLHWDcUWWUtuGjBgUrImxefempylWRtVEsdKYnJWlwEPCsniVbP",
+    "initial": "M",
+    "familyName": "gdkOdjzCbVoNEqGggm--XOZu.NOvAvrspDevBvsAw.ogCXceSiPrLA-PBpMNTC.f"
+   },
+   "hex": "3F7A7D28C546899EAAC00043496057966185AFC08943896B4AA33821828AF49D84EF5C6B9F31AA4B627C86444BA991775139FC4FCC83F2EA23ABD478D6111454000328378027A18858DB7562C18878DC1640D5108CBD02922369A10088759C7AA20308",
+   "decoded": {
+    "givenName": "clymvSYHlop--CLHWDcUWWUtuGjBgUrImxefempylWRtVEsdKYnJWlwEPCsniVbP",
+    "initial": "M",
+    "familyName": "gdkOdjzCbVoNEqGggm--XOZu.NOvAvrspDevBvsAw.ogCXceSiPrLA-PBpMNTC.f"
+   }
+  },
+  {
+   "type": "X691-A3.EmployeeNumber",
+   "value": 3069,
+   "hex": "17FA",
+   "decoded": 3069
+  },
+  {
+   "type": "X691-A3.EmployeeNumber",
+   "value": 5295,
+   "hex": "295E",
+   "decoded": 5295
+  },
+  {
+   "type": "X691-A3.EmployeeNumber",
+   "value": 0,
+   "hex": "0000",
+   "decoded": 0
+  },
+  {
+   "type": "X691-A3.EmployeeNumber",
+   "value": 2721,
+   "hex": "1542",
+   "decoded": 2721
+  },
+  {
+   "type": "X691-A3.EmployeeNumber",
+   "value": 1894,
+   "hex": "0ECC",
+   "decoded": 1894
+  },
+  {
+   "type": "X691-A3.Date",
+   "value": "02826568",
+   "hex": "014132B400",
+   "decoded": "02826568"
+  },
+  {
+   "type": "X691-A3.Date",
+   "value": "01053116",
+   "hex": "0082988B00",
+   "decoded": "01053116"
+  },
+  {
+   "type": "X691-A3.Date",
+   "value": "95819756",
+   "hex": "4AC0CBAB00",
+   "decoded": "95819756"
+  },
+  {
+   "type": "X691-A3.Date",
+   "value": "06379933",
+   "hex": "031BCC9980",
+   "decoded": "06379933"
+  },
+  {
+   "type": "X691-A3.Date",
+   "value": "32438651",
+   "hex": "1921C32880",
+   "decoded": "32438651"
+  },
+  {
+   "type": "X691-A3.NameString",
+   "value": "Lz-OoaWiMx.xPQFVrNeUnpbiynEWRPGRRGT.e-vTZkADMRuCJTqLdwfVVQQ.TzPw",
+   "hex": "7E6EA021538C487660E68A43AF69F02D4D6EC9A523309A2426990A830018AADCC10A7278085AB61AFE50AEBA4902AEA8E4",
+   "decoded": "Lz-OoaWiMx.xPQFVrNeUnpbiynEWRPGRRGT.e-vTZkADMRuCJTqLdwfVVQQ.TzPw"
+  },
+  {
+   "type": "X691-A3.NameString",
+   "value": "eHwDqqSJuAnVTetALxYuoVaydLiu-ZTDOfnkFDc-tS.dizxlGRmRVutHgyadFXIT",
+   "hex": "7F01390B658A178054AEAC17846E6D6152EE68F9B260036A8A8434CC38AF017A80BF26B9CE427426BE1793168E3E3B252A",
+   "decoded": "eHwDqqSJuAnVTetALxYuoVaydLiu-ZTDOfnkFDc-tS.dizxlGRmRVutHgyadFXIT"
+  },
+  {
+   "type": "X691-A3.NameString",
+   "value": "GuFSY-TTwNdOwlhn.hTleBGdzsUHgwzsGu-WezxuXnkjwMJlbff.lA",
+   "hex": "6A4603A8D00AAB91EFA194F1D20C6ACF00643FADCB13165ADC46003106B9E0CD334B91C5CEEC30833840",
+   "decoded": "GuFSY-TTwNdOwlhn.hTleBGdzsUHgwzsGu-WezxuXnkjwMJlbff.lA"
+  },
+  {
+   "type": "X691-A3.NameString",
+   "value": "m",
+   "hex": "0140",
+   "decoded": "m"
+  },
+  {
+   "type": "X691-A3.NameString",
+   "value": "feKn-NlFAlIG.jZLrRXhkhif-OyEDhvkAfPNLzjTIEGzQWdPKpTkMuhyvenkPeAT",
+   "hex": "7F0C065201F38E14E5100CAD9B6A6CC7347242021A0C2C78CC14289E6EB2AA50C46A930FA2656ACC7611E98C14CC8C012A",
+   "decoded": "feKn-NlFAlIG.jZLrRXhkhif-OyEDhvkAfPNLzjTIEGzQWdPKpTkMuhyvenkPeAT"
+  }
+ ],
+ "skipped": []
+}

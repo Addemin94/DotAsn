@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Generates idiomatic, strongly typed C# (classes, enums and typed runtime descriptors) from the resolved ASN.1 model. The output is built as a Roslyn syntax tree. Contains no encoding logic.</Description>
+    <RootNamespace>Asn1.CodeGen.CSharp</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Semantics\Asn1.Semantics.csproj" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+  </ItemGroup>
+</Project>

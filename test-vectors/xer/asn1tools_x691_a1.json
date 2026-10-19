@@ -1,0 +1,513 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "xer",
+ "specs": [
+  "test-vectors/corpus/asn1tools/x691_a1.asn"
+ ],
+ "cases": [
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "r\"fU0",
+     "familyName": "\"z\"Mdi<*/(&n"
+    },
+    "title": "xs^+&X{dUn-5",
+    "number": "29561934294517290872853062806",
+    "dateOfHire": "^kx-(I*sH=D2",
+    "nameOfSpouse": {
+     "givenName": "9C]N33q1~",
+     "initial": "-IS!VV'ihPCW",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "hex": "3C506572736F6E6E656C5265636F72643E3C6E616D653E3C676976656E4E616D65202F3E3C696E697469616C3E72226655303C2F696E697469616C3E3C66616D696C794E616D653E227A224D6469266C743B2A2F2826616D703B6E3C2F66616D696C794E616D653E3C2F6E616D653E3C7469746C653E78735E2B26616D703B587B64556E2D353C2F7469746C653E3C6E756D6265723E32393536313933343239343531373239303837323835333036323830363C2F6E756D6265723E3C646174654F66486972653E5E6B782D28492A73483D44323C2F646174654F66486972653E3C6E616D654F6653706F7573653E3C676976656E4E616D653E39435D4E333371317E3C2F676976656E4E616D653E3C696E697469616C3E2D49532156562769685043573C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F6E616D654F6653706F7573653E3C6368696C6472656E202F3E3C2F506572736F6E6E656C5265636F72643E",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "r\"fU0",
+     "familyName": "\"z\"Mdi<*/(&n"
+    },
+    "title": "xs^+&X{dUn-5",
+    "number": "29561934294517290872853062806",
+    "dateOfHire": "^kx-(I*sH=D2",
+    "nameOfSpouse": {
+     "givenName": "9C]N33q1~",
+     "initial": "-IS!VV'ihPCW",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "text": "<PersonnelRecord><name><givenName /><initial>r\"fU0</initial><familyName>\"z\"Mdi&lt;*/(&amp;n</familyName></name><title>xs^+&amp;X{dUn-5</title><number>29561934294517290872853062806</number><dateOfHire>^kx-(I*sH=D2</dateOfHire><nameOfSpouse><givenName>9C]N33q1~</givenName><initial>-IS!VV'ihPCW</initial><familyName /></nameOfSpouse><children /></PersonnelRecord>"
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "We",
+     "initial": ";rp1hw",
+     "familyName": "0r#"
+    },
+    "title": "ksQdjV]FN$MZ",
+    "number": "649891116272004287888400283457",
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "*Q?iyJ{>M",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "hex": "3C506572736F6E6E656C5265636F72643E3C6E616D653E3C676976656E4E616D653E57653C2F676976656E4E616D653E3C696E697469616C3E3B72703168773C2F696E697469616C3E3C66616D696C794E616D653E3072233C2F66616D696C794E616D653E3C2F6E616D653E3C7469746C653E6B7351646A565D464E244D5A3C2F7469746C653E3C6E756D6265723E3634393839313131363237323030343238373838383430303238333435373C2F6E756D6265723E3C646174654F6648697265202F3E3C6E616D654F6653706F7573653E3C676976656E4E616D65202F3E3C696E697469616C3E2A513F69794A7B2667743B4D3C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F6E616D654F6653706F7573653E3C6368696C6472656E202F3E3C2F506572736F6E6E656C5265636F72643E",
+   "decoded": {
+    "name": {
+     "givenName": "We",
+     "initial": ";rp1hw",
+     "familyName": "0r#"
+    },
+    "title": "ksQdjV]FN$MZ",
+    "number": "649891116272004287888400283457",
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "*Q?iyJ{>M",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "text": "<PersonnelRecord><name><givenName>We</givenName><initial>;rp1hw</initial><familyName>0r#</familyName></name><title>ksQdjV]FN$MZ</title><number>649891116272004287888400283457</number><dateOfHire /><nameOfSpouse><givenName /><initial>*Q?iyJ{&gt;M</initial><familyName /></nameOfSpouse><children /></PersonnelRecord>"
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "2",
+     "initial": "1 I#9",
+     "familyName": ""
+    },
+    "title": "",
+    "number": "-1267650600228229401496703205376",
+    "dateOfHire": "Mp1FuFJ',b$$",
+    "nameOfSpouse": {
+     "givenName": ".*!",
+     "initial": "FND/'q\"Uzp`c",
+     "familyName": "K5vex=?4,kER"
+    }
+   },
+   "hex": "3C506572736F6E6E656C5265636F72643E3C6E616D653E3C676976656E4E616D653E323C2F676976656E4E616D653E3C696E697469616C3E31204923393C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F6E616D653E3C7469746C65202F3E3C6E756D6265723E2D313236373635303630303232383232393430313439363730333230353337363C2F6E756D6265723E3C646174654F66486972653E4D70314675464A272C6224243C2F646174654F66486972653E3C6E616D654F6653706F7573653E3C676976656E4E616D653E2E2A213C2F676976656E4E616D653E3C696E697469616C3E464E442F277122557A7060633C2F696E697469616C3E3C66616D696C794E616D653E4B357665783D3F342C6B45523C2F66616D696C794E616D653E3C2F6E616D654F6653706F7573653E3C2F506572736F6E6E656C5265636F72643E",
+   "decoded": {
+    "name": {
+     "givenName": "2",
+     "initial": "1 I#9",
+     "familyName": ""
+    },
+    "title": "",
+    "number": "-1267650600228229401496703205376",
+    "dateOfHire": "Mp1FuFJ',b$$",
+    "nameOfSpouse": {
+     "givenName": ".*!",
+     "initial": "FND/'q\"Uzp`c",
+     "familyName": "K5vex=?4,kER"
+    },
+    "children": []
+   },
+   "text": "<PersonnelRecord><name><givenName>2</givenName><initial>1 I#9</initial><familyName /></name><title /><number>-1267650600228229401496703205376</number><dateOfHire>Mp1FuFJ',b$$</dateOfHire><nameOfSpouse><givenName>.*!</givenName><initial>FND/'q\"Uzp`c</initial><familyName>K5vex=?4,kER</familyName></nameOfSpouse></PersonnelRecord>"
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "DSNjwQ7B4*,)",
+     "initial": "r>*]|7D'[\"2A",
+     "familyName": "H ?"
+    },
+    "title": "",
+    "number": "-18446743755511861239",
+    "dateOfHire": "4G/0b,<wLXVw",
+    "nameOfSpouse": {
+     "givenName": "q",
+     "initial": "8",
+     "familyName": ""
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": "3zj2Sn<N!({l"
+     }
+    ]
+   },
+   "hex": "3C506572736F6E6E656C5265636F72643E3C6E616D653E3C676976656E4E616D653E44534E6A77513742342A2C293C2F676976656E4E616D653E3C696E697469616C3E722667743B2A5D7C3744275B2232413C2F696E697469616C3E3C66616D696C794E616D653E48203F3C2F66616D696C794E616D653E3C2F6E616D653E3C7469746C65202F3E3C6E756D6265723E2D31383434363734333735353531313836313233393C2F6E756D6265723E3C646174654F66486972653E34472F30622C266C743B774C5856773C2F646174654F66486972653E3C6E616D654F6653706F7573653E3C676976656E4E616D653E713C2F676976656E4E616D653E3C696E697469616C3E383C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F6E616D654F6653706F7573653E3C6368696C6472656E3E3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D65202F3E3C696E697469616C202F3E3C66616D696C794E616D65202F3E3C2F6E616D653E3C646174654F6642697274683E337A6A32536E266C743B4E21287B6C3C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E3C2F6368696C6472656E3E3C2F506572736F6E6E656C5265636F72643E",
+   "decoded": {
+    "name": {
+     "givenName": "DSNjwQ7B4*,)",
+     "initial": "r>*]|7D'[\"2A",
+     "familyName": "H ?"
+    },
+    "title": "",
+    "number": "-18446743755511861239",
+    "dateOfHire": "4G/0b,<wLXVw",
+    "nameOfSpouse": {
+     "givenName": "q",
+     "initial": "8",
+     "familyName": ""
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": "3zj2Sn<N!({l"
+     }
+    ]
+   },
+   "text": "<PersonnelRecord><name><givenName>DSNjwQ7B4*,)</givenName><initial>r&gt;*]|7D'[\"2A</initial><familyName>H ?</familyName></name><title /><number>-18446743755511861239</number><dateOfHire>4G/0b,&lt;wLXVw</dateOfHire><nameOfSpouse><givenName>q</givenName><initial>8</initial><familyName /></nameOfSpouse><children><ChildInformation><name><givenName /><initial /><familyName /></name><dateOfBirth>3zj2Sn&lt;N!({l</dateOfBirth></ChildInformation></children></PersonnelRecord>"
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "0T4O{oKk",
+     "initial": "",
+     "familyName": ""
+    },
+    "title": "",
+    "number": 842398996590,
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "5}$rL\"5Hb?i|",
+     "familyName": "d]DC;Kp.hy+o"
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "C7FH`^>oub*j",
+       "initial": "",
+       "familyName": "H`CO5x'5)f[u"
+      },
+      "dateOfBirth": "TP1>4cc{"
+     },
+     {
+      "name": {
+       "givenName": ".9c5..P@c2I0",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": ""
+     },
+     {
+      "name": {
+       "givenName": "",
+       "initial": "c-3|_SY}[VyM",
+       "familyName": "&!,tj"
+      },
+      "dateOfBirth": "Eu7.w{)Q yS`"
+     }
+    ]
+   },
+   "hex": "3C506572736F6E6E656C5265636F72643E3C6E616D653E3C676976656E4E616D653E3054344F7B6F4B6B3C2F676976656E4E616D653E3C696E697469616C202F3E3C66616D696C794E616D65202F3E3C2F6E616D653E3C7469746C65202F3E3C6E756D6265723E3834323339383939363539303C2F6E756D6265723E3C646174654F6648697265202F3E3C6E616D654F6653706F7573653E3C676976656E4E616D65202F3E3C696E697469616C3E357D24724C223548623F697C3C2F696E697469616C3E3C66616D696C794E616D653E645D44433B4B702E68792B6F3C2F66616D696C794E616D653E3C2F6E616D654F6653706F7573653E3C6368696C6472656E3E3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D653E43374648605E2667743B6F75622A6A3C2F676976656E4E616D653E3C696E697469616C202F3E3C66616D696C794E616D653E4860434F3578273529665B753C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E5450312667743B3463637B3C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D653E2E3963352E2E5040633249303C2F676976656E4E616D653E3C696E697469616C202F3E3C66616D696C794E616D65202F3E3C2F6E616D653E3C646174654F664269727468202F3E3C2F4368696C64496E666F726D6174696F6E3E3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D65202F3E3C696E697469616C3E632D337C5F53597D5B56794D3C2F696E697469616C3E3C66616D696C794E616D653E26616D703B212C746A3C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E4575372E777B2951207953603C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E3C2F6368696C6472656E3E3C2F506572736F6E6E656C5265636F72643E",
+   "decoded": {
+    "name": {
+     "givenName": "0T4O{oKk",
+     "initial": "",
+     "familyName": ""
+    },
+    "title": "",
+    "number": 842398996590,
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "5}$rL\"5Hb?i|",
+     "familyName": "d]DC;Kp.hy+o"
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "C7FH`^>oub*j",
+       "initial": "",
+       "familyName": "H`CO5x'5)f[u"
+      },
+      "dateOfBirth": "TP1>4cc{"
+     },
+     {
+      "name": {
+       "givenName": ".9c5..P@c2I0",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": ""
+     },
+     {
+      "name": {
+       "givenName": "",
+       "initial": "c-3|_SY}[VyM",
+       "familyName": "&!,tj"
+      },
+      "dateOfBirth": "Eu7.w{)Q yS`"
+     }
+    ]
+   },
+   "text": "<PersonnelRecord><name><givenName>0T4O{oKk</givenName><initial /><familyName /></name><title /><number>842398996590</number><dateOfHire /><nameOfSpouse><givenName /><initial>5}$rL\"5Hb?i|</initial><familyName>d]DC;Kp.hy+o</familyName></nameOfSpouse><children><ChildInformation><name><givenName>C7FH`^&gt;oub*j</givenName><initial /><familyName>H`CO5x'5)f[u</familyName></name><dateOfBirth>TP1&gt;4cc{</dateOfBirth></ChildInformation><ChildInformation><name><givenName>.9c5..P@c2I0</givenName><initial /><familyName /></name><dateOfBirth /></ChildInformation><ChildInformation><name><givenName /><initial>c-3|_SY}[VyM</initial><familyName>&amp;!,tj</familyName></name><dateOfBirth>Eu7.w{)Q yS`</dateOfBirth></ChildInformation></children></PersonnelRecord>"
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "ZDK*hiB35E{S",
+     "initial": "",
+     "familyName": ""
+    },
+    "dateOfBirth": ""
+   },
+   "hex": "3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D653E5A444B2A6869423335457B533C2F676976656E4E616D653E3C696E697469616C202F3E3C66616D696C794E616D65202F3E3C2F6E616D653E3C646174654F664269727468202F3E3C2F4368696C64496E666F726D6174696F6E3E",
+   "decoded": {
+    "name": {
+     "givenName": "ZDK*hiB35E{S",
+     "initial": "",
+     "familyName": ""
+    },
+    "dateOfBirth": ""
+   },
+   "text": "<ChildInformation><name><givenName>ZDK*hiB35E{S</givenName><initial /><familyName /></name><dateOfBirth /></ChildInformation>"
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "\"Qm.JfJX_hYM",
+     "initial": ">Ui[R#wR~Un~",
+     "familyName": "a/CD.2By<Y>Z"
+    },
+    "dateOfBirth": "e3x4NlqG6XS@"
+   },
+   "hex": "3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D653E22516D2E4A664A585F68594D3C2F676976656E4E616D653E3C696E697469616C3E2667743B55695B522377527E556E7E3C2F696E697469616C3E3C66616D696C794E616D653E612F43442E324279266C743B592667743B5A3C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E653378344E6C7147365853403C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E",
+   "decoded": {
+    "name": {
+     "givenName": "\"Qm.JfJX_hYM",
+     "initial": ">Ui[R#wR~Un~",
+     "familyName": "a/CD.2By<Y>Z"
+    },
+    "dateOfBirth": "e3x4NlqG6XS@"
+   },
+   "text": "<ChildInformation><name><givenName>\"Qm.JfJX_hYM</givenName><initial>&gt;Ui[R#wR~Un~</initial><familyName>a/CD.2By&lt;Y&gt;Z</familyName></name><dateOfBirth>e3x4NlqG6XS@</dateOfBirth></ChildInformation>"
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "+(uOD5>>.D9/",
+     "familyName": "k[ZOmO9xioma"
+    },
+    "dateOfBirth": "$:rO_e5mbt/^"
+   },
+   "hex": "3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D65202F3E3C696E697469616C3E2B28754F44352667743B2667743B2E44392F3C2F696E697469616C3E3C66616D696C794E616D653E6B5B5A4F6D4F3978696F6D613C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E243A724F5F65356D62742F5E3C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "+(uOD5>>.D9/",
+     "familyName": "k[ZOmO9xioma"
+    },
+    "dateOfBirth": "$:rO_e5mbt/^"
+   },
+   "text": "<ChildInformation><name><givenName /><initial>+(uOD5&gt;&gt;.D9/</initial><familyName>k[ZOmO9xioma</familyName></name><dateOfBirth>$:rO_e5mbt/^</dateOfBirth></ChildInformation>"
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "",
+     "familyName": "y<X\\UYEP\\:{"
+    },
+    "dateOfBirth": "TV}wd@/\"*"
+   },
+   "hex": "3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D65202F3E3C696E697469616C202F3E3C66616D696C794E616D653E79266C743B585C555945505C3A7B3C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E54567D7764402F222A3C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "",
+     "familyName": "y<X\\UYEP\\:{"
+    },
+    "dateOfBirth": "TV}wd@/\"*"
+   },
+   "text": "<ChildInformation><name><givenName /><initial /><familyName>y&lt;X\\UYEP\\:{</familyName></name><dateOfBirth>TV}wd@/\"*</dateOfBirth></ChildInformation>"
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "HVw2')^3=DR",
+     "initial": "y2q3K]+fb~Y-",
+     "familyName": "c+1g.)9j=P4R"
+    },
+    "dateOfBirth": "ljQ0^"
+   },
+   "hex": "3C4368696C64496E666F726D6174696F6E3E3C6E616D653E3C676976656E4E616D653E4856773227295E333D44523C2F676976656E4E616D653E3C696E697469616C3E793271334B5D2B66627E592D3C2F696E697469616C3E3C66616D696C794E616D653E632B31672E29396A3D5034523C2F66616D696C794E616D653E3C2F6E616D653E3C646174654F6642697274683E6C6A51305E3C2F646174654F6642697274683E3C2F4368696C64496E666F726D6174696F6E3E",
+   "decoded": {
+    "name": {
+     "givenName": "HVw2')^3=DR",
+     "initial": "y2q3K]+fb~Y-",
+     "familyName": "c+1g.)9j=P4R"
+    },
+    "dateOfBirth": "ljQ0^"
+   },
+   "text": "<ChildInformation><name><givenName>HVw2')^3=DR</givenName><initial>y2q3K]+fb~Y-</initial><familyName>c+1g.)9j=P4R</familyName></name><dateOfBirth>ljQ0^</dateOfBirth></ChildInformation>"
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "",
+    "initial": "",
+    "familyName": ""
+   },
+   "hex": "3C4E616D653E3C676976656E4E616D65202F3E3C696E697469616C202F3E3C66616D696C794E616D65202F3E3C2F4E616D653E",
+   "decoded": {
+    "givenName": "",
+    "initial": "",
+    "familyName": ""
+   },
+   "text": "<Name><givenName /><initial /><familyName /></Name>"
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "D:6.tA~w2",
+    "initial": "B$@$O1K>#=%e",
+    "familyName": ""
+   },
+   "hex": "3C4E616D653E3C676976656E4E616D653E443A362E74417E77323C2F676976656E4E616D653E3C696E697469616C3E422440244F314B2667743B233D25653C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F4E616D653E",
+   "decoded": {
+    "givenName": "D:6.tA~w2",
+    "initial": "B$@$O1K>#=%e",
+    "familyName": ""
+   },
+   "text": "<Name><givenName>D:6.tA~w2</givenName><initial>B$@$O1K&gt;#=%e</initial><familyName /></Name>"
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "GO:!i9 C\\p~",
+    "initial": "6uVx/&6",
+    "familyName": ""
+   },
+   "hex": "3C4E616D653E3C676976656E4E616D653E474F3A21693920435C707E3C2F676976656E4E616D653E3C696E697469616C3E367556782F26616D703B363C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F4E616D653E",
+   "decoded": {
+    "givenName": "GO:!i9 C\\p~",
+    "initial": "6uVx/&6",
+    "familyName": ""
+   },
+   "text": "<Name><givenName>GO:!i9 C\\p~</givenName><initial>6uVx/&amp;6</initial><familyName /></Name>"
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "9WwE",
+    "initial": "1(`",
+    "familyName": ""
+   },
+   "hex": "3C4E616D653E3C676976656E4E616D653E395777453C2F676976656E4E616D653E3C696E697469616C3E3128603C2F696E697469616C3E3C66616D696C794E616D65202F3E3C2F4E616D653E",
+   "decoded": {
+    "givenName": "9WwE",
+    "initial": "1(`",
+    "familyName": ""
+   },
+   "text": "<Name><givenName>9WwE</givenName><initial>1(`</initial><familyName /></Name>"
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "%+UUA8AwZ)",
+    "initial": "=Xd& +oav[@g",
+    "familyName": "$YaAMCAa2.\"B"
+   },
+   "hex": "3C4E616D653E3C676976656E4E616D653E252B5555413841775A293C2F676976656E4E616D653E3C696E697469616C3E3D586426616D703B202B6F61765B40673C2F696E697469616C3E3C66616D696C794E616D653E245961414D434161322E22423C2F66616D696C794E616D653E3C2F4E616D653E",
+   "decoded": {
+    "givenName": "%+UUA8AwZ)",
+    "initial": "=Xd& +oav[@g",
+    "familyName": "$YaAMCAa2.\"B"
+   },
+   "text": "<Name><givenName>%+UUA8AwZ)</givenName><initial>=Xd&amp; +oav[@g</initial><familyName>$YaAMCAa2.\"B</familyName></Name>"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": 0,
+   "hex": "3C456D706C6F7965654E756D6265723E303C2F456D706C6F7965654E756D6265723E",
+   "decoded": 0,
+   "text": "<EmployeeNumber>0</EmployeeNumber>"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": -78,
+   "hex": "3C456D706C6F7965654E756D6265723E2D37383C2F456D706C6F7965654E756D6265723E",
+   "decoded": -78,
+   "text": "<EmployeeNumber>-78</EmployeeNumber>"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": "10231791896637570936",
+   "hex": "3C456D706C6F7965654E756D6265723E31303233313739313839363633373537303933363C2F456D706C6F7965654E756D6265723E",
+   "decoded": "10231791896637570936",
+   "text": "<EmployeeNumber>10231791896637570936</EmployeeNumber>"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": "2265086432546119136",
+   "hex": "3C456D706C6F7965654E756D6265723E323236353038363433323534363131393133363C2F456D706C6F7965654E756D6265723E",
+   "decoded": "2265086432546119136",
+   "text": "<EmployeeNumber>2265086432546119136</EmployeeNumber>"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": -1099511627680,
+   "hex": "3C456D706C6F7965654E756D6265723E2D313039393531313632373638303C2F456D706C6F7965654E756D6265723E",
+   "decoded": -1099511627680,
+   "text": "<EmployeeNumber>-1099511627680</EmployeeNumber>"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "{hC4s'D_1EP3",
+   "hex": "3C446174653E7B6843347327445F314550333C2F446174653E",
+   "decoded": "{hC4s'D_1EP3",
+   "text": "<Date>{hC4s'D_1EP3</Date>"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "-NDW",
+   "hex": "3C446174653E2D4E44573C2F446174653E",
+   "decoded": "-NDW",
+   "text": "<Date>-NDW</Date>"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "V%#ygfrbb&Y_",
+   "hex": "3C446174653E56252379676672626226616D703B595F3C2F446174653E",
+   "decoded": "V%#ygfrbb&Y_",
+   "text": "<Date>V%#ygfrbb&amp;Y_</Date>"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "",
+   "hex": "3C44617465202F3E",
+   "decoded": "",
+   "text": "<Date />"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "?UbSx:8}&",
+   "hex": "3C446174653E3F556253783A387D26616D703B3C2F446174653E",
+   "decoded": "?UbSx:8}&",
+   "text": "<Date>?UbSx:8}&amp;</Date>"
+  }
+ ],
+ "skipped": []
+}

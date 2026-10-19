@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Convenience package that references every implemented encoding rule and exposes them through Asn1EncodingRules (Asn1EncodingRules.Der, .Uper, ...).</Description>
+    <RootNamespace>Asn1.Runtime</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Runtime.Ber\Asn1.Runtime.Ber.csproj" />
+    <ProjectReference Include="..\Asn1.Runtime.Per\Asn1.Runtime.Per.csproj" />
+    <ProjectReference Include="..\Asn1.Runtime.Oer\Asn1.Runtime.Oer.csproj" />
+    <ProjectReference Include="..\Asn1.Runtime.Jer\Asn1.Runtime.Jer.csproj" />
+    <ProjectReference Include="..\Asn1.Runtime.Xer\Asn1.Runtime.Xer.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,26 @@
+-- Recursive and mutually recursive types.
+Tree-Example DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Tree ::= SEQUENCE {
+    value     INTEGER,
+    children  SEQUENCE OF Tree          -- terminates through the empty list
+}
+
+Expression ::= CHOICE {
+    number    INTEGER,
+    sum       BinaryOperation,
+    product   BinaryOperation
+}
+
+BinaryOperation ::= SEQUENCE {
+    left      Expression,
+    right     Expression
+}
+
+LinkedList ::= SEQUENCE {
+    head      UTF8String,
+    tail      LinkedList OPTIONAL       -- terminates through OPTIONAL
+}
+
+END

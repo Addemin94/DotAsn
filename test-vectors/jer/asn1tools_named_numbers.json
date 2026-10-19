@@ -1,0 +1,81 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "jer",
+ "specs": [
+  "test-vectors/corpus/asn1tools/named_numbers.asn"
+ ],
+ "cases": [
+  {
+   "type": "Foo.Constants",
+   "value": -1,
+   "hex": "2D31",
+   "decoded": -1,
+   "text": "-1"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 0,
+   "hex": "30",
+   "decoded": 0,
+   "text": "0"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 2,
+   "hex": "32",
+   "decoded": 2,
+   "text": "2"
+  },
+  {
+   "type": "Foo.Constants",
+   "value": 1,
+   "hex": "31",
+   "decoded": 1,
+   "text": "1"
+  },
+  {
+   "type": "Foo.A",
+   "value": -1,
+   "hex": "2D31",
+   "decoded": -1,
+   "text": "-1"
+  },
+  {
+   "type": "Foo.A",
+   "value": 1,
+   "hex": "31",
+   "decoded": 1,
+   "text": "1"
+  },
+  {
+   "type": "Foo.A",
+   "value": 0,
+   "hex": "30",
+   "decoded": 0,
+   "text": "0"
+  },
+  {
+   "type": "Foo.B",
+   "value": 2,
+   "hex": "32",
+   "decoded": 2,
+   "text": "2"
+  },
+  {
+   "type": "Foo.C",
+   "value": 1,
+   "hex": "31",
+   "decoded": 1,
+   "text": "1"
+  },
+  {
+   "type": "Foo.C",
+   "value": 0,
+   "hex": "30",
+   "decoded": 0,
+   "text": "0"
+  }
+ ],
+ "skipped": []
+}

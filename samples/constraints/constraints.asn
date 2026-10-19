@@ -1,0 +1,23 @@
+-- Constraint forms and their PER effect.
+Constraints-Example DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Percent       ::= INTEGER (0..100)
+Port          ::= INTEGER (1..65535)
+Temperature   ::= INTEGER (-40..85, ...)              -- extensible: values outside use an extension bit
+Small         ::= INTEGER (1 | 2 | 4 | 8)
+PinCode       ::= NumericString (SIZE (4..6))
+Hex           ::= IA5String (FROM ("0".."9" | "A".."F")) -- 4 bits per character in UPER
+Callsign      ::= PrintableString (SIZE (3..8)) (FROM ("A".."Z" | "0".."9"))
+Payload       ::= OCTET STRING (SIZE (0..1024))
+Flags         ::= BIT STRING { ready(0), busy(1), error(2) } (SIZE (8))
+Readings      ::= SEQUENCE (SIZE (1..16)) OF Temperature
+Version       ::= INTEGER (Small | 16)                  -- contained subtype (root only)
+
+Config ::= SEQUENCE {
+    port      Port,
+    mode      ENUMERATED { off, on } OPTIONAL,
+    limit     INTEGER (0..10) OPTIONAL
+} (WITH COMPONENTS { ..., limit PRESENT })
+
+END

@@ -1,0 +1,165 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "xer",
+ "specs": [
+  "test-vectors/corpus/asn1tools/enumerated.asn"
+ ],
+ "cases": [
+  {
+   "type": "E.A",
+   "value": "b",
+   "hex": "3C413E3C62202F3E3C2F413E",
+   "decoded": "b",
+   "text": "<A><b /></A>"
+  },
+  {
+   "type": "E.A",
+   "value": "a",
+   "hex": "3C413E3C61202F3E3C2F413E",
+   "decoded": "a",
+   "text": "<A><a /></A>"
+  },
+  {
+   "type": "E.A",
+   "value": "c",
+   "hex": "3C413E3C63202F3E3C2F413E",
+   "decoded": "c",
+   "text": "<A><c /></A>"
+  },
+  {
+   "type": "E.B",
+   "value": "a",
+   "hex": "3C423E3C61202F3E3C2F423E",
+   "decoded": "a",
+   "text": "<B><a /></B>"
+  },
+  {
+   "type": "E.B",
+   "value": "c",
+   "hex": "3C423E3C63202F3E3C2F423E",
+   "decoded": "c",
+   "text": "<B><c /></B>"
+  },
+  {
+   "type": "E.B",
+   "value": "b",
+   "hex": "3C423E3C62202F3E3C2F423E",
+   "decoded": "b",
+   "text": "<B><b /></B>"
+  },
+  {
+   "type": "E.B",
+   "value": "d",
+   "hex": "3C423E3C64202F3E3C2F423E",
+   "decoded": "d",
+   "text": "<B><d /></B>"
+  },
+  {
+   "type": "E.C",
+   "value": "b",
+   "hex": "3C433E3C62202F3E3C2F433E",
+   "decoded": "b",
+   "text": "<C><b /></C>"
+  },
+  {
+   "type": "E.C",
+   "value": "a",
+   "hex": "3C433E3C61202F3E3C2F433E",
+   "decoded": "a",
+   "text": "<C><a /></C>"
+  },
+  {
+   "type": "E.C",
+   "value": "d",
+   "hex": "3C433E3C64202F3E3C2F433E",
+   "decoded": "d",
+   "text": "<C><d /></C>"
+  },
+  {
+   "type": "E.C",
+   "value": "c",
+   "hex": "3C433E3C63202F3E3C2F433E",
+   "decoded": "c",
+   "text": "<C><c /></C>"
+  },
+  {
+   "type": "E.D",
+   "value": "a",
+   "hex": "3C443E3C61202F3E3C2F443E",
+   "decoded": "a",
+   "text": "<D><a /></D>"
+  },
+  {
+   "type": "E.D",
+   "value": "z",
+   "hex": "3C443E3C7A202F3E3C2F443E",
+   "decoded": "z",
+   "text": "<D><z /></D>"
+  },
+  {
+   "type": "E.D",
+   "value": "d",
+   "hex": "3C443E3C64202F3E3C2F443E",
+   "decoded": "d",
+   "text": "<D><d /></D>"
+  },
+  {
+   "type": "E.E",
+   "value": "f",
+   "hex": "3C453E3C66202F3E3C2F453E",
+   "decoded": "f",
+   "text": "<E><f /></E>"
+  },
+  {
+   "type": "E.E",
+   "value": "e",
+   "hex": "3C453E3C65202F3E3C2F453E",
+   "decoded": "e",
+   "text": "<E><e /></E>"
+  },
+  {
+   "type": "E.E",
+   "value": "c",
+   "hex": "3C453E3C63202F3E3C2F453E",
+   "decoded": "c",
+   "text": "<E><c /></E>"
+  },
+  {
+   "type": "E.E",
+   "value": "g",
+   "hex": "3C453E3C67202F3E3C2F453E",
+   "decoded": "g",
+   "text": "<E><g /></E>"
+  },
+  {
+   "type": "E.E",
+   "value": "b",
+   "hex": "3C453E3C62202F3E3C2F453E",
+   "decoded": "b",
+   "text": "<E><b /></E>"
+  },
+  {
+   "type": "E.F",
+   "value": "a",
+   "hex": "3C463E3C61202F3E3C2F463E",
+   "decoded": "a",
+   "text": "<F><a /></F>"
+  },
+  {
+   "type": "E.G",
+   "value": "a",
+   "hex": "3C473E3C61202F3E3C2F473E",
+   "decoded": "a",
+   "text": "<G><a /></G>"
+  },
+  {
+   "type": "E.H",
+   "value": "a",
+   "hex": "3C483E3C61202F3E3C2F483E",
+   "decoded": "a",
+   "text": "<H><a /></H>"
+  }
+ ],
+ "skipped": []
+}

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Shared ASN.1 runtime: typed type descriptors, encoding-rule contracts (writer/reader), buffers, primitive content codecs shared by several encoding rules, options, resource limits, constraint validation and structured errors. Independent of the compiler.</Description>
+    <RootNamespace>Asn1.Runtime</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Core\Asn1.Core.csproj" />
+  </ItemGroup>
+</Project>

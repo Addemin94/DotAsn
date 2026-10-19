@@ -1,0 +1,488 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/module_tags_explicit.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "ModuleTagsExplicit.A",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsExplicit.A",
+      "value": "-18446744073709551568"
+    },
+    {
+      "type": "ModuleTagsExplicit.A",
+      "value": 0
+    },
+    {
+      "type": "ModuleTagsExplicit.A",
+      "value": "16800964465037309551"
+    },
+    {
+      "type": "ModuleTagsExplicit.A",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsExplicit.AI",
+      "value": 766204943232
+    },
+    {
+      "type": "ModuleTagsExplicit.AI",
+      "value": "-1267650600228229401496703205276"
+    },
+    {
+      "type": "ModuleTagsExplicit.AI",
+      "value": "29561934294517290872853062806"
+    },
+    {
+      "type": "ModuleTagsExplicit.AI",
+      "value": "11600643282603909358"
+    },
+    {
+      "type": "ModuleTagsExplicit.AI",
+      "value": "1056359822941470104312205095526"
+    },
+    {
+      "type": "ModuleTagsExplicit.BA",
+      "value": -1099511627707
+    },
+    {
+      "type": "ModuleTagsExplicit.BA",
+      "value": "-18446743302503479142"
+    },
+    {
+      "type": "ModuleTagsExplicit.BA",
+      "value": 901903199152
+    },
+    {
+      "type": "ModuleTagsExplicit.BA",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsExplicit.BA",
+      "value": "524142835596855571959802354696"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIA",
+      "value": "6067883992489263961"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIA",
+      "value": "649891116272004287888400283457"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIA",
+      "value": -70000
+    },
+    {
+      "type": "ModuleTagsExplicit.BIA",
+      "value": -1099511627776
+    },
+    {
+      "type": "ModuleTagsExplicit.BIA",
+      "value": "-18446744073709551590"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIAI",
+      "value": "1267650600228229400397191577600"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIAI",
+      "value": -69925
+    },
+    {
+      "type": "ModuleTagsExplicit.BIAI",
+      "value": -1099511627676
+    },
+    {
+      "type": "ModuleTagsExplicit.BIAI",
+      "value": "-1267650600228229401496703205376"
+    },
+    {
+      "type": "ModuleTagsExplicit.BIAI",
+      "value": 0
+    },
+    {
+      "type": "ModuleTagsExplicit.CBA",
+      "value": "-1267650600228229401496703205276"
+    },
+    {
+      "type": "ModuleTagsExplicit.CBA",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsExplicit.CBA",
+      "value": -62
+    },
+    {
+      "type": "ModuleTagsExplicit.CBA",
+      "value": -69949
+    },
+    {
+      "type": "ModuleTagsExplicit.CBA",
+      "value": 242011572900
+    },
+    {
+      "type": "ModuleTagsExplicit.CBIAI",
+      "value": "15773565534138475911"
+    },
+    {
+      "type": "ModuleTagsExplicit.CBIAI",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsExplicit.CBIAI",
+      "value": "-556755592045286453447841241453"
+    },
+    {
+      "type": "ModuleTagsExplicit.CBIAI",
+      "value": -1099511627776
+    },
+    {
+      "type": "ModuleTagsExplicit.CBIAI",
+      "value": -1099511624430
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIA",
+      "value": -70000
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIA",
+      "value": -93
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIA",
+      "value": "1267650600209782657422993653755"
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIA",
+      "value": -100
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIA",
+      "value": 667285048488
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIAI",
+      "value": "-1267650600225482687215351879294"
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIAI",
+      "value": -1099511627676
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIAI",
+      "value": 36710
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIAI",
+      "value": "-1016910871581202959303846375965"
+    },
+    {
+      "type": "ModuleTagsExplicit.CIBIAI",
+      "value": -1099511557776
+    },
+    {
+      "type": "ModuleTagsExplicit.S1",
+      "value": {"a":69900,"b":false}
+    },
+    {
+      "type": "ModuleTagsExplicit.S1",
+      "value": {"a":"1202721224755010619732542838","b":true}
+    },
+    {
+      "type": "ModuleTagsExplicit.S1",
+      "value": {"a":-1099511627732}
+    },
+    {
+      "type": "ModuleTagsExplicit.S1",
+      "value": {"a":0,"b":false}
+    },
+    {
+      "type": "ModuleTagsExplicit.S1",
+      "value": {"a":-1099511589365,"b":false}
+    },
+    {
+      "type": "ModuleTagsExplicit.S2",
+      "value": {"a":"-1267650600228229401496703205322","b":{"a":"-14238255835169794390"},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S2",
+      "value": {"a":"-18446744073709503526","b":{"a":-100},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S2",
+      "value": {"a":-1099511557776,"b":{"a":0},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S2",
+      "value": {"a":"-1267650600228229401496703205311","b":{"a":-1099511558712},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S2",
+      "value": {"a":"-18446743569943322746","b":{"a":-1099511627776,"b":true},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S3",
+      "value": {"a":"18446744073709481621","b":{"a":68194,"b":false},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S3",
+      "value": {"a":2261,"b":{"a":"-1267650600228229400578902022705","b":false},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S3",
+      "value": {"a":-1099511583594,"b":{"a":"837663598291265684425151427930","b":true},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S3",
+      "value": {"a":-100,"b":{"a":-70000},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S3",
+      "value": {"a":-253921634503,"b":{"a":-1099511627762},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S4",
+      "value": {"a":"-18446744073709551618","b":{"a":{"a":"18446744073709481621"}},"c":{"a":0},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S4",
+      "value": {"a":-1099511573371,"b":{"a":{"a":-1099511627776}},"c":{"a":0,"b":false},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S4",
+      "value": {"a":"-1267650600228229401496703135376","b":{"a":{"a":"-18446743197368107374"}},"c":{"a":37047},"d":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S4",
+      "value": {"a":-1099511627776,"b":{"a":{"a":"5697732169325965693"}},"c":{"a":"-1267650600228229401496703172957"},"d":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S4",
+      "value": {"a":-100,"b":{"a":{"a":"-18446742974197923845"}},"c":{"a":"1267650600228229400397191577600","b":false},"d":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S5",
+      "value": {"a":-1099511605595,"b":{"a":"14493352181822210544","b":false},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S5",
+      "value": {"a":-968382760082,"b":{"a":"-1267650600228229401496703182721","b":false},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S5",
+      "value": {"a":0,"b":{"a":0},"c":{"a":false}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S5",
+      "value": {"a":"9571623298705644948","b":{"a":-100},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S5",
+      "value": {"a":0,"b":{"a":-69968},"c":{"a":true}}
+    },
+    {
+      "type": "ModuleTagsExplicit.S6",
+      "value": {"a":-1099511582326}
+    },
+    {
+      "type": "ModuleTagsExplicit.S6",
+      "value": {"a":-100}
+    },
+    {
+      "type": "ModuleTagsExplicit.S6",
+      "value": {"a":-21105}
+    },
+    {
+      "type": "ModuleTagsExplicit.S6",
+      "value": {"a":-70000}
+    },
+    {
+      "type": "ModuleTagsExplicit.S6",
+      "value": {"a":534412619900}
+    },
+    {
+      "type": "ModuleTagsExplicit.S7",
+      "value": {"a":-50107}
+    },
+    {
+      "type": "ModuleTagsExplicit.S7",
+      "value": {"a":"-18446744073709551621"}
+    },
+    {
+      "type": "ModuleTagsExplicit.S7",
+      "value": {"a":"218990016531998507745687479027","b":false}
+    },
+    {
+      "type": "ModuleTagsExplicit.S7",
+      "value": {"a":-850931906631}
+    },
+    {
+      "type": "ModuleTagsExplicit.S7",
+      "value": {"a":"-1267650600218010431531169965243"}
+    },
+    {
+      "type": "ModuleTagsExplicit.S8",
+      "value": {"a":[{"b":false},{"b":false},{"a":"1267650600228229400397191577600"}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S8",
+      "value": {"a":[]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S8",
+      "value": {"a":[{"b":true},{"b":false},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S8",
+      "value": {"a":[{"a":-1099511561417},{"a":1099511557776}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S8",
+      "value": {"a":[{"b":false},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S9",
+      "value": {"a":[{"b":false},{"b":true},{"b":true}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S9",
+      "value": {"a":[{"a":"-18446744073709495718"}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S9",
+      "value": {"a":[{"a":"-1267650600228229401201884980637"},{"a":"17276644381815698693"},{"a":"732497665066093715669648811510"}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S9",
+      "value": {"a":[]}
+    },
+    {
+      "type": "ModuleTagsExplicit.S9",
+      "value": {"a":[{"b":false},{"a":222322524710},{"a":"630157898067038297087070781777"}]}
+    },
+    {
+      "type": "ModuleTagsExplicit.C1",
+      "value": {"a":{"a":"-1267650600228229401496703205354"}}
+    },
+    {
+      "type": "ModuleTagsExplicit.C1",
+      "value": {"a":{"a":0}}
+    },
+    {
+      "type": "ModuleTagsExplicit.C1",
+      "value": {"a":{"a":54941}}
+    },
+    {
+      "type": "ModuleTagsExplicit.C1",
+      "value": {"a":{"a":"-1267650600209782657422993653755"}}
+    },
+    {
+      "type": "ModuleTagsExplicit.C1",
+      "value": {"a":{"a":"9677168736663488890"}}
+    },
+    {
+      "type": "ModuleTagsExplicit.Type1",
+      "value": "QQQCh|26/JB|"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type1",
+      "value": ""
+    },
+    {
+      "type": "ModuleTagsExplicit.Type1",
+      "value": "DC[|c"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type1",
+      "value": "/-A!bG3grKh0"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type1",
+      "value": "`wH3#9B|)1Ks"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type2",
+      "value": ""
+    },
+    {
+      "type": "ModuleTagsExplicit.Type2",
+      "value": "a~="
+    },
+    {
+      "type": "ModuleTagsExplicit.Type2",
+      "value": "qcK2i"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type2",
+      "value": "m4&Y+_OxbLCv"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type2",
+      "value": "@HbT!XTPl9oE"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type3",
+      "value": ""
+    },
+    {
+      "type": "ModuleTagsExplicit.Type3",
+      "value": "Q\\D?Sd\"#=A"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type3",
+      "value": "s]vV"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type3",
+      "value": "*&&)KTue(C"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type3",
+      "value": "n}"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type4",
+      "value": ""
+    },
+    {
+      "type": "ModuleTagsExplicit.Type4",
+      "value": "MbpB=0!NRg.K"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type4",
+      "value": "wVgK_bh&CwTg"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type4",
+      "value": "@+!7[C5f.Ds6"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type4",
+      "value": "?I5r`0&}Ncfj"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type5",
+      "value": "8grF\"IMY)H"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type5",
+      "value": "CVH--exb`&VX"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type5",
+      "value": "=PpHJhigZNa5"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type5",
+      "value": "ftU*,=]l$"
+    },
+    {
+      "type": "ModuleTagsExplicit.Type5",
+      "value": ":#"
+    }
+  ]
+}

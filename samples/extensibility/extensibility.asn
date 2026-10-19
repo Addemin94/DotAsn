@@ -1,0 +1,26 @@
+-- Version 2 of a message, compatible with version 1 decoders.
+Extensibility-Example DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+Status ::= ENUMERATED { ok, failed, ..., degraded }
+
+Report ::= SEQUENCE {
+    id          INTEGER (0..255),
+    status      Status,
+    ...,
+    [[ 2:
+        detail      UTF8String OPTIONAL,
+        retries     INTEGER (0..7) OPTIONAL
+    ]],
+    ...,
+    checksum    INTEGER (0..65535)          -- second root part: always present
+}
+
+Command ::= CHOICE {
+    reset       NULL,
+    configure   INTEGER (0..15),
+    ...,
+    upgrade     OCTET STRING
+}
+
+END

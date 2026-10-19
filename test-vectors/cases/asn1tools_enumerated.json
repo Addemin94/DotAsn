@@ -1,0 +1,96 @@
+{
+  "specs": [
+    "test-vectors/corpus/asn1tools/enumerated.asn"
+  ],
+  "seed": 7,
+  "cases": [
+    {
+      "type": "E.A",
+      "value": "b"
+    },
+    {
+      "type": "E.A",
+      "value": "a"
+    },
+    {
+      "type": "E.A",
+      "value": "c"
+    },
+    {
+      "type": "E.B",
+      "value": "a"
+    },
+    {
+      "type": "E.B",
+      "value": "c"
+    },
+    {
+      "type": "E.B",
+      "value": "b"
+    },
+    {
+      "type": "E.B",
+      "value": "d"
+    },
+    {
+      "type": "E.C",
+      "value": "b"
+    },
+    {
+      "type": "E.C",
+      "value": "a"
+    },
+    {
+      "type": "E.C",
+      "value": "d"
+    },
+    {
+      "type": "E.C",
+      "value": "c"
+    },
+    {
+      "type": "E.D",
+      "value": "a"
+    },
+    {
+      "type": "E.D",
+      "value": "z"
+    },
+    {
+      "type": "E.D",
+      "value": "d"
+    },
+    {
+      "type": "E.E",
+      "value": "f"
+    },
+    {
+      "type": "E.E",
+      "value": "e"
+    },
+    {
+      "type": "E.E",
+      "value": "c"
+    },
+    {
+      "type": "E.E",
+      "value": "g"
+    },
+    {
+      "type": "E.E",
+      "value": "b"
+    },
+    {
+      "type": "E.F",
+      "value": "a"
+    },
+    {
+      "type": "E.G",
+      "value": "a"
+    },
+    {
+      "type": "E.H",
+      "value": "a"
+    }
+  ]
+}

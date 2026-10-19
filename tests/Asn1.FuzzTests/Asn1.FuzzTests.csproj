@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Serialization\Asn1.Serialization.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <RepositoryRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../../'))</RepositoryRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>RepositoryRoot</_Parameter1>
+      <_Parameter2>$(RepositoryRoot)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+</Project>

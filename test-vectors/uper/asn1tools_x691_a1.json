@@ -1,0 +1,488 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "uper",
+ "specs": [
+  "test-vectors/corpus/asn1tools/x691_a1.asn"
+ ],
+ "cases": [
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "r\"fU0",
+     "familyName": "\"z\"Mdi<*/(&n"
+    },
+    "title": "xs^+&X{dUn-5",
+    "number": "29561934294517290872853062806",
+    "dateOfHire": "^kx-(I*sH=D2",
+    "nameOfSpouse": {
+     "givenName": "9C]N33q1~",
+     "initial": "-IS!VV'ihPCW",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "hex": "0002F2459AAB00C45E914DC9A5E2A5EA136E0C5F850F153FDD372F738D64960CF1CEF2B4D63DE4ABB96B50CBDAFC2D512557390F623209730EECE66CF8B1FC18B64D3435AB27D3A2843AE000",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "r\"fU0",
+     "familyName": "\"z\"Mdi<*/(&n"
+    },
+    "number": "29561934294517290872853062806",
+    "title": "xs^+&X{dUn-5",
+    "dateOfHire": "^kx-(I*sH=D2",
+    "nameOfSpouse": {
+     "givenName": "9C]N33q1~",
+     "initial": "-IS!VV'ihPCW",
+     "familyName": ""
+    },
+    "children": []
+   }
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "We",
+     "initial": ";rp1hw",
+     "familyName": "0r#"
+    },
+    "title": "ksQdjV]FN$MZ",
+    "number": "649891116272004287888400283457",
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "*Q?iyJ{>M",
+     "familyName": ""
+    },
+    "children": []
+   },
+   "hex": "0157CA0CEF97063A3B81B0E48C3420CFA5539C3A31C7483ABDDD04335F3A393556BB1A7249B680000255517FA7CCAF6FA68000",
+   "decoded": {
+    "name": {
+     "givenName": "We",
+     "initial": ";rp1hw",
+     "familyName": "0r#"
+    },
+    "number": "649891116272004287888400283457",
+    "title": "ksQdjV]FN$MZ",
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "*Q?iyJ{>M",
+     "familyName": ""
+    },
+    "children": []
+   }
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "2",
+     "initial": "1 I#9",
+     "familyName": ""
+    },
+    "title": "",
+    "number": "-1267650600228229401496703205376",
+    "dateOfHire": "Mp1FuFJ',b$$",
+    "nameOfSpouse": {
+     "givenName": ".*!",
+     "initial": "FND/'q\"Uzp`c",
+     "familyName": "K5vex=?4,kER"
+    }
+   },
+   "hex": "00B20562824A372001BE00000000000000000000000000019378318DD634A4EB31244806B95210C8D3A22F4FC5155F5C30630C96D7B65F0F5FB459AE2D20",
+   "decoded": {
+    "name": {
+     "givenName": "2",
+     "initial": "1 I#9",
+     "familyName": ""
+    },
+    "number": "-1267650600228229401496703205376",
+    "title": "",
+    "dateOfHire": "Mp1FuFJ',b$$",
+    "nameOfSpouse": {
+     "givenName": ".*!",
+     "initial": "FND/'q\"Uzp`c",
+     "familyName": "K5vex=?4,kER"
+    },
+    "children": []
+   }
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "DSNjwQ7B4*,)",
+     "initial": "r>*]|7D'[\"2A",
+     "familyName": "H ?"
+    },
+    "title": "",
+    "number": "-18446743755511861239",
+    "dateOfHire": "4G/0b,<wLXVw",
+    "nameOfSpouse": {
+     "givenName": "q",
+     "initial": "8",
+     "familyName": ""
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": "3zj2Sn<N!({l"
+     }
+    ]
+   },
+   "hex": "8644A73B577A2DE13454B1486727CAAEFC6F113DB44CA081C840FC27FC00000128583DC0240031A475EC312C79DE658ADDC07880B800010000000C67EB532A7B9E4E42A3DEC0",
+   "decoded": {
+    "name": {
+     "givenName": "DSNjwQ7B4*,)",
+     "initial": "r>*]|7D'[\"2A",
+     "familyName": "H ?"
+    },
+    "number": "-18446743755511861239",
+    "title": "",
+    "dateOfHire": "4G/0b,<wLXVw",
+    "nameOfSpouse": {
+     "givenName": "q",
+     "initial": "8",
+     "familyName": ""
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": "3zj2Sn<N!({l"
+     }
+    ]
+   }
+  },
+  {
+   "type": "X691-A1.PersonnelRecord",
+   "value": {
+    "name": {
+     "givenName": "0T4O{oKk",
+     "initial": "",
+     "familyName": ""
+    },
+    "title": "",
+    "number": 842398996590,
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "5}$rL\"5Hb?i|",
+     "familyName": "d]DC;Kp.hy+o"
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "C7FH`^>oub*j",
+       "initial": "",
+       "familyName": "H`CO5x'5)f[u"
+      },
+      "dateOfBirth": "TP1>4cc{"
+     },
+     {
+      "name": {
+       "givenName": ".9c5..P@c2I0",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": ""
+     },
+     {
+      "name": {
+       "givenName": "",
+       "initial": "c-3|_SY}[VyM",
+       "familyName": "&!,tj"
+      },
+      "dateOfBirth": "Eu7.w{)Q yS`"
+     }
+    ]
+   },
+   "hex": "8430A8D27FBDF2F5800003006211724C370000000635FA9394C44D64627FA7E0664BB121BB97C1768F2AF78186436F1A460BCFB7F5C4AB5000648C10E7B5F09DAA9CD6FA8454A0C5F34C78FD862E738DAAE5D42063652580000000006635ACFE5FA767EDBADE6682A642B3A6A0C8BD5BAEEFED4D141E69E0",
+   "decoded": {
+    "name": {
+     "givenName": "0T4O{oKk",
+     "initial": "",
+     "familyName": ""
+    },
+    "number": 842398996590,
+    "title": "",
+    "dateOfHire": "",
+    "nameOfSpouse": {
+     "givenName": "",
+     "initial": "5}$rL\"5Hb?i|",
+     "familyName": "d]DC;Kp.hy+o"
+    },
+    "children": [
+     {
+      "name": {
+       "givenName": "C7FH`^>oub*j",
+       "initial": "",
+       "familyName": "H`CO5x'5)f[u"
+      },
+      "dateOfBirth": "TP1>4cc{"
+     },
+     {
+      "name": {
+       "givenName": ".9c5..P@c2I0",
+       "initial": "",
+       "familyName": ""
+      },
+      "dateOfBirth": ""
+     },
+     {
+      "name": {
+       "givenName": "",
+       "initial": "c-3|_SY}[VyM",
+       "familyName": "&!,tj"
+      },
+      "dateOfBirth": "Eu7.w{)Q yS`"
+     }
+    ]
+   }
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "ZDK*hiB35E{S",
+     "initial": "",
+     "familyName": ""
+    },
+    "dateOfBirth": ""
+   },
+   "hex": "0CB5125AAD1A61336B17DD30000000",
+   "decoded": {
+    "name": {
+     "givenName": "ZDK*hiB35E{S",
+     "initial": "",
+     "familyName": ""
+    },
+    "dateOfBirth": ""
+   }
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "\"Qm.JfJX_hYM",
+     "initial": ">Ui[R#wR~Un~",
+     "familyName": "a/CD.2By<Y>Z"
+    },
+    "dateOfBirth": "e3x4NlqG6XS@"
+   },
+   "hex": "0C45476AE959A558BFA2CCD0C7D574DBA48FBD2FD5777E0CC2BE1C45CCA1797965F5A0CCACFC349DB38C76D629C0",
+   "decoded": {
+    "name": {
+     "givenName": "\"Qm.JfJX_hYM",
+     "initial": ">Ui[R#wR~Un~",
+     "familyName": "a/CD.2By<Y>Z"
+    },
+    "dateOfBirth": "e3x4NlqG6XS@"
+   }
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "+(uOD5>>.D9/",
+     "familyName": "k[ZOmO9xioma"
+    },
+    "dateOfBirth": "$:rO_e5mbt/^"
+   },
+   "hex": "000C56A3ACF88D5F3E5D11CAF0CD76ED4FDB3DCF8D3BF6E10C48EB94FBF95AEDC5D17DE0",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "+(uOD5>>.D9/",
+     "familyName": "k[ZOmO9xioma"
+    },
+    "dateOfBirth": "$:rO_e5mbt/^"
+   }
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "",
+     "initial": "",
+     "familyName": "y<X\\UYEP\\:{"
+    },
+    "dateOfBirth": "TV}wd@/\"*"
+   },
+   "hex": "00000BF2F2C5CAB662D0B8EBD84D4ADF7BE480BD12A0",
+   "decoded": {
+    "name": {
+     "givenName": "",
+     "initial": "",
+     "familyName": "y<X\\UYEP\\:{"
+    },
+    "dateOfBirth": "TV}wd@/\"*"
+   }
+  },
+  {
+   "type": "X691-A1.ChildInformation",
+   "value": {
+    "name": {
+     "givenName": "HVw2')^3=DR",
+     "initial": "y2q3K]+fb~Y-",
+     "familyName": "c+1g.)9j=P4R"
+    },
+    "dateOfBirth": "ljQ0^"
+   },
+   "hex": "0B915BBB24EA6F337B129067965C59CBBAAF362FD656866356C73AE52E753DA0D2902ECD54585E",
+   "decoded": {
+    "name": {
+     "givenName": "HVw2')^3=DR",
+     "initial": "y2q3K]+fb~Y-",
+     "familyName": "c+1g.)9j=P4R"
+    },
+    "dateOfBirth": "ljQ0^"
+   }
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "",
+    "initial": "",
+    "familyName": ""
+   },
+   "hex": "000000",
+   "decoded": {
+    "givenName": "",
+    "initial": "",
+    "familyName": ""
+   }
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "D:6.tA~w2",
+    "initial": "B$@$O1K>#=%e",
+    "familyName": ""
+   },
+   "hex": "0988E9B2EE907F77641909240493D8CB7C8DEA5CA000",
+   "decoded": {
+    "givenName": "D:6.tA~w2",
+    "initial": "B$@$O1K>#=%e",
+    "familyName": ""
+   }
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "GO:!i9 C\\p~",
+    "initial": "6uVx/&6",
+    "familyName": ""
+   },
+   "hex": "0B8F3DD21D2E5043B9C3F03B6EB5BC2F4CD800",
+   "decoded": {
+    "givenName": "GO:!i9 C\\p~",
+    "initial": "6uVx/&6",
+    "familyName": ""
+   }
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "9WwE",
+    "initial": "1(`",
+    "familyName": ""
+   },
+   "hex": "04735FBC50362A300000",
+   "decoded": {
+    "givenName": "9WwE",
+    "initial": "1(`",
+    "familyName": ""
+   }
+  },
+  {
+   "type": "X691-A1.Name",
+   "value": {
+    "givenName": "%+UUA8AwZ)",
+    "initial": "=Xd& +oav[@g",
+    "familyName": "$YaAMCAa2.\"B"
+   },
+   "hex": "0A4AAEAD582E20F7B4A431ED8C89902BDF87B5B819C31259C3066C3838592E4508",
+   "decoded": {
+    "givenName": "%+UUA8AwZ)",
+    "initial": "=Xd& +oav[@g",
+    "familyName": "$YaAMCAa2.\"B"
+   }
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": 0,
+   "hex": "0100",
+   "decoded": 0
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": -78,
+   "hex": "01B2",
+   "decoded": -78
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": "10231791896637570936",
+   "hex": "09008DFEA08506CD7F78",
+   "decoded": "10231791896637570936"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": "2265086432546119136",
+   "hex": "081F6F341C0577DDE0",
+   "decoded": "2265086432546119136"
+  },
+  {
+   "type": "X691-A1.EmployeeNumber",
+   "value": -1099511627680,
+   "hex": "06FF0000000060",
+   "decoded": -1099511627680
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "{hC4s'D_1EP3",
+   "hex": "0CF7A21B4E69E25F63168330",
+   "decoded": "{hC4s'D_1EP3"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "-NDW",
+   "hex": "045B3A2570",
+   "decoded": "-NDW"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "V%#ygfrbb&Y_",
+   "hex": "0CAC951F9CF9B962C49ACDF0",
+   "decoded": "V%#ygfrbb&Y_"
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "X691-A1.Date",
+   "value": "?UbSx:8}&",
+   "hex": "097F57153F0E9C7D4C",
+   "decoded": "?UbSx:8}&"
+  }
+ ],
+ "skipped": []
+}

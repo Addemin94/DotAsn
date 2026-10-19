@@ -1,0 +1,1403 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "der",
+ "specs": [
+  "test-vectors/corpus/asn1tools/module_tags_explicit.asn"
+ ],
+ "cases": [
+  {
+   "type": "ModuleTagsExplicit.A",
+   "value": "-1267650600228229401496703205376",
+   "hex": "A30F020DF0000000000000000000000000",
+   "decoded": "-1267650600228229401496703205376"
+  },
+  {
+   "type": "ModuleTagsExplicit.A",
+   "value": "-18446744073709551568",
+   "hex": "A30B0209FF0000000000000030",
+   "decoded": "-18446744073709551568"
+  },
+  {
+   "type": "ModuleTagsExplicit.A",
+   "value": 0,
+   "hex": "A303020100",
+   "decoded": 0
+  },
+  {
+   "type": "ModuleTagsExplicit.A",
+   "value": "16800964465037309551",
+   "hex": "A30B020900E929042A6682766F",
+   "decoded": "16800964465037309551"
+  },
+  {
+   "type": "ModuleTagsExplicit.A",
+   "value": -100,
+   "hex": "A30302019C",
+   "decoded": -100
+  },
+  {
+   "type": "ModuleTagsExplicit.AI",
+   "value": 766204943232,
+   "hex": "830600B2655F9B80",
+   "decoded": 766204943232
+  },
+  {
+   "type": "ModuleTagsExplicit.AI",
+   "value": "-1267650600228229401496703205276",
+   "hex": "830DF0000000000000000000000064",
+   "decoded": "-1267650600228229401496703205276"
+  },
+  {
+   "type": "ModuleTagsExplicit.AI",
+   "value": "29561934294517290872853062806",
+   "hex": "830C5F850F153FDD372F738D6496",
+   "decoded": "29561934294517290872853062806"
+  },
+  {
+   "type": "ModuleTagsExplicit.AI",
+   "value": "11600643282603909358",
+   "hex": "830900A0FDC39A49A0A0EE",
+   "decoded": "11600643282603909358"
+  },
+  {
+   "type": "ModuleTagsExplicit.AI",
+   "value": "1056359822941470104312205095526",
+   "hex": "830D0D55485D8BFA2C0D927FB13266",
+   "decoded": "1056359822941470104312205095526"
+  },
+  {
+   "type": "ModuleTagsExplicit.BA",
+   "value": -1099511627707,
+   "hex": "A40AA3080206FF0000000045",
+   "decoded": -1099511627707
+  },
+  {
+   "type": "ModuleTagsExplicit.BA",
+   "value": "-18446743302503479142",
+   "hex": "A40DA30B0209FF000000B38F76C89A",
+   "decoded": "-18446743302503479142"
+  },
+  {
+   "type": "ModuleTagsExplicit.BA",
+   "value": 901903199152,
+   "hex": "A40AA308020600D1FD9EABB0",
+   "decoded": 901903199152
+  },
+  {
+   "type": "ModuleTagsExplicit.BA",
+   "value": "-1267650600228229401496703205376",
+   "hex": "A411A30F020DF0000000000000000000000000",
+   "decoded": "-1267650600228229401496703205376"
+  },
+  {
+   "type": "ModuleTagsExplicit.BA",
+   "value": "524142835596855571959802354696",
+   "hex": "A411A30F020D069D98CAB45756E94B1E7DDC08",
+   "decoded": "524142835596855571959802354696"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIA",
+   "value": "6067883992489263961",
+   "hex": "A40A020854357457969A0359",
+   "decoded": "6067883992489263961"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIA",
+   "value": "649891116272004287888400283457",
+   "hex": "A40F020D0833E954E70E8C71D20EAF7741",
+   "decoded": "649891116272004287888400283457"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIA",
+   "value": -70000,
+   "hex": "A4050203FEEE90",
+   "decoded": -70000
+  },
+  {
+   "type": "ModuleTagsExplicit.BIA",
+   "value": -1099511627776,
+   "hex": "A4080206FF0000000000",
+   "decoded": -1099511627776
+  },
+  {
+   "type": "ModuleTagsExplicit.BIA",
+   "value": "-18446744073709551590",
+   "hex": "A40B0209FF000000000000001A",
+   "decoded": "-18446744073709551590"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIAI",
+   "value": "1267650600228229400397191577600",
+   "hex": "840D0FFFFFFFFFFFFFFF0000000000",
+   "decoded": "1267650600228229400397191577600"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIAI",
+   "value": -69925,
+   "hex": "8403FEEEDB",
+   "decoded": -69925
+  },
+  {
+   "type": "ModuleTagsExplicit.BIAI",
+   "value": -1099511627676,
+   "hex": "8406FF0000000064",
+   "decoded": -1099511627676
+  },
+  {
+   "type": "ModuleTagsExplicit.BIAI",
+   "value": "-1267650600228229401496703205376",
+   "hex": "840DF0000000000000000000000000",
+   "decoded": "-1267650600228229401496703205376"
+  },
+  {
+   "type": "ModuleTagsExplicit.BIAI",
+   "value": 0,
+   "hex": "840100",
+   "decoded": 0
+  },
+  {
+   "type": "ModuleTagsExplicit.CBA",
+   "value": "-1267650600228229401496703205276",
+   "hex": "A513A411A30F020DF0000000000000000000000064",
+   "decoded": "-1267650600228229401496703205276"
+  },
+  {
+   "type": "ModuleTagsExplicit.CBA",
+   "value": -100,
+   "hex": "A507A405A30302019C",
+   "decoded": -100
+  },
+  {
+   "type": "ModuleTagsExplicit.CBA",
+   "value": -62,
+   "hex": "A507A405A3030201C2",
+   "decoded": -62
+  },
+  {
+   "type": "ModuleTagsExplicit.CBA",
+   "value": -69949,
+   "hex": "A509A407A3050203FEEEC3",
+   "decoded": -69949
+  },
+  {
+   "type": "ModuleTagsExplicit.CBA",
+   "value": 242011572900,
+   "hex": "A50BA409A30702053859038AA4",
+   "decoded": 242011572900
+  },
+  {
+   "type": "ModuleTagsExplicit.CBIAI",
+   "value": "15773565534138475911",
+   "hex": "A50B840900DAE6F64807AB2587",
+   "decoded": "15773565534138475911"
+  },
+  {
+   "type": "ModuleTagsExplicit.CBIAI",
+   "value": -100,
+   "hex": "A50384019C",
+   "decoded": -100
+  },
+  {
+   "type": "ModuleTagsExplicit.CBIAI",
+   "value": "-556755592045286453447841241453",
+   "hex": "A50F840DF8F906917E0D6773DA6B28A693",
+   "decoded": "-556755592045286453447841241453"
+  },
+  {
+   "type": "ModuleTagsExplicit.CBIAI",
+   "value": -1099511627776,
+   "hex": "A5088406FF0000000000",
+   "decoded": -1099511627776
+  },
+  {
+   "type": "ModuleTagsExplicit.CBIAI",
+   "value": -1099511624430,
+   "hex": "A5088406FF0000000D12",
+   "decoded": -1099511624430
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIA",
+   "value": -70000,
+   "hex": "A5050203FEEE90",
+   "decoded": -70000
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIA",
+   "value": -93,
+   "hex": "A5030201A3",
+   "decoded": -93
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIA",
+   "value": "1267650600209782657422993653755",
+   "hex": "A50F020D0FFFFFFFFEFFFFFFFFFFFFFFFB",
+   "decoded": "1267650600209782657422993653755"
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIA",
+   "value": -100,
+   "hex": "A50302019C",
+   "decoded": -100
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIA",
+   "value": 667285048488,
+   "hex": "A5080206009B5D49CCA8",
+   "decoded": 667285048488
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIAI",
+   "value": "-1267650600225482687215351879294",
+   "hex": "850DF000000000261E4A160F702982",
+   "decoded": "-1267650600225482687215351879294"
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIAI",
+   "value": -1099511627676,
+   "hex": "8506FF0000000064",
+   "decoded": -1099511627676
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIAI",
+   "value": 36710,
+   "hex": "8503008F66",
+   "decoded": 36710
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIAI",
+   "value": "-1016910871581202959303846375965",
+   "hex": "850DF32A2F0AD66068A938400C4DE3",
+   "decoded": "-1016910871581202959303846375965"
+  },
+  {
+   "type": "ModuleTagsExplicit.CIBIAI",
+   "value": -1099511557776,
+   "hex": "8506FF0000011170",
+   "decoded": -1099511557776
+  },
+  {
+   "type": "ModuleTagsExplicit.S1",
+   "value": {
+    "a": 69900,
+    "b": false
+   },
+   "hex": "3008020301110C010100",
+   "decoded": {
+    "a": 69900,
+    "b": false
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S1",
+   "value": {
+    "a": "1202721224755010619732542838",
+    "b": true
+   },
+   "hex": "3011020C03E2DE203D1AD160F8EE45760101FF",
+   "decoded": {
+    "a": "1202721224755010619732542838",
+    "b": true
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S1",
+   "value": {
+    "a": -1099511627732
+   },
+   "hex": "30080206FF000000002C",
+   "decoded": {
+    "a": -1099511627732
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S1",
+   "value": {
+    "a": 0,
+    "b": false
+   },
+   "hex": "3006020100010100",
+   "decoded": {
+    "a": 0,
+    "b": false
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S1",
+   "value": {
+    "a": -1099511589365,
+    "b": false
+   },
+   "hex": "300B0206FF000000960B010100",
+   "decoded": {
+    "a": -1099511589365,
+    "b": false
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S2",
+   "value": {
+    "a": "-1267650600228229401496703205322",
+    "b": {
+     "a": "-14238255835169794390"
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "3021020DF0000000000000000000000036A20D300B0209FF3A678DC1639256AA0101FF",
+   "decoded": {
+    "a": "-1267650600228229401496703205322",
+    "b": {
+     "a": "-14238255835169794390"
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S2",
+   "value": {
+    "a": "-18446744073709503526",
+    "b": {
+     "a": -100
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "30150209FF000000000000BBDAA205300302019C010100",
+   "decoded": {
+    "a": "-18446744073709503526",
+    "b": {
+     "a": -100
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S2",
+   "value": {
+    "a": -1099511557776,
+    "b": {
+     "a": 0
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "30120206FF0000011170A20530030201000101FF",
+   "decoded": {
+    "a": -1099511557776,
+    "b": {
+     "a": 0
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S2",
+   "value": {
+    "a": "-1267650600228229401496703205311",
+    "b": {
+     "a": -1099511558712
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "301E020DF0000000000000000000000041A20A30080206FF0000010DC80101FF",
+   "decoded": {
+    "a": "-1267650600228229401496703205311",
+    "b": {
+     "a": -1099511558712
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S2",
+   "value": {
+    "a": "-18446743569943322746",
+    "b": {
+     "a": -1099511627776,
+     "b": true
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "301D0209FF000000754ACE9F86A20D300B0206FF00000000000101FF010100",
+   "decoded": {
+    "a": "-18446743569943322746",
+    "b": {
+     "a": -1099511627776,
+     "b": true
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S3",
+   "value": {
+    "a": "18446744073709481621",
+    "b": {
+     "a": 68194,
+     "b": false
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "301C020900FFFFFFFFFFFEEE95A20A30080203010A62010100A303010100",
+   "decoded": {
+    "a": "18446744073709481621",
+    "b": {
+     "a": 68194,
+     "b": false
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S3",
+   "value": {
+    "a": 2261,
+    "b": {
+     "a": "-1267650600228229400578902022705",
+     "b": false
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "301F020208D5A2143012020DF000000000000000D5B136A5CF010100A3030101FF",
+   "decoded": {
+    "a": 2261,
+    "b": {
+     "a": "-1267650600228229400578902022705",
+     "b": false
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S3",
+   "value": {
+    "a": -1099511583594,
+    "b": {
+     "a": "837663598291265684425151427930",
+     "b": true
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "30230206FF000000AC96A2143012020D0A92A3169DF883838F86ED355A0101FFA3030101FF",
+   "decoded": {
+    "a": -1099511583594,
+    "b": {
+     "a": "837663598291265684425151427930",
+     "b": true
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S3",
+   "value": {
+    "a": -100,
+    "b": {
+     "a": -70000
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "301102019CA20730050203FEEE90A303010100",
+   "decoded": {
+    "a": -100,
+    "b": {
+     "a": -70000
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S3",
+   "value": {
+    "a": -253921634503,
+    "b": {
+     "a": -1099511627762
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "30180205C4E1175739A20A30080206FF000000000EA3030101FF",
+   "decoded": {
+    "a": -253921634503,
+    "b": {
+     "a": -1099511627762
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S4",
+   "value": {
+    "a": "-18446744073709551618",
+    "b": {
+     "a": {
+      "a": "18446744073709481621"
+     }
+    },
+    "c": {
+     "a": 0
+    },
+    "d": {
+     "a": false
+    }
+   },
+   "hex": "30260209FEFFFFFFFFFFFFFFFEA10FA00DA00B020900FFFFFFFFFFFEEE95A2053003020100010100",
+   "decoded": {
+    "a": "-18446744073709551618",
+    "b": {
+     "a": {
+      "a": "18446744073709481621"
+     }
+    },
+    "c": {
+     "a": 0
+    },
+    "d": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S4",
+   "value": {
+    "a": -1099511573371,
+    "b": {
+     "a": {
+      "a": -1099511627776
+     }
+    },
+    "c": {
+     "a": 0,
+     "b": false
+    },
+    "d": {
+     "a": false
+    }
+   },
+   "hex": "30230206FF000000D485A10CA00AA0080206FF0000000000A2083006020100010100010100",
+   "decoded": {
+    "a": -1099511573371,
+    "b": {
+     "a": {
+      "a": -1099511627776
+     }
+    },
+    "c": {
+     "a": 0,
+     "b": false
+    },
+    "d": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S4",
+   "value": {
+    "a": "-1267650600228229401496703135376",
+    "b": {
+     "a": {
+      "a": "-18446743197368107374"
+     }
+    },
+    "c": {
+     "a": 37047
+    },
+    "d": {
+     "a": true
+    }
+   },
+   "hex": "302C020DF0000000000000000000011170A10FA00DA00B0209FF000000CC0A053E92A207300502030090B70101FF",
+   "decoded": {
+    "a": "-1267650600228229401496703135376",
+    "b": {
+     "a": {
+      "a": "-18446743197368107374"
+     }
+    },
+    "c": {
+     "a": 37047
+    },
+    "d": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S4",
+   "value": {
+    "a": -1099511627776,
+    "b": {
+     "a": {
+      "a": "5697732169325965693"
+     }
+    },
+    "c": {
+     "a": "-1267650600228229401496703172957"
+    },
+    "d": {
+     "a": true
+    }
+   },
+   "hex": "302E0206FF0000000000A10EA00CA00A02084F12693859FD717DA211300F020DF0000000000000000000007EA30101FF",
+   "decoded": {
+    "a": -1099511627776,
+    "b": {
+     "a": {
+      "a": "5697732169325965693"
+     }
+    },
+    "c": {
+     "a": "-1267650600228229401496703172957"
+    },
+    "d": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S4",
+   "value": {
+    "a": -100,
+    "b": {
+     "a": {
+      "a": "-18446742974197923845"
+     }
+    },
+    "c": {
+     "a": "1267650600228229400397191577600",
+     "b": false
+    },
+    "d": {
+     "a": false
+    }
+   },
+   "hex": "302D02019CA10FA00DA00B0209FF000000FFFFFFFFFBA2143012020D0FFFFFFFFFFFFFFF0000000000010100010100",
+   "decoded": {
+    "a": -100,
+    "b": {
+     "a": {
+      "a": "-18446742974197923845"
+     }
+    },
+    "c": {
+     "a": "1267650600228229400397191577600",
+     "b": false
+    },
+    "d": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S5",
+   "value": {
+    "a": -1099511605595,
+    "b": {
+     "a": "14493352181822210544",
+     "b": false
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "301B0206FF00000056A5300E020900C922BB05322541F0010100010100",
+   "decoded": {
+    "a": -1099511605595,
+    "b": {
+     "a": "14493352181822210544",
+     "b": false
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S5",
+   "value": {
+    "a": -968382760082,
+    "b": {
+     "a": "-1267650600228229401496703182721",
+     "b": false
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "301F0206FF1E87E3BB6E3012020DF000000000000000000000587F0101000101FF",
+   "decoded": {
+    "a": -968382760082,
+    "b": {
+     "a": "-1267650600228229401496703182721",
+     "b": false
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S5",
+   "value": {
+    "a": 0,
+    "b": {
+     "a": 0
+    },
+    "c": {
+     "a": false
+    }
+   },
+   "hex": "300B0201003003020100010100",
+   "decoded": {
+    "a": 0,
+    "b": {
+     "a": 0
+    },
+    "c": {
+     "a": false
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S5",
+   "value": {
+    "a": "9571623298705644948",
+    "b": {
+     "a": -100
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "301302090084D53CAD7333DD94300302019C0101FF",
+   "decoded": {
+    "a": "9571623298705644948",
+    "b": {
+     "a": -100
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S5",
+   "value": {
+    "a": 0,
+    "b": {
+     "a": -69968
+    },
+    "c": {
+     "a": true
+    }
+   },
+   "hex": "300D02010030050203FEEEB00101FF",
+   "decoded": {
+    "a": 0,
+    "b": {
+     "a": -69968
+    },
+    "c": {
+     "a": true
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S6",
+   "value": {
+    "a": -1099511582326
+   },
+   "hex": "30080206FF000000B18A",
+   "decoded": {
+    "a": -1099511582326
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S6",
+   "value": {
+    "a": -100
+   },
+   "hex": "300302019C",
+   "decoded": {
+    "a": -100
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S6",
+   "value": {
+    "a": -21105
+   },
+   "hex": "30040202AD8F",
+   "decoded": {
+    "a": -21105
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S6",
+   "value": {
+    "a": -70000
+   },
+   "hex": "30050203FEEE90",
+   "decoded": {
+    "a": -70000
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S6",
+   "value": {
+    "a": 534412619900
+   },
+   "hex": "300702057C6D79707C",
+   "decoded": {
+    "a": 534412619900
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S7",
+   "value": {
+    "a": -50107
+   },
+   "hex": "3007A2050203FF3C45",
+   "decoded": {
+    "a": -50107
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S7",
+   "value": {
+    "a": "-18446744073709551621"
+   },
+   "hex": "300DA20B0209FEFFFFFFFFFFFFFFFB",
+   "decoded": {
+    "a": "-18446744073709551621"
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S7",
+   "value": {
+    "a": "218990016531998507745687479027",
+    "b": false
+   },
+   "hex": "3014A20F020D02C3984BC7D4DAEF556B99A2F3010100",
+   "decoded": {
+    "a": "218990016531998507745687479027",
+    "b": false
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S7",
+   "value": {
+    "a": -850931906631
+   },
+   "hex": "300AA2080206FF39E08187B9",
+   "decoded": {
+    "a": -850931906631
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S7",
+   "value": {
+    "a": "-1267650600218010431531169965243"
+   },
+   "hex": "3011A20F020DF0000000008DD1130A8DFE9B45",
+   "decoded": {
+    "a": "-1267650600218010431531169965243"
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S8",
+   "value": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": false
+     },
+     {
+      "a": "1267650600228229400397191577600"
+     }
+    ]
+   },
+   "hex": "30173015010100010100020D0FFFFFFFFFFFFFFF0000000000",
+   "decoded": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": false
+     },
+     {
+      "a": "1267650600228229400397191577600"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S8",
+   "value": {
+    "a": []
+   },
+   "hex": "30023000",
+   "decoded": {
+    "a": []
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S8",
+   "value": {
+    "a": [
+     {
+      "b": true
+     },
+     {
+      "b": false
+     },
+     {
+      "b": true
+     }
+    ]
+   },
+   "hex": "300B30090101FF0101000101FF",
+   "decoded": {
+    "a": [
+     {
+      "b": true
+     },
+     {
+      "b": false
+     },
+     {
+      "b": true
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S8",
+   "value": {
+    "a": [
+     {
+      "a": -1099511561417
+     },
+     {
+      "a": 1099511557776
+     }
+    ]
+   },
+   "hex": "301230100206FF0000010337020600FFFFFEEE90",
+   "decoded": {
+    "a": [
+     {
+      "a": -1099511561417
+     },
+     {
+      "a": 1099511557776
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S8",
+   "value": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": true
+     }
+    ]
+   },
+   "hex": "300830060101000101FF",
+   "decoded": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": true
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S9",
+   "value": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": true
+     },
+     {
+      "b": true
+     }
+    ]
+   },
+   "hex": "310B31090101000101FF0101FF",
+   "decoded": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "b": true
+     },
+     {
+      "b": true
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S9",
+   "value": {
+    "a": [
+     {
+      "a": "-18446744073709495718"
+     }
+    ]
+   },
+   "hex": "310D310B0209FF000000000000DA5A",
+   "decoded": {
+    "a": [
+     {
+      "a": "-18446744073709495718"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S9",
+   "value": {
+    "a": [
+     {
+      "a": "-1267650600228229401201884980637"
+     },
+     {
+      "a": "17276644381815698693"
+     },
+     {
+      "a": "732497665066093715669648811510"
+     }
+    ]
+   },
+   "hex": "312B3129020DF00000000000000044A4891A63020900EFC2F88798DF7505020D093ED3DE0642CAFAB515B625F6",
+   "decoded": {
+    "a": [
+     {
+      "a": "-1267650600228229401201884980637"
+     },
+     {
+      "a": "17276644381815698693"
+     },
+     {
+      "a": "732497665066093715669648811510"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S9",
+   "value": {
+    "a": []
+   },
+   "hex": "31023100",
+   "decoded": {
+    "a": []
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.S9",
+   "value": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "a": 222322524710
+     },
+     {
+      "a": "630157898067038297087070781777"
+     }
+    ]
+   },
+   "hex": "311B3119010100020533C3748226020D07F4266568A8BAB3B9D8354151",
+   "decoded": {
+    "a": [
+     {
+      "b": false
+     },
+     {
+      "a": 222322524710
+     },
+     {
+      "a": "630157898067038297087070781777"
+     }
+    ]
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.C1",
+   "value": {
+    "a": {
+     "a": "-1267650600228229401496703205354"
+    }
+   },
+   "hex": "A011A00F020DF0000000000000000000000016",
+   "decoded": {
+    "a": {
+     "a": "-1267650600228229401496703205354"
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.C1",
+   "value": {
+    "a": {
+     "a": 0
+    }
+   },
+   "hex": "A005A003020100",
+   "decoded": {
+    "a": {
+     "a": 0
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.C1",
+   "value": {
+    "a": {
+     "a": 54941
+    }
+   },
+   "hex": "A007A005020300D69D",
+   "decoded": {
+    "a": {
+     "a": 54941
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.C1",
+   "value": {
+    "a": {
+     "a": "-1267650600209782657422993653755"
+    }
+   },
+   "hex": "A011A00F020DF0000000010000000000000005",
+   "decoded": {
+    "a": {
+     "a": "-1267650600209782657422993653755"
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.C1",
+   "value": {
+    "a": {
+     "a": "9677168736663488890"
+    }
+   },
+   "hex": "A00DA00B020900864C35B1B457C97A",
+   "decoded": {
+    "a": {
+     "a": "9677168736663488890"
+    }
+   }
+  },
+  {
+   "type": "ModuleTagsExplicit.Type1",
+   "value": "QQQCh|26/JB|",
+   "hex": "1A0C51515143687C32362F4A427C",
+   "decoded": "QQQCh|26/JB|"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type1",
+   "value": "",
+   "hex": "1A00",
+   "decoded": ""
+  },
+  {
+   "type": "ModuleTagsExplicit.Type1",
+   "value": "DC[|c",
+   "hex": "1A0544435B7C63",
+   "decoded": "DC[|c"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type1",
+   "value": "/-A!bG3grKh0",
+   "hex": "1A0C2F2D412162473367724B6830",
+   "decoded": "/-A!bG3grKh0"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type1",
+   "value": "`wH3#9B|)1Ks",
+   "hex": "1A0C607748332339427C29314B73",
+   "decoded": "`wH3#9B|)1Ks"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type2",
+   "value": "",
+   "hex": "4300",
+   "decoded": ""
+  },
+  {
+   "type": "ModuleTagsExplicit.Type2",
+   "value": "a~=",
+   "hex": "4303617E3D",
+   "decoded": "a~="
+  },
+  {
+   "type": "ModuleTagsExplicit.Type2",
+   "value": "qcK2i",
+   "hex": "430571634B3269",
+   "decoded": "qcK2i"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type2",
+   "value": "m4&Y+_OxbLCv",
+   "hex": "430C6D3426592B5F4F78624C4376",
+   "decoded": "m4&Y+_OxbLCv"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type2",
+   "value": "@HbT!XTPl9oE",
+   "hex": "430C40486254215854506C396F45",
+   "decoded": "@HbT!XTPl9oE"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type3",
+   "value": "",
+   "hex": "A2024300",
+   "decoded": ""
+  },
+  {
+   "type": "ModuleTagsExplicit.Type3",
+   "value": "Q\\D?Sd\"#=A",
+   "hex": "A20C430A515C443F536422233D41",
+   "decoded": "Q\\D?Sd\"#=A"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type3",
+   "value": "s]vV",
+   "hex": "A2064304735D7656",
+   "decoded": "s]vV"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type3",
+   "value": "*&&)KTue(C",
+   "hex": "A20C430A2A2626294B5475652843",
+   "decoded": "*&&)KTue(C"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type3",
+   "value": "n}",
+   "hex": "A20443026E7D",
+   "decoded": "n}"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type4",
+   "value": "",
+   "hex": "67024300",
+   "decoded": ""
+  },
+  {
+   "type": "ModuleTagsExplicit.Type4",
+   "value": "MbpB=0!NRg.K",
+   "hex": "670E430C4D6270423D30214E52672E4B",
+   "decoded": "MbpB=0!NRg.K"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type4",
+   "value": "wVgK_bh&CwTg",
+   "hex": "670E430C7756674B5F62682643775467",
+   "decoded": "wVgK_bh&CwTg"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type4",
+   "value": "@+!7[C5f.Ds6",
+   "hex": "670E430C402B21375B4335662E447336",
+   "decoded": "@+!7[C5f.Ds6"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type4",
+   "value": "?I5r`0&}Ncfj",
+   "hex": "670E430C3F4935726030267D4E63666A",
+   "decoded": "?I5r`0&}Ncfj"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type5",
+   "value": "8grF\"IMY)H",
+   "hex": "820A3867724622494D592948",
+   "decoded": "8grF\"IMY)H"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type5",
+   "value": "CVH--exb`&VX",
+   "hex": "820C4356482D2D65786260265658",
+   "decoded": "CVH--exb`&VX"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type5",
+   "value": "=PpHJhigZNa5",
+   "hex": "820C3D5070484A6869675A4E6135",
+   "decoded": "=PpHJhigZNa5"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type5",
+   "value": "ftU*,=]l$",
+   "hex": "82096674552A2C3D5D6C24",
+   "decoded": "ftU*,=]l$"
+  },
+  {
+   "type": "ModuleTagsExplicit.Type5",
+   "value": ":#",
+   "hex": "82023A23",
+   "decoded": ":#"
+  }
+ ],
+ "skipped": []
+}

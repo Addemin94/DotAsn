@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Runtime.Ber\Asn1.Runtime.Ber.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Runtime.Per\Asn1.Runtime.Per.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Runtime.Oer\Asn1.Runtime.Oer.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Runtime.Jer\Asn1.Runtime.Jer.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Runtime.Xer\Asn1.Runtime.Xer.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\samples\**\*.asn" LinkBase="samples" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="FsCheck" />
+    <PackageReference Include="FsCheck.Xunit.v3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Serialization\Asn1.Serialization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\samples\**\*.asn" LinkBase="samples" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\..\test-vectors\corpus\asn1tools\x691_a*.asn" LinkBase="corpus" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>
