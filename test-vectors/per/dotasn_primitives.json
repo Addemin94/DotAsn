@@ -1,0 +1,3441 @@
+{
+ "generator": "asn1tools 0.169.0",
+ "license": "Vectors computed by asn1tools (MIT); specifications as listed",
+ "codec": "per",
+ "specs": [
+  "test-vectors/corpus/dotasn/primitives.asn"
+ ],
+ "cases": [
+  {
+   "type": "Primitives.Real",
+   "value": -49672870.43094303,
+   "hex": "09C0E60BD7CA99B94921",
+   "decoded": -49672870.43094303
+  },
+  {
+   "type": "Primitives.Real",
+   "value": -1423.5002204885245,
+   "hex": "09C0D70B1F001CE65E01",
+   "decoded": -1423.5002204885245
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 3.14159,
+   "hex": "0980CE0C90FCF80DC337",
+   "decoded": 3.14159
+  },
+  {
+   "type": "Primitives.Real",
+   "value": "PLUS-INFINITY",
+   "hex": "0140",
+   "decoded": "PLUS-INFINITY"
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 174.6742705230947,
+   "hex": "0980D315D5939FC6AB27",
+   "decoded": 174.6742705230947
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 4.69357748501635e-16,
+   "hex": "09809E0087487D333303",
+   "decoded": 4.69357748501635e-16
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 1e+300,
+   "hex": "0A8103B205F90F22001D67",
+   "decoded": 1e+300
+  },
+  {
+   "type": "Primitives.Real",
+   "value": "MINUS-INFINITY",
+   "hex": "0141",
+   "decoded": "MINUS-INFINITY"
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 3.1226460137975586e-10,
+   "hex": "0980AC15756ABE0EE68D",
+   "decoded": 3.1226460137975586e-10
+  },
+  {
+   "type": "Primitives.Real",
+   "value": -2.991221066560233e-08,
+   "hex": "09C0B50403C696675A03",
+   "decoded": -2.991221066560233e-08
+  },
+  {
+   "type": "Primitives.Real",
+   "value": 0,
+   "hex": "00",
+   "decoded": 0.0
+  },
+  {
+   "type": "Primitives.Real",
+   "value": -1.322520322316568e-07,
+   "hex": "09C0B511C0252D89EAE1",
+   "decoded": -1.322520322316568e-07
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "0.2.64479.53781.16967.4153834051981594562.25180",
+   "hex": "160283F75F83A415818447B9D2D8C1FFA2A39F4281C45C",
+   "decoded": "0.2.64479.53781.16967.4153834051981594562.25180"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "2.183.14134.19981.3903896394419682467.24694",
+   "hex": "138207EE36819C0DB696DBA2E4AAC0F92381C076",
+   "decoded": "6.23.14134.19981.3903896394419682467.24694"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "1.33.1030822898386295650.6255",
+   "hex": "0C498EA78DFEEEE59DB662B06F",
+   "decoded": "1.33.1030822898386295650.6255"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "1.14",
+   "hex": "0136",
+   "decoded": "1.14"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "1.3.3318.52536",
+   "hex": "062B9976839A38",
+   "decoded": "1.3.3318.52536"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "0.37.25603",
+   "hex": "042581C803",
+   "decoded": "0.37.25603"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "0.6.60806.62188.56516.63404",
+   "hex": "0D0683DB0683E56C83B94483EF2C",
+   "decoded": "0.6.60806.62188.56516.63404"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "1.25.5948649356743576999",
+   "hex": "0A41D2C6F6A2A9D0BA9B27",
+   "decoded": "1.25.5948649356743576999"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "2.567.7471212444836490342.32199",
+   "hex": "0E8507E7D7C584A6BFD3D86681FB47",
+   "decoded": "16.7.7471212444836490342.32199"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "0.26.4191.4880.4485.17916",
+   "hex": "0A1AA05FA610A305818B7C",
+   "decoded": "0.26.4191.4880.4485.17916"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "2.716.23921.7686317036020290298.30527.66616",
+   "hex": "14861C81BA71EAD5D293ED9897A57A81EE3F848838",
+   "decoded": "19.36.23921.7686317036020290298.30527.66616"
+  },
+  {
+   "type": "Primitives.Oid",
+   "value": "0.24.2286276205611318471.6608706228871004075.3904.5178724346811322761",
+   "hex": "1E189FDD9F8388AF8FF947DBDBB5E9CFE691FF2B9E40C7EFA1CBAFCAECA309",
+   "decoded": "0.24.2286276205611318471.6608706228871004075.3904.5178724346811322761"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "461207214757Z",
+   "hex": "0D3436313230373231343735375A",
+   "decoded": "461207214757Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "830624122043Z",
+   "hex": "0D3833303632343132323034335A",
+   "decoded": "830624122043Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "890821094706Z",
+   "hex": "0D3839303832313039343730365A",
+   "decoded": "890821094706Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "451202153358Z",
+   "hex": "0D3435313230323135333335385A",
+   "decoded": "451202153358Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "210923000217Z",
+   "hex": "0D3231303932333030303231375A",
+   "decoded": "210923000217Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "120508062128Z",
+   "hex": "0D3132303530383036323132385A",
+   "decoded": "120508062128Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "070115155032Z",
+   "hex": "0D3037303131353135353033325A",
+   "decoded": "070115155032Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "291226071416Z",
+   "hex": "0D3239313232363037313431365A",
+   "decoded": "291226071416Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "980608212351Z",
+   "hex": "0D3938303630383231323335315A",
+   "decoded": "980608212351Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "511112054005Z",
+   "hex": "0D3531313131323035343030355A",
+   "decoded": "511112054005Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "151013132359Z",
+   "hex": "0D3135313031333133323335395A",
+   "decoded": "151013132359Z"
+  },
+  {
+   "type": "Primitives.Utc",
+   "value": "440808061843Z",
+   "hex": "0D3434303830383036313834335A",
+   "decoded": "440808061843Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "20401003122033Z",
+   "hex": "0F32303430313030333132323033335A",
+   "decoded": "20401003122033Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19601113120135Z",
+   "hex": "0F31393630313131333132303133355A",
+   "decoded": "19601113120135Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19540327104531Z",
+   "hex": "0F31393534303332373130343533315A",
+   "decoded": "19540327104531Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19591012092900Z",
+   "hex": "0F31393539313031323039323930305A",
+   "decoded": "19591012092900Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19660917215137Z",
+   "hex": "0F31393636303931373231353133375A",
+   "decoded": "19660917215137Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19500905121835Z",
+   "hex": "0F31393530303930353132313833355A",
+   "decoded": "19500905121835Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "20650115201046Z",
+   "hex": "0F32303635303131353230313034365A",
+   "decoded": "20650115201046Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "20450823203010Z",
+   "hex": "0F32303435303832333230333031305A",
+   "decoded": "20450823203010Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19580125181228Z",
+   "hex": "0F31393538303132353138313232385A",
+   "decoded": "19580125181228Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "19980309022335Z",
+   "hex": "0F31393938303330393032323333355A",
+   "decoded": "19980309022335Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "20950201203118Z",
+   "hex": "0F32303935303230313230333131385A",
+   "decoded": "20950201203118Z"
+  },
+  {
+   "type": "Primitives.Generalized",
+   "value": "20180726083845Z",
+   "hex": "0F32303138303732363038333834355A",
+   "decoded": "20180726083845Z"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u03a9\u0436z0z \u0436\u03a9\u20ac0~\u00dfza0\u00df",
+   "hex": "10000003A9000004360000007A000000300000007A0000002000000436000003A9000020AC000000300000007E000000DF0000007A0000006100000030000000DF",
+   "decoded": "\u03a9\u0436z0z \u0436\u03a9\u20ac0~\u00dfza0\u00df"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "9A0\u20ac9a\u20ac\u4e2d\u03a9\u00df  \u0436a9",
+   "hex": "0F000000390000004100000030000020AC0000003900000061000020AC00004E2D000003A9000000DF0000002000000020000004360000006100000039",
+   "decoded": "9A0\u20ac9a\u20ac\u4e2d\u03a9\u00df  \u0436a9"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "a9\u00df\u0436",
+   "hex": "040000006100000039000000DF00000436",
+   "decoded": "a9\u00df\u0436"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "aa \u00df~~",
+   "hex": "06000000610000006100000020000000DF0000007E0000007E",
+   "decoded": "aa \u00df~~"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u20ac\u0436\u03a9~\u00e99\u20ac~\u20ac\u03a9\u00df\u00e9\u20ac~\u00df ",
+   "hex": "10000020AC00000436000003A90000007E000000E900000039000020AC0000007E000020AC000003A9000000DF000000E9000020AC0000007E000000DF00000020",
+   "decoded": "\u20ac\u0436\u03a9~\u00e99\u20ac~\u20ac\u03a9\u00df\u00e9\u20ac~\u00df "
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u00dfz\u03a9 \u00dfaza z\u20ac \u03a90\u4e2d\u03a9",
+   "hex": "10000000DF0000007A000003A900000020000000DF000000610000007A00000061000000200000007A000020AC00000020000003A90000003000004E2D000003A9",
+   "decoded": "\u00dfz\u03a9 \u00dfaza z\u20ac \u03a90\u4e2d\u03a9"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u00df~A\u20ac\u0436\u0436\u00df\u20ac0z\u00df0 \u0436\u00e9",
+   "hex": "0F000000DF0000007E00000041000020AC0000043600000436000000DF000020AC000000300000007A000000DF000000300000002000000436000000E9",
+   "decoded": "\u00df~A\u20ac\u0436\u0436\u00df\u20ac0z\u00df0 \u0436\u00e9"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u00df\u4e2d  00A\u00df0 z\u20aca\u4e2d\u00df\u20ac",
+   "hex": "10000000DF00004E2D0000002000000020000000300000003000000041000000DF00000030000000200000007A000020AC0000006100004E2D000000DF000020AC",
+   "decoded": "\u00df\u4e2d  00A\u00df0 z\u20aca\u4e2d\u00df\u20ac"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "0A\u03a9A~ za9\u00e9\u4e2d\u0436\u00df",
+   "hex": "0D0000003000000041000003A9000000410000007E000000200000007A0000006100000039000000E900004E2D00000436000000DF",
+   "decoded": "0A\u03a9A~ za9\u00e9\u4e2d\u0436\u00df"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "0A\u03a9 \u03a9z 0a \u00e99\u20aca\u0436A",
+   "hex": "100000003000000041000003A900000020000003A90000007A00000020000000300000006100000020000000E900000039000020AC000000610000043600000041",
+   "decoded": "0A\u03a9 \u03a9z 0a \u00e99\u20aca\u0436A"
+  },
+  {
+   "type": "Primitives.Universal",
+   "value": "\u0436\u00e9 \u20ac\u0436\u0436\u00e9\u0436\u0436z\u03a9~0a~\u00df",
+   "hex": "1000000436000000E900000020000020AC0000043600000436000000E900000436000004360000007A000003A90000007E00000030000000610000007E000000DF",
+   "decoded": "\u0436\u00e9 \u20ac\u0436\u0436\u00e9\u0436\u0436z\u03a9~0a~\u00df"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "\u03a9\u00dfz\u00df\u20ac\u00e9A\u00e9\u0436\u00df\u00e9",
+   "hex": "5803A900DF007A00DF20AC00E9004100E9043600DF00E9",
+   "decoded": "\u03a9\u00dfz\u00df\u20ac\u00e9A\u00e9\u0436\u00df\u00e9"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "\u00df",
+   "hex": "0800DF",
+   "decoded": "\u00df"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "A\u03a9\u00e9z\u03a9\u0436\u03a9\u20ac~\u00e9 9\u0436A\u03a9A",
+   "hex": "80004103A900E9007A03A9043603A920AC007E00E9002000390436004103A90041",
+   "decoded": "A\u03a9\u00e9z\u03a9\u0436\u03a9\u20ac~\u00e9 9\u0436A\u03a9A"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "0\u0436\u4e2d\u0436A\u03a99",
+   "hex": "38003004364E2D0436004103A90039",
+   "decoded": "0\u0436\u4e2d\u0436A\u03a99"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "A\u20ac\u0436\u00e9 \u0436\u20ac0\u03a9 azA\u4e2d\u00e90",
+   "hex": "80004120AC043600E90020043620AC003003A900200061007A00414E2D00E90030",
+   "decoded": "A\u20ac\u0436\u00e9 \u0436\u20ac0\u03a9 azA\u4e2d\u00e90"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "\u0436\u4e2d\u0436\u0436\u20ac\u20ac0zA\u04360\u4e2d",
+   "hex": "6004364E2D0436043620AC20AC0030007A0041043600304E2D",
+   "decoded": "\u0436\u4e2d\u0436\u0436\u20ac\u20ac0zA\u04360\u4e2d"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "z\u0436",
+   "hex": "10007A0436",
+   "decoded": "z\u0436"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "a\u00df \u4e2da9\u0436\u00dfz\u00e9\u4e2d\u03a99a\u20ac\u03a9",
+   "hex": "80006100DF00204E2D00610039043600DF007A00E94E2D03A90039006120AC03A9",
+   "decoded": "a\u00df \u4e2da9\u0436\u00dfz\u00e9\u4e2d\u03a99a\u20ac\u03a9"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "a\u4e2d\u4e2d\u00e9\u0436A\u20ac0\u00dfA\u00e90\u00dfA\u03a90",
+   "hex": "8000614E2D4E2D00E90436004120AC003000DF004100E9003000DF004103A90030",
+   "decoded": "a\u4e2d\u4e2d\u00e9\u0436A\u20ac0\u00dfA\u00e90\u00dfA\u03a90"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": " 00~\u4e2d 9\u20acA\u00dfaz\u03a9A0\u00e9",
+   "hex": "80002000300030007E4E2D0020003920AC004100DF0061007A03A90041003000E9",
+   "decoded": " 00~\u4e2d 9\u20acA\u00dfaz\u03a9A0\u00e9"
+  },
+  {
+   "type": "Primitives.Bmp",
+   "value": "\u4e2d\u00e9~\u03a9\u0436\u4e2d\u0436\u04360A~\u00dfA\u20acz\u00e9",
+   "hex": "804E2D00E9007E03A904364E2D0436043600300041007E00DF004120AC007A00E9",
+   "decoded": "\u4e2d\u00e9~\u03a9\u0436\u4e2d\u0436\u04360A~\u00dfA\u20acz\u00e9"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "0\u00e9A\u00e9",
+   "hex": "003000E9004100E9",
+   "decoded": "0\u00e9A\u00e9"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u4e2daz~",
+   "hex": "4E2D0061007A007E",
+   "decoded": "\u4e2daz~"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u4e2dA~9",
+   "hex": "4E2D0041007E0039",
+   "decoded": "\u4e2dA~9"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "a\u00e999",
+   "hex": "006100E900390039",
+   "decoded": "a\u00e999"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "z0z ",
+   "hex": "007A0030007A0020",
+   "decoded": "z0z "
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u4e2d0a0",
+   "hex": "4E2D003000610030",
+   "decoded": "\u4e2d0a0"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "9 09",
+   "hex": "0039002000300039",
+   "decoded": "9 09"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u20ac \u00e9\u20ac",
+   "hex": "20AC002000E920AC",
+   "decoded": "\u20ac \u00e9\u20ac"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "a\u00df \u03a9",
+   "hex": "006100DF002003A9",
+   "decoded": "a\u00df \u03a9"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u00df\u4e2dAA",
+   "hex": "00DF4E2D00410041",
+   "decoded": "\u00df\u4e2dAA"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": "\u0436\u00e9~\u03a9",
+   "hex": "043600E9007E03A9",
+   "decoded": "\u0436\u00e9~\u03a9"
+  },
+  {
+   "type": "Primitives.Bmp4",
+   "value": " \u20ac\u03a9\u00e9",
+   "hex": "002020AC03A900E9",
+   "decoded": " \u20ac\u03a9\u00e9"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "RV+JL2k:zy/",
+   "hex": "0B52562B4A4C326B3A7A792F",
+   "decoded": "RV+JL2k:zy/"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "G:@z",
+   "hex": "04473A407A",
+   "decoded": "G:@z"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "=@]X`[hb[/Ew",
+   "hex": "0C3D405D58605B68625B2F4577",
+   "decoded": "=@]X`[hb[/Ew"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "Rp?7",
+   "hex": "0452703F37",
+   "decoded": "Rp?7"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.General",
+   "value": "Yfj@I2[1r/q-",
+   "hex": "0C59666A4049325B31722F712D",
+   "decoded": "Yfj@I2[1r/q-"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "(0Fx|m1N;~l)",
+   "hex": "0C283046787C6D314E3B7E6C29",
+   "decoded": "(0Fx|m1N;~l)"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "dx}Y7Qx.IgQ",
+   "hex": "0B64787D593751782E496751",
+   "decoded": "dx}Y7Qx.IgQ"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "QVSKayg3IGe}",
+   "hex": "0C5156534B617967334947657D",
+   "decoded": "QVSKayg3IGe}"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "=ETV`09G`8;>",
+   "hex": "0C3D4554566030394760383B3E",
+   "decoded": "=ETV`09G`8;>"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "7/.87#p$(PHJ",
+   "hex": "0C372F2E38372370242850484A",
+   "decoded": "7/.87#p$(PHJ"
+  },
+  {
+   "type": "Primitives.General",
+   "value": "I^(ff%nyuB29",
+   "hex": "0C495E286666256E7975423239",
+   "decoded": "I^(ff%nyuB29"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "w*fG6qu&}3=9",
+   "hex": "0C772A6647367175267D333D39",
+   "decoded": "w*fG6qu&}3=9"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "N/fm)>m[5yUa",
+   "hex": "0C4E2F666D293E6D5B35795561",
+   "decoded": "N/fm)>m[5yUa"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "A,|i 4LKC`tI",
+   "hex": "0C412C7C6920344C4B43607449",
+   "decoded": "A,|i 4LKC`tI"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": ">JeZC0z`;slq",
+   "hex": "0C3E4A655A43307A603B736C71",
+   "decoded": ">JeZC0z`;slq"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "O1CPE",
+   "hex": "054F31435045",
+   "decoded": "O1CPE"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "\\qJz?O)1IqS/",
+   "hex": "0C5C714A7A3F4F29314971532F",
+   "decoded": "\\qJz?O)1IqS/"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "_B",
+   "hex": "025F42",
+   "decoded": "_B"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "Mh){?zy@siS(",
+   "hex": "0C4D68297B3F7A794073695328",
+   "decoded": "Mh){?zy@siS("
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "_e8\"JR`OQGGV",
+   "hex": "0C5F6538224A52604F51474756",
+   "decoded": "_e8\"JR`OQGGV"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": ",pNw3;",
+   "hex": "062C704E77333B",
+   "decoded": ",pNw3;"
+  },
+  {
+   "type": "Primitives.Graphic",
+   "value": "PS`F<b,>J>U;",
+   "hex": "0C505360463C622C3E4A3E553B",
+   "decoded": "PS`F<b,>J>U;"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "Qw<n:)Bq|u[Q",
+   "hex": "0C51773C6E3A2942717C755B51",
+   "decoded": "Qw<n:)Bq|u[Q"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": ":y$!rf0]",
+   "hex": "083A7924217266305D",
+   "decoded": ":y$!rf0]"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "op\"&",
+   "hex": "046F702226",
+   "decoded": "op\"&"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "(^VijiQ>9ck;",
+   "hex": "0C285E56696A69513E39636B3B",
+   "decoded": "(^VijiQ>9ck;"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": ",1",
+   "hex": "022C31",
+   "decoded": ",1"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "O*GihJ<={A<{",
+   "hex": "0C4F2A4769684A3C3D7B413C7B",
+   "decoded": "O*GihJ<={A<{"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": ">LSO",
+   "hex": "043E4C534F",
+   "decoded": ">LSO"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "g)qu:E:nqc :",
+   "hex": "0C672971753A453A6E7163203A",
+   "decoded": "g)qu:E:nqc :"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "~#m%A",
+   "hex": "057E236D2541",
+   "decoded": "~#m%A"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "QQ7Q:7K^_vS",
+   "hex": "0B515137513A374B5E5F7653",
+   "decoded": "QQ7Q:7K^_vS"
+  },
+  {
+   "type": "Primitives.Teletex",
+   "value": "8EX][kC",
+   "hex": "073845585D5B6B43",
+   "decoded": "8EX][kC"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "FFLDV3KLORAL5P0X8T0S",
+   "hex": "9846464C4456334B4C4F52414C3550305838543053",
+   "decoded": "FFLDV3KLORAL5P0X8T0S"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "4",
+   "hex": "0034",
+   "decoded": "4"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "W7U1NJOD",
+   "hex": "38573755314E4A4F44",
+   "decoded": "W7U1NJOD"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "AKBA1HXRULL05G6W62Z0",
+   "hex": "98414B424131485852554C4C303547365736325A30",
+   "decoded": "AKBA1HXRULL05G6W62Z0"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "91VN5AOQ",
+   "hex": "383931564E35414F51",
+   "decoded": "91VN5AOQ"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "SQU 2SLU1CVRBLDX2",
+   "hex": "805351552032534C5531435652424C445832",
+   "decoded": "SQU 2SLU1CVRBLDX2"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "OAWA",
+   "hex": "184F415741",
+   "decoded": "OAWA"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "SEO9767QS9C7OZWTOATO",
+   "hex": "9853454F3937363751533943374F5A57544F41544F",
+   "decoded": "SEO9767QS9C7OZWTOATO"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "0F ARWDGOJOO2CMB4PVP",
+   "hex": "9830462041525744474F4A4F4F32434D4234505650",
+   "decoded": "0F ARWDGOJOO2CMB4PVP"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "P",
+   "hex": "0050",
+   "decoded": "P"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "NADC89XEACAKSI W",
+   "hex": "784E414443383958454143414B53492057",
+   "decoded": "NADC89XEACAKSI W"
+  },
+  {
+   "type": "Primitives.Visible",
+   "value": "C",
+   "hex": "0043",
+   "decoded": "C"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "76187456",
+   "hex": "87298567",
+   "decoded": "76187456"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "80  36 3",
+   "hex": "91004704",
+   "decoded": "80  36 3"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "252859 7",
+   "hex": "36396A08",
+   "decoded": "252859 7"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "61338603",
+   "hex": "72449714",
+   "decoded": "61338603"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "26583464",
+   "hex": "37694575",
+   "decoded": "26583464"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "47297122",
+   "hex": "583A8233",
+   "decoded": "47297122"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "385 8566",
+   "hex": "49609677",
+   "decoded": "385 8566"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "45818594",
+   "hex": "569296A5",
+   "decoded": "45818594"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "14090994",
+   "hex": "251A1AA5",
+   "decoded": "14090994"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "38062405",
+   "hex": "49173516",
+   "decoded": "38062405"
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "8 29699 ",
+   "hex": "903A7AA0",
+   "decoded": "8 29699 "
+  },
+  {
+   "type": "Primitives.Numeric8",
+   "value": "27815975",
+   "hex": "38926A86",
+   "decoded": "27815975"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "84",
+   "hex": "0284",
+   "decoded": "84"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "2E6757A33234",
+   "hex": "0C2E6757A33234",
+   "decoded": "2E6757A33234"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "",
+   "hex": "00",
+   "decoded": ""
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "5590D16B8B12",
+   "hex": "0C5590D16B8B12",
+   "decoded": "5590D16B8B12"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "F4206C85AECA",
+   "hex": "0CF4206C85AECA",
+   "decoded": "F4206C85AECA"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "917AE9588559",
+   "hex": "0C917AE9588559",
+   "decoded": "917AE9588559"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "DDA93",
+   "hex": "05DDA930",
+   "decoded": "DDA93"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "019E6FABFD5E",
+   "hex": "0C019E6FABFD5E",
+   "decoded": "019E6FABFD5E"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "17F1FA1D3E5C",
+   "hex": "0C17F1FA1D3E5C",
+   "decoded": "17F1FA1D3E5C"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "D7C72284CADB",
+   "hex": "0CD7C72284CADB",
+   "decoded": "D7C72284CADB"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "92302",
+   "hex": "05923020",
+   "decoded": "92302"
+  },
+  {
+   "type": "Primitives.Hex",
+   "value": "34D81DC7F",
+   "hex": "0934D81DC7F0",
+   "decoded": "34D81DC7F"
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 234,
+   "hex": "EA",
+   "decoded": 234
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 0,
+   "hex": "00",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 187,
+   "hex": "BB",
+   "decoded": 187
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 73,
+   "hex": "49",
+   "decoded": 73
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 255,
+   "hex": "FF",
+   "decoded": 255
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 194,
+   "hex": "C2",
+   "decoded": 194
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 23,
+   "hex": "17",
+   "decoded": 23
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 15,
+   "hex": "0F",
+   "decoded": 15
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 200,
+   "hex": "C8",
+   "decoded": 200
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 114,
+   "hex": "72",
+   "decoded": 114
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 2,
+   "hex": "02",
+   "decoded": 2
+  },
+  {
+   "type": "Primitives.Unsigned8",
+   "value": 24,
+   "hex": "18",
+   "decoded": 24
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 24575,
+   "hex": "5FFF",
+   "decoded": 24575
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 63938,
+   "hex": "F9C2",
+   "decoded": 63938
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 0,
+   "hex": "0000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 65535,
+   "hex": "FFFF",
+   "decoded": 65535
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 2303,
+   "hex": "08FF",
+   "decoded": 2303
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 35430,
+   "hex": "8A66",
+   "decoded": 35430
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 5027,
+   "hex": "13A3",
+   "decoded": 5027
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 11133,
+   "hex": "2B7D",
+   "decoded": 11133
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 39209,
+   "hex": "9929",
+   "decoded": 39209
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 15544,
+   "hex": "3CB8",
+   "decoded": 15544
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 56375,
+   "hex": "DC37",
+   "decoded": 56375
+  },
+  {
+   "type": "Primitives.Unsigned16",
+   "value": 50540,
+   "hex": "C56C",
+   "decoded": 50540
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 1337598887,
+   "hex": "C04FBA23A7",
+   "decoded": 1337598887
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 4294967295,
+   "hex": "C0FFFFFFFF",
+   "decoded": 4294967295
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 3605705714,
+   "hex": "C0D6EAB3F2",
+   "decoded": 3605705714
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 281562950,
+   "hex": "C010C84F46",
+   "decoded": 281562950
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 0,
+   "hex": "0000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 2134306821,
+   "hex": "C07F36F005",
+   "decoded": 2134306821
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 2473206074,
+   "hex": "C0936A213A",
+   "decoded": 2473206074
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 808260775,
+   "hex": "C0302D14A7",
+   "decoded": 808260775
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 2442434549,
+   "hex": "C0919497F5",
+   "decoded": 2442434549
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 4055751172,
+   "hex": "C0F1BDDA04",
+   "decoded": 4055751172
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 4221937173,
+   "hex": "C0FBA5A615",
+   "decoded": 4221937173
+  },
+  {
+   "type": "Primitives.Unsigned32",
+   "value": 4195931527,
+   "hex": "C0FA18D587",
+   "decoded": 4195931527
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": 0,
+   "hex": "0000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "10114548915608823643",
+   "hex": "E08C5E18A64A2D275B",
+   "decoded": "10114548915608823643"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "547453773547200442",
+   "hex": "E00798F24E773A5FBA",
+   "decoded": "547453773547200442"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "12265377983250551882",
+   "hex": "E0AA37604A7F8BD44A",
+   "decoded": "12265377983250551882"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "5414332564241470810",
+   "hex": "E04B2392C7E371555A",
+   "decoded": "5414332564241470810"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "15066670782128548731",
+   "hex": "E0D117913FEC876B7B",
+   "decoded": "15066670782128548731"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "15028827981350866386",
+   "hex": "E0D0911F6C42DE8DD2",
+   "decoded": "15028827981350866386"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "8428270195843504085",
+   "hex": "E074F73B16964397D5",
+   "decoded": "8428270195843504085"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "18446744073709551615",
+   "hex": "E0FFFFFFFFFFFFFFFF",
+   "decoded": "18446744073709551615"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "9585036055958413011",
+   "hex": "E08504E3825AB65ED3",
+   "decoded": "9585036055958413011"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "12225566090749196106",
+   "hex": "E0A9A9EF95F12AB74A",
+   "decoded": "12225566090749196106"
+  },
+  {
+   "type": "Primitives.Unsigned64",
+   "value": "10620572876112109850",
+   "hex": "E09363DAC2B7CFA11A",
+   "decoded": "10620572876112109850"
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 0,
+   "hex": "0100",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": "7381911844164909791",
+   "hex": "086671D1B612B2BADF",
+   "decoded": "7381911844164909791"
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": "1267650600228229401496703205376",
+   "hex": "0D10000000000000000000000000",
+   "decoded": "1267650600228229401496703205376"
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": "195215419289669833413702001088",
+   "hex": "0D0276C668FCD3912F93212921C0",
+   "decoded": "195215419289669833413702001088"
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 360395286758,
+   "hex": "0553E93BA8E6",
+   "decoded": 360395286758
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 27099,
+   "hex": "0269DB",
+   "decoded": 27099
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 42,
+   "hex": "012A",
+   "decoded": 42
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 43969,
+   "hex": "0300ABC1",
+   "decoded": 43969
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 57021,
+   "hex": "0300DEBD",
+   "decoded": 57021
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 100,
+   "hex": "0164",
+   "decoded": 100
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": "15521206181694431590",
+   "hex": "0900D76666C9917E6166",
+   "decoded": "15521206181694431590"
+  },
+  {
+   "type": "Primitives.Natural",
+   "value": 20,
+   "hex": "0114",
+   "decoded": 20
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 0,
+   "hex": "80",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -4,
+   "hex": "7C",
+   "decoded": -4
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -44,
+   "hex": "54",
+   "decoded": -44
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 59,
+   "hex": "BB",
+   "decoded": 59
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -73,
+   "hex": "37",
+   "decoded": -73
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 50,
+   "hex": "B2",
+   "decoded": 50
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 73,
+   "hex": "C9",
+   "decoded": 73
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 63,
+   "hex": "BF",
+   "decoded": 63
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -101,
+   "hex": "1B",
+   "decoded": -101
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -69,
+   "hex": "3B",
+   "decoded": -69
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": 127,
+   "hex": "FF",
+   "decoded": 127
+  },
+  {
+   "type": "Primitives.Signed8",
+   "value": -12,
+   "hex": "74",
+   "decoded": -12
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 32767,
+   "hex": "FFFF",
+   "decoded": 32767
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 25100,
+   "hex": "E20C",
+   "decoded": 25100
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": -9689,
+   "hex": "5A27",
+   "decoded": -9689
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": -32768,
+   "hex": "0000",
+   "decoded": -32768
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 8312,
+   "hex": "A078",
+   "decoded": 8312
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 0,
+   "hex": "8000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 19997,
+   "hex": "CE1D",
+   "decoded": 19997
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 3403,
+   "hex": "8D4B",
+   "decoded": 3403
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": -9783,
+   "hex": "59C9",
+   "decoded": -9783
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 29776,
+   "hex": "F450",
+   "decoded": 29776
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": -15202,
+   "hex": "449E",
+   "decoded": -15202
+  },
+  {
+   "type": "Primitives.Signed16",
+   "value": 28600,
+   "hex": "EFB8",
+   "decoded": 28600
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -2012874580,
+   "hex": "C00805F8AC",
+   "decoded": -2012874580
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 2147483647,
+   "hex": "C0FFFFFFFF",
+   "decoded": 2147483647
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 0,
+   "hex": "C080000000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 819709901,
+   "hex": "C0B0DBC7CD",
+   "decoded": 819709901
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -156683835,
+   "hex": "C076A931C5",
+   "decoded": -156683835
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 576867876,
+   "hex": "C0A2624E24",
+   "decoded": 576867876
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 1831302513,
+   "hex": "C0ED277571",
+   "decoded": 1831302513
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -36673799,
+   "hex": "C07DD066F9",
+   "decoded": -36673799
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -2147483648,
+   "hex": "0000",
+   "decoded": -2147483648
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -807651716,
+   "hex": "C04FDC367C",
+   "decoded": -807651716
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": -1416343605,
+   "hex": "C02B944FCB",
+   "decoded": -1416343605
+  },
+  {
+   "type": "Primitives.Signed32",
+   "value": 1467758325,
+   "hex": "C0D77C36F5",
+   "decoded": 1467758325
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-7430246636895973342",
+   "hex": "E018E2760D06465022",
+   "decoded": "-7430246636895973342"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-4424173638403989678",
+   "hex": "E0429A2D8422485F52",
+   "decoded": "-4424173638403989678"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "5752735296899032529",
+   "hex": "E0CFD5D245F284A5D1",
+   "decoded": "5752735296899032529"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-9223372036854775808",
+   "hex": "0000",
+   "decoded": "-9223372036854775808"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "9223372036854775807",
+   "hex": "E0FFFFFFFFFFFFFFFF",
+   "decoded": "9223372036854775807"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": 0,
+   "hex": "E08000000000000000",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "3793229617233515331",
+   "hex": "E0B4A4423D4EB1D343",
+   "decoded": "3793229617233515331"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-6661006440038124990",
+   "hex": "E0238F59EF2EF03242",
+   "decoded": "-6661006440038124990"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-8223958872373118129",
+   "hex": "E00DDEA0FA5CC73B4F",
+   "decoded": "-8223958872373118129"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "-8539035648635072640",
+   "hex": "E0097F4051BEB58F80",
+   "decoded": "-8539035648635072640"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "3714545926285193513",
+   "hex": "E0B38CB7D6E61A7129",
+   "decoded": "3714545926285193513"
+  },
+  {
+   "type": "Primitives.Signed64",
+   "value": "2522161051104506602",
+   "hex": "E0A300841CED68F2EA",
+   "decoded": "2522161051104506602"
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 8178398716,
+   "hex": "8001E776EF5C",
+   "decoded": 8178398716
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 100000,
+   "hex": "0000",
+   "decoded": 100000
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 84912198149,
+   "hex": "8013C527CB65",
+   "decoded": 84912198149
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 100000000000,
+   "hex": "801748756160",
+   "decoded": 100000000000
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 40294860776,
+   "hex": "800961C14148",
+   "decoded": 40294860776
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 27599456085,
+   "hex": "80066D0CC0B5",
+   "decoded": 27599456085
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 25961040678,
+   "hex": "80060B648486",
+   "decoded": 25961040678
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 38116874804,
+   "hex": "8008DFEFD394",
+   "decoded": 38116874804
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 76253671352,
+   "hex": "8011C1112918",
+   "decoded": 76253671352
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 78188675454,
+   "hex": "80123466FADE",
+   "decoded": 78188675454
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 71205085216,
+   "hex": "80109425D980",
+   "decoded": 71205085216
+  },
+  {
+   "type": "Primitives.Huge",
+   "value": 32716802466,
+   "hex": "80079E114302",
+   "decoded": 32716802466
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "45297731375620444139775961539",
+   "hex": "0D00925D67BA4E3D6239E1ADA9C3",
+   "decoded": "45297731375620444139775961539"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": 0,
+   "hex": "0100",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": 1099511627771,
+   "hex": "0600FFFFFFFFFB",
+   "decoded": 1099511627771
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": 95,
+   "hex": "015F",
+   "decoded": 95
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "13295926046838485614",
+   "hex": "0900B8849E4B75ABF26E",
+   "decoded": "13295926046838485614"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "5204932976765437153",
+   "hex": "08483BA2F727D204E1",
+   "decoded": "5204932976765437153"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "6200281673745887810",
+   "hex": "08560BD354EEFCF242",
+   "decoded": "6200281673745887810"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": -5,
+   "hex": "01FB",
+   "decoded": -5
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "8330140023360998866",
+   "hex": "08739A9A375DB24DD2",
+   "decoded": "8330140023360998866"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": "1267650600228229401496703205371",
+   "hex": "0D0FFFFFFFFFFFFFFFFFFFFFFFFB",
+   "decoded": "1267650600228229401496703205371"
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": 69995,
+   "hex": "0301116B",
+   "decoded": 69995
+  },
+  {
+   "type": "Primitives.Offset",
+   "value": 55475,
+   "hex": "0300D8B3",
+   "decoded": 55475
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 15,
+   "hex": "78",
+   "decoded": 15
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 0,
+   "hex": "00",
+   "decoded": 0
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 12,
+   "hex": "60",
+   "decoded": 12
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 9,
+   "hex": "48",
+   "decoded": 9
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 1,
+   "hex": "08",
+   "decoded": 1
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 11,
+   "hex": "58",
+   "decoded": 11
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 13,
+   "hex": "68",
+   "decoded": 13
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 3,
+   "hex": "18",
+   "decoded": 3
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 4,
+   "hex": "20",
+   "decoded": 4
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 8,
+   "hex": "40",
+   "decoded": 8
+  },
+  {
+   "type": "Primitives.Ext",
+   "value": 2,
+   "hex": "10",
+   "decoded": 2
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "F8",
+    "length": 5
+   },
+   "hex": "F8",
+   "decoded": {
+    "hex": "F8",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "D0",
+    "length": 5
+   },
+   "hex": "D0",
+   "decoded": {
+    "hex": "D0",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "60",
+    "length": 5
+   },
+   "hex": "60",
+   "decoded": {
+    "hex": "60",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "70",
+    "length": 5
+   },
+   "hex": "70",
+   "decoded": {
+    "hex": "70",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "28",
+    "length": 5
+   },
+   "hex": "28",
+   "decoded": {
+    "hex": "28",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "38",
+    "length": 5
+   },
+   "hex": "38",
+   "decoded": {
+    "hex": "38",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "40",
+    "length": 5
+   },
+   "hex": "40",
+   "decoded": {
+    "hex": "40",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "68",
+    "length": 5
+   },
+   "hex": "68",
+   "decoded": {
+    "hex": "68",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "00",
+    "length": 5
+   },
+   "hex": "00",
+   "decoded": {
+    "hex": "00",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "80",
+    "length": 5
+   },
+   "hex": "80",
+   "decoded": {
+    "hex": "80",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "50",
+    "length": 5
+   },
+   "hex": "50",
+   "decoded": {
+    "hex": "50",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Fixed5",
+   "value": {
+    "hex": "08",
+    "length": 5
+   },
+   "hex": "08",
+   "decoded": {
+    "hex": "08",
+    "length": 5
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "0C04BBC0",
+    "length": 26
+   },
+   "hex": "680C04BBC0",
+   "decoded": {
+    "hex": "0C04BBC0",
+    "length": 26
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "5F6BCE4C59",
+    "length": 40
+   },
+   "hex": "A05F6BCE4C59",
+   "decoded": {
+    "hex": "5F6BCE4C59",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "EA6A9CDC53",
+    "length": 40
+   },
+   "hex": "A0EA6A9CDC53",
+   "decoded": {
+    "hex": "EA6A9CDC53",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "33AC141F04",
+    "length": 40
+   },
+   "hex": "A033AC141F04",
+   "decoded": {
+    "hex": "33AC141F04",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "",
+    "length": 0
+   },
+   "hex": "00",
+   "decoded": {
+    "hex": "",
+    "length": 0
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "311934EFA7",
+    "length": 40
+   },
+   "hex": "A0311934EFA7",
+   "decoded": {
+    "hex": "311934EFA7",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "D8AEE90E40",
+    "length": 34
+   },
+   "hex": "88D8AEE90E40",
+   "decoded": {
+    "hex": "D8AEE90E40",
+    "length": 34
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "669F80",
+    "length": 17
+   },
+   "hex": "44669F80",
+   "decoded": {
+    "hex": "669F80",
+    "length": 17
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "7F789246A9",
+    "length": 40
+   },
+   "hex": "A07F789246A9",
+   "decoded": {
+    "hex": "7F789246A9",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "B71819C713",
+    "length": 40
+   },
+   "hex": "A0B71819C713",
+   "decoded": {
+    "hex": "B71819C713",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "4986AD7BA0",
+    "length": 40
+   },
+   "hex": "A04986AD7BA0",
+   "decoded": {
+    "hex": "4986AD7BA0",
+    "length": 40
+   }
+  },
+  {
+   "type": "Primitives.Bits",
+   "value": {
+    "hex": "1C",
+    "length": 8
+   },
+   "hex": "201C",
+   "decoded": {
+    "hex": "1C",
+    "length": 8
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "A268",
+    "length": 13
+   },
+   "hex": "B0A268",
+   "decoded": {
+    "hex": "A268",
+    "length": 13
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "40",
+    "length": 2
+   },
+   "hex": "0040",
+   "decoded": {
+    "hex": "40",
+    "length": 2
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "C059",
+    "length": 16
+   },
+   "hex": "E0C059",
+   "decoded": {
+    "hex": "C059",
+    "length": 16
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "C0",
+    "length": 2
+   },
+   "hex": "00C0",
+   "decoded": {
+    "hex": "C0",
+    "length": 2
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "8710",
+    "length": 12
+   },
+   "hex": "A08710",
+   "decoded": {
+    "hex": "8710",
+    "length": 12
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "F2",
+    "length": 7
+   },
+   "hex": "50F2",
+   "decoded": {
+    "hex": "F2",
+    "length": 7
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "77FB",
+    "length": 16
+   },
+   "hex": "E077FB",
+   "decoded": {
+    "hex": "77FB",
+    "length": 16
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "6860",
+    "length": 11
+   },
+   "hex": "906860",
+   "decoded": {
+    "hex": "6860",
+    "length": 11
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "1025",
+    "length": 16
+   },
+   "hex": "E01025",
+   "decoded": {
+    "hex": "1025",
+    "length": 16
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "3E50",
+    "length": 12
+   },
+   "hex": "A03E50",
+   "decoded": {
+    "hex": "3E50",
+    "length": 12
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "BDC5",
+    "length": 16
+   },
+   "hex": "E0BDC5",
+   "decoded": {
+    "hex": "BDC5",
+    "length": 16
+   }
+  },
+  {
+   "type": "Primitives.Flags",
+   "value": {
+    "hex": "E48B",
+    "length": 16
+   },
+   "hex": "E0E48B",
+   "decoded": {
+    "hex": "E48B",
+    "length": 16
+   }
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "943C3B",
+   "hex": "943C3B",
+   "decoded": "943C3B"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "6BEAD6",
+   "hex": "6BEAD6",
+   "decoded": "6BEAD6"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "CDDED2",
+   "hex": "CDDED2",
+   "decoded": "CDDED2"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "6FD9DE",
+   "hex": "6FD9DE",
+   "decoded": "6FD9DE"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "28CDBE",
+   "hex": "28CDBE",
+   "decoded": "28CDBE"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "BBAE2E",
+   "hex": "BBAE2E",
+   "decoded": "BBAE2E"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "2C9817",
+   "hex": "2C9817",
+   "decoded": "2C9817"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "B59839",
+   "hex": "B59839",
+   "decoded": "B59839"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "546906",
+   "hex": "546906",
+   "decoded": "546906"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "980072",
+   "hex": "980072",
+   "decoded": "980072"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "0506D7",
+   "hex": "0506D7",
+   "decoded": "0506D7"
+  },
+  {
+   "type": "Primitives.Octets3",
+   "value": "C67E41",
+   "hex": "C67E41",
+   "decoded": "C67E41"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "BD",
+   "hex": "00BD",
+   "decoded": "BD"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "7FF135C6",
+   "hex": "607FF135C6",
+   "decoded": "7FF135C6"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "53",
+   "hex": "0053",
+   "decoded": "53"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "BE",
+   "hex": "00BE",
+   "decoded": "BE"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "F8",
+   "hex": "00F8",
+   "decoded": "F8"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "3B72D025",
+   "hex": "603B72D025",
+   "decoded": "3B72D025"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "375655",
+   "hex": "40375655",
+   "decoded": "375655"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "1FCBD1",
+   "hex": "401FCBD1",
+   "decoded": "1FCBD1"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "CB3FB7",
+   "hex": "40CB3FB7",
+   "decoded": "CB3FB7"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "FD81",
+   "hex": "20FD81",
+   "decoded": "FD81"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "59",
+   "hex": "0059",
+   "decoded": "59"
+  },
+  {
+   "type": "Primitives.OctetsExt",
+   "value": "B9",
+   "hex": "00B9",
+   "decoded": "B9"
+  },
+  {
+   "type": "Primitives.Nothing",
+   "value": null,
+   "hex": "",
+   "decoded": null
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "0~\u20ac\u20acA\u03a9z\u03a9z\u0436\u00dfA",
+    "when": "19920404212442Z",
+    "ratio": -11980413.767500043,
+    "id": "0.19.58179.24141.134759117950031814",
+    "level": 7
+   },
+   "hex": "D014307EE282ACE282AC41CEA97ACEA97AD0B6C39F410F31393932303430343231323434325A08C0E95B673EE23D71101383C64381BC4D81EFB0D6C2DDA0AF46E0",
+   "decoded": {
+    "name": "0~\u20ac\u20acA\u03a9z\u03a9z\u0436\u00dfA",
+    "when": "19920404212442Z",
+    "ratio": -11980413.767500043,
+    "id": "0.19.58179.24141.134759117950031814",
+    "level": 7
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "A\u4e2d~\u04360A\u03a9~\u4e2d9 A",
+    "when": "20451123171426Z",
+    "id": "1.23.29492.29887.15088.48174.45117"
+   },
+   "hex": "801241E4B8AD7ED0B63041CEA97EE4B8AD3920410F32303435313132333137313432365A0F3F81E63481E93FF57082F82E82E03D",
+   "decoded": {
+    "name": "A\u4e2d~\u04360A\u03a9~\u4e2d9 A",
+    "when": "20451123171426Z",
+    "id": "1.23.29492.29887.15088.48174.45117",
+    "level": 3
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "z",
+    "ratio": "PLUS-INFINITY",
+    "id": "2.676.26652",
+    "level": 1
+   },
+   "hex": "50017A014005857481D01C20",
+   "decoded": {
+    "name": "z",
+    "ratio": "PLUS-INFINITY",
+    "id": "18.36.26652",
+    "level": 1
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "\u20ac",
+    "when": "20360811060340Z",
+    "ratio": 1e+300,
+    "id": "2.468.1376.50376.22704",
+    "level": 4
+   },
+   "hex": "D003E282AC0F32303336303831313036303334305A0A8103B205F90F22001D670A84248A6083894881B13080",
+   "decoded": {
+    "name": "\u20ac",
+    "when": "20360811060340Z",
+    "ratio": 1e+300,
+    "id": "13.28.1376.50376.22704",
+    "level": 4
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "99~\u20ac\u00df\u4e2d\u20ac",
+    "when": "19800416211034Z",
+    "id": "1.34.34177.5264921069856555361.60863.66197.39727",
+    "level": 0
+   },
+   "hex": "900E39397EE282ACC39FE4B8ADE282AC0F31393830303431363231313033345A164A828B01C988B0BA97DA94826183DB3F84851582B62F00",
+   "decoded": {
+    "name": "99~\u20ac\u00df\u4e2d\u20ac",
+    "when": "19800416211034Z",
+    "id": "1.34.34177.5264921069856555361.60863.66197.39727",
+    "level": 0
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "\u0436",
+    "when": "20921225023434Z",
+    "ratio": -2265750268597971.5,
+    "id": "0.25.66385.12936.7138350091527305408.55950"
+   },
+   "hex": "C002D0B60F32303932313232353032333433345A09C0FF1019602FD1ADA71219848651E508E388A0F2E6FEF2F14083B50E",
+   "decoded": {
+    "name": "\u0436",
+    "when": "20921225023434Z",
+    "ratio": -2265750268597971.5,
+    "id": "0.25.66385.12936.7138350091527305408.55950",
+    "level": 3
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "~\u4e2d\u00e9\u03a9~0",
+    "when": "20481228070600Z",
+    "ratio": -37945.805996631185,
+    "id": "2.202.5555325865436909937",
+    "level": 0
+   },
+   "hex": "D00A7EE4B8ADC3A9CEA97E300F32303438313232383037303630305A09C0DD04A1CE72AE5C9D0B821ACD8C9EEE8FA7A0A27100",
+   "decoded": {
+    "name": "~\u4e2d\u00e9\u03a9~0",
+    "when": "20481228070600Z",
+    "ratio": -37945.805996631185,
+    "id": "7.2.5555325865436909937",
+    "level": 0
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "\u03a99\u00e9\u03a9\u00df0A \u4e2da \u0436",
+    "when": "20160323184114Z",
+    "ratio": 47752861188.60955,
+    "id": "0.10.16580.13254.31859",
+    "marker": null
+   },
+   "hex": "E013CEA939C3A9CEA9C39F304120E4B8AD6120D0B60F32303136303332333138343131345A0980EF163C95AC093817090A818144E74681F873",
+   "decoded": {
+    "name": "\u03a99\u00e9\u03a9\u00df0A \u4e2da \u0436",
+    "when": "20160323184114Z",
+    "ratio": 47752861188.60955,
+    "id": "0.10.16580.13254.31859",
+    "marker": null,
+    "level": 3
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "00\u0436\u00df\u00e90a\u00e99\u4e2dz9",
+    "when": "19981027012114Z",
+    "id": "0.21",
+    "marker": null
+   },
+   "hex": "A0123030D0B6C39FC3A93061C3A939E4B8AD7A390F31393938313032373031323131345A0115",
+   "decoded": {
+    "name": "00\u0436\u00df\u00e90a\u00e99\u4e2dz9",
+    "when": "19981027012114Z",
+    "id": "0.21",
+    "marker": null,
+    "level": 3
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "\u4e2d \u03a9\u0436~9~  \u03a9 0",
+    "id": "2.594.66556.52500.29074.20940",
+    "marker": null,
+    "level": 7
+   },
+   "hex": "3011E4B8AD20CEA9D0B67E397E2020CEA920300E852284877C839A1481E31281A34CE0",
+   "decoded": {
+    "name": "\u4e2d \u03a9\u0436~9~  \u03a9 0",
+    "id": "16.34.66556.52500.29074.20940",
+    "marker": null,
+    "level": 7
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "~~\u00e9\u0436a0\u03a9A\u03a9 \u00e90",
+    "id": "2.528.36796.10207.59920",
+    "marker": null,
+    "level": 7
+   },
+   "hex": "30117E7EC3A9D0B66130CEA941CEA920C3A9300A8460829F3CCF5F83D410E0",
+   "decoded": {
+    "name": "~~\u00e9\u0436a0\u03a9A\u03a9 \u00e90",
+    "id": "15.8.36796.10207.59920",
+    "marker": null,
+    "level": 7
+   }
+  },
+  {
+   "type": "Primitives.Record",
+   "value": {
+    "name": "\u0436",
+    "when": "20031205082016Z",
+    "id": "0.27",
+    "level": 2
+   },
+   "hex": "9002D0B60F32303033313230353038323031365A011B40",
+   "decoded": {
+    "name": "\u0436",
+    "when": "20031205082016Z",
+    "id": "0.27",
+    "level": 2
+   }
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "=v6gJY",
+    "OSo7:-O",
+    "n'c.Ny.v",
+    "'037sI0R"
+   ],
+   "hex": "943D7636674A59C04F536F373A2D4FE06E27632E4E792E76E02730333773493052",
+   "decoded": [
+    "=v6gJY",
+    "OSo7:-O",
+    "n'c.Ny.v",
+    "'037sI0R"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    ".",
+    "C",
+    "H3br99/:",
+    "-.?6cCCw"
+   ],
+   "hex": "802E0043E04833627239392F3AE02D2E3F3663434377",
+   "decoded": [
+    ".",
+    "C",
+    "H3br99/:",
+    "-.?6cCCw"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [],
+   "hex": "00",
+   "decoded": []
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "H",
+    "P3YwPDZ3",
+    "l",
+    "tmp3o9.Q"
+   ],
+   "hex": "8048E05033597750445A33006CE0746D70336F392E51",
+   "decoded": [
+    "H",
+    "P3YwPDZ3",
+    "l",
+    "tmp3o9.Q"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "U",
+    "0?LK:s",
+    "v-",
+    "N"
+   ],
+   "hex": "8055A0303F4C4B3A7320762D004E",
+   "decoded": [
+    "U",
+    "0?LK:s",
+    "v-",
+    "N"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "i",
+    "A",
+    "L",
+    "k"
+   ],
+   "hex": "80690041004C006B",
+   "decoded": [
+    "i",
+    "A",
+    "L",
+    "k"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "TGDk-W1e"
+   ],
+   "hex": "3C5447446B2D573165",
+   "decoded": [
+    "TGDk-W1e"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "OZKr163k"
+   ],
+   "hex": "3C4F5A4B723136336B",
+   "decoded": [
+    "OZKr163k"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "s4orSki0",
+    "F",
+    "lF/+ I34",
+    "r"
+   ],
+   "hex": "9C73346F72536B69300046E06C462F2B204933340072",
+   "decoded": [
+    "s4orSki0",
+    "F",
+    "lF/+ I34",
+    "r"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "U4m4KXPA",
+    "CDK(7jEi",
+    "?",
+    "ksrws"
+   ],
+   "hex": "9C55346D344B585041E043444B28376A4569003F806B73727773",
+   "decoded": [
+    "U4m4KXPA",
+    "CDK(7jEi",
+    "?",
+    "ksrws"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "w",
+    ",",
+    "b,g1jQR7"
+   ],
+   "hex": "6077002CE0622C67316A515237",
+   "decoded": [
+    "w",
+    ",",
+    "b,g1jQR7"
+   ]
+  },
+  {
+   "type": "Primitives.Tags",
+   "value": [
+    "J",
+    "IobHM",
+    "oV3mRy7x",
+    "E"
+   ],
+   "hex": "804A80496F62484DE06F56336D527937780045",
+   "decoded": [
+    "J",
+    "IobHM",
+    "oV3mRy7x",
+    "E"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    628698101869,
+    "17227080501422167293",
+    "1267650600209782657422993653755"
+   ],
+   "hex": "030600926153B86D0900EF12E2716C5394FD0D0FFFFFFFFEFFFFFFFFFFFFFFFB",
+   "decoded": [
+    628698101869,
+    "17227080501422167293",
+    "1267650600209782657422993653755"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [],
+   "hex": "00",
+   "decoded": []
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    "1027360467674007923374568328276",
+    -100
+   ],
+   "hex": "020D0CF794A934E4E7CDB959B94C54019C",
+   "decoded": [
+    "1027360467674007923374568328276",
+    -100
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    "-10539374053178905101"
+   ],
+   "hex": "0109FF6DBC9F237D4D6DF3",
+   "decoded": [
+    "-10539374053178905101"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    "6594560156043835589",
+    583110901859,
+    0
+   ],
+   "hex": "03085B849585BEEFF8C5060087C41E40630100",
+   "decoded": [
+    "6594560156043835589",
+    583110901859,
+    0
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    -70000,
+    "-1041517624143155359216401724807"
+   ],
+   "hex": "0203FEEE900DF2DAACD04D1A3D1962F1EECA79",
+   "decoded": [
+    -70000,
+    "-1041517624143155359216401724807"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    -100,
+    0,
+    "-18446743808035918750"
+   ],
+   "hex": "03019C010009FF0000003DDB61EC62",
+   "decoded": [
+    -100,
+    0,
+    "-18446743808035918750"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    -100,
+    "629231610462903136",
+    "13904403827646225282"
+   ],
+   "hex": "03019C0808BB7AD0DF169B600900C0F65D9CD06F5B82",
+   "decoded": [
+    -100,
+    "629231610462903136",
+    "13904403827646225282"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    "-859411930599171180655138174191",
+    "297194021455032054638912625353",
+    "1267650600228229401496703205276"
+   ],
+   "hex": "030DF527171CE13889C30A82D60B110D03C04921F98FFDEECD25A65AC90D0FFFFFFFFFFFFFFFFFFFFFFF9C",
+   "decoded": [
+    "-859411930599171180655138174191",
+    "297194021455032054638912625353",
+    "1267650600228229401496703205276"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    "-18446743646299173887"
+   ],
+   "hex": "0109FF0000006383A4CC01",
+   "decoded": [
+    "-18446743646299173887"
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    -75568219548,
+    -1099511627698,
+    -100
+   ],
+   "hex": "0305EE67C87A6406FF000000004E019C",
+   "decoded": [
+    -75568219548,
+    -1099511627698,
+    -100
+   ]
+  },
+  {
+   "type": "Primitives.Numbers",
+   "value": [
+    545660439425,
+    -70000,
+    "-18446744073709508086"
+   ],
+   "hex": "03057F0BE58B8103FEEE9009FF000000000000AA0A",
+   "decoded": [
+    545660439425,
+    -70000,
+    "-18446744073709508086"
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -0.0004634939599612234,
+     "at": "860227140514Z"
+    },
+    {
+     "value": 0.1,
+     "at": "910128121918Z"
+    },
+    {
+     "value": 7.440412816330988e-10,
+     "at": "430703114000Z"
+    },
+    {
+     "value": 3.118418938535461e-15,
+     "at": "911223173800Z"
+    }
+   ],
+   "hex": "6009C0C10F3011B330CEBB0D3836303232373134303531345A0980C90CCCCCCCCCCCCD0D3931303132383132313931385A0980AD1990A804F47C290D3433303730333131343030305A09809C0E0B4AD132BB730D3931313232333137333830305A",
+   "decoded": [
+    {
+     "value": -0.0004634939599612234,
+     "at": "860227140514Z"
+    },
+    {
+     "value": 0.1,
+     "at": "910128121918Z"
+    },
+    {
+     "value": 7.440412816330988e-10,
+     "at": "430703114000Z"
+    },
+    {
+     "value": 3.118418938535461e-15,
+     "at": "911223173800Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": 7.789799877344539e-19,
+     "at": "790402112301Z"
+    },
+    {
+     "value": 1,
+     "at": "601122141434Z"
+    },
+    {
+     "value": 0,
+     "at": "930927051452Z"
+    },
+    {
+     "value": -1.5,
+     "at": "040522020030Z"
+    },
+    {
+     "value": 2513608852174882.5,
+     "at": "260605034121Z"
+    }
+   ],
+   "hex": "8009808F1CBD420A4F2B7F0D3739303430323131323330315A038000010D3630313132323134313433345A000D3933303932373035313435325A03C0FF030D3034303532323032303033305A0980FF11DC3A5579F0450D3236303630353033343132315A",
+   "decoded": [
+    {
+     "value": 7.789799877344539e-19,
+     "at": "790402112301Z"
+    },
+    {
+     "value": 1.0,
+     "at": "601122141434Z"
+    },
+    {
+     "value": 0.0,
+     "at": "930927051452Z"
+    },
+    {
+     "value": -1.5,
+     "at": "040522020030Z"
+    },
+    {
+     "value": 2513608852174882.5,
+     "at": "260605034121Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": 3.5643959876915424e-16,
+     "at": "580106041830Z"
+    }
+   ],
+   "hex": "000980990CD793350AE4DD0D3538303130363034313833305A",
+   "decoded": [
+    {
+     "value": 3.5643959876915424e-16,
+     "at": "580106041830Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": "PLUS-INFINITY",
+     "at": "651017065106Z"
+    },
+    {
+     "value": -1.5,
+     "at": "860107165226Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "740903023825Z"
+    }
+   ],
+   "hex": "4001400D3635313031373036353130365A03C0FF030D3836303130373136353232365A01410D3734303930333032333832355A",
+   "decoded": [
+    {
+     "value": "PLUS-INFINITY",
+     "at": "651017065106Z"
+    },
+    {
+     "value": -1.5,
+     "at": "860107165226Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "740903023825Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": 9169811363.876713,
+     "at": "281121210205Z"
+    },
+    {
+     "value": 152102.04694983643,
+     "at": "010814145703Z"
+    }
+   ],
+   "hex": "200980EE088A40DE8F81C10D3238313132313231303230355A0980E2009489830139E30D3031303831343134353730335A",
+   "decoded": [
+    {
+     "value": 9169811363.876713,
+     "at": "281121210205Z"
+    },
+    {
+     "value": 152102.04694983643,
+     "at": "010814145703Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -3.511890628613481e-16,
+     "at": "470314070603Z"
+    },
+    {
+     "value": -1354815231801.3901,
+     "at": "270811093350Z"
+    },
+    {
+     "value": -2.2677412337007655e-21,
+     "at": "770219002122Z"
+    },
+    {
+     "value": 0,
+     "at": "370902150724Z"
+    },
+    {
+     "value": 1e+300,
+     "at": "991002171810Z"
+    }
+   ],
+   "hex": "8009C098194E4B75A8CB150D3437303331343037303630335A09C0F509DB8A3EB9CB1F0D3237303831313039333335305A09C0880AB587EB0102610D3737303231393030323132325A000D3337303930323135303732345A0A8103B205F90F22001D670D3939313030323137313831305A",
+   "decoded": [
+    {
+     "value": -3.511890628613481e-16,
+     "at": "470314070603Z"
+    },
+    {
+     "value": -1354815231801.3901,
+     "at": "270811093350Z"
+    },
+    {
+     "value": -2.2677412337007655e-21,
+     "at": "770219002122Z"
+    },
+    {
+     "value": 0.0,
+     "at": "370902150724Z"
+    },
+    {
+     "value": 1e+300,
+     "at": "991002171810Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -3.529189763837117e-11,
+     "at": "140510122757Z"
+    },
+    {
+     "value": -1536599819798.3015,
+     "at": "990207001458Z"
+    },
+    {
+     "value": 123456789,
+     "at": "990627004828Z"
+    },
+    {
+     "value": -353683359387183.25,
+     "at": "721015134729Z"
+    },
+    {
+     "value": 0,
+     "at": "951008044353Z"
+    }
+   ],
+   "hex": "8009C0A91366E49DCE27BB0D3134303531303132323735375A09C0F4165C47C86164D30D3939303230373030313435385A068000075BCD150D3939303632373030343832385A09C0FE0506B14BFF38BD0D3732313031353133343732395A000D3935313030383034343335335A",
+   "decoded": [
+    {
+     "value": -3.529189763837117e-11,
+     "at": "140510122757Z"
+    },
+    {
+     "value": -1536599819798.3015,
+     "at": "990207001458Z"
+    },
+    {
+     "value": 123456789.0,
+     "at": "990627004828Z"
+    },
+    {
+     "value": -353683359387183.25,
+     "at": "721015134729Z"
+    },
+    {
+     "value": 0.0,
+     "at": "951008044353Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": 484.7020041126302,
+     "at": "491026034612Z"
+    }
+   ],
+   "hex": "000980D703C9676D1542CF0D3439313032363033343631325A",
+   "decoded": [
+    {
+     "value": 484.7020041126302,
+     "at": "491026034612Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -86.75126944982969,
+     "at": "730801113325Z"
+    },
+    {
+     "value": 123456789,
+     "at": "980605171913Z"
+    },
+    {
+     "value": -7.818135366690409,
+     "at": "750209050035Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "420728042140Z"
+    },
+    {
+     "value": -2.5e-10,
+     "at": "830620063039Z"
+    }
+   ],
+   "hex": "8009C0D502B602998EAC050D3733303830313131333332355A068000075BCD150D3938303630353137313931335A09C0D007D17151C3A2E30D3735303230393035303033355A01410D3432303732383034323134305A09C0AC112E0BE826D6950D3833303632303036333033395A",
+   "decoded": [
+    {
+     "value": -86.75126944982969,
+     "at": "730801113325Z"
+    },
+    {
+     "value": 123456789.0,
+     "at": "980605171913Z"
+    },
+    {
+     "value": -7.818135366690409,
+     "at": "750209050035Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "420728042140Z"
+    },
+    {
+     "value": -2.5e-10,
+     "at": "830620063039Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": 1,
+     "at": "980302151239Z"
+    },
+    {
+     "value": 1,
+     "at": "001105091503Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "790125031639Z"
+    },
+    {
+     "value": 2132.6814322418786,
+     "at": "630920195934Z"
+    },
+    {
+     "value": -1.5,
+     "at": "341220065941Z"
+    }
+   ],
+   "hex": "80038000010D3938303330323135313233395A038000010D3030313130353039313530335A01410D3739303132353033313633395A0980D80854AE7257E94F0D3633303932303139353933345A03C0FF030D3334313232303036353934315A",
+   "decoded": [
+    {
+     "value": 1.0,
+     "at": "980302151239Z"
+    },
+    {
+     "value": 1.0,
+     "at": "001105091503Z"
+    },
+    {
+     "value": "MINUS-INFINITY",
+     "at": "790125031639Z"
+    },
+    {
+     "value": 2132.6814322418786,
+     "at": "630920195934Z"
+    },
+    {
+     "value": -1.5,
+     "at": "341220065941Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -1.5,
+     "at": "051211135155Z"
+    }
+   ],
+   "hex": "0003C0FF030D3035313231313133353135355A",
+   "decoded": [
+    {
+     "value": -1.5,
+     "at": "051211135155Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Measurements",
+   "value": [
+    {
+     "value": -2.5e-10,
+     "at": "951027161805Z"
+    },
+    {
+     "value": -7.388413817336976e-06,
+     "at": "700817121223Z"
+    },
+    {
+     "value": 35558.85035803488,
+     "at": "000609023838Z"
+    }
+   ],
+   "hex": "4009C0AC112E0BE826D6950D3935313032373136313830355A09C0BD03DFA7F7394F150D3730303831373132313232335A0980DC08AE6D9B1106DB0D3030303630393032333833385A",
+   "decoded": [
+    {
+     "value": -2.5e-10,
+     "at": "951027161805Z"
+    },
+    {
+     "value": -7.388413817336976e-06,
+     "at": "700817121223Z"
+    },
+    {
+     "value": 35558.85035803488,
+     "at": "000609023838Z"
+    }
+   ]
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "text": ""
+   },
+   "hex": "2000",
+   "decoded": {
+    "text": ""
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "real": 4.234278066658544e-14
+   },
+   "hex": "0009809F17D63CE06C3A83",
+   "decoded": {
+    "real": 4.234278066658544e-14
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "text": "0\u03a9\u20ac\u0436\u00e9\u00df ~\u00dfa\u20ac\u00df"
+   },
+   "hex": "200C003003A920AC043600E900DF0020007E00DF006120AC00DF",
+   "decoded": {
+    "text": "0\u03a9\u20ac\u0436\u00e9\u00df ~\u00dfa\u20ac\u00df"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "text": "\u20acz~\u03a9~~\u0436A\u00df\u00e90\u20ac"
+   },
+   "hex": "200C20AC007A007E03A9007E007E0436004100DF00E9003020AC",
+   "decoded": {
+    "text": "\u20acz~\u03a9~~\u0436A\u00df\u00e90\u20ac"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "text": "\u00e9a9\u0436\u4e2dA9"
+   },
+   "hex": "200700E90061003904364E2D00410039",
+   "decoded": {
+    "text": "\u00e9a9\u0436\u4e2dA9"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "real": -0.7460645845840053
+   },
+   "hex": "0009C0CD05F7F0B57BEFE1",
+   "decoded": {
+    "real": -0.7460645845840053
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "nothing": null
+   },
+   "hex": "40",
+   "decoded": {
+    "nothing": null
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "wide": "~a \u03a9A90\u4e2dA\u00df"
+   },
+   "hex": "300A0000007E0000006100000020000003A900000041000000390000003000004E2D00000041000000DF",
+   "decoded": {
+    "wide": "~a \u03a9A90\u4e2dA\u00df"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "wide": ""
+   },
+   "hex": "3000",
+   "decoded": {
+    "wide": ""
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "oid": "0.32.34329"
+   },
+   "hex": "100420828C19",
+   "decoded": {
+    "oid": "0.32.34329"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "text": "~\u03a9\u00df9\u4e2d\u0436AA\u20ac~\u4e2d~"
+   },
+   "hex": "200C007E03A900DF00394E2D04360041004120AC007E4E2D007E",
+   "decoded": {
+    "text": "~\u03a9\u00df9\u4e2d\u0436AA\u20ac~\u4e2d~"
+   }
+  },
+  {
+   "type": "Primitives.Mixed",
+   "value": {
+    "wide": "\u4e2da~\u04360"
+   },
+   "hex": "300500004E2D000000610000007E0000043600000030",
+   "decoded": {
+    "wide": "\u4e2da~\u04360"
+   }
+  }
+ ],
+ "skipped": []
+}

@@ -4,17 +4,20 @@
 [![Studio](https://github.com/Addemin94/DotAsn/actions/workflows/pages.yml/badge.svg)](https://addemin94.github.io/DotAsn/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-DotAsn compiles ASN.1 specifications, lints them, generates strongly typed C#, and encodes and decodes messages
-with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is written in C# for .NET 10 and has no
-third-party ASN.1 dependency.
+DotAsn compiles ASN.1 specifications, lints them, generates strongly typed C# and TypeScript, and encodes and
+decodes messages with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is written in C# for .NET 10 and has no
+third-party ASN.1 dependency. For browsers and Node.js, the same runtime is compiled to WebAssembly (`@dotasn/wasm`).
 
 **[Try it in your browser: DotAsn Studio](https://addemin94.github.io/DotAsn/)** · [Releases](https://github.com/Addemin94/DotAsn/releases) · [Documentation](#documentation)
 
 ```text
 .asn files ─► parser ─► semantic model ─┬─► linter (asn1 lint)
                                          ├─► C# generator (asn1 generate-csharp)
+                                         ├─► TypeScript generator (asn1 generate-typescript)
+                                         ├─► schema (asn1 generate-schema)
                                          └─► dynamic descriptors (asn1 encode/decode)
 generated C# ─► Asn1.Runtime descriptors ─► BER · CER · DER · APER · UPER · OER · COER · JER · XER · CXER
+generated TS + schema ─► @dotasn/wasm (the .NET runtime as WebAssembly) ─► the same ten rules
 ```
 
 ## Features
@@ -23,6 +26,9 @@ generated C# ─► Asn1.Runtime descriptors ─► BER · CER · DER · APER ·
   sets, parameterization, with precise diagnostics (text, JSON or SARIF).
 * **Linter** for standards violations, style and interoperability risks (for example PER-unfriendly constructs).
 * **C# generator** producing partial classes, enums and typed descriptors, built as a Roslyn syntax tree.
+* **TypeScript generator** producing interfaces, union types, descriptors and the schema of the types for
+  [`@dotasn/wasm`](js/wasm/README.md), the .NET runtime compiled to WebAssembly with NativeAOT-LLVM. It brings all
+  ten rules, with identical behaviour, to browsers and Node.js.
 * **Runtime** with ten encoding rules, strict canonical decoders (DER, CER, COER, CXER), constraint validation,
   extension handling and relaying of unknown extensions, and limits against hostile input.
 * **`asn1` CLI** for linting, checking, code generation, encoding, decoding, validation and inspection.
@@ -75,6 +81,8 @@ dotnet run --project src/Asn1.Cli -- --help
 asn1 lint samples/telemetry --encoding-rules uper
 asn1 check samples/telemetry/telemetry.asn --dump
 asn1 generate-csharp samples/telemetry --output generated --namespace Telemetry
+asn1 generate-typescript samples/telemetry --output generated-ts    # types + dotasn-schema.ts
+asn1 generate-schema samples/telemetry -o schema.json              # schema only, for @dotasn/wasm
 asn1 encode samples/telemetry/telemetry.asn --type Heartbeat --format uper \
      --value '{"sequenceNumber": 7, "uptimeSeconds": 4000000000}'          # → 07EE6B2800
 asn1 decode samples/telemetry/telemetry.asn --type Heartbeat --format uper --hex 07EE6B2800
@@ -105,6 +113,26 @@ Generated types are `partial` classes with XML documentation taken from the ASN.
 descriptor through `T.Asn1Type`. Encoding rules interpret the descriptors, so adding an encoding rule never requires
 regenerating code. See [docs/architecture.md](docs/architecture.md).
 
+## Using generated TypeScript
+
+`asn1 generate-typescript` (or Studio's TypeScript tab) writes a TypeScript type and a descriptor constant per ASN.1
+type, and `dotasn-schema.ts` with the schema of the types. With the WebAssembly runtime:
+
+```ts
+import { loadDotAsn } from '@dotasn/wasm';
+import { schema } from './generated-ts/dotasn-schema.js';
+import { Heartbeat, Message } from './generated-ts/TelemetryProtocol.js';
+
+const asn1 = await loadDotAsn(schema);
+const heartbeat: Heartbeat = { sequenceNumber: 7, uptimeSeconds: 4_000_000_000 };
+const bytes = asn1.uper.encode(Heartbeat, heartbeat);      // 07EE6B2800, as in C#
+const back = asn1.uper.decode(Heartbeat, bytes);
+asn1.xer.encode(Message, { messageType: 'heartbeat', payload: { heartbeat } });
+```
+
+A step-by-step guide is in [docs/typescript.md](docs/typescript.md). The generated code imports [`@dotasn/runtime`](js/runtime/README.md), which holds its descriptor and value types and
+the value notation. See [js/wasm/README.md](js/wasm/README.md) for loading, errors and limits.
+
 ## DotAsn Studio
 
 **[addemin94.github.io/DotAsn](https://addemin94.github.io/DotAsn/)** runs the toolchain entirely in the browser
@@ -132,6 +160,8 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | [Language support](docs/language-support.md) | Supported X.680–X.683 notation |
 | [Encoding rules](docs/encoding-rules.md) | Details and limitations of each encoding rule |
 | [JSON value notation](docs/value-notation-json.md) | How values are written for the CLI, the studio and `DotAsn.Dynamic` |
+| [TypeScript guide](docs/typescript.md) | Generating TypeScript and encoding/decoding with `@dotasn/wasm` in Node.js and browsers |
+| [Schema format](docs/schema-format.md) | The compiled description of types that the WebAssembly runtime loads |
 | [Diagnostics](docs/diagnostics.md) | Every diagnostic ID with its meaning |
 | [Security](docs/security.md) | Resource limits and hardening for untrusted input |
 | [Decisions](docs/decisions/) | Architecture decision records |
@@ -146,6 +176,7 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | `src/Asn1.Semantics` | Binder producing the resolved model |
 | `src/Asn1.Linter` | Lint rules, configuration, suppressions |
 | `src/Asn1.CodeGen.CSharp` | C# generator (Roslyn syntax trees) |
+| `src/Asn1.CodeGen.TypeScript` | TypeScript generator (a TypeScript syntax model and printer) |
 | `src/Asn1.Runtime` | Descriptors, writer/reader contracts, buffers, shared content codecs, validation |
 | `src/Asn1.Runtime.Ber` | BER, CER, DER |
 | `src/Asn1.Runtime.Per` | APER, UPER |
@@ -155,6 +186,8 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | `src/Asn1.Serialization` | `Asn1EncodingRules` (all implemented rules) |
 | `src/Asn1.Dynamic` | Schema-driven descriptors, dynamic values, JSON value notation, random value generator |
 | `src/Asn1.Cli` | The `asn1` tool |
+| `js/wasm` | `@dotasn/wasm`, the .NET runtime compiled to WebAssembly (`native/`: NativeAOT-LLVM project and exports) |
+| `js/runtime` | `@dotasn/runtime`, the support library of generated TypeScript (descriptor and value types, value notation) |
 | `tools/Asn1.Studio` | DotAsn Studio, the browser workbench (Blazor WebAssembly) |
 | `tools/Asn1.Studio.Engine` | The studio's tool logic, independent of the UI |
 | `tests/` | Unit, parser, semantic, code generation, runtime, interoperability, property, fuzz and studio tests |
@@ -166,15 +199,16 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 
 The supported features, their tests and their known limitations are listed in
 [docs/standards-support.md](docs/standards-support.md). In short: parsing, semantic analysis, linting, C# generation,
-BER, CER, DER, APER, UPER, OER, COER, JER, BASIC-XER and CANONICAL-XER are implemented and tested. Encoding
+BER, CER, DER, APER, UPER, OER, COER, JER, BASIC-XER and CANONICAL-XER are implemented and tested. In browsers and
+Node.js, `@dotasn/wasm` provides all of these rules. Encoding
 instructions and EXTENDED-XER are not implemented; the CLI reports EXTENDED-XER as unsupported.
 
 ## Verification
 
-* **Interoperability:** about 6,600 known-answer vectors (about 950 per rule) computed by asn1tools (an independent implementation),
-  checked bit for bit in both directions for BER, DER, APER, UPER and OER (COER through its strict decoder), and as
-  normalised JSON/XML trees plus decoding for JER and XER. Generated C# types are checked against the
-  same vectors.
+* **Interoperability:** about 9,200 known-answer vectors (about 1,350 per rule) computed by asn1tools (an independent
+  implementation), checked bit for bit in both directions for BER, DER, APER, UPER and OER (COER through its strict
+  decoder), and as normalised JSON/XML trees plus decoding for JER and XER. Generated C# types, descriptors loaded from
+  a schema, and the WebAssembly runtime (through generated TypeScript) are checked against the same vectors.
 * **Standards examples:** the X.691 Annex A encodings (ALIGNED and UNALIGNED), the X.696 Annex A encoding (BASIC-OER
   and CANONICAL-OER), the X.697 Annex A examples (JER), the X.693 Annex A
   encodings (BASIC-XER and CXER) and the X.690 encoding examples are reproduced exactly.
@@ -182,7 +216,7 @@ instructions and EXTENDED-XER are not implemented; the CLI reports EXTENDED-XER 
   limit tests.
 
 Where asn1tools deviates from the ITU-T texts, the text wins. The deviations are documented in
-[ADR 0003](docs/decisions/0003-standards-editions.md).
+[ADR 0003](docs/decisions/0003-standards-editions.md) and listed for the tests in `test-vectors/deviations.json`.
 
 ## Building and contributing
 
@@ -193,6 +227,9 @@ dotnet build Asn1Toolchain.sln
 dotnet format Asn1Toolchain.sln --verify-no-changes
 for p in tests/*/; do dotnet test --project "$p" || break; done   # xunit v3 on Microsoft Testing Platform
 scripts/fetch-extended-corpus.sh                                   # optional: 3GPP/ETSI corpus for ExtendedCorpusTests
+cd js && npm ci && npm run generate -w @dotasn/wasm       # JavaScript packages (Node 22.18+)
+npm run build:native -w @dotasn/wasm                       # needs Emscripten 3.1.56, see js/wasm/README.md
+npm run typecheck --workspaces && npm test --workspaces
 ```
 
 Test vectors are described in [test-vectors/README.md](test-vectors/README.md).

@@ -174,4 +174,15 @@ public class WorkbenchTests
         Assert.Contains("namespace Demo;", code, StringComparison.Ordinal);
         Assert.Contains("public sealed partial class Heartbeat", code, StringComparison.Ordinal);
     }
+
+    [Fact]
+    public void GeneratesTypeScriptAndTheSchema()
+    {
+        var bench = Telemetry();
+        var (files, _) = bench.GenerateTypeScript();
+        Assert.Contains(files, f => f.Path == "TelemetryProtocol.ts" && f.Content.Contains("export interface Heartbeat", StringComparison.Ordinal));
+        Assert.Contains(files, f => f.Path == "dotasn-schema.ts" && f.Content.Contains("export const schema", StringComparison.Ordinal));
+        var schema = Asn1.Dynamic.Asn1Schema.Parse(bench.GenerateSchema(indented: true));
+        Assert.Contains("Telemetry-Protocol.Heartbeat", schema.TypeNames);
+    }
 }

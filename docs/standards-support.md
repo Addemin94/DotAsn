@@ -77,11 +77,28 @@ limitations. **Partial**: some forms only. **No**: not supported.
 | Open types | raw | raw | raw | raw | raw | raw JSON | raw XML |
 | EXTERNAL, EMBEDDED PDV, CHARACTER STRING | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
 
+## JavaScript: WebAssembly runtime
+
+`@dotasn/wasm` (`js/wasm`, ADR 0006) is the .NET runtime compiled to WebAssembly. It loads a DotAsn schema and has
+exactly the support of the .NET runtime in the tables above, all ten rules included. Evidence:
+
+* `SchemaVectorTests` runs every asn1tools vector through descriptors loaded from a schema, for all eight vector rules.
+* The `@dotasn/wasm` tests run the vectors through the module itself, plus CER/XER/CXER, errors, limits, validation,
+  relaying and loading.
+* An end-to-end check in Chromium covers a packed consumer project.
+
+## TypeScript generation
+
+`asn1 generate-typescript` writes types, descriptors (the shape of the values, for `@dotasn/runtime`) and the schema
+for `@dotasn/wasm`. `tests/Asn1.CodeGenTests/TypeScriptGeneratorTests.cs` covers the output shape, imports, renames,
+unsupported types, determinism and the schema. The `@dotasn/wasm` tests type-check everything generated for the
+vector specifications with `tsc --strict`.
+
 ## Deviations of the reference implementation
 
 The interoperability vectors are produced by asn1tools 0.169.0. Where it deviates from the ITU-T texts, DotAsn
-follows the text. The affected vectors are checked by round trip and by the X.691 Annex A examples instead
-(see `tests/Asn1.InteroperabilityTests/X690VectorTests.cs`):
+follows the text. The affected vectors are checked by round trip and by the X.691 Annex A examples instead.
+The list used by the .NET and TypeScript tests is `test-vectors/deviations.json`:
 
 | Topic | Clause |
 |---|---|
@@ -93,3 +110,9 @@ follows the text. The affected vectors are checked by round trip and by the X.69
 | A known-multiplier string with a fixed effective size (`NameString (SIZE(1))`) has no OER length | X.696 27.2 |
 | CANONICAL-OER SET OF elements in encoding order | X.696 31.8 |
 | An OER extension addition group starts with a presence bitmap for its OPTIONAL components | X.696 16.5.2 |
+| A semi-constrained PER whole number is the minimal non-negative binary integer of n − lb | X.691 11.7 |
+| The SIZE constraint of UniversalString is PER-visible | X.691 30.5 |
+| A REAL mantissa is an unsigned integer without a leading zero octet | X.690 8.5.7.5, 11.3.1 |
+| GeneralizedTime and UTCTime keep their 'Z' and seconds in PER, OER, JER and BER | X.690 11.7/11.8, X.691 10.6.5, X.696 31.11 |
+| GeneralString, GraphicString and TeletexString are encoded as hexadecimal octets in JER | X.697 38.2 |
+| OBJECT IDENTIFIER 2.x with x ≥ 40 (asn1tools decodes it wrongly; the original value is accepted) | X.690 8.19.4 |

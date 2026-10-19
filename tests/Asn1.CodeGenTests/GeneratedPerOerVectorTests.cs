@@ -14,12 +14,6 @@ namespace Asn1.CodeGenTests;
 /// </summary>
 public class GeneratedPerOerVectorTests
 {
-    // Types where asn1tools deviates from X.691/X.680 (see ADR 0003); not comparable byte for byte.
-    private static readonly HashSet<string> s_deviations =
-    [
-        "ModuleTagsExplicit.S8", "ModuleTagsExplicit.S9", "ModuleTagsImplicit.S8", "ModuleTagsImplicit.S9",
-    ];
-
     public static TheoryData<string, string> Files()
     {
         var data = new TheoryData<string, string>();
@@ -57,8 +51,7 @@ public class GeneratedPerOerVectorTests
         foreach (var c in json["cases"]!.AsArray())
         {
             var type = c!["type"]!.GetValue<string>();
-            if ((s_deviations.Contains(type) && codec is "uper" or "per") ||
-                (codec == "oer" && name == "telemetry" && type is "Telemetry-Protocol.Measurement" or "Telemetry-Protocol.MeasurementBatch" or "Telemetry-Protocol.Payload" or "Telemetry-Protocol.Message") || (name == "derived_zforce_not_implied" && type is "ProtocolMessage.ProtocolMessage" or "ProtocolMessage.Notification"))
+            if (VectorDeviations.Contains(codec, name, type))
             {
                 continue;
             }

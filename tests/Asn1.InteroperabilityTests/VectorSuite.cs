@@ -22,7 +22,12 @@ public static class VectorSuite
         return Directory.Exists(dir) ? Directory.GetFiles(dir, "*.json").Select(Path.GetFileNameWithoutExtension).Order().Select(f => f!) : [];
     }
 
-    public sealed record Case(string Type, JsonNode Value, string Hex, JsonNode? Decoded);
+    /// <summary>A vector; <paramref name="Value"/> is null for the JSON value null (a NULL value).</summary>
+    public sealed record Case(string Type, JsonNode? Value, string Hex, JsonNode? Decoded)
+    {
+        /// <summary>The value as JSON text.</summary>
+        public string ValueJson => Value?.ToJsonString() ?? "null";
+    }
 
     public sealed record VectorFile(IReadOnlyList<string> Specs, IReadOnlyList<Case> Cases);
 
@@ -30,7 +35,7 @@ public static class VectorSuite
     {
         var json = JsonNode.Parse(File.ReadAllText(Path.Combine(Root, "test-vectors", codec, name + ".json")))!;
         var specs = json["specs"]!.AsArray().Select(s => s!.GetValue<string>()).ToList();
-        var cases = json["cases"]!.AsArray().Select(c => new Case(c!["type"]!.GetValue<string>(), c["value"]!, c["hex"]!.GetValue<string>(), c["decoded"])).ToList();
+        var cases = json["cases"]!.AsArray().Select(c => new Case(c!["type"]!.GetValue<string>(), c["value"], c["hex"]!.GetValue<string>(), c["decoded"])).ToList();
         return new VectorFile(specs, cases);
     }
 
@@ -40,6 +45,15 @@ public static class VectorSuite
             var c = Asn1Compilation.Create(specs.Select(s => new SourceText(s, File.ReadAllText(Path.Combine(Root, s)))));
             return (c, new DynamicTypeFactory());
         });
+
+    private static readonly ConcurrentDictionary<string, Asn1Schema> s_schemas = new();
+
+    /// <summary>
+    /// The descriptor of a type built from the compilation's <see cref="Asn1Schema"/> (written, then parsed), the path
+    /// used by runtimes without the compiler such as the WebAssembly runtime.
+    /// </summary>
+    public static Asn1Type<object?> SchemaDescriptor(VectorFile file, string qualifiedType) =>
+        s_schemas.GetOrAdd(string.Join("|", file.Specs), _ => Asn1Schema.Parse(Asn1SchemaWriter.Write(Compile(file.Specs).Compilation))).GetType(qualifiedType);
 
     public static Asn1Type<object?> Descriptor(VectorFile file, string qualifiedType)
     {

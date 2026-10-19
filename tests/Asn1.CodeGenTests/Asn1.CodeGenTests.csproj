@@ -5,6 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Asn1.CodeGen.CSharp\Asn1.CodeGen.CSharp.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.CodeGen.TypeScript\Asn1.CodeGen.TypeScript.csproj" />
     <ProjectReference Include="..\..\src\Asn1.Runtime.Ber\Asn1.Runtime.Ber.csproj" />
     <ProjectReference Include="..\..\src\Asn1.Runtime.Per\Asn1.Runtime.Per.csproj" />
     <ProjectReference Include="..\..\src\Asn1.Runtime.Oer\Asn1.Runtime.Oer.csproj" />

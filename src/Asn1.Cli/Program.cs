@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Asn1.CodeGen.CSharp;
+using Asn1.CodeGen.TypeScript;
 using Asn1.Diagnostics;
 using Asn1.Dynamic;
 using Asn1.Linter;
@@ -36,6 +37,8 @@ internal static class Program
         root.Subcommands.Add(LintCommand());
         root.Subcommands.Add(CheckCommand());
         root.Subcommands.Add(GenerateCommand());
+        root.Subcommands.Add(GenerateTypeScriptCommand());
+        root.Subcommands.Add(GenerateSchemaCommand());
         root.Subcommands.Add(EncodeCommand());
         root.Subcommands.Add(DecodeCommand());
         root.Subcommands.Add(ValidateCommand());
@@ -195,6 +198,101 @@ internal static class Program
     }
 
     // ------------------------------------------------------------------ generate-csharp
+
+    private static Command GenerateTypeScriptCommand()
+    {
+        var paths = Paths();
+        var output = new Option<string?>("--output", "-o") { Description = "Output directory (default: ./generated)." };
+        var runtime = new Option<string?>("--runtime-module") { Description = "Module specifier of the runtime package (default: @dotasn/runtime)." };
+        var extension = new Option<string?>("--import-extension") { Description = "Extension of imports between generated modules: .js (default), .ts or none." };
+        var modules = new Option<string[]>("--modules") { Description = "Only generate these modules.", AllowMultipleArgumentsPerToken = true };
+        var noDocs = new Option<bool>("--no-docs") { Description = "Do not emit documentation comments." };
+        var cmd = new Command("generate-typescript", "Generate TypeScript types and descriptors for the @dotasn/runtime package.") { paths, output, runtime, extension, modules, noDocs };
+        return Wrap(cmd, async (p, ct) =>
+        {
+            var diagnostics = new List<Diagnostic>();
+            var compilation = Compile(p, p.GetValue(paths)!, diagnostics);
+            if (compilation is null)
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            diagnostics.AddRange(compilation.Diagnostics);
+            if (diagnostics.Any(d => d.IsError))
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            var options = new TypeScriptGeneratorOptions
+            {
+                RuntimeModule = p.GetValue(runtime) ?? "@dotasn/runtime",
+                ImportExtension = (p.GetValue(extension) ?? ".js") switch
+                {
+                    ".js" or "js" => ".js",
+                    ".ts" or "ts" => ".ts",
+                    "none" or "" => string.Empty,
+                    var other => throw new UsageException($"unknown import extension '{other}' (expected .js, .ts or none)"),
+                },
+                GenerateDocumentation = !p.GetValue(noDocs),
+                Modules = p.GetValue(modules) is { Length: > 0 } m ? m.SelectMany(x => x.Split(',')).ToHashSet(StringComparer.Ordinal) : null,
+            };
+            var result = TypeScriptGenerator.Generate(compilation, options);
+            diagnostics.AddRange(result.Diagnostics);
+            var dir = p.GetValue(output) ?? "generated";
+            Directory.CreateDirectory(dir);
+            foreach (var f in result.Files)
+            {
+                ct.ThrowIfCancellationRequested();
+                await File.WriteAllTextAsync(Path.Combine(dir, f.Path), f.Content, ct).ConfigureAwait(false);
+            }
+
+            if (!p.GetValue(s_quiet))
+            {
+                Console.Out.WriteLine($"Generated {result.Files.Length} file(s) in {Path.GetFullPath(dir)}");
+            }
+
+            return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+        });
+    }
+
+    private static Command GenerateSchemaCommand()
+    {
+        var paths = Paths();
+        var output = new Option<string?>("--output", "-o") { Description = "Output file (default: schema.json)." };
+        var modules = new Option<string[]>("--modules") { Description = "Only these modules (and the types they reference).", AllowMultipleArgumentsPerToken = true };
+        var indented = new Option<bool>("--indented") { Description = "Write indented JSON." };
+        var cmd = new Command("generate-schema", "Generate a DotAsn schema (JSON) for the WebAssembly runtime (@dotasn/wasm).") { paths, output, modules, indented };
+        return Wrap(cmd, async (p, ct) =>
+        {
+            var diagnostics = new List<Diagnostic>();
+            var compilation = Compile(p, p.GetValue(paths)!, diagnostics);
+            if (compilation is null)
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            diagnostics.AddRange(compilation.Diagnostics);
+            if (diagnostics.Any(d => d.IsError))
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            var selected = p.GetValue(modules) is { Length: > 0 } m ? m.SelectMany(x => x.Split(',')).ToHashSet(StringComparer.Ordinal) : null;
+            var file = p.GetValue(output) ?? "schema.json";
+            if (Path.GetDirectoryName(Path.GetFullPath(file)) is { } dir)
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            await File.WriteAllTextAsync(file, Asn1SchemaWriter.Write(compilation, selected, p.GetValue(indented)), ct).ConfigureAwait(false);
+            if (!p.GetValue(s_quiet))
+            {
+                Console.Out.WriteLine($"Generated {Path.GetFullPath(file)}");
+            }
+
+            return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+        });
+    }
 
     private static Command GenerateCommand()
     {

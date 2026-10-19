@@ -1,0 +1,6 @@
+node_modules/
+dist/
+lib/
+native/bin/
+native/obj/
+test/generated/

@@ -1,0 +1,96 @@
+-- Primitive types not covered by the asn1tools corpus: REAL, OBJECT IDENTIFIER, the time types,
+-- the wide character string types, NULL, SET and SET OF, and integers at the boundaries of the OER fixed sizes.
+-- RELATIVE-OID is left out because asn1tools does not support it. Part of DotAsn (MIT).
+
+Primitives DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+Real ::= REAL
+
+Oid ::= OBJECT IDENTIFIER
+
+Utc ::= UTCTime
+
+Generalized ::= GeneralizedTime
+
+Universal ::= UniversalString (SIZE (0..16))
+
+Bmp ::= BMPString (SIZE (0..16))
+
+Bmp4 ::= BMPString (SIZE (4))
+
+General ::= GeneralString
+
+Graphic ::= GraphicString
+
+Teletex ::= TeletexString
+
+Visible ::= VisibleString (FROM ("A".."Z" | "0".."9" | " ") ^ SIZE (1..20))
+
+Numeric8 ::= NumericString (SIZE (8))
+
+Hex ::= IA5String (FROM ("0".."9" | "A".."F"))
+
+Unsigned8 ::= INTEGER (0..255)
+
+Unsigned16 ::= INTEGER (0..65535)
+
+Unsigned32 ::= INTEGER (0..4294967295)
+
+Unsigned64 ::= INTEGER (0..18446744073709551615)
+
+Natural ::= INTEGER (0..MAX)
+
+Signed8 ::= INTEGER (-128..127)
+
+Signed16 ::= INTEGER (-32768..32767)
+
+Signed32 ::= INTEGER (-2147483648..2147483647)
+
+Signed64 ::= INTEGER (-9223372036854775808..9223372036854775807)
+
+Huge ::= INTEGER (100000..100000000000)
+
+Offset ::= INTEGER (-5..MAX)
+
+Ext ::= INTEGER (0..15, ...)
+
+Fixed5 ::= BIT STRING (SIZE (5))
+
+Bits ::= BIT STRING (SIZE (0..40))
+
+Flags ::= BIT STRING { a(0), b(1), c(2), d(7) } (SIZE (2..16))
+
+Octets3 ::= OCTET STRING (SIZE (3))
+
+OctetsExt ::= OCTET STRING (SIZE (1..4, ...))
+
+Nothing ::= NULL
+
+Record ::= SET {
+  name     UTF8String (SIZE (1..12)),
+  when     GeneralizedTime OPTIONAL,
+  ratio    REAL OPTIONAL,
+  id       OBJECT IDENTIFIER,
+  marker   NULL OPTIONAL,
+  level    INTEGER (0..7) DEFAULT 3
+}
+
+Tags ::= SET SIZE (0..6) OF PrintableString (SIZE (1..8))
+
+Numbers ::= SET OF INTEGER
+
+Measurements ::= SEQUENCE (SIZE (1..8)) OF SEQUENCE {
+  value REAL,
+  at    UTCTime
+}
+
+Mixed ::= CHOICE {
+  real    REAL,
+  oid     OBJECT IDENTIFIER,
+  text    BMPString,
+  wide    UniversalString,
+  nothing NULL,
+  ...
+}
+
+END

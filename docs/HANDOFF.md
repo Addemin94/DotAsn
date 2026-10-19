@@ -11,9 +11,9 @@ Milestones are numbered as in that brief.
 * Tests: `dotnet test --project tests/<Project>` (xunit.v3 on Microsoft Testing Platform, configured in `global.json`).
   Projects: ParserTests, SemanticTests, RuntimeTests, InteroperabilityTests, CodeGenTests, UnitTests, PropertyTests,
   FuzzTests. See the checklist for counts and evidence.
-* Git: initialised on branch `main`; **nothing committed yet**. Ask the user before committing. The original Rider
-  template project `DotAsn/` and `DotAsn.sln` were deliberately left untouched (deleting them was refused) and are
-  not part of `Asn1Toolchain.sln`.
+* Git: branch `main`, public at https://github.com/Addemin94/DotAsn. Ask the user before committing; the user pushes.
+* JavaScript (npm workspace in `js/`): `npm ci && npm run generate -w @dotasn/wasm && npm run build:native -w @dotasn/wasm && npm run typecheck --workspaces && npm test --workspaces`.
+  `build:native` needs Emscripten 3.1.56; locally it is installed in `.cache/emsdk` (git-ignored).
 
 ## 2. Done
 
@@ -45,8 +45,22 @@ Milestones are numbered as in that brief.
 * `WellKnownOids` (X.660 arc names) moved to `Asn1.Core` and is shared by the binder and the XER decoder.
 * `DynamicTypeFactory.Create` is thread-safe (descriptors resolve components lazily, possibly concurrently).
 * Documented asn1tools deviations from the standards: see `docs/standards-support.md` (last section) and ADR 0003.
+  The machine-readable list `test-vectors/deviations.json` is shared by the .NET and TypeScript tests.
+* TypeScript generation (ADR 0005): `src/Asn1.CodeGen.TypeScript` (`asn1 generate-typescript`) writes types,
+  descriptors (for `@dotasn/runtime` in `js/runtime`: descriptor/value types and the value notation) and
+  `dotasn-schema.ts`. Tests: `tests/Asn1.CodeGenTests/TypeScriptGeneratorTests.cs`, `js/runtime/test`. CI job
+  `javascript` in `ci.yml`.
+* WebAssembly runtime (ADR 0006): `js/wasm` (`@dotasn/wasm`) with `native/` (NativeAOT-LLVM, `Exports.cs`).
+  Types come from a DotAsn schema (`src/Asn1.Dynamic/Asn1Schema.cs`, `Asn1SchemaWriter.cs`, docs/schema-format.md),
+  written by `asn1 generate-schema`, by `generate-typescript` (`dotasn-schema.ts`) and by Studio's TypeScript tab.
+  Tests: `SchemaVectorTests`, `SchemaFormatTests`, `js/wasm/test`, the Studio e2e. Size about 1.1 MB brotli.
+* `test-vectors/corpus/dotasn/primitives.asn` (`dotasn_primitives` vectors) covers REAL, OBJECT IDENTIFIER, times,
+  wide strings, SET OF and OER integer sizes. It exposed six more asn1tools deviations (ADR 0003). No XER vectors:
+  asn1tools does not finish XER for it.
 
 ## 3. Next tasks (in order)
+
+0. JavaScript: publish `@dotasn/wasm` and `@dotasn/runtime` (needs a decision on the npm registry/scope).
 
 1. Milestone 11 (hardening and release): NuGet packaging, benchmarks, `Asn1.Build` MSBuild integration, and the
    open items in `docs/implementation-checklist.md`. Encoding instructions/EXTENDED-XER are the largest remaining

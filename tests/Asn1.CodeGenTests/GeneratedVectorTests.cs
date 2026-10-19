@@ -24,22 +24,22 @@ public class GeneratedVectorTests
         {
             var type = c!["type"]!.GetValue<string>();
             var hex = c["hex"]!.GetValue<string>();
-            if (type == "X691-A4.Ax")
+            if (VectorDeviations.Contains("der", name, type))
             {
-                // asn1tools numbers automatic tags of root part 2 incorrectly (X.680 25.10); see ADR 0003.
                 continue;
             }
 
             var descriptor = assembly.Descriptor(type);
+            var unordered = VectorDeviations.ContainsSet(descriptor);
             try
             {
                 // Values that asn1tools encodes non-canonically (SET ordering) are first decoded with BER.
                 var value = descriptor.DecodeBoxed(BerEncodingRule.Instance, Convert.FromHexString(hex));
                 var der = Convert.ToHexString(descriptor.EncodeBoxed(DerEncodingRule.Instance, value));
                 var again = descriptor.DecodeBoxed(DerEncodingRule.Instance, Convert.FromHexString(der));
-                if (Unordered(type))
+                if (unordered)
                 {
-                    // SET OF values are unordered: the canonical encoding must be stable instead.
+                    // asn1tools leaves SET/SET OF unsorted and SET OF values are unordered: the canonical encoding must be stable instead.
                     if (Convert.ToHexString(descriptor.EncodeBoxed(DerEncodingRule.Instance, again)) != der)
                     {
                         failures.Add($"{type}: canonical DER is not stable");
@@ -49,7 +49,7 @@ public class GeneratedVectorTests
                 {
                     failures.Add($"{type}: value changed after a DER round trip: {value} vs {again}");
                 }
-                else if (der != hex && !Unordered(type))
+                else if (der != hex)
                 {
                     failures.Add($"{type}: {der} != {hex}");
                 }
@@ -65,7 +65,4 @@ public class GeneratedVectorTests
 
         Assert.True(failures.Count == 0, $"{failures.Count} of {count} failed:\n" + string.Join("\n", failures.Take(10)));
     }
-
-    // Types for which asn1tools does not apply DER SET/SET OF ordering or X.680 25.10 tag numbering (see ADR 0003).
-    private static bool Unordered(string type) => type.EndsWith("PersonnelRecord", StringComparison.Ordinal) || type.EndsWith(".S9", StringComparison.Ordinal) || false;
 }

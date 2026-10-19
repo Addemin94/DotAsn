@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
     <ProjectReference Include="..\..\src\Asn1.Serialization\Asn1.Serialization.csproj" />
     <ProjectReference Include="..\..\src\Asn1.CodeGen.CSharp\Asn1.CodeGen.CSharp.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.CodeGen.TypeScript\Asn1.CodeGen.TypeScript.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!-- The public sample specifications, offered by "Load sample". -->

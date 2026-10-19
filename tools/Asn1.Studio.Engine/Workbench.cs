@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using Asn1.CodeGen.CSharp;
+using Asn1.CodeGen.TypeScript;
 using Asn1.Diagnostics;
 using Asn1.Dynamic;
 using Asn1.Linter;
@@ -38,6 +39,12 @@ public sealed record RuleOutput(string Rule, bool IsText, byte[]? Bytes, long? B
 /// <param name="TotalBytes">Octets in the input.</param>
 /// <param name="Error">The error, if decoding failed.</param>
 /// <param name="Violations">Constraint violations of a decoded value.</param>
+/// <summary>A generated file.</summary>
+/// <param name="Path">File name.</param>
+/// <param name="Content">Text.</param>
+public sealed record GeneratedFile(string Path, string Content);
+
+/// <summary>The result of decoding.</summary>
 public sealed record DecodeOutput(string? Json, int BytesConsumed, int TotalBytes, string? Error, IReadOnlyList<string> Violations);
 
 /// <summary>How encoded input is written.</summary>
@@ -217,6 +224,39 @@ public sealed class Workbench
             return "error: " + e.Message;
         }
     }
+
+    /// <summary>
+    /// The TypeScript files that <c>asn1 generate-typescript</c> writes for the schema (types and descriptors per module,
+    /// and dotasn-schema.ts for @dotasn/wasm), with the generator's diagnostics.
+    /// </summary>
+    public (IReadOnlyList<GeneratedFile> Files, IReadOnlyList<string> Diagnostics) GenerateTypeScript()
+    {
+        if (_compilation is null)
+        {
+            return ([], []);
+        }
+
+        // No lambdas here: their cached delegates would live in the class's shared closure type, which would then
+        // reference the lazy-loaded generator assembly and fail to load before it is (see Asn1.Studio.csproj).
+        var result = TypeScriptGenerator.Generate(_compilation);
+        var files = new List<GeneratedFile>();
+        foreach (var f in result.Files)
+        {
+            files.Add(new GeneratedFile(f.Path, f.Content));
+        }
+
+        var diagnostics = new List<string>();
+        foreach (var d in result.Diagnostics)
+        {
+            diagnostics.Add($"{d.Descriptor.Id}: {d.Message}");
+        }
+
+        return (files, diagnostics);
+    }
+
+    /// <summary>The DotAsn schema (JSON) that the WebAssembly runtime (@dotasn/wasm) loads, as <c>asn1 generate-schema</c> writes it.</summary>
+    public string GenerateSchema(bool indented = false) =>
+        _compilation is null ? string.Empty : Dynamic.Asn1SchemaWriter.Write(_compilation, indented: indented);
 
     /// <summary>The C# the generator produces for the schema, all files concatenated.</summary>
     public string GenerateCSharp(string? rootNamespace)
