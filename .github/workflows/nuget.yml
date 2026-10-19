@@ -1,0 +1,61 @@
+name: NuGet packages
+
+# Builds, tests, packs and smoke-tests the DotAsn packages (libraries and the asn1 .NET tool), then pushes them to
+# GitHub Packages, where they are private to the repository owner unless made public there.
+# Runs for version tags (v1.2.0, v1.2.0-beta.1) and manually with an explicit version.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version (SemVer, e.g. 1.2.0 or 1.2.0-preview.3)
+        required: true
+      publish:
+        description: Push the packages to GitHub Packages
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then version="${GITHUB_REF_NAME#v}"; else version="$INPUT_VERSION"; fi
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$version' is not a SemVer version"; exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Build
+        run: dotnet build Asn1Toolchain.sln -c Release
+      - name: Test
+        run: |
+          scripts/fetch-extended-corpus.sh
+          for p in tests/*/; do
+            dotnet test --project "$p" -c Release --no-build || exit 1
+          done
+      - name: Pack and smoke-test
+        run: scripts/pack.sh "${{ steps.version.outputs.version }}" artifacts/packages
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages-${{ steps.version.outputs.version }}
+          path: artifacts/packages/*.nupkg
+      - name: Push to GitHub Packages
+        if: github.event_name == 'push' || inputs.publish
+        run: >
+          dotnet nuget push "artifacts/packages/*.nupkg"
+          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          --api-key "${{ secrets.GITHUB_TOKEN }}"
+          --skip-duplicate

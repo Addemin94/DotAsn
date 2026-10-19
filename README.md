@@ -82,6 +82,51 @@ Pages does and exercises every tab in headless Chromium:
 The first load downloads about 10 MB (the .NET runtime and the toolchain); the C# generator and Roslyn (another
 10 MB) load only when the C# tab is used.
 
+## Releases: NuGet packages and the CLI
+
+Push a version tag to release; both workflows also run manually (*Actions > Run workflow*) with an explicit version.
+
+```sh
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+* **`.github/workflows/nuget.yml`** builds and tests, packs every library in `src/` as `DotAsn.*` packages plus the
+  `asn1` .NET tool (`DotAsn.Cli`), smoke-tests them from a local feed (`scripts/pack.sh`), and pushes them to GitHub
+  Packages. Packages there are private to the repository owner unless made public in the package settings.
+* **`.github/workflows/cli.yml`** builds self-contained single-file `asn1` executables for linux-x64, linux-arm64,
+  win-x64, osx-x64 and osx-arm64 (`scripts/publish-cli.sh`), smoke-tests them on Linux, Windows and macOS, and
+  attaches the archives with SHA-256 checksums to a GitHub Release.
+
+Both scripts run locally too, e.g. `scripts/pack.sh 0.1.0-local` or `scripts/publish-cli.sh linux-x64 0.1.0-local`.
+
+**Using the private packages.** Create a personal access token (classic) with the `read:packages` scope and add the
+feed (replace `OWNER`):
+
+```xml
+<!-- nuget.config next to your solution -->
+<configuration>
+  <packageSources>
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+    <add key="dotasn" value="https://nuget.pkg.github.com/OWNER/index.json" />
+  </packageSources>
+  <packageSourceCredentials>
+    <dotasn>
+      <add key="Username" value="YOUR_GITHUB_USER" />
+      <add key="ClearTextPassword" value="%DOTASN_PACKAGES_TOKEN%" />
+    </dotasn>
+  </packageSourceCredentials>
+</configuration>
+```
+
+```sh
+dotnet add package DotAsn.Serialization          # runtime with all encoding rules (for generated code)
+dotnet add package DotAsn.Dynamic                # schema-driven values without generated code
+dotnet tool install --global DotAsn.Cli          # the asn1 command
+```
+
+**Using the standalone CLI.** Download the archive for your platform from the release, unpack it and run `asn1`; no
+.NET installation is needed. On macOS, a downloaded executable may need `xattr -d com.apple.quarantine asn1` once.
+
 ## Repository layout
 
 | Path | Contents |

@@ -1,4 +1,5 @@
 using System.CommandLine;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Asn1.CodeGen.CSharp;
@@ -486,7 +487,9 @@ internal static class Program
 
     private static int VersionCommand()
     {
-        Console.Out.WriteLine($"asn1 (DotAsn) {CSharpGenerator.Version}");
+        // The informational version keeps prerelease labels and the source revision, e.g. 1.2.0-beta.1+3464ac7....
+        var version = typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? CSharpGenerator.Version;
+        Console.Out.WriteLine($"asn1 (DotAsn) {version}");
         Console.Out.WriteLine($".NET {Environment.Version}");
         return ExitCodes.Success;
     }

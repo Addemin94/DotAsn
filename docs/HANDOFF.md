@@ -38,6 +38,10 @@ Milestones are numbered as in that brief.
   `scripts/publish-studio.sh`; `scripts/studio_e2e.py` checks the published site in headless Chromium (Playwright).
   Building it exposed and fixed a runtime bug: validation of dynamic values did not recurse into components
   (`IAsn1ValidationAdapter`).
+* Releases: `.github/workflows/nuget.yml` (DotAsn.* packages and the DotAsn.Cli tool to GitHub Packages, via
+  `scripts/pack.sh`, which smoke-tests them from a local feed) and `.github/workflows/cli.yml` (self-contained
+  single-file `asn1` executables per platform attached to a GitHub Release, via `scripts/publish-cli.sh`). Both run
+  for `v*` tags.
 * `WellKnownOids` (X.660 arc names) moved to `Asn1.Core` and is shared by the binder and the XER decoder.
 * `DynamicTypeFactory.Create` is thread-safe (descriptors resolve components lazily, possibly concurrently).
 * Documented asn1tools deviations from the standards: see `docs/standards-support.md` (last section) and ADR 0003.

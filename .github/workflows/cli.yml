@@ -1,0 +1,78 @@
+name: CLI release
+
+# Builds the asn1 command-line tool as self-contained single-file executables (no .NET installation needed) for
+# Linux, Windows and macOS. Each executable that can run on its build machine is smoke-tested there. For version tags
+# (v1.2.0) the archives and their SHA-256 checksums are attached to a GitHub Release; manual runs keep them as
+# workflow artifacts.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version (SemVer, e.g. 1.2.0 or 1.2.0-preview.3)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rid: linux-x64, os: ubuntu-latest }      # smoke-tested
+          - { rid: linux-arm64, os: ubuntu-latest }    # cross-built
+          - { rid: win-x64, os: windows-latest }       # smoke-tested
+          - { rid: osx-arm64, os: macos-latest }       # smoke-tested; macOS builds are ad-hoc signed by the SDK
+          - { rid: osx-x64, os: macos-latest }         # cross-built on macOS so that it is signed too
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == tag ]]; then version="${GITHUB_REF_NAME#v}"; else version="$INPUT_VERSION"; fi
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$version' is not a SemVer version"; exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Publish and smoke-test
+        run: scripts/publish-cli.sh "${{ matrix.rid }}" "${{ steps.version.outputs.version }}" artifacts/cli
+      - uses: actions/upload-artifact@v4
+        with:
+          name: asn1-${{ steps.version.outputs.version }}-${{ matrix.rid }}
+          path: |
+            artifacts/cli/*.tar.gz
+            artifacts/cli/*.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: asn1-*
+          merge-multiple: true
+          path: dist
+      - name: Checksums
+        run: cd dist && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+      - name: Create the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          prerelease=""
+          [[ "$GITHUB_REF_NAME" == *-* ]] && prerelease="--prerelease"
+          gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" \
+            --title "DotAsn $GITHUB_REF_NAME" --generate-notes $prerelease

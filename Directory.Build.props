@@ -21,7 +21,23 @@
   <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('/src/')) Or $(MSBuildProjectDirectory.Contains('\src\'))">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>true</IsPackable>
+    <!-- Package IDs are DotAsn.*, e.g. Asn1.Runtime.Ber -> DotAsn.Runtime.Ber (a project may set its own). -->
+    <PackageId>$(MSBuildProjectName.Replace('Asn1.', 'DotAsn.'))</PackageId>
+    <PackageTags>asn1;asn.1;ber;der;cer;per;uper;aper;oer;coer;jer;xer;x680;x690;x691;codegen</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <!-- GitHub Packages links packages to their repository through RepositoryUrl (set from the Actions environment). -->
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl Condition="'$(GITHUB_REPOSITORY)' != ''">$(GITHUB_SERVER_URL)/$(GITHUB_REPOSITORY)</RepositoryUrl>
+    <PackageProjectUrl Condition="'$(GITHUB_REPOSITORY)' != ''">$(GITHUB_SERVER_URL)/$(GITHUB_REPOSITORY)</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Private feeds such as GitHub Packages have no symbol server: embed the PDBs and sources instead. -->
+    <DebugType>embedded</DebugType>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(IsPackable)' == 'true'">
+    <None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
 
   <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('/tests/')) Or $(MSBuildProjectDirectory.Contains('\tests\'))">
     <IsPackable>false</IsPackable>
