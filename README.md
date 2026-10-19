@@ -50,6 +50,38 @@ Generated types are `partial` classes with XML documentation taken from the ASN.
 descriptor through `T.Asn1Type`. Encoding rules interpret the descriptors, so adding an encoding rule never requires
 regenerating code. See [docs/architecture.md](docs/architecture.md).
 
+## DotAsn Studio (browser workbench)
+
+`tools/Asn1.Studio` is a single-page Blazor WebAssembly app that runs the toolchain entirely in the browser. Nothing
+is sent to a server: schemas and values stay on the page (the last schema is kept in the browser's local storage).
+
+* **Schema:** edit or load a sample, compile and lint (optionally for a target encoding), click a diagnostic to see
+  the source line, browse types with their definitions and runtime descriptors.
+* **Encode:** random example values, constraint validation, encoding with any of the ten rules (with the exact PER
+  bit count), and a side-by-side size comparison of all rules.
+* **Decode:** hexadecimal, Base64 or text input; decoded value, consumed octets, constraint violations, transcoding to
+  another rule.
+* **Inspect:** schema-less BER/DER/CER TLV dump. **Model:** the resolved model. **C#:** the generated code.
+
+```sh
+dotnet run --project tools/Asn1.Studio          # http://localhost:5119
+scripts/publish-studio.sh /DotAsn/               # static site in artifacts/studio/publish/wwwroot
+```
+
+**GitHub Pages:** in the repository settings choose *Pages > Build and deployment > Source: GitHub Actions*. The
+workflow `.github/workflows/pages.yml` then publishes the studio on every push to `main`, at
+`https://<owner>.github.io/<repository>/` (the base path is taken from the Pages configuration, so user sites and
+custom domains work too). Before deploying, it runs `scripts/studio_e2e.py`, which serves the site the way GitHub
+Pages does and exercises every tab in headless Chromium:
+
+```sh
+.venv/bin/pip install playwright && .venv/bin/playwright install chromium
+.venv/bin/python scripts/studio_e2e.py artifacts/studio/publish/wwwroot --base /DotAsn/
+```
+
+The first load downloads about 10 MB (the .NET runtime and the toolchain); the C# generator and Roslyn (another
+10 MB) load only when the C# tab is used.
+
 ## Repository layout
 
 | Path | Contents |
@@ -69,7 +101,9 @@ regenerating code. See [docs/architecture.md](docs/architecture.md).
 | `src/Asn1.Serialization` | `Asn1EncodingRules` (all implemented rules) |
 | `src/Asn1.Dynamic` | Schema-driven descriptors, dynamic values, JSON value notation, random value generator |
 | `src/Asn1.Cli` | The `asn1` tool |
-| `tests/` | Unit, parser, semantic, code generation, runtime, interoperability, property and fuzz tests |
+| `tools/Asn1.Studio` | DotAsn Studio, the browser workbench (Blazor WebAssembly) |
+| `tools/Asn1.Studio.Engine` | The studio's tool logic, independent of the UI |
+| `tests/` | Unit, parser, semantic, code generation, runtime, interoperability, property, fuzz and studio tests |
 | `test-vectors/` | Corpus specifications and known-answer vectors (see `test-vectors/README.md`) |
 | `samples/` | Example specifications |
 | `docs/` | Architecture, standards support, language support, encoding rules, security, diagnostics |

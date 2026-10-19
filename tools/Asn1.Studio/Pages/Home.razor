@@ -1,0 +1,585 @@
+@page "/"
+@using System.Globalization
+@inject Workbench Bench
+@inject IJSRuntime JS
+@inject Microsoft.AspNetCore.Components.WebAssembly.Services.LazyAssemblyLoader Loader
+
+<PageTitle>DotAsn Studio</PageTitle>
+
+<nav class="tabs">
+    @foreach (var tab in Enum.GetValues<Tab>())
+    {
+        <button class="tab @(tab == _tab ? "active" : null)" @onclick="() => _tab = tab">@(tab == Tab.CSharp ? "C#" : tab.ToString())</button>
+    }
+    <span class="status @(_compile is { Success: false } ? "bad" : "good")">@Status</span>
+</nav>
+
+@if (_message is not null)
+{
+    <div class="message" @onclick="() => _message = null">@_message <span class="muted">(click to dismiss)</span></div>
+}
+
+@switch (_tab)
+{
+    case Tab.Schema:
+        <section class="grid two">
+            <div>
+                <div class="toolbar">
+                    <select @bind="_sample" title="Load a sample specification">
+                        <option value="">Load sample…</option>
+                        @foreach (var s in Samples.All)
+                        {
+                            <option value="@s.Name">@s.Name</option>
+                        }
+                    </select>
+                    <button @onclick="LoadSampleAsync" disabled="@string.IsNullOrEmpty(_sample)">Load</button>
+                    <button class="primary" @onclick="CompileAsync">Compile</button>
+                    <label><input type="checkbox" @bind="_lint" /> Lint</label>
+                    <label title="Enables interoperability lint rules for these encodings">for <input class="narrow" @bind="_lintRules" placeholder="uper,der" /></label>
+                </div>
+                <textarea class="editor" spellcheck="false" @bind="_schema" @bind:event="oninput" rows="30"></textarea>
+                @if (_compile is not null)
+                {
+                    <p class="muted">@_compile.Diagnostics.Count diagnostic(s), @_compile.Types.Count type(s), compiled in @_compile.Elapsed.TotalMilliseconds.ToString("0", CultureInfo.InvariantCulture) ms.</p>
+                    @if (_compile.Diagnostics.Count > 0)
+                    {
+                        <table class="diagnostics">
+                            <thead><tr><th></th><th>Id</th><th>Line</th><th>Message</th></tr></thead>
+                            <tbody>
+                                @foreach (var d in _compile.Diagnostics)
+                                {
+                                    <tr class="@(d == _diagnostic ? "selected" : null)" @onclick="() => _diagnostic = d">
+                                        <td><span class="badge @d.Severity.ToString().ToLowerInvariant()">@d.Severity</span></td>
+                                        <td>@d.Id</td>
+                                        <td>@d.Line:@d.Column</td>
+                                        <td>@d.Message</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (_diagnostic is not null)
+                        {
+                            <Output Title="@($"Line {_diagnostic.Line}")" Text="@Excerpt(_diagnostic)" />
+                        }
+                    }
+                }
+            </div>
+            <div>
+                <h3>Types</h3>
+                @if (Bench.Types.Count == 0)
+                {
+                    <p class="muted">Compile a schema without errors to browse its types.</p>
+                }
+                else
+                {
+                    <select class="types" size="12" @bind="Type">
+                        @foreach (var t in Bench.Types)
+                        {
+                            <option value="@t">@t</option>
+                        }
+                    </select>
+                    @if (_type is not null)
+                    {
+                        <Output Title="Definition" Text="@Safe(() => Bench.Definition(_type))" />
+                        <Output Title="Runtime descriptor" Text="@Safe(() => Bench.Describe(_type))" />
+                        <div class="toolbar">
+                            <button @onclick="() => _tab = Tab.Encode">Encode a value…</button>
+                            <button @onclick="() => _tab = Tab.Decode">Decode a message…</button>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+        break;
+
+    case Tab.Encode:
+        <section class="grid two">
+            <div>
+                <TypePicker Types="Bench.Types" Value="@_type" ValueChanged="SelectTypeAsync" />
+                <div class="toolbar">
+                    <button @onclick="Example">Example value</button>
+                    <label>seed <input class="narrow" type="number" @bind="_seed" /></label>
+                    <button @onclick="Validate">Validate</button>
+                </div>
+                <textarea class="editor" spellcheck="false" @bind="_json" @bind:event="oninput" rows="18" placeholder="Value in DotAsn JSON value notation"></textarea>
+                @if (_validation is not null)
+                {
+                    <Output Title="Validation" Text="@(_validation.Count == 0 ? "The value satisfies all constraints." : string.Join("\n", _validation))" IsError="@(_validation.Count > 0)" />
+                }
+                <p class="muted">JSON value notation: SEQUENCE/SET as objects, CHOICE as {"alternative": value}, ENUMERATED as "identifier", OCTET STRING as hex, BIT STRING as {"hex": …, "length": n}, OBJECT IDENTIFIER as "1.2.3", INTEGER beyond 2^53 as a string.</p>
+            </div>
+            <div>
+                <div class="toolbar">
+                    <RuleSelect @bind-Value="_encodeRule" />
+                    <button class="primary" @onclick="Encode">Encode</button>
+                    <button @onclick="Compare">Compare all rules</button>
+                </div>
+                @if (_encoded is not null)
+                {
+                    @if (_encoded.Error is not null)
+                    {
+                        <Output Title="@($"{_encoded.Rule} error")" Text="@_encoded.Error" IsError="true" />
+                    }
+                    else
+                    {
+                        <p class="muted">@SizeText(_encoded)</p>
+                        @if (_encoded.Text is not null)
+                        {
+                            <Output Title="@($"{_encoded.Rule} text")" Text="@_encoded.Text" />
+                        }
+                        <Output Title="@($"{_encoded.Rule} hex")" Text="@Workbench.FormatHex(_encoded.Bytes)" />
+                        <div class="toolbar">
+                            <button @onclick="SendToDecode">Send to Decode</button>
+                            @if (_encoded.Rule is "BER" or "DER" or "CER")
+                            {
+                                <button @onclick="SendToInspect">Inspect TLVs</button>
+                            }
+                        </div>
+                    }
+                }
+                @if (_comparison is not null)
+                {
+                    <table class="compare">
+                        <thead><tr><th>Rule</th><th>Octets</th><th>Bits</th><th>Encoding</th></tr></thead>
+                        <tbody>
+                            @foreach (var r in _comparison)
+                            {
+                                <tr>
+                                    <td>@r.Rule</td>
+                                    <td class="num">@(r.Bytes?.Length.ToString(CultureInfo.InvariantCulture) ?? "–")</td>
+                                    <td class="num">@(r.BitLength?.ToString(CultureInfo.InvariantCulture) ?? string.Empty)</td>
+                                    <td class="mono">@(r.Error ?? Preview(r))</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </section>
+        break;
+
+    case Tab.Decode:
+        <section class="grid two">
+            <div>
+                <TypePicker Types="Bench.Types" Value="@_type" ValueChanged="SelectTypeAsync" />
+                <div class="toolbar">
+                    <RuleSelect Value="@_decodeRule" ValueChanged="DecodeRuleChanged" />
+                    <select @bind="_decodeFormat">
+                        @foreach (var f in Enum.GetValues<InputFormat>())
+                        {
+                            <option value="@f">@f</option>
+                        }
+                    </select>
+                    <label><input type="checkbox" @bind="_allowTrailing" /> allow trailing data</label>
+                    <button class="primary" @onclick="Decode">Decode</button>
+                </div>
+                <textarea class="editor" spellcheck="false" @bind="_decodeInput" @bind:event="oninput" rows="12" placeholder="Encoded message (hex, Base64 or text)"></textarea>
+                <div class="toolbar">
+                    <span>Transcode to</span>
+                    <RuleSelect @bind-Value="_transcodeRule" />
+                    <button @onclick="Transcode">Transcode</button>
+                </div>
+                @if (_transcoded is not null)
+                {
+                    <Output Title="@($"{_transcoded.Rule}{(_transcoded.Error is null ? " (" + SizeText(_transcoded) + ")" : " error")}")"
+                            Text="@(_transcoded.Error ?? _transcoded.Text ?? Workbench.FormatHex(_transcoded.Bytes))" IsError="@(_transcoded.Error is not null)" />
+                }
+            </div>
+            <div>
+                @if (_decoded is not null)
+                {
+                    @if (_decoded.Error is not null)
+                    {
+                        <Output Title="Decoding failed" Text="@_decoded.Error" IsError="true" />
+                    }
+                    else
+                    {
+                        <p class="muted">@_decoded.BytesConsumed of @_decoded.TotalBytes octet(s) consumed.</p>
+                        <Output Title="Value" Text="@_decoded.Json" />
+                        <Output Title="Constraints" Text="@(_decoded.Violations.Count == 0 ? "The value satisfies all constraints." : string.Join("\n", _decoded.Violations))" IsError="@(_decoded.Violations.Count > 0)" />
+                        <div class="toolbar"><button @onclick="EditDecoded">Edit in Encode</button></div>
+                    }
+                }
+            </div>
+        </section>
+        break;
+
+    case Tab.Inspect:
+        <section>
+            <p class="muted">A schema-less view of BER, DER or CER: every tag, length and value, with constructed encodings expanded.</p>
+            <div class="toolbar">
+                <select @bind="_inspectFormat">
+                    <option value="@InputFormat.Hex">Hex</option>
+                    <option value="@InputFormat.Base64">Base64</option>
+                </select>
+                <button class="primary" @onclick="Inspect">Inspect</button>
+            </div>
+            <textarea class="editor" spellcheck="false" @bind="_inspectInput" @bind:event="oninput" rows="8" placeholder="30 0A 80 01 07 81 05 00 EE 6B 28 00"></textarea>
+            @if (_inspected is not null)
+            {
+                <Output Title="TLV structure" Text="@_inspected" />
+            }
+        </section>
+        break;
+
+    case Tab.Model:
+        <section>
+            <p class="muted">The resolved model: tags after automatic tagging, effective constraints, parameterized types instantiated.</p>
+            <Output Title="Model" Text="@Safe(Bench.Model)" />
+        </section>
+        break;
+
+    case Tab.CSharp:
+        <section>
+            <div class="toolbar">
+                <label>Namespace <input @bind="_namespace" placeholder="(from the module name)" /></label>
+                <button class="primary" @onclick="GenerateCSharpAsync" disabled="@_generating">@(_generating ? "Loading the generator…" : "Generate")</button>
+            </div>
+            <p class="muted">The code that <code>asn1 generate-csharp</code> writes: typed classes, enums and descriptors for every encoding rule.</p>
+            @if (_csharp is not null)
+            {
+                <Output Title="Generated C#" Text="@_csharp" />
+            }
+        </section>
+        break;
+}
+
+@code {
+    private enum Tab
+    {
+        Schema,
+        Encode,
+        Decode,
+        Inspect,
+        Model,
+        CSharp,
+    }
+
+    private Tab _tab = Tab.Schema;
+    private string? _message;
+
+    // Schema
+    private string _schema = string.Empty;
+    private string _sample = string.Empty;
+    private bool _lint = true;
+    private string _lintRules = "uper";
+    private CompileResult? _compile;
+    private DiagnosticView? _diagnostic;
+    private string? _type;
+
+    // Encode
+    private string _json = string.Empty;
+    private int _seed = 1;
+    private string _encodeRule = "UPER";
+    private IReadOnlyList<string>? _validation;
+    private RuleOutput? _encoded;
+    private IReadOnlyList<RuleOutput>? _comparison;
+
+    // Decode
+    private string _decodeRule = "UPER";
+    private InputFormat _decodeFormat = InputFormat.Hex;
+    private string _decodeInput = string.Empty;
+    private bool _allowTrailing;
+    private DecodeOutput? _decoded;
+    private string _transcodeRule = "JER";
+    private RuleOutput? _transcoded;
+
+    // Inspect, C#
+    private InputFormat _inspectFormat = InputFormat.Hex;
+    private string _inspectInput = string.Empty;
+    private string? _inspected;
+    private string _namespace = string.Empty;
+    private string? _csharp;
+
+    private string? Type
+    {
+        get => _type;
+        set => _ = SelectTypeAsync(value);
+    }
+
+    private string Status => _compile switch
+    {
+        null => "No schema",
+        { Success: false } c => $"{c.Errors} error(s)",
+        _ => $"{Bench.Types.Count} type(s) ready",
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Read the previous session's type before compiling, which saves the selection it makes.
+        _preferredType = await LoadAsync("type");
+        _schema = await LoadAsync("schema") ?? Samples.All.FirstOrDefault(s => s.Name.StartsWith("telemetry", StringComparison.Ordinal))?.Text ?? string.Empty;
+        await CompileAsync();
+    }
+
+    private string? _preferredType;
+
+    /// <summary>The type to select after compiling: the previous choice, a Heartbeat, or the first type.</summary>
+    private string? DefaultType() =>
+        _preferredType is not null && Bench.Types.Contains(_preferredType) ? _preferredType
+        : Bench.Types.FirstOrDefault(t => t.EndsWith(".Heartbeat", StringComparison.Ordinal)) ?? Bench.Types.FirstOrDefault();
+
+    private async Task LoadSampleAsync()
+    {
+        if (Samples.All.FirstOrDefault(s => s.Name == _sample) is { } sample)
+        {
+            _schema = sample.Text;
+            _type = null;
+            _preferredType = null;
+            await CompileAsync();
+        }
+    }
+
+    private async Task CompileAsync()
+    {
+        _diagnostic = null;
+        try
+        {
+            var rules = _lintRules.Split([',', ' '], StringSplitOptions.RemoveEmptyEntries);
+            _compile = Bench.Compile(_schema, _lint, rules);
+            if (_compile.Success)
+            {
+                await SaveAsync("schema", _schema);
+                if (_type is null || !Bench.Types.Contains(_type))
+                {
+                    await SelectTypeAsync(DefaultType());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            _message = "Compilation failed unexpectedly: " + e.Message;
+        }
+    }
+
+    private async Task SelectTypeAsync(string? type)
+    {
+        if (type == _type)
+        {
+            return;
+        }
+
+        _type = type;
+        _encoded = null;
+        _comparison = null;
+        _validation = null;
+        _decoded = null;
+        _transcoded = null;
+        if (type is not null)
+        {
+            await SaveAsync("type", type);
+            Example();
+        }
+    }
+
+    private string Excerpt(DiagnosticView d)
+    {
+        var lines = _schema.Split('\n');
+        if (d.Line < 1 || d.Line > lines.Length)
+        {
+            return string.Empty;
+        }
+
+        var line = lines[d.Line - 1].TrimEnd('\r');
+        return line + "\n" + new string(' ', Math.Max(0, d.Column - 1)) + "^ " + d.Message;
+    }
+
+    private void Example()
+    {
+        if (_type is not null)
+        {
+            _json = Run(() => Bench.Example(_type, _seed)) ?? _json;
+            _validation = null;
+        }
+    }
+
+    private void Validate()
+    {
+        if (_type is not null)
+        {
+            _validation = Run(() => Bench.Validate(_type, _json));
+        }
+    }
+
+    private void Encode()
+    {
+        if (_type is not null)
+        {
+            _encoded = Run(() => Bench.Encode(_type, _json, _encodeRule));
+        }
+    }
+
+    private void Compare()
+    {
+        if (_type is not null)
+        {
+            _comparison = Run(() => Bench.EncodeAll(_type, _json));
+        }
+    }
+
+    private void SendToDecode()
+    {
+        if (_encoded?.Bytes is { } bytes)
+        {
+            _decodeRule = _encoded.Rule;
+            _decodeFormat = _encoded.IsText ? InputFormat.Text : InputFormat.Hex;
+            _decodeInput = _encoded.Text ?? Workbench.FormatHex(bytes);
+            _decoded = null;
+            _tab = Tab.Decode;
+            Decode();
+        }
+    }
+
+    private void SendToInspect()
+    {
+        if (_encoded?.Bytes is { } bytes)
+        {
+            _inspectFormat = InputFormat.Hex;
+            _inspectInput = Workbench.FormatHex(bytes);
+            _tab = Tab.Inspect;
+            Inspect();
+        }
+    }
+
+    private void DecodeRuleChanged(string rule)
+    {
+        _decodeRule = rule;
+        _decodeFormat = rule is "JER" or "XER" or "CXER" ? InputFormat.Text : InputFormat.Hex;
+    }
+
+    private byte[]? Input(string text, InputFormat format)
+    {
+        try
+        {
+            return Workbench.ParseInput(text, format);
+        }
+        catch (FormatException e)
+        {
+            _message = $"The input is not valid {format}: {e.Message}";
+            return null;
+        }
+    }
+
+    private void Decode()
+    {
+        if (_type is not null && Input(_decodeInput, _decodeFormat) is { } data)
+        {
+            _decoded = Run(() => Bench.Decode(_type, _decodeRule, data, _allowTrailing));
+        }
+    }
+
+    private void Transcode()
+    {
+        if (_type is not null && Input(_decodeInput, _decodeFormat) is { } data)
+        {
+            _transcoded = Run(() => Bench.Transcode(_type, _decodeRule, data, _transcodeRule));
+        }
+    }
+
+    private void EditDecoded()
+    {
+        if (_decoded?.Json is { } json)
+        {
+            _json = json;
+            _validation = null;
+            _tab = Tab.Encode;
+        }
+    }
+
+    private void Inspect()
+    {
+        if (Input(_inspectInput, _inspectFormat) is { } data)
+        {
+            _inspected = Workbench.Inspect(data);
+        }
+    }
+
+    private bool _generating;
+
+    /// <summary>The generator and Roslyn are lazy-loaded (see the project file) the first time code is generated.</summary>
+    private async Task GenerateCSharpAsync()
+    {
+        _generating = true;
+        try
+        {
+            await Loader.LoadAssembliesAsync(["Microsoft.CodeAnalysis.wasm", "Microsoft.CodeAnalysis.CSharp.wasm", "Asn1.CodeGen.CSharp.wasm"]);
+            _csharp = Run(() => Bench.GenerateCSharp(_namespace));
+        }
+        catch (Exception e) when (e is InvalidOperationException or System.Net.Http.HttpRequestException)
+        {
+            _message = "Could not load the C# generator: " + e.Message;
+        }
+        finally
+        {
+            _generating = false;
+        }
+    }
+
+    private static string SizeText(RuleOutput r) =>
+        r.Bytes is null ? string.Empty
+        : r.BitLength is { } bits ? $"{r.Bytes.Length} octet(s), {bits} significant bit(s)"
+        : $"{r.Bytes.Length} octet(s)";
+
+    private static string Preview(RuleOutput r)
+    {
+        if (r.Text is { } text)
+        {
+            return text.Length > 72 ? text[..72] + "…" : text;
+        }
+
+        var hex = Convert.ToHexString(r.Bytes ?? []);
+        return hex.Length > 72 ? hex[..72] + "…" : hex;
+    }
+
+    /// <summary>Runs a tool; problems with the user's input become a message instead of breaking the page.</summary>
+    private T? Run<T>(Func<T> action)
+    {
+        try
+        {
+            _message = null;
+            return action();
+        }
+        catch (Exception e) when (Workbench.IsUserError(e) || e is InvalidOperationException)
+        {
+            _message = e.Message;
+            return default;
+        }
+    }
+
+    /// <summary>For text computed while rendering: never changes component state, shows problems inline.</summary>
+    private static string Safe(Func<string> action)
+    {
+        try
+        {
+            return action();
+        }
+        catch (Exception e) when (Workbench.IsUserError(e) || e is InvalidOperationException)
+        {
+            return "error: " + e.Message;
+        }
+    }
+
+    private async Task<string?> LoadAsync(string key)
+    {
+        try
+        {
+            return await JS.InvokeAsync<string?>("asn1Studio.load", key);
+        }
+        catch (JSException)
+        {
+            return null;
+        }
+    }
+
+    private async Task SaveAsync(string key, string value)
+    {
+        try
+        {
+            await JS.InvokeVoidAsync("asn1Studio.save", key, value);
+        }
+        catch (JSException)
+        {
+            // Storage is a convenience only.
+        }
+    }
+}

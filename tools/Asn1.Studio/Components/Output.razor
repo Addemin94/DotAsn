@@ -1,0 +1,33 @@
+@inject IJSRuntime JS
+
+@* A labelled, copyable block of monospace output. *@
+<div class="output">
+    <div class="output-head">
+        <span>@Title</span>
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <button class="small" @onclick="CopyAsync">@(_copied ? "Copied" : "Copy")</button>
+        }
+    </div>
+    <pre class="@(IsError ? "error" : null)">@Text</pre>
+</div>
+
+@code {
+    private bool _copied;
+
+    /// <summary>The heading.</summary>
+    [Parameter] public string Title { get; set; } = string.Empty;
+
+    /// <summary>The text shown and copied.</summary>
+    [Parameter] public string? Text { get; set; }
+
+    /// <summary>Shows the text as an error.</summary>
+    [Parameter] public bool IsError { get; set; }
+
+    private async Task CopyAsync()
+    {
+        _copied = await JS.InvokeAsync<bool>("asn1Studio.copy", Text ?? string.Empty);
+    }
+
+    protected override void OnParametersSet() => _copied = false;
+}

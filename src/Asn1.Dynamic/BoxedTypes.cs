@@ -11,7 +11,7 @@ internal interface IBoxedType
 }
 
 /// <summary>Adapts a typed descriptor to <c>Asn1Type&lt;object?&gt;</c> for the dynamic value model.</summary>
-internal class BoxedType<T> : Asn1Type<object?>, IBoxedType
+internal class BoxedType<T> : Asn1Type<object?>, IBoxedType, IAsn1ValidationAdapter
 {
     public BoxedType(Asn1Type<T> inner)
         : base(inner.Name, inner.Kind, inner.Tags, inner.Constraints)
@@ -44,6 +44,19 @@ internal class BoxedType<T> : Asn1Type<object?>, IBoxedType
     public override ConstraintSubject ToConstraintSubject(object? value) => value is T t ? Inner.ToConstraintSubject(t) : ConstraintSubject.Opaque;
 
     public override ConstraintCheck CheckConstraints(object? value) => value is T t ? Inner.CheckConstraints(t) : ConstraintCheck.Violation;
+
+    /// <summary>Validates with the typed descriptor so that components, alternatives and elements are checked too.</summary>
+    public void ValidateAdapted(object? value, Asn1Validator validator)
+    {
+        if (value is T typed)
+        {
+            validator.Validate(Inner, typed);
+        }
+        else
+        {
+            validator.Report(null, $"expected a {DynamicValueNames.Describe(typeof(T))} for {Name} but got {DynamicValueNames.Describe(value?.GetType())}");
+        }
+    }
 }
 
 /// <summary>Boxed adapter that also exposes structural information (SEQUENCE/SET/CHOICE).</summary>

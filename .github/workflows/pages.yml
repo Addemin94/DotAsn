@@ -1,0 +1,50 @@
+name: Studio on GitHub Pages
+
+# Publishes DotAsn Studio (tools/Asn1.Studio) as a static site. In the repository settings, set
+# Pages > Build and deployment > Source to "GitHub Actions".
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - id: pages
+        uses: actions/configure-pages@v5
+      - name: Publish
+        # base_path is "/<repository>" for project sites and "" for user sites and custom domains.
+        run: scripts/publish-studio.sh "${{ steps.pages.outputs.base_path }}/" artifacts/studio
+      - name: Smoke test in headless Chromium
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet playwright
+          .venv/bin/playwright install --with-deps chromium
+          .venv/bin/python scripts/studio_e2e.py artifacts/studio/publish/wwwroot --base "${{ steps.pages.outputs.base_path }}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: artifacts/studio/publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

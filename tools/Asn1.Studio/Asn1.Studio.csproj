@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+  <PropertyGroup>
+    <Description>DotAsn Studio: a browser workbench for ASN.1 (compile, lint, encode, decode, inspect, generate C#).</Description>
+    <RootNamespace>Asn1.Studio</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    <!-- GitHub Pages serves files as they are; precompressed .br/.gz copies would only enlarge the deployment. -->
+    <CompressionEnabled>false</CompressionEnabled>
+    <!-- Only assemblies that declare themselves trimmable are trimmed (Roslyn and the DotAsn libraries are kept whole). -->
+    <TrimMode>partial</TrimMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Studio.Engine\Asn1.Studio.Engine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Roslyn is about a third of the download and only the C# tab needs it: load it on first use. -->
+    <BlazorWebAssemblyLazyLoad Include="Microsoft.CodeAnalysis.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Microsoft.CodeAnalysis.CSharp.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Asn1.CodeGen.CSharp.wasm" />
+  </ItemGroup>
+</Project>

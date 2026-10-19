@@ -1,17 +1,50 @@
+# ---------------------------------------------------------------- .NET build output
 bin/
 obj/
-*.user
-*.suo
-.vs/
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/shelf/
-TestResults/
 artifacts/
+/generated/
+*.binlog
 *.nupkg
+*.snupkg
+.dotnet/
+
+# ---------------------------------------------------------------- tests, coverage, benchmarks
+TestResults/
+*.trx
+coverage/
+*.coverage
+*.coveragexml
+*.cobertura.xml
+BenchmarkDotNet.Artifacts/
+# Playwright (scripts/studio_e2e.py)
+test-results/
+playwright-report/
+
+# ---------------------------------------------------------------- local tool state
+# Python virtual environment (asn1tools, Playwright) and caches
 .venv*/
 __pycache__/
-/generated/
-BenchmarkDotNet.Artifacts/
+*.pyc
+# ITU-T texts and the extended corpus are downloaded here and must not be committed
 .cache/
+
+# ---------------------------------------------------------------- IDEs and editors
+.vs/
+*.user
+*.suo
+*.DotSettings.user
+# JetBrains Rider settings are per user
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*~
+# Per-user Claude Code settings
+.claude/settings.local.json
+
+# ---------------------------------------------------------------- operating systems
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log

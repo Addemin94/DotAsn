@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>The tool logic of DotAsn Studio (compile, lint, encode, decode, inspect, generate), independent of the UI.</Description>
+    <RootNamespace>Asn1.Studio.Engine</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Asn1.Semantics\Asn1.Semantics.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Linter\Asn1.Linter.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Serialization\Asn1.Serialization.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.CodeGen.CSharp\Asn1.CodeGen.CSharp.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The public sample specifications, offered by "Load sample". -->
+    <EmbeddedResource Include="..\..\samples\**\*.asn" LogicalName="samples/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

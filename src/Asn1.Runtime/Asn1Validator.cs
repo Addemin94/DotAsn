@@ -58,6 +58,12 @@ public sealed class Asn1Validator
 
         try
         {
+            if (type is IAsn1ValidationAdapter adapter)
+            {
+                adapter.ValidateAdapted(value, this);
+                return;
+            }
+
             if (value is null && typeof(T).IsClass)
             {
                 Report(null, $"value of {type.Name} is null");
@@ -125,6 +131,16 @@ public sealed class Asn1Validator
             cv.ValidateElements(value!, this);
         }
     }
+}
+
+/// <summary>
+/// Implemented by descriptors that adapt another descriptor (for example the boxing adapters of the dynamic value
+/// model): validation is delegated to the adapted descriptor, which knows the value's structure.
+/// </summary>
+public interface IAsn1ValidationAdapter
+{
+    /// <summary>Validates <paramref name="value"/> with the adapted descriptor.</summary>
+    void ValidateAdapted(object? value, Asn1Validator validator);
 }
 
 /// <summary>Implemented by collection descriptors to validate their elements without reflection.</summary>

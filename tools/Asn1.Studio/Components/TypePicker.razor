@@ -1,0 +1,27 @@
+@* Selects one of the compiled schema's types. *@
+<label class="picker">
+    Type
+    <select value="@Value" @onchange="OnChangeAsync">
+        @if (Types.Count == 0)
+        {
+            <option value="">(compile a schema first)</option>
+        }
+        @foreach (var t in Types)
+        {
+            <option value="@t">@t</option>
+        }
+    </select>
+</label>
+
+@code {
+    /// <summary>The available types.</summary>
+    [Parameter] public IReadOnlyList<string> Types { get; set; } = [];
+
+    /// <summary>The selected type.</summary>
+    [Parameter] public string? Value { get; set; }
+
+    /// <summary>Raised when the selection changes.</summary>
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+
+    private Task OnChangeAsync(ChangeEventArgs e) => ValueChanged.InvokeAsync(e.Value as string);
+}

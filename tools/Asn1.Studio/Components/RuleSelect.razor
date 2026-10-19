@@ -1,0 +1,17 @@
+@* Selects an encoding rule. *@
+<select value="@Value" @onchange="OnChangeAsync" title="Encoding rule">
+    @foreach (var rule in Workbench.Rules)
+    {
+        <option value="@rule.Name">@rule.Name</option>
+    }
+</select>
+
+@code {
+    /// <summary>The selected rule name.</summary>
+    [Parameter] public string Value { get; set; } = "UPER";
+
+    /// <summary>Raised when the selection changes.</summary>
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    private Task OnChangeAsync(ChangeEventArgs e) => ValueChanged.InvokeAsync(e.Value as string ?? Value);
+}

@@ -40,6 +40,7 @@ ASN.1 sources ──► Asn1.Syntax (lexer, recursive-descent parser, AST, comme
 | `Asn1.Runtime.Oer` | X.696 OER, BASIC and CANONICAL profiles. |
 | `Asn1.Runtime.Jer` | X.697 JER (JSON) without encoding instructions. |
 | `Asn1.Runtime.Xer` | X.693 BASIC-XER and CANONICAL-XER (XML); DTDs prohibited. |
+| `tools/Asn1.Studio` | Browser workbench (Blazor WebAssembly) over the same libraries; static site for GitHub Pages. |
 | `Asn1.Serialization` | `Asn1EncodingRules`: one place that references every implemented rule. |
 | `Asn1.Dynamic` | Descriptors from the semantic model at run time, a dynamic value model, the lossless JSON value notation and a constraint-aware random value generator. |
 | `Asn1.Linter` | Configurable lint rules on top of the semantic model. |

@@ -33,6 +33,11 @@ Milestones are numbered as in that brief.
   (no nested `S4.BType` for `b C1`), and alias descriptors carry the alias name.
 * The C# generator builds its output with Roslyn `SyntaxFactory` (ADR 0004): `Cs.cs` helpers, `Literals.cs`,
   `SourceFormatter.cs` (normalisation, doc comments, wrapping). `CodeWriter` is gone.
+* DotAsn Studio (`tools/Asn1.Studio`, Blazor WebAssembly; logic in `tools/Asn1.Studio.Engine`, tested by
+  `tests/Asn1.StudioTests`) is a browser workbench deployed to GitHub Pages by `.github/workflows/pages.yml` via
+  `scripts/publish-studio.sh`; `scripts/studio_e2e.py` checks the published site in headless Chromium (Playwright).
+  Building it exposed and fixed a runtime bug: validation of dynamic values did not recurse into components
+  (`IAsn1ValidationAdapter`).
 * `WellKnownOids` (X.660 arc names) moved to `Asn1.Core` and is shared by the binder and the XER decoder.
 * `DynamicTypeFactory.Create` is thread-safe (descriptors resolve components lazily, possibly concurrently).
 * Documented asn1tools deviations from the standards: see `docs/standards-support.md` (last section) and ADR 0003.
