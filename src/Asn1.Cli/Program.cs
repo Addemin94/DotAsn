@@ -24,7 +24,7 @@ internal static class Program
     public static async Task<int> Main(string[] args)
     {
         Console.OutputEncoding = new UTF8Encoding(false);
-        var root = new RootCommand("DotAsn ASN.1 toolchain: lint, compile, generate C# and encode/decode messages.");
+        var root = new RootCommand("DotAsn ASN.1 toolchain: lint, compile, generate C# and TypeScript, and encode/decode messages.");
         root.Options.Add(s_verbose);
         root.Options.Add(s_quiet);
         root.Options.Add(s_config);

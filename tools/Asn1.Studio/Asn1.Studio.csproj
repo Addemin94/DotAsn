@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
-    <Description>DotAsn Studio: a browser workbench for ASN.1 (compile, lint, encode, decode, inspect, generate C#).</Description>
+    <Description>DotAsn Studio: a browser workbench for ASN.1 (compile, lint, encode, decode, inspect, generate C# and TypeScript).</Description>
     <RootNamespace>Asn1.Studio</RootNamespace>
     <IsPackable>false</IsPackable>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>

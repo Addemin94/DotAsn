@@ -8,7 +8,7 @@ DotAsn compiles ASN.1 specifications, lints them, generates strongly typed C# an
 decodes messages with BER, CER, DER, APER, UPER, OER, COER, JER, XER and CXER. Everything is written in C# for .NET 10 and has no
 third-party ASN.1 dependency. For browsers and Node.js, the same runtime is compiled to WebAssembly (`@dotasn/wasm`).
 
-**[Try it in your browser: DotAsn Studio](https://addemin94.github.io/DotAsn/)** · [Releases](https://github.com/Addemin94/DotAsn/releases) · [Documentation](#documentation)
+**[Try it in your browser: DotAsn Studio](https://addemin94.github.io/DotAsn/)** · [Releases](https://github.com/Addemin94/DotAsn/releases) · [Changelog](CHANGELOG.md) · [Documentation](#documentation)
 
 ```text
 .asn files ─► parser ─► semantic model ─┬─► linter (asn1 lint)
@@ -243,10 +243,11 @@ Test vectors are described in [test-vectors/README.md](test-vectors/README.md).
 
 ## Releasing (maintainers)
 
-Push a version tag; both release workflows also run manually (*Actions > Run workflow*) with an explicit version.
+Update [CHANGELOG.md](CHANGELOG.md) and the version (`Directory.Build.props`, `js/*/package.json`), then push a version
+tag; both release workflows also run manually (*Actions > Run workflow*) with an explicit version.
 
 ```sh
-git tag v0.1.0 && git push origin v0.1.0
+git tag v0.2.0 && git push origin v0.2.0
 ```
 
 * **[nuget.yml](.github/workflows/nuget.yml)** builds and tests, packs every library in `src/` as `DotAsn.*` plus the
@@ -259,7 +260,11 @@ git tag v0.1.0 && git push origin v0.1.0
   (*Settings > Pages > Source: GitHub Actions*). It builds with `scripts/publish-studio.sh` and first checks the site in
   headless Chromium with `scripts/studio_e2e.py`, served the way GitHub Pages serves it.
 
-All three scripts run locally, e.g. `scripts/pack.sh 0.1.0-local`, `scripts/publish-cli.sh linux-x64 0.1.0-local` or
+The npm packages (`js/runtime`, `js/wasm`) have no publishing workflow yet: CI builds, tests and packs them
+(`npm pack --dry-run`). Once a registry is chosen, publish them from `js/` with `npm run build:native -w @dotasn/wasm`
+followed by `npm publish -w @dotasn/runtime -w @dotasn/wasm`.
+
+All three scripts run locally, e.g. `scripts/pack.sh 0.2.0-local`, `scripts/publish-cli.sh linux-x64 0.2.0-local` or
 `scripts/publish-studio.sh /DotAsn/`.
 
 ## License
