@@ -61,11 +61,18 @@ Milestones are numbered as in that brief.
   wide strings, SET OF and OER integer sizes. It exposed six more asn1tools deviations (ADR 0003). No XER vectors:
   asn1tools does not finish XER for it.
 
+* Benchmarks (`benchmarks/Asn1.Benchmarks`, BenchmarkDotNet; docs/benchmarks.md): every encoding rule on generated
+  types, the dynamic descriptors (BER, UPER, JER) and the compiler (compile, lint, C# generation). The project
+  generates its C# types from `samples/telemetry/telemetry.asn` at build time by running the CLI (target
+  `GenerateAsn1Types`), a small precursor of `Asn1.Build`. Every [GlobalSetup] checks its result (round trip,
+  dynamic encoding equals generated encoding), and CI dry-runs all benchmarks in process.
+
 ## 3. Next tasks (in order)
 
 0. JavaScript: publish `@dotasn/wasm` and `@dotasn/runtime` (needs a decision on the npm registry/scope).
 
-1. Milestone 11 (hardening and release): NuGet packaging, benchmarks, `Asn1.Build` MSBuild integration, and the
+1. Milestone 11 (hardening and release): NuGet packaging, `Asn1.Build` MSBuild integration, PER/OER performance
+   (open item 10 in the checklist; measure with `benchmarks/Asn1.Benchmarks`), and the
    open items in `docs/implementation-checklist.md`. Encoding instructions/EXTENDED-XER are the largest remaining
    standards gap.
 2. The remaining open items in `docs/implementation-checklist.md`.

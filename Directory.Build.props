@@ -46,4 +46,11 @@
     <!-- Test code favours readability over analyzer purity. -->
     <NoWarn>$(NoWarn);CA1707;CA1515;CA1861;CA2007;CA1062;CA1307;CA1305;CA1310;CA1311;CA1304;CA5394;CA1822;CA1825;CA1859;IDE0005</NoWarn>
   </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('/benchmarks/')) Or $(MSBuildProjectDirectory.Contains('\benchmarks\'))">
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <!-- BenchmarkDotNet needs public, unsealed benchmark classes with instance methods. -->
+    <NoWarn>$(NoWarn);CA1515;CA1822;CA1707;CA1001</NoWarn>
+  </PropertyGroup>
 </Project>

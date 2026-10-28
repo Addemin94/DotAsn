@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Asn1.CodeGen.CSharp\Asn1.CodeGen.CSharp.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Linter\Asn1.Linter.csproj" />
+    <ProjectReference Include="..\..\src\Asn1.Serialization\Asn1.Serialization.csproj" />
+    <!-- Generates the C# types for the schemas below at build time. -->
+    <ProjectReference Include="..\..\src\Asn1.Cli\Asn1.Cli.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Asn1Schema Include="..\..\samples\telemetry\telemetry.asn" />
+    <None Include="@(Asn1Schema)" LinkBase="schemas" CopyToOutputDirectory="PreserveNewest" />
+    <!-- Inputs of the compiler benchmarks. -->
+    <None Include="..\..\test-vectors\corpus\ietf\rfc5280.asn;..\..\test-vectors\corpus\asn1tools\zforce.asn" LinkBase="schemas" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Target Name="ResolveAsn1Cli" DependsOnTargets="ResolveProjectReferences">
+    <MSBuild Projects="..\..\src\Asn1.Cli\Asn1.Cli.csproj" Targets="GetTargetPath">
+      <Output TaskParameter="TargetOutputs" PropertyName="Asn1CliPath" />
+    </MSBuild>
+  </Target>
+
+  <Target Name="GenerateAsn1Types" BeforeTargets="CoreCompile" DependsOnTargets="ResolveAsn1Cli"
+          Inputs="@(Asn1Schema);$(Asn1CliPath)" Outputs="@(Asn1Schema->'$(IntermediateOutputPath)asn1/%(Filename)/asn1-generated.manifest.json')">
+    <Exec Command="dotnet &quot;$(Asn1CliPath)&quot; generate-csharp &quot;%(Asn1Schema.FullPath)&quot; -o &quot;$(IntermediateOutputPath)asn1/%(Asn1Schema.Filename)&quot; --quiet"
+          Condition="'$(DesignTimeBuild)' != 'true' Or Exists('$(Asn1CliPath)')" />
+    <ItemGroup>
+      <Asn1Generated Include="$(IntermediateOutputPath)asn1/**/*.g.cs" />
+      <Compile Include="@(Asn1Generated)" />
+      <FileWrites Include="@(Asn1Generated);$(IntermediateOutputPath)asn1/**/*.json" />
+    </ItemGroup>
+  </Target>
+</Project>
