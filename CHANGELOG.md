@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **DotAsn Studio: Guess type.** The Decode tab decodes a message as every type of the schema and lists the types it
+  could be. Exact matches come first: the whole input is consumed, the value satisfies its constraints, holds nothing
+  from a later version and encodes back to the same octets. "Decode as" decodes the message as one of them.
+  `Workbench.Guess` is the engine behind it.
+
 ## 0.2.0 - 2026-10-28
 
 ### Breaking changes

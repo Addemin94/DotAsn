@@ -168,8 +168,9 @@
                     </select>
                     <label><input type="checkbox" @bind="_allowTrailing" /> allow trailing data</label>
                     <button class="primary" @onclick="Decode">Decode</button>
+                    <button @onclick="GuessTypes" title="Decode the message as every type of the schema">Guess type</button>
                 </div>
-                <textarea class="editor" spellcheck="false" @bind="_decodeInput" @bind:event="oninput" rows="12" placeholder="Encoded message (hex, Base64 or text)"></textarea>
+                <textarea class="editor" spellcheck="false" @bind="_decodeInput" @bind:event="oninput" @bind:after="ClearGuesses" rows="12" placeholder="Encoded message (hex, Base64 or text)"></textarea>
                 <div class="toolbar">
                     <span>Transcode to</span>
                     <RuleSelect @bind-Value="_transcodeRule" />
@@ -182,6 +183,32 @@
                 }
             </div>
             <div>
+                @if (_guesses is not null)
+                {
+                    <p class="muted">@GuessSummary(_guesses)</p>
+                    @if (_guesses.Count > 0)
+                    {
+                        <table class="compare guesses">
+                            <thead><tr><th>Type</th><th>Fit</th><th>Value</th><th></th></tr></thead>
+                            <tbody>
+                                @foreach (var g in _guesses)
+                                {
+                                    <tr class="@(g.Type == _type ? "selected" : null)">
+                                        <td>@g.Type</td>
+                                        <td>
+                                            @foreach (var (text, cls) in GuessNotes(g))
+                                            {
+                                                <span class="badge @cls">@text</span>
+                                            }
+                                        </td>
+                                        <td class="mono">@(g.Json.Length > 96 ? g.Json[..96] + "…" : g.Json)</td>
+                                        <td><button class="small" @onclick="() => DecodeAsAsync(g.Type)">Decode as</button></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
                 @if (_decoded is not null)
                 {
                     @if (_decoded.Error is not null)
@@ -308,6 +335,8 @@
     private string _decodeInput = string.Empty;
     private bool _allowTrailing;
     private DecodeOutput? _decoded;
+    private IReadOnlyList<TypeGuess>? _guesses;
+    private string _guessRule = string.Empty;
     private string _transcodeRule = "JER";
     private RuleOutput? _transcoded;
 
@@ -458,6 +487,7 @@
             _decodeFormat = _encoded.IsText ? InputFormat.Text : InputFormat.Hex;
             _decodeInput = _encoded.Text ?? Workbench.FormatHex(bytes);
             _decoded = null;
+            _guesses = null;
             _tab = Tab.Decode;
             Decode();
         }
@@ -477,6 +507,7 @@
     private void DecodeRuleChanged(string rule)
     {
         _decodeRule = rule;
+        _guesses = null;
         _decodeFormat = rule is "JER" or "XER" or "CXER" ? InputFormat.Text : InputFormat.Hex;
     }
 
@@ -498,6 +529,69 @@
         if (_type is not null && Input(_decodeInput, _decodeFormat) is { } data)
         {
             _decoded = Run(() => Bench.Decode(_type, _decodeRule, data, _allowTrailing));
+        }
+    }
+
+    private void GuessTypes()
+    {
+        if (!Bench.HasSchema)
+        {
+            _message = "Compile a schema first.";
+        }
+        else if (Input(_decodeInput, _decodeFormat) is { } data)
+        {
+            _guessRule = _decodeRule;
+            _guesses = Run(() => Bench.Guess(_decodeRule, data, _allowTrailing));
+        }
+    }
+
+    private void ClearGuesses() => _guesses = null;
+
+    private async Task DecodeAsAsync(string type)
+    {
+        await SelectTypeAsync(type);
+        Decode();
+    }
+
+    private string GuessSummary(IReadOnlyList<TypeGuess> guesses)
+    {
+        if (guesses.Count == 0)
+        {
+            return $"No type of the schema decodes this message with {_guessRule}.";
+        }
+
+        var exact = guesses.Count(g => g.IsExact);
+        var fit = exact == 0 ? "none fits exactly" : exact == 1 ? "1 fits exactly" : $"{exact} fit exactly";
+        var shape = exact > 1 ? " Encodings do not name their type, so types of the same shape fit alike." : string.Empty;
+        return $"{guesses.Count} type(s) decode this message with {_guessRule}; {fit}.{shape}";
+    }
+
+    private static IEnumerable<(string Text, string Class)> GuessNotes(TypeGuess g)
+    {
+        if (g.IsExact)
+        {
+            yield return ("exact", "good");
+            yield break;
+        }
+
+        if (g.HasUnknownExtensions)
+        {
+            yield return ("later version", "warning");
+        }
+
+        if (g.Violations.Count > 0)
+        {
+            yield return ($"{g.Violations.Count} violation(s)", "error");
+        }
+
+        if (g.BytesConsumed < g.TotalBytes)
+        {
+            yield return ($"{g.TotalBytes - g.BytesConsumed} trailing octet(s)", "info");
+        }
+
+        if (!g.ReencodesIdentically)
+        {
+            yield return ("re-encodes differently", "info");
         }
     }
 

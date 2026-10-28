@@ -193,10 +193,14 @@ th, td { text-align: left; padding: 0.3rem 0.5rem; border-bottom: 1px solid var(
 th { color: var(--muted); font-weight: 600; }
 td.num { text-align: right; font-variant-numeric: tabular-nums; }
 td.mono { word-break: break-all; }
+.guesses tr.selected { background: var(--selected); }
+.guesses .badge { margin: 0 0.25rem 0.15rem 0; white-space: nowrap; }
+.guesses td:last-child { white-space: nowrap; }
 .diagnostics tr { cursor: pointer; }
 .diagnostics tr.selected { background: var(--selected); }
 
 .badge { display: inline-block; padding: 0 0.4rem; border-radius: 4px; font-size: 12px; font-weight: 600; border: 1px solid currentColor; }
+.badge.good { color: var(--good); }
 .badge.error { color: var(--bad); }
 .badge.warning { color: var(--warn); }
 .badge.info, .badge.hidden { color: var(--muted); }

@@ -54,6 +54,26 @@ public sealed record GeneratedFile(string Path, string Content);
 /// <param name="Violations">Constraint violations of a decoded value.</param>
 public sealed record DecodeOutput(string? Json, int BytesConsumed, int TotalBytes, string? Error, IReadOnlyList<string> Violations);
 
+/// <summary>A type of the schema that an encoding decodes as (see <see cref="Workbench.Guess"/>).</summary>
+/// <param name="Type">The type (Module.Type).</param>
+/// <param name="Json">The decoded value in DotAsn JSON value notation, on one line.</param>
+/// <param name="BytesConsumed">Octets consumed by the value.</param>
+/// <param name="TotalBytes">Octets in the input.</param>
+/// <param name="Violations">Constraint violations of the decoded value.</param>
+/// <param name="ReencodesIdentically">True if encoding the value again gives exactly the consumed octets.</param>
+/// <param name="HasUnknownExtensions">
+/// True if the value holds CHOICE alternatives or ENUMERATED items from a later version of the type. An extensible
+/// CHOICE takes almost any input that way, so these are weak matches.
+/// </param>
+public sealed record TypeGuess(string Type, string Json, int BytesConsumed, int TotalBytes, IReadOnlyList<string> Violations, bool ReencodesIdentically, bool HasUnknownExtensions)
+{
+    /// <summary>
+    /// True for a match without caveats: the whole input is consumed, the value satisfies its constraints, has nothing
+    /// from a later version and encodes back to the same octets.
+    /// </summary>
+    public bool IsExact => BytesConsumed == TotalBytes && Violations.Count == 0 && ReencodesIdentically && !HasUnknownExtensions;
+}
+
 /// <summary>How encoded input is written.</summary>
 public enum InputFormat
 {
@@ -227,6 +247,97 @@ public sealed class Workbench
         catch (Exception e) when (IsUserError(e))
         {
             return new DecodeOutput(null, 0, data.Length, e.Message, []);
+        }
+    }
+
+    /// <summary>
+    /// The types of the schema that an encoding could be: every type the input decodes as with the rule. The best
+    /// matches come first (see <see cref="TypeGuess.IsExact"/>), then values without unknown extensions, with fewer
+    /// constraint violations and fewer trailing octets; otherwise the schema's order is kept.
+    /// </summary>
+    /// <remarks>
+    /// Encodings without tags (PER, OER) often fit several types of the same shape; a guess narrows the choice down
+    /// rather than proving it.
+    /// </remarks>
+    public IReadOnlyList<TypeGuess> Guess(string rule, byte[] data, bool allowTrailingData = false)
+    {
+        var r = Rule(rule);
+        var options = new Asn1DecodingOptions { RejectTrailingData = !allowTrailingData, ValidateConstraints = false };
+        var guesses = new List<TypeGuess>();
+        foreach (var type in Types)
+        {
+            if (TryGuess(type, r, data, options) is { } guess)
+            {
+                guesses.Add(guess);
+            }
+        }
+
+        return [.. guesses
+            .OrderByDescending(g => g.IsExact)
+            .ThenBy(g => g.HasUnknownExtensions)
+            .ThenBy(g => g.Violations.Count)
+            .ThenBy(g => g.TotalBytes - g.BytesConsumed)
+            .ThenByDescending(g => g.ReencodesIdentically)];
+    }
+
+    private TypeGuess? TryGuess(string type, Asn1EncodingRule rule, byte[] data, Asn1DecodingOptions options)
+    {
+        try
+        {
+            var d = Descriptor(type);
+            var value = rule.Decode(d, data, options, out var consumed);
+            var violations = d.ValidateBoxed(value).Select(e => e.ToString()).ToList();
+            bool identical;
+            try
+            {
+                var encoded = rule.Encode(d, value, new Asn1EncodingOptions { ValidateConstraints = false });
+                identical = encoded.AsSpan().SequenceEqual(data.AsSpan(0, consumed));
+            }
+            catch (Exception e) when (IsUserError(e))
+            {
+                identical = false;
+            }
+
+            return new TypeGuess(type, DynamicJson.Serialize(d, value, indented: false), consumed, data.Length, violations, identical, HasUnknownExtensions(value));
+        }
+        catch (Exception e) when (IsUserError(e))
+        {
+            // Not this type (or one the dynamic runtime does not support).
+            return null;
+        }
+    }
+
+    private static bool HasUnknownExtensions(object? value)
+    {
+        switch (value)
+        {
+            case Asn1Choice choice:
+                return choice.Alternative is null || HasUnknownExtensions(choice.Value);
+            case string s:
+                // The dynamic runtime's ENUMERATED item from a later version (DynamicTypeFactory).
+                return s.StartsWith("#unknown-extension-", StringComparison.Ordinal);
+            case Asn1Record record:
+                foreach (var (_, v) in record)
+                {
+                    if (HasUnknownExtensions(v))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            case List<object?> list:
+                foreach (var v in list)
+                {
+                    if (HasUnknownExtensions(v))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            default:
+                return false;
         }
     }
 

@@ -124,6 +124,18 @@ def main():
         page.get_by_role('button', name='Transcode', exact=True).click()
         expect(output(page, 'JER')).to_contain_text('"uptimeSeconds":4000000000')
 
+        step('guesses the types a message could be')
+        page.get_by_role('button', name='Guess type').click()
+        guesses = page.locator('table.guesses tbody tr')
+        expect(guesses.filter(has_text='Telemetry-Protocol.Heartbeat')).to_contain_text('exact')
+        expect(guesses.filter(has_text='Telemetry-Protocol.TimeSyncRequest')).to_contain_text('exact')
+        expect(page.locator('section')).to_contain_text('fit exactly')
+        guesses.filter(has_text='Telemetry-Protocol.TimeSyncRequest').get_by_role('button', name='Decode as').click()
+        expect(output(page, 'Value')).to_contain_text('"deviceTime": 4000000000')
+        expect(page.locator('table.guesses tr.selected')).to_contain_text('TimeSyncRequest')
+        guesses.filter(has_text='Telemetry-Protocol.Heartbeat').get_by_role('button', name='Decode as').click()
+        expect(output(page, 'Value')).to_contain_text('"uptimeSeconds": 4000000000')
+
         step('reports a malformed message instead of failing')
         page.locator('textarea.editor').fill('07')
         primary('Decode').click()

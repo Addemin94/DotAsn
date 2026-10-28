@@ -132,6 +132,69 @@ public class WorkbenchTests
     }
 
     [Fact]
+    public void GuessesTheTypesAnEncodingCouldBe()
+    {
+        // UPER has no tags: Heartbeat and TimeSyncRequest have the same shape and both fit exactly.
+        var bench = Telemetry();
+        var guesses = bench.Guess("UPER", Convert.FromHexString("07EE6B2800"));
+        Assert.Contains(guesses, g => g.Type == Heartbeat && g.IsExact && g.Json == """{"sequenceNumber":7,"uptimeSeconds":4000000000}""");
+        Assert.Contains(guesses, g => g.Type == "Telemetry-Protocol.TimeSyncRequest" && g.IsExact);
+        Assert.Equal(guesses.OrderByDescending(g => g.IsExact), guesses);
+        Assert.DoesNotContain(guesses, g => g.BytesConsumed != g.TotalBytes);
+
+        // Trailing octets rule out every type unless allowed, and then rank below an exact match.
+        Assert.DoesNotContain(bench.Guess("UPER", Convert.FromHexString("07EE6B280000")), g => g.Type == Heartbeat);
+        var trailing = bench.Guess("UPER", Convert.FromHexString("07EE6B280000"), allowTrailingData: true);
+        Assert.Contains(trailing, g => g.Type == Heartbeat && !g.IsExact && g.BytesConsumed == 5);
+
+        // BER carries tags, which narrow the choice down.
+        var ber = bench.Encode("Telemetry-Protocol.Measurement", """{"timestamp": 1, "humidity": 100, "batteryMv": 1}""", "BER").Bytes!;
+        // The extensible Payload CHOICE also takes it, as an alternative from a later version: a weak match.
+        var berGuesses = bench.Guess("BER", ber);
+        Assert.Equal(["Telemetry-Protocol.Measurement"], berGuesses.Where(g => g.IsExact).Select(g => g.Type));
+        Assert.Contains(berGuesses, g => g.Type == "Telemetry-Protocol.Payload" && g.HasUnknownExtensions && g.ReencodesIdentically);
+    }
+
+    [Fact]
+    public void GuessesIncludeTheEncodedTypeAndNeverThrow()
+    {
+        var random = new Random(7);
+        foreach (var sample in Samples.All)
+        {
+            var bench = new Workbench();
+            Assert.True(bench.Compile(sample.Text, lint: false).Success, sample.Name);
+            foreach (var rule in Workbench.Rules)
+            {
+                foreach (var type in bench.Types)
+                {
+                    string example;
+                    try
+                    {
+                        example = bench.Example(type, 3);
+                    }
+                    catch (NotSupportedException)
+                    {
+                        continue; // Open types have no random values.
+                    }
+
+                    var encoded = bench.Encode(type, example, rule.Name);
+                    if (encoded.Bytes is { } bytes)
+                    {
+                        Assert.Contains(bench.Guess(rule.Name, bytes), g => g.Type == type);
+                    }
+                }
+
+                for (var i = 0; i < 20; i++)
+                {
+                    var noise = new byte[random.Next(0, 24)];
+                    random.NextBytes(noise);
+                    _ = bench.Guess(rule.Name, noise, allowTrailingData: i % 2 == 0);
+                }
+            }
+        }
+    }
+
+    [Fact]
     public void TranscodesBetweenRules()
     {
         var bench = Telemetry();

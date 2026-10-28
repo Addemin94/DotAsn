@@ -149,7 +149,7 @@ in the browser's local storage.
 * **Encode:** random example values, constraint validation, encoding with any of the ten rules (with the exact PER
   bit count), and a side-by-side size comparison of all rules.
 * **Decode:** hexadecimal, Base64 or text input; decoded value, consumed octets, constraint violations, transcoding to
-  another rule.
+  another rule. **Guess type** decodes a message as every type of the schema and ranks the ones it could be.
 * **Inspect:** schema-less BER/DER/CER TLV dump. **Model:** the resolved model. **C#:** the generated code,
   highlighted from Roslyn's own parser.
 
