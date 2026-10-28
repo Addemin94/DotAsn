@@ -1,0 +1,31 @@
+-- INTEGER ranges and the CLR types generated for them (see GeneratorTests.IntegersUseTheSmallestExactClrType).
+
+Integers DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+Ranges ::= SEQUENCE {
+  u8     INTEGER (0..255),
+  u16    INTEGER (0..65535),
+  u32    INTEGER (0..4294967295),
+  u64    INTEGER (0..18446744073709551615),
+  s8     INTEGER (-128..127),
+  s16    INTEGER (-32768..32767),
+  s32    INTEGER (-2147483648..2147483647),
+  s64    INTEGER (-9223372036854775808..9223372036854775807),
+  mixed  INTEGER (-1..255),
+  huge   INTEGER (0..18446744073709551616),
+  open   INTEGER,
+  ext    INTEGER (0..255, ...),
+  level  INTEGER (0..7) DEFAULT 3,
+  offset INTEGER (-100..100) DEFAULT -5,
+  port   Port OPTIONAL
+}
+
+Port ::= INTEGER (0..65535)
+
+Priority ::= INTEGER { low(1), high(9) } (0..15)
+
+defaultPort Port ::= 8080
+
+minimum INTEGER (-128..127) ::= -128
+
+END

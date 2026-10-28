@@ -5,7 +5,7 @@
 | ASN.1 | C# | Notes |
 |---|---|---|
 | BOOLEAN | `bool` | |
-| INTEGER | `int`, `long`, `ulong` or `BigInteger` | The smallest type that holds the effective constraint. Unbounded or extensible constraints map to `BigInteger` (`--integer-mapping int64` maps them to `long`; larger values are decode errors, never truncated). |
+| INTEGER | `byte`, `ushort`, `uint`, `ulong`, `sbyte`, `short`, `int`, `long` or `BigInteger` | The smallest type that holds every value of the effective constraint: unsigned for non-negative ranges (`(0..255)` is `byte`, `(0..4294967295)` is `uint`), signed otherwise (`(-1..255)` is `short`). DEFAULT values, named numbers and value assignments use the same type; named numbers outside the constraint (allowed by X.680) and values that violate it (warning ASN7003) get `int`, `long` or `ulong` instead (a `static readonly BigInteger` beyond 64 bits), as do constants of unbounded types. A DEFAULT that does not fit is generated as OPTIONAL (ASN7003). Unbounded, extensible or wider than 64-bit constraints map to `BigInteger` (`--integer-mapping int64` maps unbounded and extensible ones to `long`; larger values are decode errors, never truncated). |
 | INTEGER named numbers | constants on the alias class | |
 | ENUMERATED | C# `enum` (`int` or `long`) | Extensible enumerations get an `Asn1UnknownExtension` member for items from later versions (decode only). The descriptor is available as `Enum.Asn1Type` (C# 14 static extension member). |
 | REAL | `double` | Decimal abstract values are rounded to binary64. |

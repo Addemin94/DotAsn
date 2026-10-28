@@ -60,9 +60,14 @@ public sealed class DynamicTypeFactory
             case TypeKind.Boolean:
                 return Box(new BooleanType(name, tags, constraints));
             case TypeKind.Integer:
-                return Box(new IntegerType<BigInteger>(name, tags, constraints, [.. def.NamedNumbers.Select(n => new Asn1NamedNumber(n.Name, (long)n.Value))]));
+                return Box(new IntegerType<BigInteger>(name, tags, constraints, NamedNumbers(def)));
             case TypeKind.Enumerated:
                 {
+                    if (def.EnumItems.Any(i => i.Value < long.MinValue || i.Value > long.MaxValue))
+                    {
+                        throw new Asn1UnsupportedException($"enumeration values of '{name}' must fit in 64 bits");
+                    }
+
                     var info = new EnumerationInfo(def.EnumItems.Select(i => (i.Name, (long)i.Value, i.IsExtension)), def.IsExtensible);
                     var byValue = def.EnumItems.ToDictionary(i => (long)i.Value, i => (object?)i.Name);
                     return Box(new EnumeratedType<object?>(
@@ -78,7 +83,12 @@ public sealed class DynamicTypeFactory
             case TypeKind.Real:
                 return Box(new RealType(name, tags, constraints));
             case TypeKind.BitString:
-                return Box(new BitStringType(name, tags, constraints, [.. def.NamedNumbers.Select(n => new Asn1NamedNumber(n.Name, (long)n.Value))]));
+                if (def.NamedNumbers.Any(n => !Asn1NamedNumber.CanHold(n.Value)))
+                {
+                    throw new Asn1UnsupportedException($"named bit positions of '{name}' must fit in 64 bits");
+                }
+
+                return Box(new BitStringType(name, tags, constraints, NamedNumbers(def)));
             case TypeKind.OctetString:
                 return Box(new OctetStringType(name, tags, constraints));
             case TypeKind.Null:
@@ -148,6 +158,10 @@ public sealed class DynamicTypeFactory
                 throw new Asn1UnsupportedException($"{AsnType.KindName(t.Kind)} ('{name}') is not supported by the dynamic runtime");
         }
     }
+
+    /// <summary>Named numbers and bits as descriptor metadata (see <see cref="Asn1NamedNumber.CanHold"/>).</summary>
+    private static ImmutableArray<Asn1NamedNumber> NamedNumbers(AsnType def) =>
+        [.. def.NamedNumbers.Where(n => Asn1NamedNumber.CanHold(n.Value)).Select(n => new Asn1NamedNumber(n.Name, (long)n.Value))];
 
     private SequenceComponent<Asn1Record> MakeComponent(AsnComponent c)
     {

@@ -99,6 +99,10 @@ Heartbeat back = Asn1Serializer.Decode<Heartbeat>(uper, Asn1EncodingRules.Uper);
 var message = new Message { MessageType = MessageType.Heartbeat, Payload = new Payload.Heartbeat(heartbeat) };
 byte[] der = Asn1Serializer.Encode(MessageType.TimeSyncRequest, MessageType.Asn1Type, Asn1EncodingRules.Der);
 IReadOnlyList<Asn1ValidationError> problems = Asn1Serializer.Validate(message);
+
+// Every generated value is also an IAsn1Value, for code that handles several types without generics.
+IAsn1Value any = heartbeat;
+byte[] bytes = Asn1Serializer.Encode(any, Asn1EncodingRules.Uper);   // any.Asn1Type is the descriptor
 ```
 
 Generated types are `partial` classes with XML documentation taken from the ASN.1 comments. Each type exposes its

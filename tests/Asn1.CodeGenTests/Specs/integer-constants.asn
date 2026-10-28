@@ -1,0 +1,18 @@
+-- Integer constants of unbounded INTEGER types and values beyond 64 bits
+-- (see GeneratorTests.ConstantsOfUnboundedTypesAreTypedByValue).
+
+Integer-Constants DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+maxAge INTEGER ::= 150
+
+huge INTEGER ::= 18446744073709551616
+
+big INTEGER ::= 10000000000000000000
+
+Top ::= INTEGER { top(18446744073709551615) } (0..18446744073709551615)
+
+Code ::= INTEGER { ok(0), fail(1) }
+
+S ::= SEQUENCE { a INTEGER DEFAULT 10000000000000000000 }
+
+END

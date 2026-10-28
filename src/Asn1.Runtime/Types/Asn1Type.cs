@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Collections.Immutable;
 using Asn1.Constraints;
 
@@ -134,6 +135,13 @@ public abstract class Asn1Type
     /// <summary>Encodes a boxed value with a rule (for callers that do not know the CLR type statically).</summary>
     public abstract byte[] EncodeBoxed(Asn1EncodingRule rule, object? value, Asn1EncodingOptions? options = null);
 
+    /// <summary>Encodes a boxed value into a buffer writer.</summary>
+    public virtual void EncodeBoxed(Asn1EncodingRule rule, object? value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(output);
+        output.Write(EncodeBoxed(rule, value, options));
+    }
+
     /// <summary>Decodes a complete encoding into a boxed value.</summary>
     public abstract object? DecodeBoxed(Asn1EncodingRule rule, ReadOnlyMemory<byte> data, Asn1DecodingOptions? options = null);
 
@@ -209,6 +217,10 @@ public abstract class Asn1Type<T> : Asn1Type
     public override byte[] EncodeBoxed(Asn1EncodingRule rule, object? value, Asn1EncodingOptions? options = null) => rule.Encode(this, (T)value!, options);
 
     /// <inheritdoc />
+    public override void EncodeBoxed(Asn1EncodingRule rule, object? value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null) =>
+        rule.Encode(this, (T)value!, output, options);
+
+    /// <inheritdoc />
     public override object? DecodeBoxed(Asn1EncodingRule rule, ReadOnlyMemory<byte> data, Asn1DecodingOptions? options = null) => rule.Decode(this, data, options);
 
     /// <inheritdoc />
@@ -246,11 +258,24 @@ public abstract class Asn1Type<T> : Asn1Type
     }
 }
 
+/// <summary>
+/// A value of a generated SEQUENCE, SET or CHOICE type, without its static type: for APIs that return or accept values
+/// of several generated types. <see cref="Asn1Serializer"/> encodes and validates it through <see cref="Asn1Type"/>.
+/// </summary>
+public interface IAsn1Value
+{
+    /// <summary>The descriptor of this value's type (for a CHOICE alternative, the CHOICE type).</summary>
+    Asn1Type Asn1Type { get; }
+}
+
 /// <summary>Implemented by generated types to expose their descriptor.</summary>
 /// <typeparam name="TSelf">The implementing type.</typeparam>
-public interface IAsn1Value<TSelf>
+public interface IAsn1Value<TSelf> : IAsn1Value
     where TSelf : IAsn1Value<TSelf>
 {
     /// <summary>The descriptor of the type.</summary>
-    static abstract Asn1Type<TSelf> Asn1Type { get; }
+    static abstract new Asn1Type<TSelf> Asn1Type { get; }
+
+    /// <inheritdoc />
+    Asn1Type IAsn1Value.Asn1Type => TSelf.Asn1Type;
 }

@@ -1,6 +1,10 @@
 namespace Asn1.CodeGen.CSharp;
 
-/// <summary>How INTEGER types without finite bounds are mapped.</summary>
+/// <summary>
+/// How INTEGER types without finite bounds are mapped. Bounded INTEGERs always use the smallest CLR type that holds
+/// every value of their effective constraint: byte, ushort, uint or ulong for non-negative ranges, sbyte, short, int or
+/// long otherwise, and BigInteger beyond 64 bits.
+/// </summary>
 public enum IntegerMapping
 {
     /// <summary>Unbounded or extensible INTEGERs use <see cref="System.Numerics.BigInteger"/> (no precision loss).</summary>

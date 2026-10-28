@@ -39,6 +39,8 @@ public sealed partial class CSharpGenerator
     private readonly CSharpGeneratorOptions _options;
     private readonly List<Diagnostic> _diagnostics = [];
     private readonly Dictionary<AsnType, GenType> _types = new(ReferenceEqualityComparer.Instance);
+    private readonly Dictionary<AsnType, IntegerMappingInfo> _integerClr = new(ReferenceEqualityComparer.Instance);
+    private readonly Dictionary<AsnComponent, ExpressionSyntax?> _defaults = new(ReferenceEqualityComparer.Instance);
     private readonly Dictionary<TypeAssignmentSymbol, (ModuleContext Module, string Property)> _assignmentProperties = new(ReferenceEqualityComparer.Instance);
     private readonly List<ModuleContext> _modules = [];
     private readonly HashSet<TypeAssignmentSymbol> _skipped = new(ReferenceEqualityComparer.Instance);
@@ -272,8 +274,11 @@ public sealed partial class CSharpGenerator
                 return "the type contains errors";
             case TypeKind.External or TypeKind.EmbeddedPdv or TypeKind.UnrestrictedCharacterString or TypeKind.OidIri or TypeKind.RelativeOidIri:
                 return $"{AsnType.KindName(type.Kind)} is not supported by the runtime yet";
-            case TypeKind.Enumerated when def.EnumItems.Any(i => i.Value < long.MinValue || i.Value > long.MaxValue):
+            case TypeKind.Enumerated when def.EnumItems.Any(i => !Fits(i.Value, "long")):
                 return "enumeration values must fit in 64 bits";
+            // The runtime's Asn1NamedNumber holds a long (Asn1NamedNumber.CanHold).
+            case TypeKind.BitString when def.NamedNumbers.Any(n => !Fits(n.Value, "long")):
+                return "named bit positions must fit in 64 bits";
         }
 
         foreach (var c in def.Components)
@@ -328,7 +333,7 @@ public sealed partial class CSharpGenerator
         return occ.Kind switch
         {
             TypeKind.Boolean => BoolType,
-            TypeKind.Integer => IntegerType(IntegerClr(occ)),
+            TypeKind.Integer => IntegerType(IntegerInfo(occ).Keyword),
             TypeKind.Real => DoubleType,
             TypeKind.Null => Core("Asn1Null"),
             TypeKind.BitString => Core("Asn1BitString"),
@@ -343,48 +348,65 @@ public sealed partial class CSharpGenerator
         };
     }
 
-    /// <summary>The CLR type of an INTEGER occurrence as a keyword ("int", "long", "ulong") or "BigInteger".</summary>
-    private string IntegerClr(AsnType occ)
+    /// <summary>The CLR keyword of an INTEGER occurrence and whether its range is bounded.</summary>
+    private sealed record IntegerMappingInfo(string Keyword, bool Bounded);
+
+    /// <summary>
+    /// The CLR type of an INTEGER occurrence (computed once per occurrence): the smallest integer type that holds every
+    /// value of the effective constraint, unsigned (byte, ushort, uint, ulong) for non-negative ranges and signed
+    /// (sbyte, short, int, long) otherwise; "BigInteger" (or long, see <see cref="IntegerMapping"/>) when the range is
+    /// unbounded, extensible or wider than 64 bits.
+    /// </summary>
+    private IntegerMappingInfo IntegerInfo(AsnType occ)
+    {
+        if (!_integerClr.TryGetValue(occ, out var info))
+        {
+            _integerClr[occ] = info = Bounds(occ) is var (lo, hi)
+                ? new(SmallestIntegerKeyword(lo, hi), true)
+                : new(_options.IntegerMapping == IntegerMapping.Int64 ? "long" : "BigInteger", false);
+        }
+
+        return info;
+    }
+
+    /// <summary>The bounds of an INTEGER occurrence's effective constraint, or null if it is unbounded or extensible.</summary>
+    private static (BigInteger Lo, BigInteger Hi)? Bounds(AsnType occ)
     {
         var set = ConstraintSets.IntegerSerial(occ.Constraints);
         var extensible = !occ.Constraints.IsDefaultOrEmpty && occ.Constraints[^1].IsExtensible;
-        if (set is null || extensible || set.LowerBound is null || set.UpperBound is null)
-        {
-            return _options.IntegerMapping == IntegerMapping.Int64 ? "long" : "BigInteger";
-        }
-
-        var lo = set.LowerBound.Value;
-        var hi = set.UpperBound.Value;
-        if (lo >= int.MinValue && hi <= int.MaxValue)
-        {
-            return "int";
-        }
-
-        if (lo >= long.MinValue && hi <= long.MaxValue)
-        {
-            return "long";
-        }
-
-        return lo >= 0 && hi <= ulong.MaxValue ? "ulong" : "BigInteger";
+        return set is null || extensible || set.LowerBound is not { } lo || set.UpperBound is not { } hi ? null : (lo, hi);
     }
 
-    private static TypeSyntax IntegerType(string keyword) => keyword switch
-    {
-        "int" => IntType,
-        "long" => LongType,
-        "ulong" => ULongType,
-        _ => BigIntegerType,
-    };
-
-    /// <summary>The CLR integer keyword of an INTEGER occurrence (as <see cref="Clr"/> maps it), or null for other types.</summary>
-    private string? IntegerKeyword(AsnType occ)
+    /// <summary>The definition of an INTEGER occurrence (references followed), whose constraint decides its CLR type.</summary>
+    private AsnType IntegerDefinition(AsnType occ)
     {
         while (BaseNode(occ) is { } b)
         {
             occ = b;
         }
 
-        return occ.Kind == TypeKind.Integer ? IntegerClr(occ) : null;
+        return occ;
+    }
+
+    /// <summary>
+    /// Reports ASN7003 for an INTEGER value that does not fit the C# type of its type, with what the generator does
+    /// instead (<paramref name="consequence"/>).
+    /// </summary>
+    private void ReportValueOutsideType(IntegerValue value, AsnType type, string consequence)
+    {
+        var info = IntegerInfo(IntegerDefinition(type));
+        var mapping = info.Bounded ? string.Empty : " (unbounded and extensible INTEGERs are long with IntegerMapping.Int64)";
+        var keyword = info.Keyword;
+        _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.ValueOutsideType, value.Location, value.Value, keyword + mapping, type.DisplayName, consequence));
+    }
+
+    private static TypeSyntax IntegerType(string keyword) => keyword == "BigInteger" ? BigIntegerType : IntegerKeywordType(keyword);
+
+    /// <summary>The CLR integer keyword of an INTEGER occurrence (as <see cref="Clr"/> maps it), or null for other types.</summary>
+    private string? IntegerKeyword(AsnType occ)
+    {
+        occ = IntegerDefinition(occ);
+        return occ.Kind == TypeKind.Integer ? IntegerInfo(occ).Keyword : null;
     }
 
     private static bool IsValueType(AsnType occ) => occ.Kind is TypeKind.Boolean or TypeKind.Integer or TypeKind.Real or TypeKind.Null or TypeKind.Enumerated;
@@ -444,12 +466,14 @@ public sealed partial class CSharpGenerator
         var name = Str(AsnName(def));
         var tags = TagsOf(def);
         var cons = ConstraintList(def.Constraints);
-        ExpressionSyntax NamedNumbers() => Collection(def.NamedNumbers.Select(n => New(Runtime("Asn1NamedNumber"), Str(n.Name), Int64((long)n.Value))));
+        // Named numbers beyond 64 bits are left out of the metadata (see Asn1NamedNumber.CanHold); the alias class still
+        // has constants for all of them.
+        ExpressionSyntax NamedNumbers() => Collection(def.NamedNumbers.Where(n => Fits(n.Value, "long")).Select(n => New(Runtime("Asn1NamedNumber"), Str(n.Name), Int64((long)n.Value))));
         return def.Kind switch
         {
             TypeKind.Sequence or TypeKind.Set or TypeKind.Choice or TypeKind.Enumerated => _types[def].DescriptorExpression,
             TypeKind.Boolean => New(Runtime("BooleanType"), name, tags, cons),
-            TypeKind.Integer => New(Runtime("IntegerType", IntegerType(IntegerClr(def))), name, tags, cons, NamedNumbers()),
+            TypeKind.Integer => New(Runtime("IntegerType", IntegerType(IntegerInfo(def).Keyword)), name, tags, cons, NamedNumbers()),
             TypeKind.Real => New(Runtime("RealType"), name, tags, cons),
             TypeKind.BitString => New(Runtime("BitStringType"), name, tags, cons, NamedNumbers()),
             TypeKind.OctetString => New(Runtime("OctetStringType"), name, tags, cons),
@@ -486,15 +510,26 @@ public sealed partial class CSharpGenerator
     // ------------------------------------------------------------------ values
 
     /// <summary>An expression for a value of a type occurrence, or null if it cannot be expressed.</summary>
-    private ExpressionSyntax? ValueExpr(AsnValue value, AsnType type)
+    private ExpressionSyntax? ValueExpr(AsnValue value, AsnType type) => ValueExpr(value, type, out _);
+
+    /// <summary>
+    /// An expression for a value of a type occurrence, or null if it cannot be expressed; <paramref name="outside"/> is
+    /// the first INTEGER (with its type) that does not fit the C# type of its type, which is one reason for null.
+    /// </summary>
+    private ExpressionSyntax? ValueExpr(AsnValue value, AsnType type, out (IntegerValue Value, AsnType Type)? outside)
     {
+        outside = null;
         var def = type.Definition;
         switch (value)
         {
             case IntegerValue i when type.Kind == TypeKind.Real:
                 return Float64((double)i.Value);
             case IntegerValue i:
-                return Integer(i.Value, IntegerKeyword(type) ?? "BigInteger");
+                {
+                    var literal = TryInteger(i.Value, IntegerKeyword(type) ?? "BigInteger");
+                    outside = literal is null ? (i, type) : null;
+                    return literal;
+                }
             case BooleanValue b:
                 return Bool(b.Value);
             case RealValue r:
@@ -519,7 +554,7 @@ public sealed partial class CSharpGenerator
                     foreach (var nv in sv.Components)
                     {
                         var comp = def.Components.First(c => c.Name == nv.Name);
-                        if (ValueExpr(nv.Value, comp.Type) is not { } inner)
+                        if (ValueExpr(nv.Value, comp.Type, out outside) is not { } inner)
                         {
                             return null;
                         }
@@ -533,13 +568,23 @@ public sealed partial class CSharpGenerator
             case ChoiceValue cv when _types.TryGetValue(def, out var ch):
                 {
                     var alt = def.Components.First(c => c.Name == cv.Alternative);
-                    return ValueExpr(cv.Value, alt.Type) is { } inner ? New(Dot(ch.TypeName, ch.Members[alt]), inner) : null;
+                    return ValueExpr(cv.Value, alt.Type, out outside) is { } inner ? New(Dot(ch.TypeName, ch.Members[alt]), inner) : null;
                 }
 
             case SequenceOfValue so when def.ElementType is { } et:
                 {
-                    var items = so.Items.Select(i => ValueExpr(i, et)).ToList();
-                    return items.Any(i => i is null) ? null : NewWithItems(Clr(type), items!);
+                    var items = new List<ExpressionSyntax>();
+                    foreach (var item in so.Items)
+                    {
+                        if (ValueExpr(item, et, out outside) is not { } expr)
+                        {
+                            return null;
+                        }
+
+                        items.Add(expr);
+                    }
+
+                    return NewWithItems(Clr(type), items);
                 }
 
             default:

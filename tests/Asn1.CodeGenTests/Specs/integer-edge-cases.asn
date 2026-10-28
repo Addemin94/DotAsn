@@ -1,0 +1,38 @@
+-- INTEGER values that do not fit the CLR type of their INTEGER type (see GeneratorTests.IntegerValuesOutsideTheirTypeStillCompile).
+
+Integer-Edge-Cases DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+-- X.680 19.5: named numbers may lie outside the constraint.
+A ::= INTEGER { unknown(-1), max(255) } (0..255)
+
+B ::= INTEGER { unknown(-1), big(5000000000) } (0..4294967295)
+
+-- Named numbers and named bits with the names of inherited members.
+Methods ::= INTEGER { toString(1), equals(2) } (0..7)
+
+Flags ::= BIT STRING { getType(0), asn1Type(1) }
+
+-- A named bit beyond int, and one beyond 64 bits (unsupported: it cannot be carried as metadata).
+Wide ::= BIT STRING { far(3000000000) }
+
+Huge ::= BIT STRING { huge(9223372036854775808) }
+
+Members ::= SEQUENCE { referenceEquals BOOLEAN, toString BOOLEAN }
+
+Port ::= INTEGER (0..65535)
+
+R ::= SEQUENCE { u8 INTEGER (0..255), l SEQUENCE OF INTEGER (0..4294967295) }
+
+-- Values that violate their type's constraint.
+p Port ::= 70000
+
+nested R ::= { u8 300, l { 1 } }
+
+nested2 R ::= { u8 1, l { -1 } }
+
+-- Valid values.
+ok Port ::= 8080
+
+good R ::= { u8 255, l { 4294967295 } }
+
+END
