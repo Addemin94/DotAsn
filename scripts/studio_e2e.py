@@ -86,22 +86,30 @@ def main():
         page.goto(url)
         tab = lambda name: page.locator('nav.tabs button', has_text=name).first
         primary = lambda name: page.locator('section button.primary', has_text=name).first
+        # The schema and value editors are CodeMirror (contenteditable); the decode and inspect inputs are textareas.
+        schema_editor = page.locator('.code-editor[data-language="asn1"] .cm-content')
+        value_editor = page.locator('.code-editor[data-language="json"] .cm-content')
 
         step('boots under the base path and compiles the default sample')
         expect(page.locator('.status')).to_contain_text('type(s) ready')
 
+        step('highlights the schema with the DotAsn lexer')
+        expect(page.locator('.code-editor .dotasn-keyword', has_text='DEFINITIONS').first).to_be_visible()
+        expect(page.locator('.code-editor .dotasn-builtintype', has_text='SEQUENCE').first).to_be_visible()
+        expect(page.locator('.code-editor .dotasn-typereference', has_text='Heartbeat').first).to_be_visible()
+
         step('encodes a Heartbeat with UPER (X.691 known answer 07EE6B2800)')
         tab('Encode').click()
-        page.locator('textarea.editor').fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
+        value_editor.fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
         primary('Encode').click()
         expect(output(page, 'UPER hex')).to_have_text('07 EE 6B 28 00')
         expect(page.locator('section')).to_contain_text('40 significant bit(s)')
 
         step('validates constraints of nested components')
-        page.locator('textarea.editor').fill('{"sequenceNumber": 300, "uptimeSeconds": 4000000000}')
+        value_editor.fill('{"sequenceNumber": 300, "uptimeSeconds": 4000000000}')
         page.get_by_role('button', name='Validate').click()
         expect(output(page, 'Validation')).to_contain_text('sequenceNumber')
-        page.locator('textarea.editor').fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
+        value_editor.fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
         page.get_by_role('button', name='Validate').click()
         expect(output(page, 'Validation')).to_contain_text('satisfies all constraints')
 
@@ -124,17 +132,26 @@ def main():
         step('inspects DER TLVs (schema-less)')
         tab('Encode').click()
         page.locator('section select[title="Encoding rule"]').first.select_option('DER')
-        page.locator('textarea.editor').fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
+        value_editor.fill('{"sequenceNumber": 7, "uptimeSeconds": 4000000000}')
         primary('Encode').click()
         expect(output(page, 'DER hex')).to_have_text('30 0A 80 01 07 81 05 00 EE 6B 28 00')
         page.get_by_role('button', name='Inspect TLVs').click()
         expect(output(page, 'TLV structure')).not_to_be_empty()
         expect(output(page, 'TLV structure')).not_to_contain_text('error')
 
-        step('generates C# (lazy-loads Roslyn)')
+        step('generates highlighted C# in the prefilled namespace (lazy-loads Roslyn)')
         tab('C#').click()
+        expect(page.get_by_label('Namespace')).to_have_value('Protocol.Test')
         primary('Generate').click()
-        expect(output(page, 'Generated C#')).to_contain_text('public sealed partial class Heartbeat', timeout=120_000)
+        csharp = page.locator('.code-editor[data-language="csharp"] .cm-content')
+        expect(csharp).to_contain_text('namespace Protocol.Test;', timeout=120_000)
+        expect(page.locator('.code-editor[data-language="csharp"] .dotasn-keyword', has_text='namespace').first).to_be_visible()
+        expect(page.locator('.code-editor[data-language="csharp"] .dotasn-comment').first).to_be_visible()
+        # Read-only: selectable and copyable, but typing changes nothing.
+        expect(csharp).to_have_attribute('aria-readonly', 'true')
+        csharp.click()
+        page.keyboard.type('xyz')
+        expect(csharp).not_to_contain_text('xyz')
 
         step('shows the resolved model')
         tab('Model').click()
@@ -142,12 +159,17 @@ def main():
 
         step('reports compile errors with locations')
         tab('Schema').click()
-        page.locator('textarea.editor').fill('M DEFINITIONS ::= BEGIN\n  A ::= SEQUENCE { a INTEGER, }\nEND')
+        schema_editor.fill('M DEFINITIONS ::= BEGIN\n  A ::= SEQUENCE { a Missing }\nEND')
         primary('Compile').click()
         expect(page.locator('.status')).to_contain_text('error(s)')
         expect(page.locator('table.diagnostics .badge.error').first).to_be_visible()
+        # Inline: the unresolved reference is underlined and explained on hover.
+        expect(page.locator('.cm-lintRange-error', has_text='Missing')).to_be_visible()
+        page.locator('.cm-lintRange-error', has_text='Missing').hover()
+        expect(page.locator('.cm-tooltip-lint')).to_contain_text('Missing')
+        # Clicking a diagnostic moves the cursor to its line.
         page.locator('table.diagnostics tbody tr').first.click()
-        expect(output(page, 'Line 2')).to_contain_text('^')
+        expect(page.locator('.cm-activeLine')).to_contain_text('A ::= SEQUENCE')
 
         step('loads a sample from the samples directory')
         page.locator('select[title="Load a sample specification"]').select_option('extensibility/extensibility.asn')

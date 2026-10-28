@@ -12,6 +12,18 @@
     --warn: #9a6100;
     --code: #f0f2f5;
     --selected: #e4ebfb;
+    --editor-selection: #c9d7f7;
+    --editor-active-line: rgba(47, 91, 211, 0.06);
+    --syn-comment: #6a737d;
+    --syn-keyword: #a3247e;
+    --syn-builtin: #0b6e99;
+    --syn-type: #2f5bd3;
+    --syn-name: #1d2330;
+    --syn-field: #7a4cc2;
+    --syn-string: #1f7a3d;
+    --syn-number: #b35c00;
+    --syn-punctuation: #5d6677;
+    --syn-invalid: #b42318;
     color-scheme: light;
 }
 
@@ -29,6 +41,18 @@
         --warn: #e3b05c;
         --code: #11141a;
         --selected: #26324d;
+        --editor-selection: #2c3d63;
+        --editor-active-line: rgba(111, 147, 240, 0.08);
+        --syn-comment: #7d8796;
+        --syn-keyword: #e08bd0;
+        --syn-builtin: #56c2e6;
+        --syn-type: #8eaaf5;
+        --syn-name: #e3e6eb;
+        --syn-field: #c3a3f5;
+        --syn-string: #7fd197;
+        --syn-number: #f0b36a;
+        --syn-punctuation: #98a1b0;
+        --syn-invalid: #f0857b;
         color-scheme: dark;
     }
 }
@@ -254,3 +278,16 @@ code {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
     text-align: start;
 }
+
+/* Code editor (Components/CodeEditor.razor, CodeMirror). ASN.1 token classes come from Asn1.Syntax.SyntaxClass. */
+.code-editor { margin: 0.4rem 0; }
+.dotasn-comment { color: var(--syn-comment); font-style: italic; }
+.dotasn-keyword { color: var(--syn-keyword); font-weight: 600; }
+.dotasn-builtintype { color: var(--syn-builtin); }
+.dotasn-builtinvalue, .dotasn-number { color: var(--syn-number); }
+.dotasn-typereference { color: var(--syn-type); }
+.dotasn-identifier { color: var(--syn-name); }
+.dotasn-fieldreference { color: var(--syn-field); }
+.dotasn-string { color: var(--syn-string); }
+.dotasn-operator, .dotasn-bracket { color: var(--syn-punctuation); }
+.dotasn-invalid { color: var(--syn-invalid); text-decoration: underline wavy; }

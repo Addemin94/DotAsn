@@ -9,11 +9,19 @@ using Asn1.Runtime;
 using Asn1.Runtime.Ber;
 using Asn1.Runtime.Per;
 using Asn1.Semantics;
+using Asn1.Syntax;
 
 namespace Asn1.Studio.Engine;
 
 /// <summary>A diagnostic prepared for display.</summary>
-public sealed record DiagnosticView(DiagnosticSeverity Severity, string Id, int Line, int Column, string Message);
+/// <param name="Severity">Severity.</param>
+/// <param name="Id">Diagnostic ID, e.g. ASN2001.</param>
+/// <param name="Line">One-based line (0 without a location).</param>
+/// <param name="Column">One-based column (0 without a location).</param>
+/// <param name="Message">Message.</param>
+/// <param name="From">Start offset in the schema text (UTF-16 code units), or -1 without a location.</param>
+/// <param name="To">Exclusive end offset in the schema text, or -1 without a location.</param>
+public sealed record DiagnosticView(DiagnosticSeverity Severity, string Id, int Line, int Column, string Message, int From = -1, int To = -1);
 
 /// <summary>The result of compiling (and optionally linting) a schema.</summary>
 public sealed record CompileResult(IReadOnlyList<DiagnosticView> Diagnostics, IReadOnlyList<string> Types, TimeSpan Elapsed)
@@ -71,6 +79,24 @@ public sealed class Workbench
     /// <summary>True when a schema compiled without errors.</summary>
     public bool HasSchema => _compilation is not null;
 
+    /// <summary>
+    /// Highlighting of ASN.1 text from the DotAsn lexer (<see cref="SyntaxClassifier"/>), as flat (start, length,
+    /// class) triples for the editor; the class is the <see cref="SyntaxClass"/> value.
+    /// </summary>
+    public static int[] Highlight(string text)
+    {
+        var spans = SyntaxClassifier.Classify(text);
+        var result = new int[spans.Count * 3];
+        for (var i = 0; i < spans.Count; i++)
+        {
+            result[i * 3] = spans[i].Start;
+            result[(i * 3) + 1] = spans[i].Length;
+            result[(i * 3) + 2] = (int)spans[i].Class;
+        }
+
+        return result;
+    }
+
     /// <summary>Compiles a schema; on success its types become available to the other tools.</summary>
     public CompileResult Compile(string text, bool lint = true, IEnumerable<string>? lintEncodingRules = null)
     {
@@ -84,7 +110,9 @@ public sealed class Workbench
         }
 
         var views = diagnostics
-            .Select(d => new DiagnosticView(d.Severity, d.Descriptor.Id, d.Location.Start.Line, d.Location.Start.Column, d.Message))
+            .Select(d => d.Location.IsNone
+                ? new DiagnosticView(d.Severity, d.Descriptor.Id, 0, 0, d.Message)
+                : new DiagnosticView(d.Severity, d.Descriptor.Id, d.Location.Start.Line, d.Location.Start.Column, d.Message, d.Location.Span.Start, d.Location.Span.End))
             .Distinct()
             .OrderBy(d => d.Line).ThenBy(d => d.Column).ThenBy(d => d.Id, StringComparer.Ordinal)
             .ToList();
