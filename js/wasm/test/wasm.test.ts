@@ -85,6 +85,34 @@ describe('WebAssembly runtime', () => {
     assert.equal(errors[0]!.path, 'sequenceNumber');
   });
 
+  it('encodes values outside their constraints only when asked to', async () => {
+    const asn1 = await loadDotAsn(telemetrySchema);
+    const value = { sequenceNumber: 300, uptimeSeconds: 1 };
+    assert.throws(() => asn1.ber.encode(T.Heartbeat, value));
+    const bytes = asn1.ber.encode(T.Heartbeat, value, { validateConstraints: false });
+    assert.equal(asn1.ber.decode(T.Heartbeat, bytes, { validateConstraints: false }).sequenceNumber, 300);
+  });
+
+  it('decodes ENUMERATED items from a later version, which cannot be encoded', async () => {
+    const asn1 = await loadDotAsn(runtimeSchema);
+    for (const rule of [asn1.uper, asn1.ber, asn1.oer]) {
+      const unknown = rule.decode(R.Color1, rule.encode(R.Color2, 'blue'));
+      assert.ok(typeof unknown === 'object' && '$unknown' in unknown, rule.name);
+      assert.throws(() => rule.encode(R.Color1, unknown), /later version/);
+    }
+
+    // UPER carries the extension index: blue is the first extension addition.
+    assert.deepEqual(asn1.uper.decode(R.Color1, asn1.uper.encode(R.Color2, 'blue')), { $unknown: 0 });
+  });
+
+  it('encodes inline types through their own descriptors', async () => {
+    const asn1 = await loadDotAsn(runtimeSchema);
+    assert.equal(rt.resolve(R.NestedInner).name, 'Runtime-Test.Nested.inner');
+    const bytes = asn1.uper.encode(R.NestedInner, { a: 5, b: true });
+    assert.deepEqual(asn1.uper.decode(R.NestedInner, bytes), { a: 5, b: true });
+    assert.deepEqual(asn1.uper.encode(R.Nested, { inner: { a: 5, b: true } }), bytes);
+  });
+
   it('relays unknown extensions within the same rule', async () => {
     const asn1 = await loadDotAsn(runtimeSchema);
     for (const rule of [asn1.ber, asn1.uper, asn1.aper, asn1.oer, asn1.jer]) {

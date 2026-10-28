@@ -35,11 +35,25 @@ export interface DecodeOptions {
   readonly validateConstraints?: boolean;
 }
 
-/** An encoding rule of a loaded schema, for values described by generated descriptors. */
+/** Encoding options (those of the .NET runtime's Asn1EncodingOptions). */
+export interface EncodeOptions {
+  /** Check constraints before encoding (default true). */
+  readonly validateConstraints?: boolean;
+  /**
+   * PER: send a value of no bits as one zero octet (X.691 11.1.3, the default) rather than as no octets, which some
+   * implementations (e.g. asn1scc, asn1tools) expect.
+   */
+  readonly emptyPerEncodingAsZeroOctet?: boolean;
+}
+
+/**
+ * An encoding rule of a loaded schema, for values described by generated descriptors. Descriptors of type assignments
+ * and of inline SEQUENCE/SET/CHOICE/ENUMERATED types (named by their path, e.g. `Module.Type.component`) can be used.
+ */
 export interface EncodingRule {
   /** The rule's name: BER, CER, DER, APER, UPER, OER, COER, JER, XER or CXER. */
   readonly name: RuleName;
-  encode<T>(type: Asn1Type<T>, value: T): Uint8Array;
+  encode<T>(type: Asn1Type<T>, value: T, options?: EncodeOptions): Uint8Array;
   decode<T>(type: Asn1Type<T>, data: Uint8Array, options?: DecodeOptions): T;
 }
 
@@ -66,7 +80,7 @@ export interface DotAsn {
   /** The rule with this name. */
   rule(name: RuleName): EncodingRule;
   /** Encodes a value given in the JSON value notation, by type name (qualified, or unqualified if unambiguous). */
-  encodeNotation(type: string, rule: RuleName, value: unknown): Uint8Array;
+  encodeNotation(type: string, rule: RuleName, value: unknown, options?: EncodeOptions): Uint8Array;
   /** Decodes to the JSON value notation, by type name. */
   decodeNotation(type: string, rule: RuleName, data: Uint8Array, options?: DecodeOptions): unknown;
   /** Checks a value against the type's constraints; an empty array means valid. */
@@ -80,7 +94,11 @@ let shared: Promise<DotAsnModule> | undefined;
 /** Instantiates the WebAssembly module (once; later calls return the same instance unless options are given). */
 function loadModule(options?: LoadOptions): Promise<DotAsnModule> {
   if (options?.wasm === undefined) {
-    return (shared ??= createDotAsnModule());
+    // A failed load (e.g. a network error fetching dotasn.wasm) is not cached: the next call tries again.
+    return (shared ??= createDotAsnModule().catch((error: unknown) => {
+      shared = undefined;
+      throw error;
+    }));
   }
 
   const wasm = options.wasm;
@@ -142,8 +160,8 @@ class Session implements DotAsn {
       const session = this;
       rule = {
         name,
-        encode<T>(type: Asn1Type<T>, value: T): Uint8Array {
-          return session.encodeNotation(resolve(type).name, name, toNotation(type, value));
+        encode<T>(type: Asn1Type<T>, value: T, options?: EncodeOptions): Uint8Array {
+          return session.encodeNotation(resolve(type).name, name, toNotation(type, value), options);
         },
         decode<T>(type: Asn1Type<T>, data: Uint8Array, options?: DecodeOptions): T {
           return fromNotation(type, session.decodeNotation(resolve(type).name, name, data, options));
@@ -155,9 +173,10 @@ class Session implements DotAsn {
     return rule;
   }
 
-  encodeNotation(type: string, rule: RuleName, value: unknown): Uint8Array {
+  encodeNotation(type: string, rule: RuleName, value: unknown, options?: EncodeOptions): Uint8Array {
     const json = JSON.stringify(value);
-    return this.call(() => this.m._dotasn_encode(this.live(), ...this.args(type), ...this.args(rule), ...this.args(json)));
+    const settings = options === undefined ? '' : JSON.stringify(options);
+    return this.call(() => this.m._dotasn_encode(this.live(), ...this.args(type), ...this.args(rule), ...this.args(json), ...this.args(settings)));
   }
 
   decodeNotation(type: string, rule: RuleName, data: Uint8Array, options?: DecodeOptions): unknown {

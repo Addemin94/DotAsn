@@ -73,14 +73,15 @@ public static unsafe class Exports
 
     /// <summary>
     /// Encodes a value given in the JSON value notation. <paramref name="rule"/> is BER, CER, DER, APER, UPER, OER,
-    /// COER, JER, XER or CXER. The result is the encoding.
+    /// COER, JER, XER or CXER; <paramref name="options"/> is an optional JSON object with validateConstraints and
+    /// emptyPerEncodingAsZeroOctet. The result is the encoding.
     /// </summary>
     [UnmanagedCallersOnly(EntryPoint = "dotasn_encode")]
-    public static int Encode(int handle, byte* type, int typeLength, byte* rule, int ruleLength, byte* json, int jsonLength) => Run(() =>
+    public static int Encode(int handle, byte* type, int typeLength, byte* rule, int ruleLength, byte* json, int jsonLength, byte* options, int optionsLength) => Run(() =>
     {
         var encodingRule = Rule(Text(rule, ruleLength));
         var descriptor = Schema(handle).GetType(Text(type, typeLength));
-        return encodingRule.Encode(descriptor, DynamicJson.Parse(descriptor, Text(json, jsonLength)));
+        return encodingRule.Encode(descriptor, DynamicJson.Parse(descriptor, Text(json, jsonLength)), EncodingOptions(options, optionsLength));
     });
 
     /// <summary>
@@ -131,6 +132,29 @@ public static unsafe class Exports
         ?? throw new ArgumentException($"unknown encoding rule '{name}' (expected one of {string.Join(", ", Asn1EncodingRules.All.Select(r => r.Name))})");
 
     private static string Text(byte* p, int length) => Encoding.UTF8.GetString(p, length);
+
+    private static Asn1EncodingOptions EncodingOptions(byte* p, int length)
+    {
+        if (length == 0)
+        {
+            return Asn1EncodingOptions.Default;
+        }
+
+        using var doc = JsonDocument.Parse(new ReadOnlyMemory<byte>(new ReadOnlySpan<byte>(p, length).ToArray()));
+        var o = doc.RootElement;
+        var options = Asn1EncodingOptions.Default;
+        if (o.TryGetProperty("validateConstraints", out var validate))
+        {
+            options = options with { ValidateConstraints = validate.GetBoolean() };
+        }
+
+        if (o.TryGetProperty("emptyPerEncodingAsZeroOctet", out var empty))
+        {
+            options = options with { EmptyPerEncodingAsZeroOctet = empty.GetBoolean() };
+        }
+
+        return options;
+    }
 
     private static Asn1DecodingOptions DecodingOptions(byte* p, int length)
     {

@@ -80,6 +80,13 @@ describe('value notation', () => {
     assert.deepEqual(rt.fromNotation(shape, json), unknown);
   });
 
+  it('reads and writes ENUMERATED items from a later version', () => {
+    // The WebAssembly runtime decodes them as "#unknown-extension-<PER index>" (-1 without an index).
+    assert.deepEqual(rt.fromNotation(color, '#unknown-extension-2'), { $unknown: 2 });
+    assert.deepEqual(rt.fromNotation(color, '#unknown-extension--1'), { $unknown: -1 });
+    assert.equal(rt.toNotation(color as rt.Asn1Type<unknown>, { $unknown: 2 }), '#unknown-extension-2');
+  });
+
   it('resolves aliases under their own name', () => {
     assert.equal(rt.resolve(alias).name, 'M.Alias');
     assert.deepEqual(rt.fromNotation(alias, { x: 3 }), { x: 3 });

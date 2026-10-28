@@ -10,7 +10,7 @@ export interface DotAsnModule {
   _dotasn_load_schema(json: number, length: number): number;
   _dotasn_unload_schema(handle: number): void;
   _dotasn_type_names(handle: number): number;
-  _dotasn_encode(handle: number, type: number, typeLength: number, rule: number, ruleLength: number, json: number, jsonLength: number): number;
+  _dotasn_encode(handle: number, type: number, typeLength: number, rule: number, ruleLength: number, json: number, jsonLength: number, options: number, optionsLength: number): number;
   _dotasn_decode(handle: number, type: number, typeLength: number, rule: number, ruleLength: number, data: number, dataLength: number, options: number, optionsLength: number): number;
   _dotasn_validate(handle: number, type: number, typeLength: number, json: number, jsonLength: number): number;
 }

@@ -255,6 +255,11 @@ public static class DynamicJson
             case Asn1TypeKind.Enumerated:
                 {
                     var name = ExpectString(e, path);
+                    if (name.StartsWith("#unknown-extension-", StringComparison.Ordinal))
+                    {
+                        throw new Asn1JsonException($"{name} is an item of {inner.Name} from a later version, which cannot be encoded", path);
+                    }
+
                     if (inner is EnumeratedType<object?> en && en.Enumeration.FindByName(name) is null)
                     {
                         throw new Asn1JsonException($"'{name}' is not an item of {inner.Name}", path);

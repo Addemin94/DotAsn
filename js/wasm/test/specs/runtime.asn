@@ -47,6 +47,10 @@ Node ::= SEQUENCE {
 
 List ::= SEQUENCE OF INTEGER (0..255)
 
+Nested ::= SEQUENCE {
+  inner SEQUENCE { a INTEGER (0..7), b BOOLEAN }
+}
+
 Holder ::= SEQUENCE {
   kind  INTEGER (0..3),
   body  TYPE-IDENTIFIER.&Type

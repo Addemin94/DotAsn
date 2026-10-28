@@ -199,7 +199,7 @@ public sealed class TypeScriptGenerator
         {
             foreach (var entry in ctx.Entries.OfType<TypeEntry>().ToList())
             {
-                VisitMembers(entry.Node, entry.Name, ctx, 0);
+                VisitMembers(entry.Node, entry.Name, ctx, 0, entry.AsnName);
             }
 
             foreach (var va in ctx.Module.ValueAssignments)
@@ -214,7 +214,12 @@ public sealed class TypeScriptGenerator
         }
     }
 
-    private void Visit(AsnType occ, string preferredName, ModuleContext ctx, int depth)
+    /// <summary>
+    /// Names inline types. Their ASN.1 name is their path from the type assignment (<c>Module.Type.component</c>,
+    /// <c>[]</c> for SEQUENCE OF elements), the name under which <see cref="Dynamic.Asn1SchemaWriter"/> registers them, so
+    /// that their descriptors can be encoded with @dotasn/wasm on their own.
+    /// </summary>
+    private void Visit(AsnType occ, string preferredName, ModuleContext ctx, int depth, string path)
     {
         if (depth > 64)
         {
@@ -225,7 +230,7 @@ public sealed class TypeScriptGenerator
         {
             if (!_named.ContainsKey(target) && target.Assignment is null)
             {
-                Visit(target, preferredName, ctx, depth + 1);
+                Visit(target, preferredName, ctx, depth + 1, path);
             }
 
             return;
@@ -235,33 +240,33 @@ public sealed class TypeScriptGenerator
         {
             var name = ctx.Allocate(preferredName, "Type");
             _named[occ] = new Named(ctx, name);
-            ctx.Entries.Add(new TypeEntry(name, occ, null, AsnName(occ)));
-            VisitMembers(occ, name, ctx, depth);
+            ctx.Entries.Add(new TypeEntry(name, occ, null, path));
+            VisitMembers(occ, name, ctx, depth, path);
             return;
         }
 
         if (occ.IsCollection && occ.ElementType is { } element)
         {
-            Visit(element, preferredName + "Item", ctx, depth + 1);
+            Visit(element, preferredName + "Item", ctx, depth + 1, path + "[]");
         }
     }
 
-    private void VisitMembers(AsnType node, string ownerName, ModuleContext ctx, int depth)
+    private void VisitMembers(AsnType node, string ownerName, ModuleContext ctx, int depth, string path)
     {
         if (node.Target is not null)
         {
-            Visit(node, ownerName, ctx, depth + 1);
+            Visit(node, ownerName, ctx, depth + 1, path);
             return;
         }
 
         foreach (var c in node.Components)
         {
-            Visit(c.Type, ownerName + Pascal(c.Name), ctx, depth + 1);
+            Visit(c.Type, ownerName + Pascal(c.Name), ctx, depth + 1, path + "." + c.Name);
         }
 
         if (node.IsCollection && node.ElementType is { } element)
         {
-            Visit(element, ownerName + "Item", ctx, depth + 1);
+            Visit(element, ownerName + "Item", ctx, depth + 1, path + "[]");
         }
     }
 
@@ -279,8 +284,12 @@ public sealed class TypeScriptGenerator
                 return "the type contains errors";
             case TypeKind.External or TypeKind.EmbeddedPdv or TypeKind.UnrestrictedCharacterString or TypeKind.OidIri or TypeKind.RelativeOidIri:
                 return $"{AsnType.KindName(type.Kind)} is not supported by the generated TypeScript and the WebAssembly runtime";
-            case TypeKind.Enumerated when def.EnumItems.Any(i => BigInteger.Abs(i.Value) > MaxSafe):
-                return "enumeration values must fit in ±(2^53 - 1)";
+            case TypeKind.Enumerated or TypeKind.BitString when Dynamic.DynamicTypeFactory.UnsupportedReason(type) is { } reason:
+                // The limits of the WebAssembly runtime, which loads the schema (as for the dynamic runtime).
+                return reason;
+            case TypeKind.BitString when def.NamedNumbers.Any(n => BigInteger.Abs(n.Value) > MaxSafe):
+                // Named bit positions are JavaScript numbers in the descriptors.
+                return "named bit positions must fit in ±(2^53 - 1)";
         }
 
         foreach (var c in def.Components)
@@ -328,6 +337,10 @@ public sealed class TypeScriptGenerator
                 case TypeEntry t:
                     body.Add(TypeDeclaration(t));
                     body.Add(new TsConst(t.Name, DescriptorType(t.Name), Literal(t.Node, t.AsnName), null));
+                    break;
+                case ValueEntry v when ValueExpr(v.Value.Value!, v.Value.Type!, out var outside) is not { } && outside is var (value, ofType):
+                    // An INTEGER beyond ±(2^53 - 1) whose type is generated as number (it violates its constraint).
+                    _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.ValueOutsideType, value.Location, value.Value, "number", "TypeScript", ofType.DisplayName, $"'{v.Value.Name}' is not generated"));
                     break;
                 case ValueEntry v when ValueExpr(v.Value.Value!, v.Value.Type!) is { } expr:
                     body.Add(new TsConst(v.Name, TypeOf(v.Value.Type!), expr, Doc(v.Value.Documentation, $"ASN.1: {v.Value.Name} {Notation(v.Value.Type!)} ::= {v.Value.Value}")));
@@ -571,15 +584,27 @@ public sealed class TypeScriptGenerator
     // ------------------------------------------------------------------ values
 
     /// <summary>A TypeScript expression for a value of a type occurrence, or null when it cannot be represented.</summary>
-    private TsExpression? ValueExpr(AsnValue value, AsnType type)
+    private TsExpression? ValueExpr(AsnValue value, AsnType type) => ValueExpr(value, type, out _);
+
+    /// <summary>
+    /// A TypeScript expression for a value, or null; <paramref name="outside"/> is the first INTEGER (with its type) that
+    /// a <c>number</c> cannot hold exactly, which is one reason for null.
+    /// </summary>
+    private TsExpression? ValueExpr(AsnValue value, AsnType type, out (IntegerValue Value, AsnType Type)? outside)
     {
+        outside = null;
         var def = type.Definition;
         switch (value)
         {
             case IntegerValue i when def.Kind == TypeKind.Real:
                 return TsNumber.Float((double)i.Value);
+            case IntegerValue i when IsBig(type):
+                return new TsBigInt(i.Value);
+            case IntegerValue i when BigInteger.Abs(i.Value) > MaxSafe:
+                outside = (i, type);
+                return null;
             case IntegerValue i:
-                return IsBig(type) ? new TsBigInt(i.Value) : TsNumber.Integer(i.Value);
+                return TsNumber.Integer(i.Value);
             case BooleanValue b:
                 return new TsBoolean(b.Value);
             case RealValue r:
@@ -603,7 +628,7 @@ public sealed class TypeScriptGenerator
                     var members = new List<TsObjectMember>();
                     foreach (var nv in sv.Components)
                     {
-                        if (def.Components.FirstOrDefault(c => c.Name == nv.Name) is not { } comp || ValueExpr(nv.Value, comp.Type) is not { } inner)
+                        if (def.Components.FirstOrDefault(c => c.Name == nv.Name) is not { } comp || ValueExpr(nv.Value, comp.Type, out outside) is not { } inner)
                         {
                             return null;
                         }
@@ -617,13 +642,23 @@ public sealed class TypeScriptGenerator
             case ChoiceValue cv:
                 {
                     var alt = def.Components.FirstOrDefault(c => c.Name == cv.Alternative);
-                    return alt is not null && ValueExpr(cv.Value, alt.Type) is { } inner ? Obj([new(cv.Alternative, inner)]) : null;
+                    return alt is not null && ValueExpr(cv.Value, alt.Type, out outside) is { } inner ? Obj([new(cv.Alternative, inner)]) : null;
                 }
 
             case SequenceOfValue so when def.ElementType is { } et:
                 {
-                    var items = so.Items.Select(i => ValueExpr(i, et)).ToList();
-                    return items.Any(i => i is null) ? null : new TsArray([.. items!]);
+                    var items = new List<TsExpression>();
+                    foreach (var item in so.Items)
+                    {
+                        if (ValueExpr(item, et, out outside) is not { } expr)
+                        {
+                            return null;
+                        }
+
+                        items.Add(expr);
+                    }
+
+                    return new TsArray([.. items]);
                 }
 
             default:

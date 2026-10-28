@@ -3,7 +3,7 @@
 
 import { bitString, bitsFromBinary, fromHex, toHex } from './helpers.ts';
 import { Asn1Error } from './errors.ts';
-import { elementOf, resolve, typeOf, type Asn1Type, type BitString, type Descriptor, type OpenValue } from './types.ts';
+import { elementOf, resolve, typeOf, type Asn1Type, type BitString, type Descriptor, type OpenValue, type UnknownEnumItem } from './types.ts';
 
 const maxSafe = BigInt(Number.MAX_SAFE_INTEGER);
 
@@ -56,6 +56,12 @@ function read(t: Descriptor, j: unknown, path: string): unknown {
 
     case 'enumerated': {
       const name = typeof j === 'string' ? j : fail('expected a string', path);
+      const unknown = /^#unknown-extension-(-?\d+)$/.exec(name);
+      if (unknown) {
+        // An item from a later version, as the WebAssembly runtime decodes it.
+        return { $unknown: Number(unknown[1]) } satisfies UnknownEnumItem;
+      }
+
       return t.items.includes(name) ? name : fail(`'${name}' is not an item of ${t.name}`, path);
     }
 
@@ -225,6 +231,8 @@ function write(t: Descriptor, v: unknown): unknown {
       return 'encoded' in o ? { encoding: o.rule, hex: toHex(o.encoded) } : { type: resolve(o.type).name, value: write(resolve(o.type), o.value) };
     }
 
+    case 'enumerated':
+      return typeof v === 'object' && v !== null && '$unknown' in v ? `#unknown-extension-${(v as UnknownEnumItem).$unknown}` : v;
     case 'sequence':
     case 'set': {
       const obj = v as Record<string, unknown>;

@@ -63,8 +63,12 @@ Failures throw these errors (all extend `Asn1Error` of `@dotasn/runtime`):
 * `Asn1EncodeError` is raised for invalid values and constraint violations, with the component `path`.
 * `Asn1NotationError` is raised for values that do not fit the type.
 
-Decoders take `{ rejectTrailingData, maxDepth, maxCollectionCount, maxStringLength, validateConstraints }`; the defaults
-are the .NET defaults.
+Decoders take `{ rejectTrailingData, maxDepth, maxCollectionCount, maxStringLength, validateConstraints }` and encoders
+take `{ validateConstraints, emptyPerEncodingAsZeroOctet }` (set the latter to `false` to send a PER value of no bits
+as no octets, as asn1scc and asn1tools expect); the defaults are the .NET defaults.
+
+Descriptors of inline types (e.g. the SEQUENCE inside a component) are named by their path, `Module.Type.component`,
+and can be encoded and decoded on their own like those of type assignments.
 
 ## Loading the module
 

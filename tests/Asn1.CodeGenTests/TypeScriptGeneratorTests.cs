@@ -200,4 +200,42 @@ public class TypeScriptGeneratorTests
 
         Assert.DoesNotContain(Generate(asn, new TypeScriptGeneratorOptions { GenerateSchema = false }).Files, f => f.Path == TypeScriptGenerator.SchemaFileName);
     }
+
+    [Fact]
+    public void InlineTypesAreNamedByTheirPathLikeInTheSchema()
+    {
+        const string asn = """
+            M DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+              Outer ::= SEQUENCE { inner SEQUENCE { kind ENUMERATED { x, y } }, items SEQUENCE OF SEQUENCE { b BOOLEAN } }
+            END
+            """;
+        var compilation = Compile(("test.asn", asn));
+        var ts = Single(TypeScriptGenerator.Generate(compilation));
+        var schema = Asn1.Dynamic.Asn1Schema.Parse(Asn1.Dynamic.Asn1SchemaWriter.Write(compilation));
+        foreach (var path in new[] { "M.Outer.inner", "M.Outer.inner.kind", "M.Outer.items[]" })
+        {
+            Assert.Contains($"name: '{path}'", ts, StringComparison.Ordinal);
+            Assert.Contains(path, schema.TypeNames);
+        }
+    }
+
+    [Fact]
+    public void ValuesTheRuntimeCannotRepresentAreReported()
+    {
+        var result = Generate("""
+            M DEFINITIONS ::= BEGIN
+              Far ::= BIT STRING { far(18446744073709551616) }
+              Safe ::= BIT STRING { beyond(9007199254740992) }
+              v INTEGER (0..10) ::= 99999999999999999999
+            END
+            """);
+        var ts = Single(result);
+        Assert.DoesNotContain("export const Far", ts, StringComparison.Ordinal);
+        Assert.DoesNotContain("export const Safe", ts, StringComparison.Ordinal);
+        Assert.DoesNotContain("export const v", ts, StringComparison.Ordinal);
+        Assert.Contains(result.Diagnostics, d => d.Descriptor == DiagnosticCatalog.GenerationUnsupported && d.Message.Contains("must fit in 64 bits", StringComparison.Ordinal));
+        Assert.Contains(result.Diagnostics, d => d.Descriptor == DiagnosticCatalog.GenerationUnsupported && d.Message.Contains("(2^53 - 1)", StringComparison.Ordinal));
+        Assert.Contains(result.Diagnostics, d => d.Descriptor == DiagnosticCatalog.ValueOutsideType &&
+            d.Message == "the value 99999999999999999999 does not fit number, the TypeScript type of INTEGER; 'v' is not generated");
+    }
 }

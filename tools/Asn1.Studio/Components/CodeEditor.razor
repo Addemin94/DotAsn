@@ -71,7 +71,9 @@
                 readOnly = ReadOnly,
             });
         }
-        else if (_editor is not null && Value != _text)
+
+        // Also right after creation: Value may have changed while the editor was being created.
+        if (_editor is not null && Value != _text)
         {
             // The text was replaced from .NET (a sample, an example value, a decoded message).
             _text = Value;

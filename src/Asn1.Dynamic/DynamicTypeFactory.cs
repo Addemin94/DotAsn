@@ -63,9 +63,9 @@ public sealed class DynamicTypeFactory
                 return Box(new IntegerType<BigInteger>(name, tags, constraints, NamedNumbers(def)));
             case TypeKind.Enumerated:
                 {
-                    if (def.EnumItems.Any(i => i.Value < long.MinValue || i.Value > long.MaxValue))
+                    if (UnsupportedReason(t) is { } enumReason)
                     {
-                        throw new Asn1UnsupportedException($"enumeration values of '{name}' must fit in 64 bits");
+                        throw new Asn1UnsupportedException($"'{name}': {enumReason}");
                     }
 
                     var info = new EnumerationInfo(def.EnumItems.Select(i => (i.Name, (long)i.Value, i.IsExtension)), def.IsExtensible);
@@ -83,9 +83,9 @@ public sealed class DynamicTypeFactory
             case TypeKind.Real:
                 return Box(new RealType(name, tags, constraints));
             case TypeKind.BitString:
-                if (def.NamedNumbers.Any(n => !Asn1NamedNumber.CanHold(n.Value)))
+                if (UnsupportedReason(t) is { } bitsReason)
                 {
-                    throw new Asn1UnsupportedException($"named bit positions of '{name}' must fit in 64 bits");
+                    throw new Asn1UnsupportedException($"'{name}': {bitsReason}");
                 }
 
                 return Box(new BitStringType(name, tags, constraints, NamedNumbers(def)));
@@ -157,6 +157,23 @@ public sealed class DynamicTypeFactory
             default:
                 throw new Asn1UnsupportedException($"{AsnType.KindName(t.Kind)} ('{name}') is not supported by the dynamic runtime");
         }
+    }
+
+    /// <summary>
+    /// Why the dynamic runtime cannot represent a type's own values (null if it can): enumeration values and named bit
+    /// positions must fit in 64 bits (<see cref="Asn1NamedNumber.CanHold"/>). Shared by the schema writer and the
+    /// TypeScript generator; INTEGER named numbers beyond 64 bits are only left out of the metadata.
+    /// </summary>
+    public static string? UnsupportedReason(AsnType type)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+        var def = type.Definition;
+        return type.Kind switch
+        {
+            TypeKind.Enumerated when def.EnumItems.Any(i => !Asn1NamedNumber.CanHold(i.Value)) => "enumeration values must fit in 64 bits",
+            TypeKind.BitString when def.NamedNumbers.Any(n => !Asn1NamedNumber.CanHold(n.Value)) => "named bit positions must fit in 64 bits",
+            _ => null,
+        };
     }
 
     /// <summary>Named numbers and bits as descriptor metadata (see <see cref="Asn1NamedNumber.CanHold"/>).</summary>

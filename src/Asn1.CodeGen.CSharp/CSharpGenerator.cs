@@ -397,7 +397,7 @@ public sealed partial class CSharpGenerator
         var info = IntegerInfo(IntegerDefinition(type));
         var mapping = info.Bounded ? string.Empty : " (unbounded and extensible INTEGERs are long with IntegerMapping.Int64)";
         var keyword = info.Keyword;
-        _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.ValueOutsideType, value.Location, value.Value, keyword + mapping, type.DisplayName, consequence));
+        _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.ValueOutsideType, value.Location, value.Value, keyword + mapping, "C#", type.DisplayName, consequence));
     }
 
     private static TypeSyntax IntegerType(string keyword) => keyword == "BigInteger" ? BigIntegerType : IntegerKeywordType(keyword);

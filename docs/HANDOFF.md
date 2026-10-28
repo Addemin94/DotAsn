@@ -7,8 +7,8 @@ Milestones are numbered as in that brief.
 
 ## 1. State
 
-* Release branch `release/0.2.0` merges `feature/exact-integer-types`, `feature/code-editor-improvements` and
-  `feature/typescript-wasm`; the version is 0.2.0 and CHANGELOG.md describes it. Not yet tagged or pushed.
+* Release 0.2.0 is prepared on `release/0.2.0`, which merges `feature/exact-integer-types`,
+  `feature/code-editor-improvements` and `feature/typescript-wasm`; CHANGELOG.md describes it.
 
 * `dotnet build Asn1Toolchain.sln`: 0 errors, 0 warnings (warnings are treated as errors). `dotnet format --verify-no-changes` is clean.
 * Tests: `dotnet test --project tests/<Project>` (xunit.v3 on Microsoft Testing Platform, configured in `global.json`).

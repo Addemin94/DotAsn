@@ -27,7 +27,7 @@ runtime rejects other format versions.
 
 | Member | Meaning |
 |---|---|
-| `names` | qualified type assignment names (`Module.Type`) mapped to indices into `types` |
+| `names` | qualified type assignment names (`Module.Type`), and paths of inline SEQUENCE, SET, CHOICE and ENUMERATED types (`Module.Type.component`, `[]` for SEQUENCE OF elements; the names their generated TypeScript descriptors carry), mapped to indices into `types` |
 | `types` | type nodes: one per type occurrence (an assignment, or a component's type with its own tags and constraints). Nodes refer to each other by index, so recursive types are cycles. |
 
 ## Type nodes

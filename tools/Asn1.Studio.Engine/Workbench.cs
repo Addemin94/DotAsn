@@ -41,18 +41,17 @@ public sealed record RuleOutput(string Rule, bool IsText, byte[]? Bytes, long? B
     public string? Text => IsText && Bytes is not null ? Encoding.UTF8.GetString(Bytes) : null;
 }
 
-/// <summary>The result of decoding.</summary>
-/// <param name="Json">The decoded value in DotAsn JSON value notation.</param>
-/// <param name="BytesConsumed">Octets consumed by the value.</param>
-/// <param name="TotalBytes">Octets in the input.</param>
-/// <param name="Error">The error, if decoding failed.</param>
-/// <param name="Violations">Constraint violations of a decoded value.</param>
 /// <summary>A generated file.</summary>
 /// <param name="Path">File name.</param>
 /// <param name="Content">Text.</param>
 public sealed record GeneratedFile(string Path, string Content);
 
 /// <summary>The result of decoding.</summary>
+/// <param name="Json">The decoded value in DotAsn JSON value notation.</param>
+/// <param name="BytesConsumed">Octets consumed by the value.</param>
+/// <param name="TotalBytes">Octets in the input.</param>
+/// <param name="Error">The error, if decoding failed.</param>
+/// <param name="Violations">Constraint violations of a decoded value.</param>
 public sealed record DecodeOutput(string? Json, int BytesConsumed, int TotalBytes, string? Error, IReadOnlyList<string> Violations);
 
 /// <summary>How encoded input is written.</summary>

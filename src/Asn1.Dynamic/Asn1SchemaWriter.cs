@@ -33,6 +33,14 @@ public static class Asn1SchemaWriter
             }
         }
 
+        // Inline SEQUENCE/SET/CHOICE/ENUMERATED types under their path, the names their generated TypeScript
+        // descriptors carry (TypeScriptGenerator walks the definitions in the same way).
+        var named = new HashSet<AsnType>(names.Select(n => state.Types[n.Index]), ReferenceEqualityComparer.Instance);
+        foreach (var (name, index) in names.ToList())
+        {
+            InlineNames(state, state.Types[index], name, named, names, 0);
+        }
+
         using var ms = new MemoryStream();
         using (var w = new Utf8JsonWriter(ms, new JsonWriterOptions { Indented = indented, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }))
         {
@@ -59,6 +67,55 @@ public static class Asn1SchemaWriter
         }
 
         return Encoding.UTF8.GetString(ms.ToArray());
+    }
+
+    private static void InlineNames(State state, AsnType node, string path, HashSet<AsnType> named, List<(string, int)> names, int depth)
+    {
+        if (depth > 64)
+        {
+            return;
+        }
+
+        if (node.Target is { } target)
+        {
+            // An instance of a parameterized type: its definition has no assignment of its own.
+            if (target.Assignment is null)
+            {
+                InlineName(state, target, path, named, names, depth + 1);
+            }
+
+            return;
+        }
+
+        foreach (var c in node.Components)
+        {
+            InlineName(state, c.Type, path + "." + c.Name, named, names, depth + 1);
+        }
+
+        if (node.IsCollection && node.ElementType is { } element)
+        {
+            InlineName(state, element, path + "[]", named, names, depth + 1);
+        }
+    }
+
+    private static void InlineName(State state, AsnType occ, string path, HashSet<AsnType> named, List<(string, int)> names, int depth)
+    {
+        if (occ.Target is not null)
+        {
+            InlineNames(state, occ, path, named, names, depth);
+        }
+        else if (occ.Kind is TypeKind.Sequence or TypeKind.Set or TypeKind.Choice or TypeKind.Enumerated)
+        {
+            if (named.Add(occ))
+            {
+                names.Add((path, state.Index(occ)));
+                InlineNames(state, occ, path, named, names, depth);
+            }
+        }
+        else if (occ.IsCollection && occ.ElementType is { } element)
+        {
+            InlineName(state, element, path + "[]", named, names, depth + 1);
+        }
     }
 
     private sealed class State
@@ -91,11 +148,7 @@ public static class Asn1SchemaWriter
         w.WriteStartObject();
         var kind = KindOf(t.Kind);
 
-        // The same limits as DynamicTypeFactory: Asn1NamedNumber and enumeration items hold 64-bit values.
-        var reason = kind is null ? $"{AsnType.KindName(t.Kind)} is not supported by the dynamic runtime"
-            : t.Kind == TypeKind.Enumerated && def.EnumItems.Any(i => !Asn1NamedNumber.CanHold(i.Value)) ? "enumeration values must fit in 64 bits"
-            : t.Kind == TypeKind.BitString && def.NamedNumbers.Any(n => !Asn1NamedNumber.CanHold(n.Value)) ? "named bit positions must fit in 64 bits"
-            : null;
+        var reason = kind is null ? $"{AsnType.KindName(t.Kind)} is not supported by the dynamic runtime" : DynamicTypeFactory.UnsupportedReason(t);
         w.WriteString("kind", reason is null ? kind : "unsupported");
         w.WriteString("name", NameOf(t));
         if (reason is not null)

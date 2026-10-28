@@ -185,9 +185,18 @@ export function defineVectorSuites(rulesFor: (caseSet: string) => Promise<RuleSe
               }
 
               const encoded = hexOf(rule.encode(type, value));
-              if (encoded === v.hex || (v.hex === '' && encoded === '00' && isPer(rule)) || (rule.name === 'JER' && sameJson(encoded, v.hex))) {
+              if (v.hex === '' && isPer(rule)) {
+                // X.691 11.1.3: a value of no bits is one zero octet by default; asn1tools sends no octets, which the
+                // emptyPerEncodingAsZeroOctet option reproduces.
+                const none = hexOf(rule.encode(type, value, { emptyPerEncodingAsZeroOctet: false }));
+                if (encoded !== '00' || none !== '') {
+                  failures.push(`${v.type}: empty PER encoding ${encoded} (default) and '${none}' (without the zero octet)`);
+                  continue;
+                }
+
+                exact++;
+              } else if (encoded === v.hex || (rule.name === 'JER' && sameJson(encoded, v.hex))) {
                 // JER: white space, escapes and member order are sender's options (X.697 27.3.3, 7.6.3).
-                // X.691 11.1.3.1: an empty PER encoding is replaced by one zero octet (asn1tools emits nothing).
                 exact++;
               } else if (suite.exact) {
                 failures.push(`${v.type} ${JSON.stringify(v.value).slice(0, 200)}: encoded ${encoded}, expected ${v.hex}`);
@@ -197,8 +206,8 @@ export function defineVectorSuites(rulesFor: (caseSet: string) => Promise<RuleSe
               // Decode the reference encoding and compare with asn1tools' own decoding.
               // Our decoding must equal asn1tools' own decoding (which adds DEFAULT values) or the original value
               // (asn1tools decodes some values wrongly, e.g. OBJECT IDENTIFIER 2.x with x >= 40, X.690 8.19.4).
-              const reference = v.hex === '' && isPer(rule) ? '00' : v.hex;
-              const decoded = canonical(rt.toNotation(type, rule.decode(type, rt.fromHex(reference))));
+              // Empty PER input is decoded as it is (DotAsn 0.1.1 accepts it).
+              const decoded = canonical(rt.toNotation(type, rule.decode(type, rt.fromHex(v.hex))));
               const expected = decoded === canonical(v.value) ? decoded : canonical(v.decoded ?? v.value);
               if (decoded !== expected) {
                 failures.push(`${v.type}: decoded ${decoded.slice(0, 300)}, expected ${expected.slice(0, 300)}`);

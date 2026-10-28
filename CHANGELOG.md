@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0 (unreleased)
+## 0.2.0 - 2026-10-28
 
 ### Breaking changes
 
@@ -17,7 +17,10 @@
 - **TypeScript generation and the WebAssembly runtime.**
   - `asn1 generate-typescript` writes typed interfaces and descriptors per ASN.1 module, plus `dotasn-schema.ts`.
   - `@dotasn/wasm` is the .NET runtime compiled to WebAssembly with NativeAOT-LLVM: all ten encoding rules in
-    browsers and Node.js, about 1.1 MB compressed. `@dotasn/runtime` holds the types that generated code uses.
+    browsers and Node.js, about 1.1 MB compressed, with the .NET encoding and decoding options. `@dotasn/runtime`
+    holds the types that generated code uses.
+  - Inline types are named by their path (e.g. `Module.Type.component`) in the generated TypeScript and the schema,
+    so they can be encoded on their own.
   - `asn1 generate-schema` writes the DotAsn schema (docs/schema-format.md) for use without generated TypeScript.
   - Guide: docs/typescript.md.
 - **IAsn1Value.** `IAsn1Value<T>` now inherits a non-generic `IAsn1Value`, whose `Asn1Type` property is the value's
@@ -28,7 +31,7 @@
   - Generated C# is highlighted from Roslyn's parser; the namespace defaults to `Protocol.Test`.
   - A TypeScript tab generates TypeScript and downloads the schema.
 - `Asn1.Syntax.SyntaxClassifier`, which classifies ASN.1 text for highlighting.
-- Diagnostic ASN7003: a value does not fit the C# type of its INTEGER type (with what the generator does instead).
+- Diagnostic ASN7003: a value does not fit the C# or TypeScript type of its INTEGER type (with what the generator does instead).
 - Test vectors for REAL, OBJECT IDENTIFIER, the time types, wide strings, SET OF and OER integer sizes
   (`dotasn_primitives`). Six more deviations of asn1tools from the ITU-T texts are documented in ADR 0003 and in
   `test-vectors/deviations.json`.

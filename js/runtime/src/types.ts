@@ -103,8 +103,9 @@ export type OpenValue =
   | { readonly type: Asn1Type; readonly value: unknown }
   | { readonly encoded: Uint8Array; readonly rule: string };
 
-/** An ENUMERATED item from a later version of the type (decoding only). */
+/** An ENUMERATED item from a later version of the type (decoding only; it cannot be encoded). */
 export interface UnknownEnumItem {
+  /** The PER extension index of the item, or -1 for encodings that do not carry one (BER, OER, JER, XER). */
   readonly $unknown: number;
 }
 

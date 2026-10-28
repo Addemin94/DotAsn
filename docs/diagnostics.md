@@ -85,4 +85,4 @@ Every diagnostic has a stable identifier. Ranges: `ASN0xxx` driver/internal, `AS
 | ASN6001 | Interoperability | Warning | Encoding rule incompatibility | '{0}' cannot be encoded with {1}: {2} |
 | ASN7001 | CodeGeneration | Info | Identifier renamed | '{0}' is generated as '{1}' ({2}) |
 | ASN7002 | CodeGeneration | Warning | Generation unsupported | '{0}' cannot be generated: {1} |
-| ASN7003 | CodeGeneration | Warning | Value outside its C# type | the value {0} does not fit {1}, the C# type of {2}; {3} |
+| ASN7003 | CodeGeneration | Warning | Value outside its generated type | the value {0} does not fit {1}, the {2} type of {3}; {4} |
