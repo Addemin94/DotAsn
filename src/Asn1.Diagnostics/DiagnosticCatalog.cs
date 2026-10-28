@@ -287,6 +287,9 @@ public static class DiagnosticCatalog
     /// <summary>Type cannot be generated.</summary>
     public static readonly DiagnosticDescriptor GenerationUnsupported = D("ASN7002", DiagnosticCategory.CodeGeneration, W, "Generation unsupported", "'{0}' cannot be generated: {1}");
 
+    /// <summary>An INTEGER value does not fit the C# type of its INTEGER type.</summary>
+    public static readonly DiagnosticDescriptor ValueOutsideType = D("ASN7003", DiagnosticCategory.CodeGeneration, W, "Value outside its C# type", "the value {0} does not fit {1}, the C# type of {2}; {3}");
+
     private static readonly Lazy<ImmutableArray<DiagnosticDescriptor>> s_all = new(() =>
         [.. typeof(DiagnosticCatalog)
             .GetFields(BindingFlags.Public | BindingFlags.Static)

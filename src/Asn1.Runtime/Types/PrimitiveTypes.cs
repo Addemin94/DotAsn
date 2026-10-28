@@ -7,7 +7,15 @@ namespace Asn1.Runtime;
 /// <summary>A named number or named bit carried as metadata.</summary>
 /// <param name="Name">Identifier.</param>
 /// <param name="Value">Number or bit position.</param>
-public readonly record struct Asn1NamedNumber(string Name, long Value);
+public readonly record struct Asn1NamedNumber(string Name, long Value)
+{
+    /// <summary>
+    /// True if a named number or bit position can be carried (it fits in 64 bits). X.680 allows any INTEGER value for
+    /// named numbers; larger ones are left out of the metadata, and BIT STRING types with larger positions are
+    /// unsupported (their presence decides whether the type has named bits, which affects DER).
+    /// </summary>
+    public static bool CanHold(BigInteger value) => value >= long.MinValue && value <= long.MaxValue;
+}
 
 /// <summary>Helpers shared by primitive descriptors.</summary>
 internal static class Tagging
@@ -84,8 +92,9 @@ public sealed class NullType : Asn1Type<Asn1Null>
 }
 
 /// <summary>
-/// INTEGER mapped to a CLR integer type (<see cref="int"/>, <see cref="long"/>, <see cref="ulong"/>,
-/// <see cref="BigInteger"/>, ...). Values that do not fit the CLR type are reported as decoding errors, never truncated.
+/// INTEGER mapped to a CLR integer type: any of <see cref="sbyte"/>, <see cref="byte"/>, <see cref="short"/>,
+/// <see cref="ushort"/>, <see cref="int"/>, <see cref="uint"/>, <see cref="long"/>, <see cref="ulong"/> or
+/// <see cref="BigInteger"/>. Values that do not fit the CLR type are reported as decoding errors, never truncated.
 /// </summary>
 /// <typeparam name="T">The CLR integer type.</typeparam>
 public sealed class IntegerType<T> : Asn1Type<T>

@@ -47,7 +47,19 @@ internal static class Cs
 
     public static TypeSyntax LongType => PredefinedType(Token(SyntaxKind.LongKeyword));
 
-    public static TypeSyntax ULongType => PredefinedType(Token(SyntaxKind.ULongKeyword));
+    /// <summary>The predefined type of an integer keyword (sbyte, byte, short, ushort, int, uint, long, ulong).</summary>
+    public static TypeSyntax IntegerKeywordType(string keyword) => PredefinedType(Token(keyword switch
+    {
+        "sbyte" => SyntaxKind.SByteKeyword,
+        "byte" => SyntaxKind.ByteKeyword,
+        "short" => SyntaxKind.ShortKeyword,
+        "ushort" => SyntaxKind.UShortKeyword,
+        "int" => SyntaxKind.IntKeyword,
+        "uint" => SyntaxKind.UIntKeyword,
+        "long" => SyntaxKind.LongKeyword,
+        "ulong" => SyntaxKind.ULongKeyword,
+        _ => throw new ArgumentOutOfRangeException(nameof(keyword), keyword, "not an integer keyword"),
+    }));
 
     public static TypeSyntax BoolType => PredefinedType(Token(SyntaxKind.BoolKeyword));
 
@@ -87,6 +99,9 @@ internal static class Cs
         ? value == long.MinValue ? Member(LongType, "MinValue") : PrefixUnaryExpression(SyntaxKind.UnaryMinusExpression, Int64(-value))
         : LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(value.ToString(CultureInfo.InvariantCulture) + "L", value));
 
+    public static ExpressionSyntax UInt32(uint value) =>
+        LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(value.ToString(CultureInfo.InvariantCulture) + "U", value));
+
     public static ExpressionSyntax UInt64(ulong value) =>
         LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(value.ToString(CultureInfo.InvariantCulture) + "UL", value));
 
@@ -122,10 +137,49 @@ internal static class Cs
         return LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(s, d));
     }
 
-    /// <summary>An integer literal of the given CLR keyword type (int, long, ulong), or a BigInteger expression.</summary>
-    public static ExpressionSyntax Integer(BigInteger value, string clrKeyword) => clrKeyword switch
+    private static readonly string[] s_unsigned = ["byte", "ushort", "uint", "ulong"];
+    private static readonly string[] s_signed = ["sbyte", "short", "int", "long"];
+    private static readonly string[] s_constants = ["int", "long", "ulong"];
+
+    /// <summary>
+    /// The smallest CLR integer keyword that holds every value of [<paramref name="lo"/>, <paramref name="hi"/>]:
+    /// unsigned for non-negative ranges, signed otherwise; "BigInteger" beyond 64 bits.
+    /// </summary>
+    public static string SmallestIntegerKeyword(BigInteger lo, BigInteger hi) =>
+        (lo >= 0 ? s_unsigned : s_signed).FirstOrDefault(k => Fits(lo, k) && Fits(hi, k)) ?? "BigInteger";
+
+    /// <summary>The type of an integer constant without a fixed type: int, long, ulong or BigInteger, by value.</summary>
+    public static string ConstantKeyword(BigInteger value) => s_constants.FirstOrDefault(k => Fits(value, k)) ?? "BigInteger";
+
+    /// <summary>True if <paramref name="value"/> is representable in the integer type named by <paramref name="clrKeyword"/>.</summary>
+    public static bool Fits(BigInteger value, string clrKeyword) => clrKeyword switch
     {
+        "sbyte" => value >= sbyte.MinValue && value <= sbyte.MaxValue,
+        "byte" => value >= byte.MinValue && value <= byte.MaxValue,
+        "short" => value >= short.MinValue && value <= short.MaxValue,
+        "ushort" => value >= ushort.MinValue && value <= ushort.MaxValue,
+        "int" => value >= int.MinValue && value <= int.MaxValue,
+        "uint" => value >= uint.MinValue && value <= uint.MaxValue,
+        "long" => value >= long.MinValue && value <= long.MaxValue,
+        "ulong" => value >= ulong.MinValue && value <= ulong.MaxValue,
+        "BigInteger" => true,
+        _ => throw new ArgumentOutOfRangeException(nameof(clrKeyword), clrKeyword, "not an integer keyword"),
+    };
+
+    /// <summary>
+    /// An integer literal of the given CLR keyword type, or a BigInteger expression, for a value known to fit the type.
+    /// C# has no literal suffix for sbyte, byte, short and ushort, so their values are cast (<c>(byte)5</c>) and keep
+    /// their type in every context.
+    /// </summary>
+    public static ExpressionSyntax Integer(BigInteger value, string clrKeyword) =>
+        TryInteger(value, clrKeyword) ?? throw new ArgumentOutOfRangeException(nameof(value), value, $"does not fit {clrKeyword}");
+
+    /// <summary>Like <see cref="Integer"/>, but null if the value does not fit the type.</summary>
+    public static ExpressionSyntax? TryInteger(BigInteger value, string clrKeyword) => !Fits(value, clrKeyword) ? null : clrKeyword switch
+    {
+        "sbyte" or "byte" or "short" or "ushort" => Cast(IntegerKeywordType(clrKeyword), Int32((int)value)),
         "int" => Int32((int)value),
+        "uint" => UInt32((uint)value),
         "long" => Int64((long)value),
         "ulong" => UInt64((ulong)value),
         _ => Big(value),

@@ -52,6 +52,13 @@ public static class Asn1Serializer
     public static byte[] Encode<T>(T value, Asn1EncodingRule rule, Asn1EncodingOptions? options = null)
         where T : IAsn1Value<T> => rule.Encode(T.Asn1Type, value, options);
 
+    /// <summary>Encodes a generated value whose static type is not known (see <see cref="IAsn1Value"/>).</summary>
+    public static byte[] Encode(IAsn1Value value, Asn1EncodingRule rule, Asn1EncodingOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return value.Asn1Type.EncodeBoxed(rule, value, options);
+    }
+
     /// <summary>Encodes a value with an explicit descriptor.</summary>
     public static byte[] Encode<T>(T value, Asn1Type<T> type, Asn1EncodingRule rule, Asn1EncodingOptions? options = null) =>
         rule.Encode(type, value, options);
@@ -59,6 +66,21 @@ public static class Asn1Serializer
     /// <summary>Encodes a generated value into a buffer writer.</summary>
     public static void Encode<T>(T value, IBufferWriter<byte> output, Asn1EncodingRule rule, Asn1EncodingOptions? options = null)
         where T : IAsn1Value<T> => rule.Encode(T.Asn1Type, value, output, options);
+
+    /// <summary>Encodes a generated value whose static type is not known into a buffer writer.</summary>
+    public static void Encode(IAsn1Value value, IBufferWriter<byte> output, Asn1EncodingRule rule, Asn1EncodingOptions? options = null)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        value.Asn1Type.EncodeBoxed(rule, value, output, options);
+    }
+
+    /// <summary>Encodes a generated value whose static type is not known to a stream.</summary>
+    public static async Task EncodeAsync(IAsn1Value value, Stream stream, Asn1EncodingRule rule, Asn1EncodingOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(stream);
+        var bytes = Encode(value, rule, options);
+        await stream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>Encodes a generated value to a stream.</summary>
     public static async Task EncodeAsync<T>(T value, Stream stream, Asn1EncodingRule rule, Asn1EncodingOptions? options = null, CancellationToken cancellationToken = default)
@@ -116,4 +138,11 @@ public static class Asn1Serializer
     /// <summary>Validates a generated value against its constraints without encoding it.</summary>
     public static IReadOnlyList<Asn1ValidationError> Validate<T>(T value)
         where T : IAsn1Value<T> => Asn1Validator.ValidateValue(T.Asn1Type, value);
+
+    /// <summary>Validates a generated value whose static type is not known against its constraints.</summary>
+    public static IReadOnlyList<Asn1ValidationError> Validate(IAsn1Value value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        return value.Asn1Type.ValidateBoxed(value);
+    }
 }

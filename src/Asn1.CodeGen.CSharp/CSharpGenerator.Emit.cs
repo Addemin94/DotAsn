@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Numerics;
 using Asn1.Diagnostics;
 using Asn1.Semantics;
 using Microsoft.CodeAnalysis;
@@ -135,7 +136,7 @@ public sealed partial class CSharpGenerator
             } + (c.IsExtensionAddition ? " (extension addition)" : string.Empty);
             var publicOnly = Modifiers(SyntaxKind.PublicKeyword);
             PropertyDeclarationSyntax property;
-            if (c.Presence == Presence.Default && c.DefaultValue is { } dv && ValueExpr(dv, c.Type) is { } dvExpr)
+            if (DefaultExpr(c) is { } dvExpr)
             {
                 property = AutoProperty(publicOnly, clr, prop, settable: true, dvExpr);
             }
@@ -197,7 +198,7 @@ public sealed partial class CSharpGenerator
         var prop = t.Members[c];
         var clr = Clr(c.Type);
         var nullable = (c.IsOptional && c.Presence != Presence.Default) || (c.IsExtensionAddition && c.Presence != Presence.Default);
-        var defaultExpr = c.Presence == Presence.Default && c.DefaultValue is { } dv ? ValueExpr(dv, c.Type) : null;
+        var defaultExpr = DefaultExpr(c);
         if (c.Presence == Presence.Default && defaultExpr is null)
         {
             nullable = true;
@@ -332,8 +333,10 @@ public sealed partial class CSharpGenerator
         return Doc(declaration, TypeDoc(t), $"ASN.1: {t.AsnName} ::= CHOICE{(def.IsExtensible ? " (extensible)" : string.Empty)}. Use the nested classes to create values.");
     }
 
+    // Enumerations with values beyond 64 bits are rejected as unsupported before emission, so every item fits.
+    // int.MinValue is taken by Asn1UnknownExtension.
     private static string EnumUnderlying(GenType t) =>
-        t.Definition.EnumItems.All(i => i.Value >= int.MinValue + 1 && i.Value <= int.MaxValue) ? "int" : "long";
+        t.Definition.EnumItems.All(i => Fits(i.Value, "int") && i.Value != int.MinValue) ? "int" : "long";
 
     private IEnumerable<MemberDeclarationSyntax> EmitEnum(GenType t)
     {
@@ -411,17 +414,27 @@ public sealed partial class CSharpGenerator
                 Doc(ArrowProperty(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.StaticKeyword), Runtime("Asn1Type", clr), "Asn1Type", Member(ctx.ClassTypeName, property)), "The ASN.1 type descriptor."),
             };
             var def = type.Definition;
-            if (IntegerKeyword(type) is { } keyword && keyword != "BigInteger")
+
+            // A member may not have the name of its class (CS0542) or of the Asn1Type property. Hiding an inherited
+            // member is allowed (CS0108 is disabled in generated files), as in the other generated classes.
+            var scope = new NameScope([alias, "Asn1Type"]);
+            string MemberName(NamedNumber n)
             {
-                members.AddRange(def.NamedNumbers.Select(n => Doc(
-                    Field(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.ConstKeyword), IntegerType(keyword), Naming.Pascal(n.Name), Integer(n.Value, keyword)),
-                    n.Documentation,
-                    $"{n.Name}({n.Value})")));
+                var memberName = scope.Allocate(Naming.Pascal(n.Name));
+                ReportRename(n.Name, memberName, n.Location, "member of " + alias);
+                return memberName;
+            }
+
+            if (IntegerKeyword(type) is not null)
+            {
+                // X.680 19.5 allows named numbers outside the constraint; those get a type that holds them.
+                var keyword = FixedConstantKeyword(type);
+                members.AddRange(def.NamedNumbers.Select(n => Doc(IntegerConstant(MemberName(n), n.Value, keyword), n.Documentation, $"{n.Name}({n.Value})")));
             }
             else if (def.Kind == TypeKind.BitString)
             {
                 members.AddRange(def.NamedNumbers.Select(n => Doc(
-                    Field(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.ConstKeyword), IntType, Naming.Pascal(n.Name), Int32((int)n.Value)),
+                    IntegerConstant(MemberName(n), n.Value, fixedKeyword: null),
                     n.Documentation ?? $"Position of the named bit '{n.Name}'.",
                     $"{n.Name}({n.Value})")));
             }
@@ -487,6 +500,55 @@ public sealed partial class CSharpGenerator
             ctx.Module.Oid is null ? null : $"Module object identifier {ctx.Module.Oid}.");
     }
 
+    /// <summary>
+    /// The CLR keyword that constants of an INTEGER type (named numbers, value assignments) must have: the C# type of a
+    /// bounded type of at most 64 bits; null when constants are typed by their value instead (unbounded or extensible
+    /// types under every <see cref="IntegerMapping"/>, and types wider than 64 bits).
+    /// </summary>
+    private string? FixedConstantKeyword(AsnType type) =>
+        IntegerInfo(IntegerDefinition(type)) is { Bounded: true, Keyword: not "BigInteger" and var keyword } ? keyword : null;
+
+    /// <summary>
+    /// The CLR type of an integer constant: <paramref name="fixedKeyword"/> when given and the value fits it, otherwise
+    /// int, long or ulong by value (BigInteger beyond 64 bits), so that constants stay compile-time constants.
+    /// </summary>
+    private static string ConstantType(BigInteger value, string? fixedKeyword) =>
+        fixedKeyword is not null && Fits(value, fixedKeyword) ? fixedKeyword : ConstantKeyword(value);
+
+    /// <summary>A constant (a static read-only field beyond 64 bits) holding an integer; see <see cref="ConstantType"/>.</summary>
+    private static FieldDeclarationSyntax IntegerConstant(string name, BigInteger value, string? fixedKeyword)
+    {
+        var type = ConstantType(value, fixedKeyword);
+        return type == "BigInteger"
+            ? Field(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.StaticKeyword, SyntaxKind.ReadOnlyKeyword), BigIntegerType, name, Big(value))
+            : Field(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.ConstKeyword), IntegerType(type), name, Integer(value, type));
+    }
+
+    /// <summary>
+    /// The expression of a component's DEFAULT value, computed once per component. A DEFAULT that cannot be expressed
+    /// (e.g. outside its C# type) makes the component OPTIONAL in the generated code.
+    /// </summary>
+    private ExpressionSyntax? DefaultExpr(AsnComponent c)
+    {
+        if (c.Presence != Presence.Default || c.DefaultValue is not { } dv)
+        {
+            return null;
+        }
+
+        if (!_defaults.TryGetValue(c, out var expr))
+        {
+            expr = ValueExpr(dv, c.Type, out var outside);
+            if (outside is var (value, type))
+            {
+                ReportValueOutsideType(value, type, $"the DEFAULT of '{c.Name}' is generated as OPTIONAL");
+            }
+
+            _defaults[c] = expr;
+        }
+
+        return expr;
+    }
+
     /// <summary>A constant, read-only field or property for a value assignment, or null if the value cannot be expressed.</summary>
     private MemberDeclarationSyntax? EmitValue(ValueAssignmentSymbol va, string name)
     {
@@ -496,14 +558,19 @@ public sealed partial class CSharpGenerator
         switch (value)
         {
             case IntegerValue i when type.Kind == TypeKind.Integer:
-                if (i.Value >= int.MinValue && i.Value <= int.MaxValue)
                 {
-                    return Field(publicConst, IntType, name, Int32((int)i.Value));
-                }
+                    // The CLR type of the value's ASN.1 type (e.g. byte for INTEGER (0..255)).
+                    // Reported when the constant cannot have the C# type of its INTEGER type: a bounded type the value
+                    // violates, or an unbounded type mapped to long (IntegerMapping.Int64) for a value beyond long.
+                    var keyword = FixedConstantKeyword(type);
+                    var propertyType = IntegerKeyword(type)!;
+                    if (keyword is not null ? !Fits(i.Value, keyword) : !Fits(i.Value, propertyType))
+                    {
+                        ReportValueOutsideType(i, type, $"'{va.Name}' is generated as {ConstantType(i.Value, keyword)}");
+                    }
 
-                return i.Value >= long.MinValue && i.Value <= long.MaxValue
-                    ? Field(publicConst, LongType, name, Int64((long)i.Value))
-                    : Field(Modifiers(SyntaxKind.PublicKeyword, SyntaxKind.StaticKeyword, SyntaxKind.ReadOnlyKeyword), BigIntegerType, name, Big(i.Value));
+                    return IntegerConstant(name, i.Value, keyword);
+                }
             case BooleanValue b:
                 return Field(publicConst, BoolType, name, Bool(b.Value));
             case StringValue s:
@@ -514,9 +581,17 @@ public sealed partial class CSharpGenerator
                 return Field(publicConst, Clr(type), name, ValueExpr(value, type)!);
         }
 
-        if (ValueExpr(value, type) is not { } expr)
+        if (ValueExpr(value, type, out var outsideType) is not { } expr)
         {
-            _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.GenerationUnsupported, va.Location, va.Name, "the value notation cannot be represented in C#"));
+            if (outsideType is var (outside, ofType))
+            {
+                ReportValueOutsideType(outside, ofType, $"'{va.Name}' is not generated");
+            }
+            else
+            {
+                _diagnostics.Add(Diagnostic.Create(DiagnosticCatalog.GenerationUnsupported, va.Location, va.Name, "the value notation cannot be represented in C#"));
+            }
+
             return null;
         }
 

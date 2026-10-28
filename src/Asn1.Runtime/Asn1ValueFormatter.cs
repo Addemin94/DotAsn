@@ -100,7 +100,7 @@ public static class Asn1ValueFormatter
             case Asn1Null:
                 sb.Append("NULL");
                 return;
-            case IFormattable f when value is int or long or BigInteger or uint or ulong or short:
+            case IFormattable f when value is sbyte or byte or short or ushort or int or uint or long or ulong or BigInteger:
                 sb.Append(f.ToString(null, CultureInfo.InvariantCulture));
                 return;
             case IList list when type is ICollectionTypeInfo c:
