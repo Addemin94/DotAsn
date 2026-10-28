@@ -50,7 +50,8 @@ alignment mode. Implemented: BASIC-PER for both variants.
 * Character strings with permitted alphabets: direct values when they fit, canonical-order indices otherwise
   (30.5.4); APER character widths rounded up to a power of two; alignment thresholds of 30.5.6/30.5.7.
 * UTCTime/GeneralizedTime as VisibleString in the X.690 canonical form (10.6.5).
-* A complete encoding is padded to an octet boundary; an empty encoding is one zero octet (11.1).
+* A complete encoding is padded to an octet boundary; an empty encoding is one zero octet (11.1), or no octets with
+  `Asn1EncodingOptions.EmptyPerEncodingAsZeroOctet = false`. Decoding accepts both.
 
 Not implemented: CANONICAL-PER (SET OF sorting and DEFAULT rules for non-simple types), the X.680 time types (X.691
 clause 32), EMBEDDED PDV/EXTERNAL/CHARACTER STRING, and PER encoding instructions (X.695).

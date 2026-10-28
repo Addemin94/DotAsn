@@ -28,7 +28,7 @@ public sealed class PerEncodingRule : Asn1EncodingRule
         type.Encode(new PerWriter(bits, IsAligned, Name, options), value);
 
         // X.691 11.1: an empty encoding becomes one zero octet; otherwise pad to an octet boundary.
-        output.Write(bits.BitPosition == 0 ? [0] : bits.WrittenSpan);
+        output.Write(bits.BitPosition == 0 ? EmptyEncoding(options) : bits.WrittenSpan);
     }
 
     /// <summary>Encodes a value and also returns the exact number of significant bits (before padding).</summary>
@@ -38,8 +38,10 @@ public sealed class PerEncodingRule : Asn1EncodingRule
         var bits = new BitWriter(64, options.MaxEncodedSize);
         type.Encode(new PerWriter(bits, IsAligned, Name, options), value);
         bitLength = bits.BitPosition;
-        return bits.BitPosition == 0 ? [0] : bits.ToArray();
+        return bits.BitPosition == 0 ? EmptyEncoding(options) : bits.ToArray();
     }
+
+    private static byte[] EmptyEncoding(Asn1EncodingOptions options) => options.EmptyPerEncodingAsZeroOctet ? [0] : [];
 
     /// <inheritdoc />
     public override T Decode<T>(Asn1Type<T> type, ReadOnlyMemory<byte> data, Asn1DecodingOptions? options, out int bytesConsumed)
@@ -49,11 +51,10 @@ public sealed class PerEncodingRule : Asn1EncodingRule
         var bits = new BitReader(data);
         var reader = new PerReader(bits, IsAligned, Name, options);
         var value = type.Decode(reader);
-        bytesConsumed = Math.Max(1, (int)((bits.BitPosition + 7) / 8));
-        if (data.Length == 0)
-        {
-            throw new Asn1DecodeException(Asn1DecodeError.Truncated, "empty input (a complete PER encoding has at least one octet)");
-        }
+
+        // Empty input only gets here for a value of no bits (anything else is truncated): X.691 11.1.3 sends that as one
+        // zero octet, but asn1scc and asn1tools send no octets, so both are accepted.
+        bytesConsumed = data.Length == 0 ? 0 : Math.Max(1, (int)((bits.BitPosition + 7) / 8));
 
         if (options.RejectTrailingData && bytesConsumed != data.Length)
         {

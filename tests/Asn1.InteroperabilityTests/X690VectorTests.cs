@@ -175,7 +175,7 @@ public class X690VectorTests
                 }
 
                 // Decode the reference encoding and compare with asn1tools' own decoding.
-                var decoded = rule.Decode(type, Convert.FromHexString(c.Hex.Length == 0 && rule is PerEncodingRule ? "00" : c.Hex));
+                var decoded = rule.Decode(type, Convert.FromHexString(c.Hex));
                 var expected = VectorSuite.Canonical(c.Decoded ?? c.Value);
                 var actual = VectorSuite.Canonical(DynamicJson.Serialize(type, decoded));
                 if (expected != actual)

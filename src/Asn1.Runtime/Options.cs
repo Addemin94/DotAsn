@@ -15,6 +15,13 @@ public sealed record Asn1EncodingOptions
     /// </summary>
     public bool AllowValuesOutsideExtensibleConstraints { get; init; }
 
+    /// <summary>
+    /// PER: send a value whose encoding has no bits (an empty SEQUENCE, NULL, a single-value INTEGER) as one zero
+    /// octet, as X.691 11.1.3 requires (default true). Set to false to send no octets, as asn1scc and asn1tools do.
+    /// Decoding accepts both.
+    /// </summary>
+    public bool EmptyPerEncodingAsZeroOctet { get; init; } = true;
+
     /// <summary>Maximum nesting depth of structured values.</summary>
     public int MaxDepth { get; init; } = 256;
 

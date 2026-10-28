@@ -124,6 +124,26 @@ public class PerTests
         Assert.Throws<Asn1DecodeException>(() => schema.Decode(Uper, "S", hex));
     }
 
+    [Theory]
+    [InlineData("SEQUENCE { }", "{}")]
+    [InlineData("NULL", "null")]
+    [InlineData("INTEGER (5..5)", "5")]
+    public void EmptyEncodingsAreOneZeroOctetAndDecodeFromNoOctets(string type, string json)
+    {
+        var schema = new Schema("T ::= " + type);
+        foreach (var rule in new[] { Uper, Aper })
+        {
+            // X.691 11.1.3 by default; asn1scc and asn1tools send no octets, which decodes too.
+            Assert.Equal("00", schema.Encode(rule, "T", json));
+            Assert.Equal("", Convert.ToHexString(rule.Encode(schema["T"], schema.Value("T", json), new Asn1EncodingOptions { EmptyPerEncodingAsZeroOctet = false })));
+            Assert.Equal(json, schema.Decode(rule, "T", "00"));
+            Assert.Equal(json, schema.Decode(rule, "T", ""));
+
+            rule.Decode(schema["T"], ReadOnlyMemory<byte>.Empty, null, out var consumed);
+            Assert.Equal(0, consumed);
+        }
+    }
+
     [Fact]
     public void OutOfRangeValuesAreRejected()
     {

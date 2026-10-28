@@ -15,7 +15,7 @@ from the text, the text wins, and the deviation is recorded in the interoperabil
 | DER SET OF element order | X.690 11.6: ascending order of encodings | value order |
 | PER CHOICE index order | X.691 23.2: canonical tag order of the root alternatives | textual order |
 | ENUMERATED in a module with EXTENSIBILITY IMPLIED | X.680 13.4: the extension marker is implied | not extensible |
-| Empty PER encoding | X.691 11.1.3: a single zero octet | no octets |
+| Empty PER encoding | X.691 11.1.3: a single zero octet | no octets (so does asn1scc); decoded too, and sent with `EmptyPerEncodingAsZeroOctet = false` |
 | OER fixed-size string after serial constraints (`NameString (SIZE(1))`) | X.696 27.2: no length determinant | emits a length determinant |
 | OER extension addition group with OPTIONAL components | X.696 16.5.2: encoded as a sequence in an open type, starting with a presence bitmap | omits the presence bitmap |
 | CANONICAL-OER SET OF element order | X.696 31.8: ascending order of encodings | value order (asn1tools implements BASIC-OER only) |
