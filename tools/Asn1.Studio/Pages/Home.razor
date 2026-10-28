@@ -37,7 +37,7 @@
                     <label><input type="checkbox" @bind="_lint" /> Lint</label>
                     <label title="Enables interoperability lint rules for these encodings">for <input class="narrow" @bind="_lintRules" placeholder="uper,der" /></label>
                 </div>
-                <textarea class="editor" spellcheck="false" @bind="_schema" @bind:event="oninput" rows="30"></textarea>
+                <CodeEditor @ref="_schemaEditor" @bind-Value="_schema" Language="asn1" Highlighter="Workbench.Highlight" Rows="30" Label="ASN.1 schema" Diagnostics="_compile?.Diagnostics" />
                 @if (_compile is not null)
                 {
                     <p class="muted">@_compile.Diagnostics.Count diagnostic(s), @_compile.Types.Count type(s), compiled in @_compile.Elapsed.TotalMilliseconds.ToString("0", CultureInfo.InvariantCulture) ms.</p>
@@ -48,7 +48,7 @@
                             <tbody>
                                 @foreach (var d in _compile.Diagnostics)
                                 {
-                                    <tr class="@(d == _diagnostic ? "selected" : null)" @onclick="() => _diagnostic = d">
+                                    <tr class="@(d == _diagnostic ? "selected" : null)" @onclick="() => GoToDiagnosticAsync(d)" title="Go to the location in the editor">
                                         <td><span class="badge @d.Severity.ToString().ToLowerInvariant()">@d.Severity</span></td>
                                         <td>@d.Id</td>
                                         <td>@d.Line:@d.Column</td>
@@ -57,10 +57,6 @@
                                 }
                             </tbody>
                         </table>
-                        @if (_diagnostic is not null)
-                        {
-                            <Output Title="@($"Line {_diagnostic.Line}")" Text="@Excerpt(_diagnostic)" />
-                        }
                     }
                 }
             </div>
@@ -101,7 +97,7 @@
                     <label>seed <input class="narrow" type="number" @bind="_seed" /></label>
                     <button @onclick="Validate">Validate</button>
                 </div>
-                <textarea class="editor" spellcheck="false" @bind="_json" @bind:event="oninput" rows="18" placeholder="Value in DotAsn JSON value notation"></textarea>
+                <CodeEditor @bind-Value="_json" Language="json" Rows="18" Label="Value in DotAsn JSON value notation" Placeholder="Value in DotAsn JSON value notation" />
                 @if (_validation is not null)
                 {
                     <Output Title="Validation" Text="@(_validation.Count == 0 ? "The value satisfies all constraints." : string.Join("\n", _validation))" IsError="@(_validation.Count > 0)" />
@@ -232,13 +228,17 @@
     case Tab.CSharp:
         <section>
             <div class="toolbar">
-                <label>Namespace <input @bind="_namespace" placeholder="(from the module name)" /></label>
+                <label>Namespace <input @bind="_namespace" placeholder="(from the module name)" title="Clear it to name the namespace after the module" /></label>
                 <button class="primary" @onclick="GenerateCSharpAsync" disabled="@_generating">@(_generating ? "Loading the generator…" : "Generate")</button>
             </div>
             <p class="muted">The code that <code>asn1 generate-csharp</code> writes: typed classes, enums and descriptors for every encoding rule.</p>
             @if (_csharp is not null)
             {
-                <Output Title="Generated C#" Text="@_csharp" />
+                <div class="output-head">
+                    <span>Generated C#</span>
+                    <button class="small" @onclick="CopyCSharpAsync">@(_csharpCopied ? "Copied" : "Copy")</button>
+                </div>
+                <CodeEditor Value="@_csharp" Language="csharp" Highlighter="CSharpHighlighter.Highlight" ReadOnly="true" Rows="30" Label="Generated C#" />
             }
         </section>
         break;
@@ -288,8 +288,14 @@
     private InputFormat _inspectFormat = InputFormat.Hex;
     private string _inspectInput = string.Empty;
     private string? _inspected;
-    private string _namespace = string.Empty;
+    private string _namespace = "Protocol.Test";
     private string? _csharp;
+    private bool _csharpCopied;
+
+    private async Task CopyCSharpAsync()
+    {
+        _csharpCopied = await JS.InvokeAsync<bool>("asn1Studio.copy", _csharp ?? string.Empty);
+    }
 
     private string? Type
     {
@@ -372,16 +378,16 @@
         }
     }
 
-    private string Excerpt(DiagnosticView d)
-    {
-        var lines = _schema.Split('\n');
-        if (d.Line < 1 || d.Line > lines.Length)
-        {
-            return string.Empty;
-        }
+    private CodeEditor? _schemaEditor;
 
-        var line = lines[d.Line - 1].TrimEnd('\r');
-        return line + "\n" + new string(' ', Math.Max(0, d.Column - 1)) + "^ " + d.Message;
+    /// <summary>Selects a diagnostic and moves the editor's cursor to its location.</summary>
+    private async Task GoToDiagnosticAsync(DiagnosticView d)
+    {
+        _diagnostic = d;
+        if (_schemaEditor is not null && d.Line > 0)
+        {
+            await _schemaEditor.GoToAsync(d.Line, d.Column);
+        }
     }
 
     private void Example()
@@ -504,6 +510,7 @@
         {
             await Loader.LoadAssembliesAsync(["Microsoft.CodeAnalysis.wasm", "Microsoft.CodeAnalysis.CSharp.wasm", "Asn1.CodeGen.CSharp.wasm"]);
             _csharp = Run(() => Bench.GenerateCSharp(_namespace));
+            _csharpCopied = false;
         }
         catch (Exception e) when (e is InvalidOperationException or System.Net.Http.HttpRequestException)
         {

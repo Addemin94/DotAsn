@@ -115,17 +115,20 @@ regenerating code. See [docs/architecture.md](docs/architecture.md).
 (Blazor WebAssembly). Nothing is sent to a server: schemas and values stay on the page, and the last schema is kept
 in the browser's local storage.
 
-* **Schema:** edit or load a sample, compile and lint (optionally for a target encoding), click a diagnostic to see
-  the source line, browse types with their definitions and runtime descriptors.
+* **Schema:** edit or load a sample in a code editor (CodeMirror) highlighted by DotAsn's own lexer, compile and
+  lint (optionally for a target encoding) with errors and warnings shown inline, click a diagnostic to jump to it,
+  browse types with their definitions and runtime descriptors.
 * **Encode:** random example values, constraint validation, encoding with any of the ten rules (with the exact PER
   bit count), and a side-by-side size comparison of all rules.
 * **Decode:** hexadecimal, Base64 or text input; decoded value, consumed octets, constraint violations, transcoding to
   another rule.
-* **Inspect:** schema-less BER/DER/CER TLV dump. **Model:** the resolved model. **C#:** the generated code.
+* **Inspect:** schema-less BER/DER/CER TLV dump. **Model:** the resolved model. **C#:** the generated code,
+  highlighted from Roslyn's own parser.
 
 The first load downloads about 10 MB (the .NET runtime and the toolchain); the C# generator and Roslyn (another
 10 MB) load only when the C# tab is used. Run it locally with `dotnet run --project tools/Asn1.Studio`
-(http://localhost:5119).
+(http://localhost:5119). The editor is bundled from `tools/Asn1.Studio/editor` into `wwwroot/js/editor.js`
+(committed; rebuild with `npm ci && npm run build` there after changing it).
 
 ## Documentation
 

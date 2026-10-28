@@ -1,0 +1,144 @@
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+@* A CodeMirror 6 editor (wwwroot/js/editor.js, built from tools/Asn1.Studio/editor) with inline diagnostics, and
+   highlighting either by a .NET Highlighter (ASN.1, from the DotAsn lexer) or by CodeMirror's JSON language.
+   Bind it like a textarea: <CodeEditor @bind-Value="_text" Highlighter="Workbench.Highlight" />. *@
+<div class="code-editor" @ref="_host" data-language="@Language"></div>
+
+@code {
+    private ElementReference _host;
+    private IJSObjectReference? _module;
+    private IJSObjectReference? _editor;
+    private DotNetObjectReference<CodeEditor>? _self;
+
+    // The text the editor holds as far as .NET knows (the last value set or reported), to avoid echoing edits back.
+    private string _text = string.Empty;
+    private IReadOnlyList<DiagnosticView>? _shownDiagnostics;
+
+    /// <summary>The text.</summary>
+    [Parameter] public string Value { get; set; } = string.Empty;
+
+    /// <summary>Raised after each edit with the new text.</summary>
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    /// <summary>
+    /// The language: "json" and "text" use CodeMirror's own highlighting; with a <see cref="Highlighter"/> it only
+    /// names the content (e.g. "asn1", "csharp").
+    /// </summary>
+    [Parameter] public string Language { get; set; } = "text";
+
+    /// <summary>Shows the text without allowing edits (it can still be selected and copied).</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>
+    /// Highlights the text: (start, length, <see cref="Asn1.Syntax.SyntaxClass"/>) triples, e.g.
+    /// <see cref="Workbench.Highlight"/>. Called for the initial text and after each edit.
+    /// </summary>
+    [Parameter] public Func<string, int[]>? Highlighter { get; set; }
+
+    /// <summary>
+    /// Diagnostics shown inline (underlined, in the gutter and on hover). They move with later edits until a new list is
+    /// set; only diagnostics with an offset (<see cref="DiagnosticView.From"/>) are shown.
+    /// </summary>
+    [Parameter] public IReadOnlyList<DiagnosticView>? Diagnostics { get; set; }
+
+    /// <summary>Text shown while the editor is empty.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+
+    /// <summary>The minimum height in lines.</summary>
+    [Parameter] public int Rows { get; set; } = 12;
+
+    /// <summary>The accessible name of the editor.</summary>
+    [Parameter] public string Label { get; set; } = "Code editor";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _self = DotNetObjectReference.Create(this);
+            _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/editor.js");
+            _text = Value;
+            _editor = await _module.InvokeAsync<IJSObjectReference>("create", _host, _self, new
+            {
+                value = Value,
+                language = Language,
+                tokenClasses = Highlighter is null ? null : Enum.GetNames<Asn1.Syntax.SyntaxClass>(),
+                tokens = Highlighter?.Invoke(Value),
+                placeholder = Placeholder,
+                rows = Rows,
+                label = Label,
+                readOnly = ReadOnly,
+            });
+        }
+        else if (_editor is not null && Value != _text)
+        {
+            // The text was replaced from .NET (a sample, an example value, a decoded message).
+            _text = Value;
+            await _editor.InvokeVoidAsync("setValue", Value);
+            if (Highlighter is not null)
+            {
+                await _editor.InvokeVoidAsync("setTokens", Highlighter(Value));
+            }
+        }
+
+        if (_editor is not null && !ReferenceEquals(Diagnostics, _shownDiagnostics))
+        {
+            _shownDiagnostics = Diagnostics;
+            await _editor.InvokeVoidAsync("setDiagnostics", (Diagnostics ?? []).Where(d => d.From >= 0).Select(d => new
+            {
+                from = d.From,
+                to = d.To,
+                severity = d.Severity switch
+                {
+                    DiagnosticSeverity.Error => "error",
+                    DiagnosticSeverity.Warning => "warning",
+                    _ => "info",
+                },
+                message = d.Message,
+                source = d.Id,
+            }).ToList());
+        }
+    }
+
+    /// <summary>Called by the editor after each edit; returns the highlighting of the new text, if any.</summary>
+    [JSInvokable]
+    public async Task<int[]?> OnChange(string text)
+    {
+        _text = text;
+        await ValueChanged.InvokeAsync(text);
+        return Highlighter?.Invoke(text);
+    }
+
+    /// <summary>Moves the cursor to a one-based line and column and focuses the editor.</summary>
+    public async Task GoToAsync(int line, int column)
+    {
+        if (_editor is not null)
+        {
+            await _editor.InvokeVoidAsync("goTo", line, column);
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (_editor is not null)
+            {
+                await _editor.InvokeVoidAsync("dispose");
+                await _editor.DisposeAsync();
+            }
+
+            if (_module is not null)
+            {
+                await _module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The page is being torn down; the browser frees the editor with it.
+        }
+
+        _self?.Dispose();
+    }
+}

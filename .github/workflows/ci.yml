@@ -30,3 +30,21 @@ jobs:
         run: |
           dotnet src/Asn1.Cli/bin/Release/net10.0/asn1.dll lint samples --encoding-rules uper
           dotnet src/Asn1.Cli/bin/Release/net10.0/asn1.dll encode samples/telemetry/telemetry.asn -t Heartbeat -f uper --value '{"sequenceNumber":7,"uptimeSeconds":4000000000}'
+
+  studio-editor:
+    # wwwroot/js/editor.js is committed (the Studio builds without Node); it must match its sources.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/Asn1.Studio/editor
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tools/Asn1.Studio/editor/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - name: The committed bundle is up to date
+        run: git diff --exit-code -- ../wwwroot/js/editor.js ../wwwroot/js/editor.LICENSE.txt
