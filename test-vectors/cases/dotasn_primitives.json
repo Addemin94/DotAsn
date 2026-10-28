@@ -1,0 +1,1688 @@
+{
+  "specs": [
+    "test-vectors/corpus/dotasn/primitives.asn"
+  ],
+  "seed": 20261019,
+  "cases": [
+    {
+      "type": "Primitives.Real",
+      "value": -49672870.43094303
+    },
+    {
+      "type": "Primitives.Real",
+      "value": -1423.5002204885245
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 3.14159
+    },
+    {
+      "type": "Primitives.Real",
+      "value": "PLUS-INFINITY"
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 174.6742705230947
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 4.69357748501635E-16
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 1E+300
+    },
+    {
+      "type": "Primitives.Real",
+      "value": "MINUS-INFINITY"
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 3.1226460137975586E-10
+    },
+    {
+      "type": "Primitives.Real",
+      "value": -2.991221066560233E-08
+    },
+    {
+      "type": "Primitives.Real",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Real",
+      "value": -1.322520322316568E-07
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "0.2.64479.53781.16967.4153834051981594562.25180"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "2.183.14134.19981.3903896394419682467.24694"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "1.33.1030822898386295650.6255"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "1.14"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "1.3.3318.52536"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "0.37.25603"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "0.6.60806.62188.56516.63404"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "1.25.5948649356743576999"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "2.567.7471212444836490342.32199"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "0.26.4191.4880.4485.17916"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "2.716.23921.7686317036020290298.30527.66616"
+    },
+    {
+      "type": "Primitives.Oid",
+      "value": "0.24.2286276205611318471.6608706228871004075.3904.5178724346811322761"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "461207214757Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "830624122043Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "890821094706Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "451202153358Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "210923000217Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "120508062128Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "070115155032Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "291226071416Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "980608212351Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "511112054005Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "151013132359Z"
+    },
+    {
+      "type": "Primitives.Utc",
+      "value": "440808061843Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "20401003122033Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19601113120135Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19540327104531Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19591012092900Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19660917215137Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19500905121835Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "20650115201046Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "20450823203010Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19580125181228Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "19980309022335Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "20950201203118Z"
+    },
+    {
+      "type": "Primitives.Generalized",
+      "value": "20180726083845Z"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": ""
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "Ωжz0z жΩ€0~ßza0ß"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "9A0€9a€中Ωß  жa9"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "a9ßж"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "aa ß~~"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "€жΩ~é9€~€Ωßé€~ß "
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "ßzΩ ßaza z€ Ω0中Ω"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "ß~A€жжß€0zß0 жé"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "ß中  00Aß0 z€a中ß€"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "0AΩA~ za9é中жß"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "0AΩ Ωz 0a é9€aжA"
+    },
+    {
+      "type": "Primitives.Universal",
+      "value": "жé €жжéжжzΩ~0a~ß"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": ""
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "Ωßzß€éAéжßé"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "ß"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "AΩézΩжΩ€~é 9жAΩA"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "0ж中жAΩ9"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "A€жé ж€0Ω azA中é0"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "ж中жж€€0zAж0中"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "zж"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "aß 中a9жßzé中Ω9a€Ω"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "a中中éжA€0ßAé0ßAΩ0"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": " 00~中 9€AßazΩA0é"
+    },
+    {
+      "type": "Primitives.Bmp",
+      "value": "中é~Ωж中жж0A~ßA€zé"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "0éAé"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "中az~"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "中A~9"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "aé99"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "z0z "
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "中0a0"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "9 09"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "€ é€"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "aß Ω"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "ß中AA"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": "жé~Ω"
+    },
+    {
+      "type": "Primitives.Bmp4",
+      "value": " €Ωé"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "RV+JL2k:zy/"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "G:@z"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "=@]X`[hb[/Ew"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "Rp?7"
+    },
+    {
+      "type": "Primitives.General",
+      "value": ""
+    },
+    {
+      "type": "Primitives.General",
+      "value": "Yfj@I2[1r/q-"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "(0Fx|m1N;~l)"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "dx}Y7Qx.IgQ"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "QVSKayg3IGe}"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "=ETV`09G`8;>"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "7/.87#p$(PHJ"
+    },
+    {
+      "type": "Primitives.General",
+      "value": "I^(ff%nyuB29"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "w*fG6qu&}3=9"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "N/fm)>m[5yUa"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": ""
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "A,|i 4LKC`tI"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": ">JeZC0z`;slq"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "O1CPE"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "\\qJz?O)1IqS/"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "_B"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "Mh){?zy@siS("
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "_e8\"JR`OQGGV"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": ",pNw3;"
+    },
+    {
+      "type": "Primitives.Graphic",
+      "value": "PS`F<b,>J>U;"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "Qw<n:)Bq|u[Q"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": ":y$!rf0]"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "op\"&"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": ""
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "(^VijiQ>9ck;"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": ",1"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "O*GihJ<={A<{"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": ">LSO"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "g)qu:E:nqc :"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "~#m%A"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "QQ7Q:7K^_vS"
+    },
+    {
+      "type": "Primitives.Teletex",
+      "value": "8EX][kC"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "FFLDV3KLORAL5P0X8T0S"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "4"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "W7U1NJOD"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "AKBA1HXRULL05G6W62Z0"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "91VN5AOQ"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "SQU 2SLU1CVRBLDX2"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "OAWA"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "SEO9767QS9C7OZWTOATO"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "0F ARWDGOJOO2CMB4PVP"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "P"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "NADC89XEACAKSI W"
+    },
+    {
+      "type": "Primitives.Visible",
+      "value": "C"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "76187456"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "80  36 3"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "252859 7"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "61338603"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "26583464"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "47297122"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "385 8566"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "45818594"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "14090994"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "38062405"
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "8 29699 "
+    },
+    {
+      "type": "Primitives.Numeric8",
+      "value": "27815975"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "84"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "2E6757A33234"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": ""
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "5590D16B8B12"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "F4206C85AECA"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "917AE9588559"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "DDA93"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "019E6FABFD5E"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "17F1FA1D3E5C"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "D7C72284CADB"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "92302"
+    },
+    {
+      "type": "Primitives.Hex",
+      "value": "34D81DC7F"
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 234
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 187
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 73
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 255
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 194
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 23
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 15
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 200
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 114
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 2
+    },
+    {
+      "type": "Primitives.Unsigned8",
+      "value": 24
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 24575
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 63938
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 65535
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 2303
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 35430
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 5027
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 11133
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 39209
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 15544
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 56375
+    },
+    {
+      "type": "Primitives.Unsigned16",
+      "value": 50540
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 1337598887
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 4294967295
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 3605705714
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 281562950
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 2134306821
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 2473206074
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 808260775
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 2442434549
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 4055751172
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 4221937173
+    },
+    {
+      "type": "Primitives.Unsigned32",
+      "value": 4195931527
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "10114548915608823643"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "547453773547200442"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "12265377983250551882"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "5414332564241470810"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "15066670782128548731"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "15028827981350866386"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "8428270195843504085"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "18446744073709551615"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "9585036055958413011"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "12225566090749196106"
+    },
+    {
+      "type": "Primitives.Unsigned64",
+      "value": "10620572876112109850"
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": "7381911844164909791"
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": "1267650600228229401496703205376"
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": "195215419289669833413702001088"
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 360395286758
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 27099
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 42
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 43969
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 57021
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 100
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": "15521206181694431590"
+    },
+    {
+      "type": "Primitives.Natural",
+      "value": 20
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -4
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -44
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 59
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -73
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 50
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 73
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 63
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -101
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -69
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": 127
+    },
+    {
+      "type": "Primitives.Signed8",
+      "value": -12
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 32767
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 25100
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": -9689
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": -32768
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 8312
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 19997
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 3403
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": -9783
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 29776
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": -15202
+    },
+    {
+      "type": "Primitives.Signed16",
+      "value": 28600
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -2012874580
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 2147483647
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 819709901
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -156683835
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 576867876
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 1831302513
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -36673799
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -2147483648
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -807651716
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": -1416343605
+    },
+    {
+      "type": "Primitives.Signed32",
+      "value": 1467758325
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-7430246636895973342"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-4424173638403989678"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "5752735296899032529"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-9223372036854775808"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "9223372036854775807"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "3793229617233515331"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-6661006440038124990"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-8223958872373118129"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "-8539035648635072640"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "3714545926285193513"
+    },
+    {
+      "type": "Primitives.Signed64",
+      "value": "2522161051104506602"
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 8178398716
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 100000
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 84912198149
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 100000000000
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 40294860776
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 27599456085
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 25961040678
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 38116874804
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 76253671352
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 78188675454
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 71205085216
+    },
+    {
+      "type": "Primitives.Huge",
+      "value": 32716802466
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "45297731375620444139775961539"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": 1099511627771
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": 95
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "13295926046838485614"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "5204932976765437153"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "6200281673745887810"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": -5
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "8330140023360998866"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": "1267650600228229401496703205371"
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": 69995
+    },
+    {
+      "type": "Primitives.Offset",
+      "value": 55475
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 15
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 0
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 12
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 9
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 1
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 11
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 13
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 3
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 4
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 8
+    },
+    {
+      "type": "Primitives.Ext",
+      "value": 2
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"F8","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"D0","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"60","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"70","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"28","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"38","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"40","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"68","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"00","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"80","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"50","length":5}
+    },
+    {
+      "type": "Primitives.Fixed5",
+      "value": {"hex":"08","length":5}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"0C04BBC0","length":26}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"5F6BCE4C59","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"EA6A9CDC53","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"33AC141F04","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"","length":0}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"311934EFA7","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"D8AEE90E40","length":34}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"669F80","length":17}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"7F789246A9","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"B71819C713","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"4986AD7BA0","length":40}
+    },
+    {
+      "type": "Primitives.Bits",
+      "value": {"hex":"1C","length":8}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"A268","length":13}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"40","length":2}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"C059","length":16}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"C0","length":2}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"8710","length":12}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"F2","length":7}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"77FB","length":16}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"6860","length":11}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"1025","length":16}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"3E50","length":12}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"BDC5","length":16}
+    },
+    {
+      "type": "Primitives.Flags",
+      "value": {"hex":"E48B","length":16}
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "943C3B"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "6BEAD6"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "CDDED2"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "6FD9DE"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "28CDBE"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "BBAE2E"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "2C9817"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "B59839"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "546906"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "980072"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "0506D7"
+    },
+    {
+      "type": "Primitives.Octets3",
+      "value": "C67E41"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "BD"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "7FF135C6"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "53"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "BE"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "F8"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "3B72D025"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "375655"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "1FCBD1"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "CB3FB7"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "FD81"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "59"
+    },
+    {
+      "type": "Primitives.OctetsExt",
+      "value": "B9"
+    },
+    {
+      "type": "Primitives.Nothing",
+      "value": null
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"0~€€AΩzΩzжßA","when":"19920404212442Z","ratio":-11980413.767500043,"id":"0.19.58179.24141.134759117950031814","level":7}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"A中~ж0AΩ~中9 A","when":"20451123171426Z","id":"1.23.29492.29887.15088.48174.45117"}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"z","ratio":"PLUS-INFINITY","id":"2.676.26652","level":1}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"€","when":"20360811060340Z","ratio":1E+300,"id":"2.468.1376.50376.22704","level":4}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"99~€ß中€","when":"19800416211034Z","id":"1.34.34177.5264921069856555361.60863.66197.39727","level":0}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"ж","when":"20921225023434Z","ratio":-2265750268597971.5,"id":"0.25.66385.12936.7138350091527305408.55950"}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"~中éΩ~0","when":"20481228070600Z","ratio":-37945.805996631185,"id":"2.202.5555325865436909937","level":0}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"Ω9éΩß0A 中a ж","when":"20160323184114Z","ratio":47752861188.60955,"id":"0.10.16580.13254.31859","marker":null}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"00жßé0aé9中z9","when":"19981027012114Z","id":"0.21","marker":null}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"中 Ωж~9~  Ω 0","id":"2.594.66556.52500.29074.20940","marker":null,"level":7}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"~~éжa0ΩAΩ é0","id":"2.528.36796.10207.59920","marker":null,"level":7}
+    },
+    {
+      "type": "Primitives.Record",
+      "value": {"name":"ж","when":"20031205082016Z","id":"0.27","level":2}
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["=v6gJY","OSo7:-O","n'c.Ny.v","'037sI0R"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": [".","C","H3br99/:","-.?6cCCw"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": []
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["H","P3YwPDZ3","l","tmp3o9.Q"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["U","0?LK:s","v-","N"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["i","A","L","k"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["TGDk-W1e"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["OZKr163k"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["s4orSki0","F","lF/+ I34","r"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["U4m4KXPA","CDK(7jEi","?","ksrws"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["w",",","b,g1jQR7"]
+    },
+    {
+      "type": "Primitives.Tags",
+      "value": ["J","IobHM","oV3mRy7x","E"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [628698101869,"17227080501422167293","1267650600209782657422993653755"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": []
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": ["1027360467674007923374568328276",-100]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": ["-10539374053178905101"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": ["6594560156043835589",583110901859,0]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [-70000,"-1041517624143155359216401724807"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [-100,0,"-18446743808035918750"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [-100,"629231610462903136","13904403827646225282"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": ["-859411930599171180655138174191","297194021455032054638912625353","1267650600228229401496703205276"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": ["-18446743646299173887"]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [-75568219548,-1099511627698,-100]
+    },
+    {
+      "type": "Primitives.Numbers",
+      "value": [545660439425,-70000,"-18446744073709508086"]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-0.0004634939599612234,"at":"860227140514Z"},{"value":0.1,"at":"910128121918Z"},{"value":7.440412816330988E-10,"at":"430703114000Z"},{"value":3.118418938535461E-15,"at":"911223173800Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":7.789799877344539E-19,"at":"790402112301Z"},{"value":1,"at":"601122141434Z"},{"value":0,"at":"930927051452Z"},{"value":-1.5,"at":"040522020030Z"},{"value":2513608852174882.5,"at":"260605034121Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":3.5643959876915424E-16,"at":"580106041830Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":"PLUS-INFINITY","at":"651017065106Z"},{"value":-1.5,"at":"860107165226Z"},{"value":"MINUS-INFINITY","at":"740903023825Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":9169811363.876713,"at":"281121210205Z"},{"value":152102.04694983643,"at":"010814145703Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-3.511890628613481E-16,"at":"470314070603Z"},{"value":-1354815231801.3901,"at":"270811093350Z"},{"value":-2.2677412337007655E-21,"at":"770219002122Z"},{"value":0,"at":"370902150724Z"},{"value":1E+300,"at":"991002171810Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-3.529189763837117E-11,"at":"140510122757Z"},{"value":-1536599819798.3015,"at":"990207001458Z"},{"value":123456789,"at":"990627004828Z"},{"value":-353683359387183.25,"at":"721015134729Z"},{"value":0,"at":"951008044353Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":484.7020041126302,"at":"491026034612Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-86.75126944982969,"at":"730801113325Z"},{"value":123456789,"at":"980605171913Z"},{"value":-7.818135366690409,"at":"750209050035Z"},{"value":"MINUS-INFINITY","at":"420728042140Z"},{"value":-2.5E-10,"at":"830620063039Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":1,"at":"980302151239Z"},{"value":1,"at":"001105091503Z"},{"value":"MINUS-INFINITY","at":"790125031639Z"},{"value":2132.6814322418786,"at":"630920195934Z"},{"value":-1.5,"at":"341220065941Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-1.5,"at":"051211135155Z"}]
+    },
+    {
+      "type": "Primitives.Measurements",
+      "value": [{"value":-2.5E-10,"at":"951027161805Z"},{"value":-7.388413817336976E-06,"at":"700817121223Z"},{"value":35558.85035803488,"at":"000609023838Z"}]
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"text":""}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"real":4.234278066658544E-14}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"text":"0Ω€жéß ~ßa€ß"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"text":"€z~Ω~~жAßé0€"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"text":"éa9ж中A9"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"real":-0.7460645845840053}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"nothing":null}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"wide":"~a ΩA90中Aß"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"wide":""}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"oid":"0.32.34329"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"text":"~Ωß9中жAA€~中~"}
+    },
+    {
+      "type": "Primitives.Mixed",
+      "value": {"wide":"中a~ж0"}
+    }
+  ]
+}

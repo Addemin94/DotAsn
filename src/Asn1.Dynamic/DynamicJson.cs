@@ -126,8 +126,22 @@ public static class DynamicJson
                     w.WriteStartObject();
                     if (choice.Alternative is null)
                     {
+                        // An alternative from a later version, kept for relaying: {"encoding", "hex"} plus the PER
+                        // extension index that re-encoding with UPER/APER needs.
                         w.WritePropertyName("$unknownExtension");
-                        Write(w, type, choice.Value);
+                        w.WriteStartObject();
+                        if (choice.Value is Asn1OpenValue { IsRaw: true } raw)
+                        {
+                            w.WriteString("encoding", raw.EncodingRule);
+                            w.WriteString("hex", Convert.ToHexString(raw.Encoded.Span));
+                        }
+
+                        if (choice.UnknownIndex >= 0)
+                        {
+                            w.WriteNumber("index", choice.UnknownIndex);
+                        }
+
+                        w.WriteEndObject();
                     }
                     else
                     {
@@ -290,6 +304,18 @@ public static class DynamicJson
                     }
 
                     var info = (IStructuredTypeInfo)inner;
+                    if (members[0].Name == "$unknownExtension" && info.IsExtensible)
+                    {
+                        var u = members[0].Value;
+                        if (u.ValueKind != JsonValueKind.Object || !u.TryGetProperty("hex", out var unknownHex) || !u.TryGetProperty("encoding", out var unknownRule))
+                        {
+                            throw new Asn1JsonException("an unknown alternative is written as {\"encoding\": \"UPER\", \"hex\": \"...\", \"index\": n}", path);
+                        }
+
+                        var index = u.TryGetProperty("index", out var i) && i.TryGetInt32(out var n) ? n : -1;
+                        return new Asn1Choice(null, Asn1OpenValue.FromEncoded(ParseHex(unknownHex.GetString() ?? string.Empty, path), unknownRule.GetString() ?? string.Empty), index);
+                    }
+
                     var alt = info.ComponentInfos.FirstOrDefault(c => c.Name == members[0].Name) ?? throw new Asn1JsonException($"'{members[0].Name}' is not an alternative of {inner.Name}", path);
                     return new Asn1Choice(alt.Name, Read(alt.Type, members[0].Value, path + "." + alt.Name));
                 }

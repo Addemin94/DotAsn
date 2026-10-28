@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The DotAsn runtime compiled to WebAssembly with NativeAOT-LLVM (experimental, dotnet/runtimelab).
+    Build with ../scripts/build-native.mjs, which needs the Emscripten SDK (see ../README.md); it is not part of
+    Asn1Toolchain.sln. Exports are defined in Exports.cs; values cross the boundary as JSON value notation.
+  -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <AssemblyName>dotasn</AssemblyName>
+    <RootNamespace>Asn1.Wasm</RootNamespace>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <IsPackable>false</IsPackable>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+    <MSBuildEnableWorkloadResolver>false</MSBuildEnableWorkloadResolver>
+    <IlcOptimizationPreference>Size</IlcOptimizationPreference>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <!-- Trimming feature switches: none of these features are used by the runtime. -->
+    <XmlResolverIsNetworkingEnabledByDefault>false</XmlResolverIsNetworkingEnabledByDefault>
+    <StackTraceSupport>false</StackTraceSupport>
+    <EventSourceSupport>false</EventSourceSupport>
+    <DebuggerSupport>false</DebuggerSupport>
+    <MetricsSupport>false</MetricsSupport>
+    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.ILCompiler.LLVM" />
+    <PackageReference Include="runtime.$(NETCoreSdkPortableRuntimeIdentifier).Microsoft.DotNet.ILCompiler.LLVM" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../../src/Asn1.Dynamic/Asn1.Dynamic.csproj" />
+    <ProjectReference Include="../../../src/Asn1.Serialization/Asn1.Serialization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- An ES module factory usable in browsers, workers and Node.js. -->
+    <LinkerArg Include="-sMODULARIZE=1" />
+    <LinkerArg Include="-sEXPORT_ES6=1" />
+    <LinkerArg Include="-sEXPORT_NAME=createDotAsnModule" />
+    <LinkerArg Include="-sENVIRONMENT=web,worker,node" />
+    <LinkerArg Include="-sALLOW_MEMORY_GROWTH=1" />
+    <LinkerArg Include="-sEXPORTED_RUNTIME_METHODS=HEAPU8" />
+    <LinkerArg Include="-sINCOMING_MODULE_JS_API=locateFile,wasmBinary,instantiateWasm" />
+    <LinkerArg Include="-Oz" />
+  </ItemGroup>
+</Project>

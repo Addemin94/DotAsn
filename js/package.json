@@ -1,0 +1,9 @@
+{
+  "name": "dotasn-js",
+  "private": true,
+  "description": "npm workspace of the DotAsn JavaScript packages.",
+  "workspaces": [
+    "runtime",
+    "wasm"
+  ]
+}

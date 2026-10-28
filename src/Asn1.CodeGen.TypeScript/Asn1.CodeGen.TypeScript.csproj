@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Generates TypeScript types and descriptors (for @dotasn/runtime) and the DotAsn schema (for the WebAssembly runtime @dotasn/wasm) from the resolved ASN.1 model.</Description>
+    <RootNamespace>Asn1.CodeGen.TypeScript</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Semantics\Asn1.Semantics.csproj" />
+    <ProjectReference Include="..\Asn1.Dynamic\Asn1.Dynamic.csproj" />
+  </ItemGroup>
+</Project>

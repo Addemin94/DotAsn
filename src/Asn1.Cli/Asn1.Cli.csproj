@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Asn1.CodeGen.CSharp\Asn1.CodeGen.CSharp.csproj" />
+    <ProjectReference Include="..\Asn1.CodeGen.TypeScript\Asn1.CodeGen.TypeScript.csproj" />
     <ProjectReference Include="..\Asn1.Dynamic\Asn1.Dynamic.csproj" />
     <ProjectReference Include="..\Asn1.Linter\Asn1.Linter.csproj" />
     <ProjectReference Include="..\Asn1.Serialization\Asn1.Serialization.csproj" />

@@ -23,49 +23,19 @@ public class X690VectorTests
     public void BerInteroperatesWithAsn1Tools(string name) => Run("ber", name, BerEncodingRule.Instance, exactEncoding: false);
 
     /// <summary>
-    /// Documented deviations of the reference implementation from the standards. Each is verified against the
-    /// ITU-T text; the affected vectors are checked by value equivalence instead of byte equality, or skipped.
+    /// Documented deviations of the reference implementation from the standards (test-vectors/deviations.json, shared
+    /// with the WebAssembly runtime tests). Each is verified against the ITU-T text; the affected vectors are checked by
+    /// round trip of our own encoding instead of byte equality. Keys are (codec, file, type); "*" matches every type.
     /// </summary>
-    internal static readonly Dictionary<(string Codec, string File, string Type), string> KnownDeviations = new()
+    internal static readonly Dictionary<(string Codec, string File, string Type), string> KnownDeviations = LoadDeviations();
+
+    private static Dictionary<(string Codec, string File, string Type), string> LoadDeviations()
     {
-        // asn1tools numbers automatic tags in textual order; X.680 (2021) 25.10 c/d numbers both root parts first,
-        // then the extension additions. Every tag-based encoding of these types therefore differs.
-        [("ber", "asn1tools_x691_a4", "X691-A4.Ax")] = "X.680 25.10: automatic tags of root part 2 precede extension additions",
-        [("der", "asn1tools_x691_a4", "X691-A4.Ax")] = "X.680 25.10: automatic tags of root part 2 precede extension additions",
-
-        // asn1tools indexes CHOICE alternatives in textual order; X.691 23.2 uses the canonical tag order
-        // (CHOICE { a INTEGER, b BOOLEAN } has b = 0 because UNIVERSAL 1 < UNIVERSAL 2).
-        [("uper", "asn1tools_module_tags_explicit", "ModuleTagsExplicit.S8")] = "X.691 23.2 canonical CHOICE index order",
-        [("uper", "asn1tools_module_tags_explicit", "ModuleTagsExplicit.S9")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "asn1tools_module_tags_explicit", "ModuleTagsExplicit.S8")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "asn1tools_module_tags_explicit", "ModuleTagsExplicit.S9")] = "X.691 23.2 canonical CHOICE index order",
-        [("uper", "asn1tools_module_tags_implicit", "ModuleTagsImplicit.S8")] = "X.691 23.2 canonical CHOICE index order",
-        [("uper", "asn1tools_module_tags_implicit", "ModuleTagsImplicit.S9")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "asn1tools_module_tags_implicit", "ModuleTagsImplicit.S8")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "asn1tools_module_tags_implicit", "ModuleTagsImplicit.S9")] = "X.691 23.2 canonical CHOICE index order",
-
-        // zforce's notificationMessage CHOICE has APPLICATION and context tags out of textual order (X.691 23.2).
-        [("uper", "derived_zforce_not_implied", "ProtocolMessage.ProtocolMessage")] = "X.691 23.2 canonical CHOICE index order",
-        [("uper", "derived_zforce_not_implied", "ProtocolMessage.Notification")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "derived_zforce_not_implied", "ProtocolMessage.ProtocolMessage")] = "X.691 23.2 canonical CHOICE index order",
-        [("per", "derived_zforce_not_implied", "ProtocolMessage.Notification")] = "X.691 23.2 canonical CHOICE index order",
-
-        // asn1tools ignores EXTENSIBILITY IMPLIED for ENUMERATED; X.680 13.4 inserts the marker into every type that permits one.
-        [("uper", "asn1tools_zforce", "*")] = "X.680 13.4 EXTENSIBILITY IMPLIED applies to ENUMERATED",
-        [("per", "asn1tools_zforce", "*")] = "X.680 13.4 EXTENSIBILITY IMPLIED applies to ENUMERATED",
-
-        // Name.initial is NameString (SIZE(1)): the effective size constraint is fixed, so X.696 27.2 omits the length
-        // determinant (the same analysis reproduces the published X.691 A.2/A.3 PER encodings); asn1tools emits one.
-        // Measurement has the extension addition group [[ pressurePa ... OPTIONAL ]]. X.696 16.5.2 encodes a group as a
-        // sequence in an open type, so it starts with a presence bitmap for its OPTIONAL components; asn1tools' OER
-        // omits that preamble (its UPER/APER encodings include the PER equivalent and match DotAsn exactly).
-        [("oer", "telemetry", "Telemetry-Protocol.Measurement")] = "X.696 16.5.2 extension addition group preamble",
-        [("oer", "telemetry", "Telemetry-Protocol.MeasurementBatch")] = "X.696 16.5.2 extension addition group preamble",
-        [("oer", "telemetry", "Telemetry-Protocol.Payload")] = "X.696 16.5.2 extension addition group preamble",
-        [("oer", "telemetry", "Telemetry-Protocol.Message")] = "X.696 16.5.2 extension addition group preamble",
-        [("oer", "asn1tools_x691_a2", "*")] = "X.696 27.2 fixed-size known-multiplier string has no length determinant",
-        [("oer", "asn1tools_x691_a3", "*")] = "X.696 27.2 fixed-size known-multiplier string has no length determinant",
-    };
+        var json = System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(Path.Combine(VectorSuite.Root, "test-vectors", "deviations.json")))!;
+        return json["deviations"]!.AsArray().ToDictionary(
+            d => (d!["codec"]!.GetValue<string>(), d["file"]!.GetValue<string>(), d["type"]!.GetValue<string>()),
+            d => d!["reason"]!.GetValue<string>());
+    }
 
     internal static bool IsDeviation(string codec, string file, string type) =>
         KnownDeviations.ContainsKey((codec, file, type)) || KnownDeviations.ContainsKey((codec, file, "*"));
@@ -99,7 +69,7 @@ public class X690VectorTests
         return rule.Name == "JER" ? Json(hexA) == Json(hexB) : Xml(hexA) == Xml(hexB);
     }
 
-    internal static void Run(string codec, string name, Asn1EncodingRule rule, bool exactEncoding)
+    internal static void Run(string codec, string name, Asn1EncodingRule rule, bool exactEncoding, bool viaSchema = false)
     {
         var file = VectorSuite.Load(codec, name);
         var failures = new List<string>();
@@ -111,8 +81,8 @@ public class X690VectorTests
                 // Not comparable with the reference; our own encoding must still round-trip to the same value.
                 try
                 {
-                    var t = VectorSuite.Descriptor(file, c.Type);
-                    var v = DynamicJson.Parse(t, c.Value.ToJsonString());
+                    var t = viaSchema ? VectorSuite.SchemaDescriptor(file, c.Type) : VectorSuite.Descriptor(file, c.Type);
+                    var v = DynamicJson.Parse(t, c.ValueJson);
                     // Compare re-encodings rather than JSON: an absent DEFAULT component decodes as its explicit default.
                     var bytes = Convert.ToHexString(rule.Encode(t, v));
                     var decoded = rule.Decode(t, Convert.FromHexString(bytes));
@@ -132,7 +102,7 @@ public class X690VectorTests
 
             try
             {
-                var type = VectorSuite.Descriptor(file, c.Type);
+                var type = viaSchema ? VectorSuite.SchemaDescriptor(file, c.Type) : VectorSuite.Descriptor(file, c.Type);
                 if ((exactEncoding && (codec == "der" || rule == OerEncodingRule.Canonical) || codec == "xer") && ContainsSet(type))
                 {
                     // asn1tools leaves SET/SET OF in textual order (X.690 10.3/11.6, X.696 31.8, X.693 9.6/9.7): compare values, and
@@ -146,7 +116,7 @@ public class X690VectorTests
                     };
                     var theirs = lenient.Decode(type, Convert.FromHexString(c.Hex));
                     var canonicalTheirs = Convert.ToHexString(rule.Encode(type, theirs));
-                    var oursBytes = rule.Encode(type, DynamicJson.Parse(type, c.Value.ToJsonString()));
+                    var oursBytes = rule.Encode(type, DynamicJson.Parse(type, c.ValueJson));
                     rule.Decode(type, oursBytes);
                     if (canonicalTheirs != Convert.ToHexString(oursBytes))
                     {
@@ -156,7 +126,7 @@ public class X690VectorTests
                     continue;
                 }
 
-                var value = DynamicJson.Parse(type, c.Value.ToJsonString());
+                var value = DynamicJson.Parse(type, c.ValueJson);
                 var encoded = Convert.ToHexString(rule.Encode(type, value));
                 if (!rule.IsBinary && encoded != c.Hex && SameText(rule, encoded, c.Hex))
                 {
@@ -170,14 +140,21 @@ public class X690VectorTests
                 }
                 else if (exactEncoding)
                 {
-                    failures.Add($"{c.Type} {c.Value.ToJsonString()}: encoded {encoded}, expected {c.Hex}");
+                    failures.Add($"{c.Type} {c.ValueJson}: encoded {encoded}, expected {c.Hex}");
                     continue;
                 }
 
                 // Decode the reference encoding and compare with asn1tools' own decoding.
                 var decoded = rule.Decode(type, Convert.FromHexString(c.Hex));
+                // Our decoding must equal asn1tools' own decoding (which adds DEFAULT values) or the original value
+                // (asn1tools decodes some values wrongly, e.g. OBJECT IDENTIFIER 2.x with x >= 40, X.690 8.19.4).
                 var expected = VectorSuite.Canonical(c.Decoded ?? c.Value);
                 var actual = VectorSuite.Canonical(DynamicJson.Serialize(type, decoded));
+                if (expected != actual && VectorSuite.Canonical(c.Value) == actual)
+                {
+                    expected = actual;
+                }
+
                 if (expected != actual)
                 {
                     failures.Add($"{c.Type}: decoded {actual}, expected {expected}");
@@ -193,7 +170,7 @@ public class X690VectorTests
             }
             catch (Exception e) when (e is Asn1Exception or Asn1JsonException or InvalidOperationException or NotSupportedException or FormatException)
             {
-                failures.Add($"{c.Type} {c.Value.ToJsonString()}: {e.GetType().Name}: {e.Message}");
+                failures.Add($"{c.Type} {c.ValueJson}: {e.GetType().Name}: {e.Message}");
             }
         }
 

@@ -21,5 +21,6 @@
     <BlazorWebAssemblyLazyLoad Include="Microsoft.CodeAnalysis.wasm" />
     <BlazorWebAssemblyLazyLoad Include="Microsoft.CodeAnalysis.CSharp.wasm" />
     <BlazorWebAssemblyLazyLoad Include="Asn1.CodeGen.CSharp.wasm" />
+    <BlazorWebAssemblyLazyLoad Include="Asn1.CodeGen.TypeScript.wasm" />
   </ItemGroup>
 </Project>

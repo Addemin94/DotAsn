@@ -48,3 +48,41 @@ jobs:
       - run: npm run build
       - name: The committed bundle is up to date
         run: git diff --exit-code -- ../wwwroot/js/editor.js ../wwwroot/js/editor.LICENSE.txt
+
+  javascript:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: js
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: js/package-lock.json
+      - name: Set up Emscripten (for NativeAOT-LLVM)
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 3.1.56
+          actions-cache-folder: emsdk-cache
+      - name: Build the CLI
+        working-directory: .
+        run: dotnet build src/Asn1.Cli -c Release
+      - name: Install
+        run: npm ci
+      - name: Generate TypeScript and schemas for the test vectors
+        run: npm run generate -w @dotasn/wasm
+      - name: Build the WebAssembly runtime (NativeAOT-LLVM)
+        run: npm run build:native -w @dotasn/wasm
+      - name: Type-check
+        run: npm run typecheck --workspaces
+      - name: Test (asn1tools vectors through the WebAssembly runtime, value notation)
+        run: npm test --workspaces
+      - name: Build and pack
+        run: |
+          npm run build --workspaces
+          npm pack --dry-run --workspaces

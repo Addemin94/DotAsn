@@ -17,6 +17,6 @@
 | SEQUENCE OF / SET OF | array |
 | CHOICE | object with exactly one member: `{"alternative": value}` |
 | open type | `{"encoding": "BER", "hex": "..."}` |
-| unknown CHOICE extension (decoded from a later version) | `{"$unknownExtension": {"encoding": "UPER", "hex": "..."}}` |
+| unknown CHOICE extension (decoded from a later version) | `{"$unknownExtension": {"encoding": "UPER", "hex": "...", "index": 1}}` (`index`: the PER extension index, when known); accepted as input so that it can be relayed with the same rule |
 
 Decoders fill in DEFAULT values, so a decoded value can contain components that were omitted on input.

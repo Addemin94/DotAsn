@@ -9,7 +9,7 @@
 <nav class="tabs">
     @foreach (var tab in Enum.GetValues<Tab>())
     {
-        <button class="tab @(tab == _tab ? "active" : null)" @onclick="() => _tab = tab">@(tab == Tab.CSharp ? "C#" : tab.ToString())</button>
+        <button class="tab @(tab == _tab ? "active" : null)" @onclick="() => _tab = tab">@(tab switch { Tab.CSharp => "C#", Tab.TypeScript => "TypeScript", _ => tab.ToString() })</button>
     }
     <span class="status @(_compile is { Success: false } ? "bad" : "good")">@Status</span>
 </nav>
@@ -242,6 +242,32 @@
             }
         </section>
         break;
+
+    case Tab.TypeScript:
+        <section>
+            <div class="toolbar">
+                <button class="primary" @onclick="GenerateTypeScriptAsync" disabled="@_generating">@(_generating ? "Loading the generator…" : "Generate")</button>
+                <button @onclick="DownloadSchemaAsync" disabled="@(Bench.Types.Count == 0)">Download schema.json</button>
+            </div>
+            <p class="muted">
+                The code that <code>asn1 generate-typescript</code> writes: types and descriptors per module, and
+                <code>dotasn-schema.ts</code> with the schema that the WebAssembly runtime loads
+                (<code>await loadDotAsn(schema)</code> from <code>@@dotasn/wasm</code>). <code>schema.json</code> is the same schema
+                for use without generated TypeScript.
+            </p>
+            @foreach (var d in _tsDiagnostics)
+            {
+                <p class="muted">@d</p>
+            }
+            @foreach (var f in _typescript)
+            {
+                <div class="toolbar">
+                    <button class="small" @onclick="() => DownloadAsync(f.Path, f.Content)">Download @f.Path</button>
+                </div>
+                <Output Title="@f.Path" Text="@f.Content" />
+            }
+        </section>
+        break;
 }
 
 @code {
@@ -253,6 +279,7 @@
         Inspect,
         Model,
         CSharp,
+        TypeScript,
     }
 
     private Tab _tab = Tab.Schema;
@@ -501,6 +528,8 @@
     }
 
     private bool _generating;
+    private IReadOnlyList<GeneratedFile> _typescript = [];
+    private IReadOnlyList<string> _tsDiagnostics = [];
 
     /// <summary>The generator and Roslyn are lazy-loaded (see the project file) the first time code is generated.</summary>
     private async Task GenerateCSharpAsync()
@@ -520,6 +549,34 @@
         {
             _generating = false;
         }
+    }
+
+    /// <summary>The TypeScript generator is lazy-loaded (see the project file) the first time it is used.</summary>
+    private async Task GenerateTypeScriptAsync()
+    {
+        _generating = true;
+        try
+        {
+            await Loader.LoadAssembliesAsync(["Asn1.CodeGen.TypeScript.wasm"]);
+            var (files, diagnostics) = Bench.GenerateTypeScript();
+            _typescript = files;
+            _tsDiagnostics = diagnostics;
+        }
+        catch (Exception e) when (e is InvalidOperationException or System.Net.Http.HttpRequestException)
+        {
+            _message = "Could not load the TypeScript generator: " + e.Message;
+        }
+        finally
+        {
+            _generating = false;
+        }
+    }
+
+    private Task DownloadSchemaAsync() => DownloadAsync("schema.json", Bench.GenerateSchema(indented: true), "application/json");
+
+    private async Task DownloadAsync(string name, string text, string type = "text/plain")
+    {
+        await JS.InvokeVoidAsync("asn1Studio.download", name, text, type);
     }
 
     private static string SizeText(RuleOutput r) =>

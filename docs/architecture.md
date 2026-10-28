@@ -45,6 +45,8 @@ ASN.1 sources ──► Asn1.Syntax (lexer, recursive-descent parser, AST, comme
 | `Asn1.Dynamic` | Descriptors from the semantic model at run time, a dynamic value model, the lossless JSON value notation and a constraint-aware random value generator. |
 | `Asn1.Linter` | Configurable lint rules on top of the semantic model. |
 | `Asn1.CodeGen.CSharp` | C# generator consuming the semantic model; builds the output as a Roslyn syntax tree (ADR 0004). |
+| `Asn1.CodeGen.TypeScript` | TypeScript generator: types and descriptors (for `@dotasn/runtime` in `js/runtime`) and the schema for `@dotasn/wasm` (ADR 0005). |
+| `js/wasm/native` | The runtime compiled to WebAssembly with NativeAOT-LLVM; loads DotAsn schemas (`Asn1Schema`, docs/schema-format.md) instead of compiling (ADR 0006). |
 | `Asn1.Cli` | The `asn1` command-line tool. |
 
 ## Key design decisions

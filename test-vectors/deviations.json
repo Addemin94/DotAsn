@@ -1,0 +1,317 @@
+{
+ "description": "Documented deviations of asn1tools from the ITU-T texts. The affected vectors are checked by round trip of our own encoding instead of byte equality. 'oer' entries also apply to COER; '*' matches every type of the file. Read by tests/Asn1.InteroperabilityTests and js/runtime/test.",
+ "deviations": [
+  {
+   "codec": "ber",
+   "file": "asn1tools_x691_a4",
+   "type": "X691-A4.Ax",
+   "reason": "X.680 25.10: automatic tags of root part 2 precede extension additions (asn1tools numbers them in textual order)"
+  },
+  {
+   "codec": "der",
+   "file": "asn1tools_x691_a4",
+   "type": "X691-A4.Ax",
+   "reason": "X.680 25.10: automatic tags of root part 2 precede extension additions (asn1tools numbers them in textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "asn1tools_module_tags_explicit",
+   "type": "ModuleTagsExplicit.S8",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "asn1tools_module_tags_explicit",
+   "type": "ModuleTagsExplicit.S9",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "asn1tools_module_tags_explicit",
+   "type": "ModuleTagsExplicit.S8",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "asn1tools_module_tags_explicit",
+   "type": "ModuleTagsExplicit.S9",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "asn1tools_module_tags_implicit",
+   "type": "ModuleTagsImplicit.S8",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "asn1tools_module_tags_implicit",
+   "type": "ModuleTagsImplicit.S9",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "asn1tools_module_tags_implicit",
+   "type": "ModuleTagsImplicit.S8",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "asn1tools_module_tags_implicit",
+   "type": "ModuleTagsImplicit.S9",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "derived_zforce_not_implied",
+   "type": "ProtocolMessage.ProtocolMessage",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "derived_zforce_not_implied",
+   "type": "ProtocolMessage.Notification",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "derived_zforce_not_implied",
+   "type": "ProtocolMessage.ProtocolMessage",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "per",
+   "file": "derived_zforce_not_implied",
+   "type": "ProtocolMessage.Notification",
+   "reason": "X.691 23.2: CHOICE alternatives are indexed in canonical tag order (asn1tools uses textual order)"
+  },
+  {
+   "codec": "uper",
+   "file": "asn1tools_zforce",
+   "type": "*",
+   "reason": "X.680 13.4: EXTENSIBILITY IMPLIED applies to ENUMERATED (asn1tools ignores it)"
+  },
+  {
+   "codec": "per",
+   "file": "asn1tools_zforce",
+   "type": "*",
+   "reason": "X.680 13.4: EXTENSIBILITY IMPLIED applies to ENUMERATED (asn1tools ignores it)"
+  },
+  {
+   "codec": "oer",
+   "file": "telemetry",
+   "type": "Telemetry-Protocol.Measurement",
+   "reason": "X.696 16.5.2: an extension addition group is encoded with its own presence preamble (asn1tools omits it)"
+  },
+  {
+   "codec": "oer",
+   "file": "telemetry",
+   "type": "Telemetry-Protocol.MeasurementBatch",
+   "reason": "X.696 16.5.2: an extension addition group is encoded with its own presence preamble (asn1tools omits it)"
+  },
+  {
+   "codec": "oer",
+   "file": "telemetry",
+   "type": "Telemetry-Protocol.Payload",
+   "reason": "X.696 16.5.2: an extension addition group is encoded with its own presence preamble (asn1tools omits it)"
+  },
+  {
+   "codec": "oer",
+   "file": "telemetry",
+   "type": "Telemetry-Protocol.Message",
+   "reason": "X.696 16.5.2: an extension addition group is encoded with its own presence preamble (asn1tools omits it)"
+  },
+  {
+   "codec": "oer",
+   "file": "asn1tools_x691_a2",
+   "type": "*",
+   "reason": "X.696 27.2: a fixed-size known-multiplier string has no length determinant (asn1tools emits one)"
+  },
+  {
+   "codec": "oer",
+   "file": "asn1tools_x691_a3",
+   "type": "*",
+   "reason": "X.696 27.2: a fixed-size known-multiplier string has no length determinant (asn1tools emits one)"
+  },
+  {
+   "codec": "ber",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Generalized",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "ber",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Record",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Generalized",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Record",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Generalized",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Record",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "oer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Generalized",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "oer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Record",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Generalized",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Record",
+   "reason": "X.690 11.7, X.691 10.6.5, X.696 31.11: asn1tools writes GeneralizedTime without the 'Z' and drops zero seconds outside DER, which denotes a different (local) time"
+  },
+  {
+   "codec": "ber",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "der",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "oer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Measurements",
+   "reason": "asn1tools drops zero seconds of UTCTime and prefixes REAL mantissas that have the high bit set with a zero octet (X.690 8.5.7.5, 11.3.1 canonical form)"
+  },
+  {
+   "codec": "der",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Real",
+   "reason": "X.690 8.5.7.5: the REAL mantissa N is unsigned; asn1tools prefixes mantissas with the high bit set with a zero octet"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Real",
+   "reason": "X.690 8.5.7.5: the REAL mantissa N is unsigned; asn1tools prefixes mantissas with the high bit set with a zero octet"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Real",
+   "reason": "X.690 8.5.7.5: the REAL mantissa N is unsigned; asn1tools prefixes mantissas with the high bit set with a zero octet"
+  },
+  {
+   "codec": "oer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Real",
+   "reason": "X.690 8.5.7.5: the REAL mantissa N is unsigned; asn1tools prefixes mantissas with the high bit set with a zero octet"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Universal",
+   "reason": "X.691 30.5: the SIZE constraint of UniversalString is PER-visible (asn1tools ignores it)"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Universal",
+   "reason": "X.691 30.5: the SIZE constraint of UniversalString is PER-visible (asn1tools ignores it)"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Natural",
+   "reason": "X.691 11.7: a semi-constrained whole number is the minimal non-negative binary integer of n - lb (asn1tools writes n in two's complement)"
+  },
+  {
+   "codec": "uper",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Offset",
+   "reason": "X.691 11.7: a semi-constrained whole number is the minimal non-negative binary integer of n - lb (asn1tools writes n in two's complement)"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Natural",
+   "reason": "X.691 11.7: a semi-constrained whole number is the minimal non-negative binary integer of n - lb (asn1tools writes n in two's complement)"
+  },
+  {
+   "codec": "per",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Offset",
+   "reason": "X.691 11.7: a semi-constrained whole number is the minimal non-negative binary integer of n - lb (asn1tools writes n in two's complement)"
+  },
+  {
+   "codec": "oer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Bmp4",
+   "reason": "X.696 27.2: a fixed-size known-multiplier string has no length determinant (asn1tools emits one)"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.General",
+   "reason": "X.697 38.2: GeneralString, GraphicString and TeletexString are encoded as hexadecimal octets (asn1tools writes JSON strings)"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Graphic",
+   "reason": "X.697 38.2: GeneralString, GraphicString and TeletexString are encoded as hexadecimal octets (asn1tools writes JSON strings)"
+  },
+  {
+   "codec": "jer",
+   "file": "dotasn_primitives",
+   "type": "Primitives.Teletex",
+   "reason": "X.697 38.2: GeneralString, GraphicString and TeletexString are encoded as hexadecimal octets (asn1tools writes JSON strings)"
+  }
+ ]
+}

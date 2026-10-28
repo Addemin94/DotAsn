@@ -1,0 +1,55 @@
+-- Types for the runtime unit tests (test/runtime.test.ts).
+
+Runtime-Test DEFINITIONS AUTOMATIC TAGS ::= BEGIN
+
+RelOid ::= RELATIVE-OID
+
+Blob ::= OCTET STRING
+
+Big ::= INTEGER
+
+Count ::= INTEGER (0..MAX)
+
+Flag ::= BOOLEAN
+
+Version1 ::= SEQUENCE {
+  id    INTEGER (0..255),
+  ...
+}
+
+Version2 ::= SEQUENCE {
+  id    INTEGER (0..255),
+  ...,
+  name  UTF8String OPTIONAL,
+  [[ x INTEGER (0..7), y INTEGER (0..7) OPTIONAL ]]
+}
+
+Choice1 ::= CHOICE {
+  a INTEGER (0..7),
+  ...
+}
+
+Choice2 ::= CHOICE {
+  a INTEGER (0..7),
+  ...,
+  b UTF8String,
+  c BOOLEAN
+}
+
+Color1 ::= ENUMERATED { red, green, ... }
+
+Color2 ::= ENUMERATED { red, green, ..., blue }
+
+Node ::= SEQUENCE {
+  value INTEGER (0..255),
+  next  Node OPTIONAL
+}
+
+List ::= SEQUENCE OF INTEGER (0..255)
+
+Holder ::= SEQUENCE {
+  kind  INTEGER (0..3),
+  body  TYPE-IDENTIFIER.&Type
+}
+
+END

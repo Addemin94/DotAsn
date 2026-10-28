@@ -153,6 +153,16 @@ def main():
         page.keyboard.type('xyz')
         expect(csharp).not_to_contain_text('xyz')
 
+        step('generates TypeScript and the schema (lazy-loads the generator)')
+        tab('TypeScript').click()
+        primary('Generate').click()
+        expect(output(page, 'TelemetryProtocol.ts')).to_contain_text('export interface Heartbeat', timeout=60_000)
+        expect(output(page, 'dotasn-schema.ts')).to_contain_text('export const schema')
+        with page.expect_download() as download:
+            page.get_by_role('button', name='Download schema.json').click()
+        assert download.value.suggested_filename == 'schema.json'
+        assert '"format": "dotasn-schema"' in open(download.value.path(), encoding='utf-8').read()
+
         step('shows the resolved model')
         tab('Model').click()
         expect(output(page, 'Model')).to_contain_text('Heartbeat')
