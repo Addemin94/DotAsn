@@ -7,8 +7,8 @@ Milestones are numbered as in that brief.
 
 ## 1. State
 
-* Release 0.2.0 is prepared on `release/0.2.0`, which merges `feature/exact-integer-types`,
-  `feature/code-editor-improvements` and `feature/typescript-wasm`; CHANGELOG.md describes it.
+* Released: 0.2.0 (exact C# integer types, TypeScript generation with the WebAssembly runtime, the CodeMirror
+  editor) and 0.2.1 (Studio's "Guess type"); CHANGELOG.md describes them. The npm packages are not published yet.
 
 * `dotnet build Asn1Toolchain.sln`: 0 errors, 0 warnings (warnings are treated as errors). `dotnet format --verify-no-changes` is clean.
 * Tests: `dotnet test --project tests/<Project>` (xunit.v3 on Microsoft Testing Platform, configured in `global.json`).
