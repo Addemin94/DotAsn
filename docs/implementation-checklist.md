@@ -16,7 +16,7 @@ Status at the last update. Evidence refers to test projects under `tests/`.
 | 8 | PER and UPER | Done (BASIC-PER) | X.691 Annex A (8 encodings), UPER/APER vectors, PerTests (fragmentation, extensions, relay) |
 | 9 | CER, OER, COER | Done | CER: DerTests (X.690 9.3 example). OER/COER: X.696 Annex A (both profiles), OER vectors (byte-exact, also through the strict COER decoder), RuntimeTests/OerTests (clause-by-clause known answers, rejection of non-canonical forms, relay), fuzzing |
 | 10 | XER, JER | Done without encoding instructions (BASIC-XER, CXER, JER); EXTENDED-XER not implemented | XER: X.693 Annex A.3/A.4, XER vectors, RuntimeTests/XerTests (clause-by-clause encodings, encoder options, rejections incl. DTDs), fuzzing. JER: X.697 Annex A (A.3, all A.4 examples), JER vectors (canonicalised JSON trees), RuntimeTests/JerTests, fuzzing (found and fixed lazy UTF-8 validation) |
-| 11 | Hardening and release | In progress | PropertyTests, FuzzTests, docs/security.md; packaging and benchmarks outstanding |
+| 11 | Hardening and release | In progress | PropertyTests, FuzzTests, docs/security.md, benchmarks/Asn1.Benchmarks (docs/benchmarks.md); packaging outstanding |
 
 ## Open items (prioritized)
 
@@ -30,4 +30,8 @@ Status at the last update. Evidence refers to test projects under `tests/`.
 6. Parameterized information object classes and object-set parameters; object-set intersection/EXCEPT.
 7. EXTERNAL, EMBEDDED PDV, CHARACTER STRING, OID-IRI, RELATIVE-OID-IRI in the runtime.
 8. Decimal REAL abstract values (exact representation), ISO 2022 for Teletex/Videotex/Graphic/General strings.
-9. MSBuild integration (`Asn1.Build`: generate C# during build), NuGet packaging, benchmarks.
+9. MSBuild integration (`Asn1.Build`: generate C# during build), NuGet packaging.
+10. Performance of PER and OER (docs/benchmarks.md): they allocate about 2.5 KB per telemetry measurement and
+    encode more slowly than BER and JER. Suspected causes, not yet profiled: `PerWriter` does all INTEGER
+    arithmetic in `BigInteger` (it does not override `WriteInteger(Asn1Type, long)`), and extension additions are
+    encoded through a nested writer, a new `BitWriter` and a copied array.

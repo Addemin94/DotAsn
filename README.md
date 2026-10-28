@@ -171,6 +171,7 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | [Schema format](docs/schema-format.md) | The compiled description of types that the WebAssembly runtime loads |
 | [Diagnostics](docs/diagnostics.md) | Every diagnostic ID with its meaning |
 | [Security](docs/security.md) | Resource limits and hardening for untrusted input |
+| [Benchmarks](docs/benchmarks.md) | What the benchmarks measure, how to run them, and reference results |
 | [Decisions](docs/decisions/) | Architecture decision records |
 
 ## Repository layout
@@ -198,6 +199,7 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | `tools/Asn1.Studio` | DotAsn Studio, the browser workbench (Blazor WebAssembly) |
 | `tools/Asn1.Studio.Engine` | The studio's tool logic, independent of the UI |
 | `tests/` | Unit, parser, semantic, code generation, runtime, interoperability, property, fuzz and studio tests |
+| `benchmarks/Asn1.Benchmarks` | BenchmarkDotNet benchmarks of the encoding rules and the compiler |
 | `test-vectors/` | Corpus specifications and known-answer vectors (see `test-vectors/README.md`) |
 | `samples/` | Example specifications |
 | `docs/` | Architecture, standards support, language support, encoding rules, security, diagnostics |
@@ -234,6 +236,7 @@ dotnet build Asn1Toolchain.sln
 dotnet format Asn1Toolchain.sln --verify-no-changes
 for p in tests/*/; do dotnet test --project "$p" || break; done   # xunit v3 on Microsoft Testing Platform
 scripts/fetch-extended-corpus.sh                                   # optional: 3GPP/ETSI corpus for ExtendedCorpusTests
+dotnet run -c Release --project benchmarks/Asn1.Benchmarks -- --filter '*'   # benchmarks, see docs/benchmarks.md
 cd js && npm ci && npm run generate -w @dotasn/wasm       # JavaScript packages (Node 22.18+)
 npm run build:native -w @dotasn/wasm                       # needs Emscripten 3.1.56, see js/wasm/README.md
 npm run typecheck --workspaces && npm test --workspaces

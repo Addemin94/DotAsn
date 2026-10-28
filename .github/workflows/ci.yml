@@ -26,6 +26,8 @@ jobs:
           for p in tests/*/; do
             dotnet test --project "$p" -c Release --no-build || exit 1
           done
+      - name: Benchmarks (dry run; each [GlobalSetup] checks its result)
+        run: dotnet run -c Release --no-build --project benchmarks/Asn1.Benchmarks -- --filter '*' --job Dry --inProcess
       - name: CLI smoke test
         run: |
           dotnet src/Asn1.Cli/bin/Release/net10.0/asn1.dll lint samples --encoding-rules uper
