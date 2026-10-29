@@ -8,7 +8,8 @@ Milestones are numbered as in that brief.
 ## 1. State
 
 * Released: 0.2.0 (exact C# integer types, TypeScript generation with the WebAssembly runtime, the CodeMirror
-  editor) and 0.2.1 (Studio's "Guess type"); CHANGELOG.md describes them. The npm packages are not published yet.
+  editor), 0.2.1 (Studio's "Guess type") and 0.2.2 (2-5x faster, almost allocation-free encoding and decoding);
+  CHANGELOG.md describes them. The npm packages are not published yet.
 
 * `dotnet build Asn1Toolchain.sln`: 0 errors, 0 warnings (warnings are treated as errors). `dotnet format --verify-no-changes` is clean.
 * Tests: `dotnet test --project tests/<Project>` (xunit.v3 on Microsoft Testing Platform, configured in `global.json`).
@@ -66,7 +67,7 @@ Milestones are numbered as in that brief.
   generates its C# types from `samples/telemetry/telemetry.asn` at build time by running the CLI (target
   `GenerateAsn1Types`), a small precursor of `Asn1.Build`. Every [GlobalSetup] checks its result (round trip,
   dynamic encoding equals generated encoding), and CI dry-runs all benchmarks in process.
-* Runtime performance (unreleased, branch `feature/performance`): every rule reuses its writer and reader per thread
+* Runtime performance (0.2.2): every rule reuses its writer and reader per thread
   (`Rent`/`Return`, only for the same options instance), keeps SEQUENCE presence in stack memory, passes
   length-prefixed content as structs (`IContent`), and computes integers, lengths and indices in 64 bits
   (`Asn1Reader.TryReadInt64`, `PerTypeInfo`/`OerTypeInfo` integer forms, `IntegerSet.Contains(long)`), falling back to

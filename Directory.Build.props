@@ -10,7 +10,7 @@
     <Deterministic>true</Deterministic>
     <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <Authors>DotAsn contributors</Authors>
     <Product>DotAsn ASN.1 Toolchain</Product>
     <Copyright>Copyright (c) DotAsn contributors</Copyright>
