@@ -66,13 +66,18 @@ Milestones are numbered as in that brief.
   generates its C# types from `samples/telemetry/telemetry.asn` at build time by running the CLI (target
   `GenerateAsn1Types`), a small precursor of `Asn1.Build`. Every [GlobalSetup] checks its result (round trip,
   dynamic encoding equals generated encoding), and CI dry-runs all benchmarks in process.
+* Runtime performance (unreleased, branch `feature/performance`): every rule reuses its writer and reader per thread
+  (`Rent`/`Return`, only for the same options instance), keeps SEQUENCE presence in stack memory, passes
+  length-prefixed content as structs (`IContent`), and computes integers, lengths and indices in 64 bits
+  (`Asn1Reader.TryReadInt64`, `PerTypeInfo`/`OerTypeInfo` integer forms, `IntegerSet.Contains(long)`), falling back to
+  `BigInteger`. PER and OER became about 4× faster, BER, JER and XER about 2×; results in docs/benchmarks.md.
 
 ## 3. Next tasks (in order)
 
 0. JavaScript: publish `@dotasn/wasm` and `@dotasn/runtime` (needs a decision on the npm registry/scope).
 
-1. Milestone 11 (hardening and release): NuGet packaging, `Asn1.Build` MSBuild integration, PER/OER performance
-   (open item 10 in the checklist; measure with `benchmarks/Asn1.Benchmarks`), and the
+1. Milestone 11 (hardening and release): NuGet packaging, `Asn1.Build` MSBuild integration, the remaining performance
+   work (open item 10 in the checklist, mainly C# generation; measure with `benchmarks/Asn1.Benchmarks`), and the
    open items in `docs/implementation-checklist.md`. Encoding instructions/EXTENDED-XER are the largest remaining
    standards gap.
 2. The remaining open items in `docs/implementation-checklist.md`.

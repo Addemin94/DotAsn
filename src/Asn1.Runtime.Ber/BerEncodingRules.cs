@@ -19,18 +19,42 @@ public abstract class X690EncodingRule : Asn1EncodingRule
     /// <inheritdoc />
     public override void Encode<T>(Asn1Type<T> type, T value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(output);
         options ??= Asn1EncodingOptions.Default;
-        var tlv = new TlvWriter(256, options.MaxEncodedSize);
+        var writer = BerWriter.Rent(Profile, options, UseIndefiniteLength, EncodeDefaultValues);
         try
         {
-            var writer = new BerWriter(tlv, Profile, options, UseIndefiniteLength, EncodeDefaultValues);
             type.Encode(writer, value);
-            output.Write(tlv.WrittenSpan);
+            output.Write(writer.Output.WrittenSpan);
         }
-        finally
+        catch
         {
-            tlv.Release();
+            writer.Output.Release();
+            throw;
         }
+
+        writer.Return();
+    }
+
+    /// <inheritdoc />
+    public override byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null)
+    {
+        options ??= Asn1EncodingOptions.Default;
+        var writer = BerWriter.Rent(Profile, options, UseIndefiniteLength, EncodeDefaultValues);
+        byte[] result;
+        try
+        {
+            type.Encode(writer, value);
+            result = writer.Output.WrittenSpan.ToArray();
+        }
+        catch
+        {
+            writer.Output.Release();
+            throw;
+        }
+
+        writer.Return();
+        return result;
     }
 
     /// <inheritdoc />
@@ -38,7 +62,7 @@ public abstract class X690EncodingRule : Asn1EncodingRule
     {
         options ??= Asn1DecodingOptions.Default;
         CheckInputSize(data, options);
-        var reader = new BerReader(data, Profile, options);
+        var reader = BerReader.Rent(data, Profile, options);
         var value = type.Decode(reader);
         bytesConsumed = reader.Position;
         if (options.RejectTrailingData && reader.Position != data.Length)
@@ -46,6 +70,7 @@ public abstract class X690EncodingRule : Asn1EncodingRule
             throw new Asn1DecodeException(Asn1DecodeError.TrailingData, $"{data.Length - reader.Position} octet(s) follow the encoded value", reader.Position * 8L);
         }
 
+        reader.Return();
         return value;
     }
 }

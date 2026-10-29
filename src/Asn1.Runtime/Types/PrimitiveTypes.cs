@@ -133,23 +133,45 @@ public sealed class IntegerType<T> : Asn1Type<T>
     /// <inheritdoc />
     public override T Decode(Asn1Reader reader)
     {
-        var big = reader.ReadInteger(this);
         T value;
+        if (s_fitsInt64)
+        {
+            if (!reader.TryReadInt64(this, out var small, out var large))
+            {
+                throw Overflow(reader, large);
+            }
+
+            // Saturating and converting back detects values outside T without an exception.
+            value = T.CreateSaturating(small);
+            if (long.CreateTruncating(value) != small)
+            {
+                throw Overflow(reader, small);
+            }
+
+            return ValidateDecoded(reader, value);
+        }
+
+        var big = reader.ReadInteger(this);
         try
         {
             value = T.CreateChecked(big);
         }
         catch (OverflowException)
         {
-            throw reader.Error(Asn1DecodeError.Overflow, $"INTEGER value {big} does not fit the CLR type {typeof(T).Name} of {Name}");
+            throw Overflow(reader, big);
         }
 
         return ValidateDecoded(reader, value);
     }
 
+    private Asn1DecodeException Overflow(Asn1Reader reader, BigInteger value) =>
+        reader.Error(Asn1DecodeError.Overflow, $"INTEGER value {value} does not fit the CLR type {typeof(T).Name} of {Name}");
+
     /// <inheritdoc />
     public override ConstraintCheck CheckConstraints(T value) =>
-        _fast is not null ? _fast.Check(BigInteger.CreateTruncating(value)) : base.CheckConstraints(value);
+        _fast is null ? base.CheckConstraints(value)
+        : s_fitsInt64 ? _fast.Check(long.CreateTruncating(value))
+        : _fast.Check(BigInteger.CreateTruncating(value));
 
     /// <inheritdoc />
     public override Asn1Type<T> WithTags(ImmutableArray<Asn1TagStep> tags) => new IntegerType<T>(Name, tags, Constraints, NamedNumbers);
@@ -169,12 +191,24 @@ internal sealed class IntegerConstraintCheck
     private readonly IntegerSet? _additions;
     private readonly bool _extensible;
 
+    // The common case of one non-extensible range (e.g. INTEGER (0..255)) with 64-bit bounds, checked by two comparisons.
+    private readonly bool _isSingleRange;
+    private readonly long _min;
+    private readonly long _max;
+
     private IntegerConstraintCheck(IntegerSet nonFinal, IntegerSet root, IntegerSet? additions, bool extensible)
     {
         _nonFinal = nonFinal;
         _root = root;
         _additions = additions;
         _extensible = extensible;
+        if (!extensible && nonFinal.Equals(IntegerSet.All) && root.Intervals.Length == 1 && root.Intervals[0] is { Min: { } min, Max: { } max }
+            && min.GetBitLength() < 64 && max.GetBitLength() < 64)
+        {
+            _isSingleRange = true;
+            _min = (long)min;
+            _max = (long)max;
+        }
     }
 
     public static IntegerConstraintCheck? TryCreate(ImmutableArray<Asn1Constraint> constraints)
@@ -198,6 +232,37 @@ internal sealed class IntegerConstraintCheck
         }
 
         return nonFinal is null || root is null ? null : new IntegerConstraintCheck(nonFinal, root, additions, last.IsExtensible);
+    }
+
+    /// <summary>A check of the sizes when every constraint is a SIZE constraint (strings, collections), or null.</summary>
+    public static IntegerConstraintCheck? TryCreateSize(ImmutableArray<Asn1Constraint> constraints) =>
+        constraints.All(c => c.Root is SizeElement && (c.Additions is null or SizeElement))
+            ? TryCreate([.. constraints.Select(c => new Asn1Constraint(((SizeElement)c.Root!).Constraint.Root, c.IsExtensible, (c.Additions as SizeElement)?.Constraint.Root))])
+            : null;
+
+    public ConstraintCheck Check(long value)
+    {
+        if (_isSingleRange)
+        {
+            return value >= _min && value <= _max ? ConstraintCheck.InRoot : ConstraintCheck.Violation;
+        }
+
+        if (!_nonFinal.Contains(value))
+        {
+            return ConstraintCheck.Violation;
+        }
+
+        if (_root.Contains(value))
+        {
+            return ConstraintCheck.InRoot;
+        }
+
+        if (!_extensible)
+        {
+            return ConstraintCheck.Violation;
+        }
+
+        return _additions is not null && _additions.Contains(value) ? ConstraintCheck.InAdditions : ConstraintCheck.OutsideExtensible;
     }
 
     public ConstraintCheck Check(BigInteger value)
@@ -268,6 +333,10 @@ public sealed class EnumerationInfo
 
     /// <summary>Finds an item by name.</summary>
     public EnumItemInfo? FindByName(string name) => _byName.GetValueOrDefault(name);
+
+    /// <summary>Finds an item by name without creating a string.</summary>
+    public EnumItemInfo? FindByName(ReadOnlySpan<char> name) =>
+        _byName.GetAlternateLookup<ReadOnlySpan<char>>().TryGetValue(name, out var item) ? item : null;
 
     /// <summary>Returns the root item with the given index, or null.</summary>
     public EnumItemInfo? RootAt(long index) => index >= 0 && index < Root.Length ? Root[(int)index] : null;
@@ -382,11 +451,14 @@ public sealed class BitStringType : Asn1Type<Asn1BitString>
     /// <summary>The plain BIT STRING type.</summary>
     public static readonly BitStringType Instance = new();
 
+    private readonly IntegerConstraintCheck? _sizeOnly;
+
     /// <summary>Creates a BIT STRING descriptor.</summary>
     public BitStringType(string name = "BIT STRING", ImmutableArray<Asn1TagStep> tags = default, ImmutableArray<Asn1Constraint> constraints = default, ImmutableArray<Asn1NamedNumber> namedBits = default)
         : base(name, Asn1TypeKind.BitString, Tagging.OrUniversal(tags, UniversalTagNumber.BitString), constraints)
     {
         NamedBits = namedBits.IsDefault ? [] : namedBits;
+        _sizeOnly = IntegerConstraintCheck.TryCreateSize(Constraints);
     }
 
     /// <summary>Named bits (affect canonical trailing-zero handling in DER/CER/PER).</summary>
@@ -409,10 +481,15 @@ public sealed class BitStringType : Asn1Type<Asn1BitString>
     /// <inheritdoc />
     public override ConstraintCheck CheckConstraints(Asn1BitString value)
     {
-        var check = base.CheckConstraints(value);
+        var check = _sizeOnly is not null ? _sizeOnly.Check(value.Length) : base.CheckConstraints(value);
+        if (check != ConstraintCheck.Violation || !HasNamedBits)
+        {
+            return check;
+        }
 
         // X.680 22.7: for named bit lists, trailing zero bits are not significant for SIZE constraints.
-        return check == ConstraintCheck.Violation && HasNamedBits ? base.CheckConstraints(value.TrimTrailingZeros()) : check;
+        var trimmed = value.TrimTrailingZeros();
+        return _sizeOnly is not null ? _sizeOnly.Check(trimmed.Length) : base.CheckConstraints(trimmed);
     }
 
     /// <inheritdoc />
@@ -431,10 +508,13 @@ public sealed class OctetStringType : Asn1Type<byte[]>
     /// <summary>The plain OCTET STRING type.</summary>
     public static readonly OctetStringType Instance = new();
 
+    private readonly IntegerConstraintCheck? _sizeOnly;
+
     /// <summary>Creates an OCTET STRING descriptor.</summary>
     public OctetStringType(string name = "OCTET STRING", ImmutableArray<Asn1TagStep> tags = default, ImmutableArray<Asn1Constraint> constraints = default)
         : base(name, Asn1TypeKind.OctetString, Tagging.OrUniversal(tags, UniversalTagNumber.OctetString), constraints)
     {
+        _sizeOnly = IntegerConstraintCheck.TryCreateSize(Constraints);
     }
 
     /// <inheritdoc />
@@ -447,6 +527,10 @@ public sealed class OctetStringType : Asn1Type<byte[]>
 
     /// <inheritdoc />
     public override byte[] Decode(Asn1Reader reader) => ValidateDecoded(reader, reader.ReadOctetString(this));
+
+    /// <inheritdoc />
+    public override ConstraintCheck CheckConstraints(byte[] value) =>
+        _sizeOnly is not null ? _sizeOnly.Check(value.Length) : base.CheckConstraints(value);
 
     /// <inheritdoc />
     public override Asn1Type<byte[]> WithTags(ImmutableArray<Asn1TagStep> tags) => new OctetStringType(Name, tags, Constraints);
@@ -534,10 +618,7 @@ public sealed class CharacterStringType : Asn1Type<string>
         : base(name ?? CharacterRepertoire.Keyword(stringKind), Asn1TypeKind.CharacterString, Tagging.OrUniversal(tags, CharacterRepertoire.UniversalTag(stringKind)), constraints)
     {
         StringKind = stringKind;
-        if (Constraints.All(c => c.Root is SizeElement && (c.Additions is null or SizeElement)))
-        {
-            _sizeOnly = IntegerConstraintCheck.TryCreate([.. Constraints.Select(c => new Asn1Constraint(((SizeElement)c.Root!).Constraint.Root, c.IsExtensible, (c.Additions as SizeElement)?.Constraint.Root))]);
-        }
+        _sizeOnly = IntegerConstraintCheck.TryCreateSize(Constraints);
     }
 
     /// <summary>The string kind.</summary>

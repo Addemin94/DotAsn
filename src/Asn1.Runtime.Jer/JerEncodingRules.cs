@@ -29,13 +29,12 @@ public sealed class JerEncodingRule : Asn1EncodingRule
     /// <inheritdoc />
     public override void Encode<T>(Asn1Type<T> type, T value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(output);
         options ??= Asn1EncodingOptions.Default;
-        var buffer = new ArrayBufferWriter<byte>();
-        using (var json = new Utf8JsonWriter(buffer, new JsonWriterOptions { Indented = _indented, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }))
-        {
-            type.Encode(new JerWriter(json, options), value);
-        }
-
+        var writer = JerWriter.Rent(_indented, options);
+        type.Encode(writer, value);
+        writer.Flush();
+        var buffer = writer.Buffer;
         if (buffer.WrittenCount > options.MaxEncodedSize)
         {
             throw new Asn1EncodeException($"the encoding of {buffer.WrittenCount} octets exceeds the limit of {options.MaxEncodedSize}");
@@ -43,6 +42,25 @@ public sealed class JerEncodingRule : Asn1EncodingRule
 
         // 7.6.2: the JSON text in UTF-8.
         output.Write(buffer.WrittenSpan);
+        writer.Return();
+    }
+
+    /// <inheritdoc />
+    public override byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null)
+    {
+        options ??= Asn1EncodingOptions.Default;
+        var writer = JerWriter.Rent(_indented, options);
+        type.Encode(writer, value);
+        writer.Flush();
+        var buffer = writer.Buffer;
+        if (buffer.WrittenCount > options.MaxEncodedSize)
+        {
+            throw new Asn1EncodeException($"the encoding of {buffer.WrittenCount} octets exceeds the limit of {options.MaxEncodedSize}");
+        }
+
+        var result = buffer.WrittenSpan.ToArray();
+        writer.Return();
+        return result;
     }
 
     /// <inheritdoc />

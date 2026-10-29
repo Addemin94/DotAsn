@@ -11,7 +11,11 @@ public abstract class Asn1Writer
     private int _depth;
 
     /// <summary>Creates a writer.</summary>
-    protected Asn1Writer(Asn1EncodingOptions options) => Options = options;
+    protected Asn1Writer(Asn1EncodingOptions options)
+    {
+        Options = options;
+        Path = new();
+    }
 
     /// <summary>Creates a nested writer that shares the component path and depth of <paramref name="parent"/> (used for open types).</summary>
     protected Asn1Writer(Asn1Writer parent)
@@ -25,7 +29,21 @@ public abstract class Asn1Writer
     public Asn1EncodingOptions Options { get; }
 
     /// <summary>The current component path (for error messages).</summary>
-    public Asn1Path Path { get; } = new();
+    public Asn1Path Path { get; }
+
+    /// <summary>Prepares a writer for another encoding: clears the path and depth (which an aborted encoding may have left).</summary>
+    protected void ResetForReuse()
+    {
+        _depth = 0;
+        Path.Clear();
+    }
+
+    /// <summary>Gives a reused nested writer the current depth of <paramref name="parent"/>, which shares its path.</summary>
+    protected void ContinueFrom(Asn1Writer parent)
+    {
+        ArgumentNullException.ThrowIfNull(parent);
+        _depth = parent._depth;
+    }
 
     /// <summary>Writes a BOOLEAN.</summary>
     public abstract void WriteBoolean(BooleanType type, bool value);
@@ -100,7 +118,11 @@ public abstract class Asn1Reader
     private long _allocated;
 
     /// <summary>Creates a reader.</summary>
-    protected Asn1Reader(Asn1DecodingOptions options) => Options = options;
+    protected Asn1Reader(Asn1DecodingOptions options)
+    {
+        Options = options;
+        Path = new();
+    }
 
     /// <summary>Creates a nested reader that shares the path, depth and allocation accounting of <paramref name="parent"/>.</summary>
     protected Asn1Reader(Asn1Reader parent)
@@ -117,7 +139,25 @@ public abstract class Asn1Reader
     public Asn1DecodingOptions Options { get; }
 
     /// <summary>The current component path.</summary>
-    public Asn1Path Path { get; } = new();
+    public Asn1Path Path { get; }
+
+    /// <summary>Prepares a reader for another decoding: clears the path, depth and allocation count.</summary>
+    protected void ResetForReuse()
+    {
+        _depth = 0;
+        _allocated = 0;
+        Path.Clear();
+    }
+
+    /// <summary>
+    /// Gives a reused nested reader the current depth of <paramref name="parent"/>. Its allocations are still accounted
+    /// to the reader it was created for, which belongs to the same decoding.
+    /// </summary>
+    protected void ContinueFrom(Asn1Reader parent)
+    {
+        ArgumentNullException.ThrowIfNull(parent);
+        _depth = parent._depth;
+    }
 
     /// <summary>The current position in bits from the start of the input (for error messages).</summary>
     public abstract long BitPosition { get; }
@@ -127,6 +167,16 @@ public abstract class Asn1Reader
 
     /// <summary>Reads an INTEGER.</summary>
     public abstract BigInteger ReadInteger(Asn1Type type);
+
+    /// <summary>
+    /// Reads an INTEGER into <paramref name="value"/> when it fits in 64 bits; otherwise returns false with the value in
+    /// <paramref name="large"/>. Rules may override this to avoid <see cref="BigInteger"/> arithmetic.
+    /// </summary>
+    public virtual bool TryReadInt64(Asn1Type type, out long value, out BigInteger large)
+    {
+        large = ReadInteger(type);
+        return Primitives.IntegerCodec.TryToInt64(large, out value);
+    }
 
     /// <summary>Reads an ENUMERATED value; returns the item, or an unknown extension item.</summary>
     public abstract EnumItemInfo ReadEnumerated(Asn1Type type, EnumerationInfo enumeration);

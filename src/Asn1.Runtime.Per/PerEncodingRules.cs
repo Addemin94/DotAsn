@@ -23,22 +23,29 @@ public sealed class PerEncodingRule : Asn1EncodingRule
     /// <inheritdoc />
     public override void Encode<T>(Asn1Type<T> type, T value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(output);
         options ??= Asn1EncodingOptions.Default;
-        var bits = new BitWriter(64, options.MaxEncodedSize);
-        type.Encode(new PerWriter(bits, IsAligned, Name, options), value);
+        var writer = PerWriter.Rent(IsAligned, Name, options);
+        type.Encode(writer, value);
 
         // X.691 11.1: an empty encoding becomes one zero octet; otherwise pad to an octet boundary.
-        output.Write(bits.BitPosition == 0 ? EmptyEncoding(options) : bits.WrittenSpan);
+        output.Write(writer.Output.BitPosition == 0 ? EmptyEncoding(options) : writer.Output.WrittenSpan);
+        writer.Return();
     }
+
+    /// <inheritdoc />
+    public override byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null) => Encode(type, value, out _, options);
 
     /// <summary>Encodes a value and also returns the exact number of significant bits (before padding).</summary>
     public byte[] Encode<T>(Asn1Type<T> type, T value, out long bitLength, Asn1EncodingOptions? options = null)
     {
         options ??= Asn1EncodingOptions.Default;
-        var bits = new BitWriter(64, options.MaxEncodedSize);
-        type.Encode(new PerWriter(bits, IsAligned, Name, options), value);
-        bitLength = bits.BitPosition;
-        return bits.BitPosition == 0 ? EmptyEncoding(options) : bits.ToArray();
+        var writer = PerWriter.Rent(IsAligned, Name, options);
+        type.Encode(writer, value);
+        bitLength = writer.Output.BitPosition;
+        var result = bitLength == 0 ? EmptyEncoding(options) : writer.Output.ToArray();
+        writer.Return();
+        return result;
     }
 
     private static byte[] EmptyEncoding(Asn1EncodingOptions options) => options.EmptyPerEncodingAsZeroOctet ? [0] : [];
@@ -48,8 +55,8 @@ public sealed class PerEncodingRule : Asn1EncodingRule
     {
         options ??= Asn1DecodingOptions.Default;
         CheckInputSize(data, options);
-        var bits = new BitReader(data);
-        var reader = new PerReader(bits, IsAligned, Name, options);
+        var reader = PerReader.Rent(data, IsAligned, Name, options);
+        var bits = reader.Input;
         var value = type.Decode(reader);
 
         // Empty input only gets here for a value of no bits (anything else is truncated): X.691 11.1.3 sends that as one
@@ -61,6 +68,7 @@ public sealed class PerEncodingRule : Asn1EncodingRule
             throw new Asn1DecodeException(Asn1DecodeError.TrailingData, $"{data.Length - bytesConsumed} octet(s) follow the encoded value", bits.BitPosition);
         }
 
+        reader.Return();
         return value;
     }
 }

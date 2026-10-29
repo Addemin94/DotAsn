@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Numerics;
 using System.Text;
 using Asn1.Runtime.Buffers;
@@ -8,18 +9,32 @@ namespace Asn1.Runtime.Oer;
 /// <summary>Writer for BASIC-OER and CANONICAL-OER. All fields occupy whole octets.</summary>
 internal sealed class OerWriter : Asn1Writer
 {
+    // Reused writers keep their buffers; larger ones are dropped so a huge encoding does not pin its memory.
+    private const int MaxReusedBytes = 64 * 1024;
+
+    [ThreadStatic]
+    private static OerWriter? t_basic;
+
+    [ThreadStatic]
+    private static OerWriter? t_canonical;
+
+    // Writers for nested encodings (open types, extension additions), shared by the root writer and its nested writers.
+    private readonly Stack<OerWriter> _nested;
+
     public OerWriter(BitWriter output, bool canonical, Asn1EncodingOptions options)
         : base(options)
     {
         Output = output;
         Canonical = canonical;
+        _nested = new Stack<OerWriter>();
     }
 
-    private OerWriter(OerWriter parent, BitWriter output)
+    private OerWriter(OerWriter parent)
         : base(parent)
     {
-        Output = output;
+        Output = new BitWriter(64, parent.Options.MaxEncodedSize);
         Canonical = parent.Canonical;
+        _nested = parent._nested;
     }
 
     public BitWriter Output { get; }
@@ -27,6 +42,48 @@ internal sealed class OerWriter : Asn1Writer
     public bool Canonical { get; }
 
     private string RuleName => Canonical ? "COER" : "OER";
+
+    /// <summary>A root writer for one encoding, reusing this thread's previous one when it has the same options.</summary>
+    public static OerWriter Rent(bool canonical, Asn1EncodingOptions options)
+    {
+        var cached = canonical ? t_canonical : t_basic;
+        if (cached is null || !ReferenceEquals(cached.Options, options))
+        {
+            return new OerWriter(new BitWriter(64, options.MaxEncodedSize), canonical, options);
+        }
+
+        // Taken out of the slot, so an encoding started while this one runs gets its own writer.
+        if (canonical)
+        {
+            t_canonical = null;
+        }
+        else
+        {
+            t_basic = null;
+        }
+
+        cached.ResetForReuse();
+        cached.Output.Reset(options.MaxEncodedSize);
+        return cached;
+    }
+
+    /// <summary>Makes a writer from <see cref="Rent"/> available again after its output has been copied.</summary>
+    public void Return()
+    {
+        if (Output.Capacity > MaxReusedBytes)
+        {
+            return;
+        }
+
+        if (Canonical)
+        {
+            t_canonical = this;
+        }
+        else
+        {
+            t_basic = this;
+        }
+    }
 
     // ------------------------------------------------------------------ procedures
 
@@ -39,9 +96,9 @@ internal sealed class OerWriter : Asn1Writer
             return;
         }
 
-        var bytes = IntegerCodec.ToUnsigned(n);
-        Output.WriteBits(0x80 | (ulong)bytes.Length, 8);
-        Output.WriteBytes(bytes);
+        var length = IntegerCodec.UnsignedLength((ulong)n);
+        Output.WriteBits(0x80 | (ulong)length, 8);
+        Output.WriteBits((ulong)n, length * 8);
     }
 
     private void WriteLengthPrefixed(ReadOnlySpan<byte> content)
@@ -68,11 +125,32 @@ internal sealed class OerWriter : Asn1Writer
         output.WriteBytes(bytes);
     }
 
-    private byte[] Nested(Action<OerWriter> encode)
+    /// <summary>A writer for a nested encoding; its output is used before <see cref="EndNested"/> returns it.</summary>
+    private OerWriter BeginNested()
     {
-        var inner = new OerWriter(this, new BitWriter(64, Options.MaxEncodedSize));
-        encode(inner);
-        return inner.Output.ToArray();
+        if (_nested.TryPop(out var nested))
+        {
+            nested.ContinueFrom(this);
+            nested.Output.Reset(Options.MaxEncodedSize);
+            return nested;
+        }
+
+        return new OerWriter(this);
+    }
+
+    private void EndNested(OerWriter nested)
+    {
+        if (nested.Output.Capacity <= MaxReusedBytes)
+        {
+            _nested.Push(nested);
+        }
+    }
+
+    /// <summary>Writes the encoding produced by <paramref name="nested"/> with a length determinant.</summary>
+    private void EndNestedLengthPrefixed(OerWriter nested)
+    {
+        WriteLengthPrefixed(nested.Output.WrittenSpan);
+        EndNested(nested);
     }
 
     // ------------------------------------------------------------------ primitives
@@ -83,8 +161,52 @@ internal sealed class OerWriter : Asn1Writer
     {
     }
 
+    public override void WriteInteger(Asn1Type type, long value)
+    {
+        var info = OerTypeInfo.Get(type);
+        if (!info.HasSmallBounds)
+        {
+            WriteInteger(type, (BigInteger)value);
+            return;
+        }
+
+        // The variable-length signed form (10.4 without a fixed size) is written as given, like the BigInteger path.
+        if (info.IntegerForm != OerIntegerForm.SignedVariable && (value < info.Lower || value > info.Upper))
+        {
+            throw Error($"INTEGER value {value} lies outside the OER-visible range of {type.Name}");
+        }
+
+        switch (info.IntegerForm)
+        {
+            case OerIntegerForm.UnsignedFixed or OerIntegerForm.SignedFixed:
+                Output.WriteBits((ulong)value, info.FixedOctets * 8);
+                break;
+            case OerIntegerForm.UnsignedVariable:
+                {
+                    var length = IntegerCodec.UnsignedLength((ulong)value);
+                    Output.WriteBits((ulong)length, 8);
+                    Output.WriteBits((ulong)value, length * 8);
+                    break;
+                }
+
+            default:
+                {
+                    var length = IntegerCodec.TwosComplementLength(value);
+                    Output.WriteBits((ulong)length, 8);
+                    Output.WriteBits((ulong)value, length * 8);
+                    break;
+                }
+        }
+    }
+
     public override void WriteInteger(Asn1Type type, BigInteger value)
     {
+        if (value.GetBitLength() < 64 && OerTypeInfo.Get(type).HasSmallBounds)
+        {
+            WriteInteger(type, (long)value);
+            return;
+        }
+
         var set = OerTypeInfo.Get(type).Values;
         var lb = set.LowerBound;
         var ub = set.UpperBound;
@@ -142,9 +264,9 @@ internal sealed class OerWriter : Asn1Writer
             return;
         }
 
-        var bytes = IntegerCodec.ToTwosComplement(item.Value);
-        Output.WriteBits(0x80 | (ulong)bytes.Length, 8);
-        Output.WriteBytes(bytes);
+        var length = IntegerCodec.TwosComplementLength(item.Value);
+        Output.WriteBits(0x80 | (ulong)length, 8);
+        Output.WriteBits((ulong)item.Value, length * 8);
     }
 
     public override void WriteReal(RealType type, double value)
@@ -255,11 +377,30 @@ internal sealed class OerWriter : Asn1Writer
     {
         var info = OerTypeInfo.Get(type);
         var comps = type.Components;
-        bool Present(int i) => comps[i].IsPresent(value) && !(comps[i].Presence == Asn1Presence.Default && comps[i].HasDefaultValue(value));
 
-        var additionsPresent = info.Additions.Select(item => item.Any(Present)).ToArray();
-        var extended = type.IsExtensible && additionsPresent.Any(x => x);
-        WriteComponents(comps, value, info.RootOrder, Present, type.IsExtensible ? extended : null);
+        // Whether each component is encoded: present, and for DEFAULT components not holding the default.
+        Span<bool> present = comps.Length <= 128 ? stackalloc bool[comps.Length] : new bool[comps.Length];
+        for (var i = 0; i < comps.Length; i++)
+        {
+            var c = comps[i];
+            present[i] = c.IsPresent(value) && !(c.Presence == Asn1Presence.Default && c.HasDefaultValue(value));
+        }
+
+        var additions = info.Additions;
+        Span<bool> additionsPresent = additions.Length <= 128 ? stackalloc bool[additions.Length] : new bool[additions.Length];
+        var extended = false;
+        for (var a = 0; a < additions.Length; a++)
+        {
+            foreach (var k in additions[a])
+            {
+                additionsPresent[a] |= present[k];
+            }
+
+            extended |= additionsPresent[a];
+        }
+
+        extended &= type.IsExtensible;
+        WriteComponents(comps, value, info.RootOrder, present, type.IsExtensible ? extended : null);
         if (!extended)
         {
             return;
@@ -267,61 +408,70 @@ internal sealed class OerWriter : Asn1Writer
 
         // 16.4: extension presence bitmap as a length-prefixed bit string.
         var n = additionsPresent.Length;
-        var bitmap = new byte[(n + 7) / 8];
-        for (var i = 0; i < n; i++)
+        var octets = (n + 7) / 8;
+        WriteLength(octets + 1);
+        Output.WriteBits((ulong)((8 - (n % 8)) % 8), 8);
+        foreach (var p in additionsPresent)
         {
-            if (additionsPresent[i])
-            {
-                bitmap[i >> 3] |= (byte)(0x80 >> (i & 7));
-            }
+            Output.WriteBit(p);
         }
 
-        WriteLength(bitmap.Length + 1);
-        Output.WriteBits((ulong)((8 - (n % 8)) % 8), 8);
-        Output.WriteBytes(bitmap);
-        for (var a = 0; a < info.Additions.Length; a++)
+        Output.Align();
+        for (var a = 0; a < additions.Length; a++)
         {
             if (!additionsPresent[a])
             {
                 continue;
             }
 
-            var item = info.Additions[a];
-            var bytes = info.AdditionIsGroup[a]
-                ? Nested(w => w.WriteComponents(comps, value, item, Present, null))
-                : Nested(w => comps[item[0]].Encode(w, value));
-            WriteLengthPrefixed(bytes);
+            var nested = BeginNested();
+            if (info.AdditionIsGroup[a])
+            {
+                nested.WriteComponents(comps, value, additions[a], present, null);
+            }
+            else
+            {
+                comps[additions[a][0]].Encode(nested, value);
+            }
+
+            EndNestedLengthPrefixed(nested);
         }
     }
 
     /// <summary>Writes a preamble (optional extension bit, presence bits, padding) and the present components.</summary>
-    private void WriteComponents<T>(IReadOnlyList<SequenceComponent<T>> comps, T value, int[] order, Func<int, bool> present, bool? extensionBit)
+    private void WriteComponents<T>(ImmutableArray<SequenceComponent<T>> comps, T value, int[] order, ReadOnlySpan<bool> present, bool? extensionBit)
     {
-        var bits = new BitWriter(8);
+        // The preamble is written straight into the output, whose position is on an octet boundary here.
+        var any = false;
         if (extensionBit is { } e)
         {
-            bits.WriteBit(e);
+            Output.WriteBit(e);
+            any = true;
         }
 
         foreach (var i in order)
         {
             if (comps[i].IsOptional)
             {
-                bits.WriteBit(present(i));
+                Output.WriteBit(present[i]);
+                any = true;
             }
         }
 
-        Output.WriteBytes(bits.WrittenSpan);
+        if (any)
+        {
+            Output.Align();
+        }
+
         foreach (var i in order)
         {
-            if (!comps[i].IsOptional || present(i))
+            if (present[i])
             {
-                if (!comps[i].IsPresent(value))
-                {
-                    throw Error($"mandatory component '{comps[i].Name}' is absent");
-                }
-
                 comps[i].Encode(this, value);
+            }
+            else if (!comps[i].IsOptional)
+            {
+                throw Error($"mandatory component '{comps[i].Name}' is absent");
             }
         }
     }
@@ -329,7 +479,9 @@ internal sealed class OerWriter : Asn1Writer
     public override void WriteCollection<TElement>(CollectionType<TElement> type, IReadOnlyList<TElement> value)
     {
         // 17.2: quantity field = length determinant + minimal unsigned count.
-        WriteLengthPrefixed(IntegerCodec.ToUnsigned(value.Count));
+        var quantityLength = IntegerCodec.UnsignedLength((ulong)value.Count);
+        Output.WriteBits((ulong)quantityLength, 8);
+        Output.WriteBits((ulong)value.Count, quantityLength * 8);
         if (!(Canonical && type.IsSet) || value.Count < 2)
         {
             for (var i = 0; i < value.Count; i++)
@@ -344,8 +496,10 @@ internal sealed class OerWriter : Asn1Writer
         var encoded = new List<byte[]>(value.Count);
         for (var i = 0; i < value.Count; i++)
         {
-            var index = i;
-            encoded.Add(Nested(w => type.EncodeElement(w, index, value[index])));
+            var nested = BeginNested();
+            type.EncodeElement(nested, i, value[i]);
+            encoded.Add(nested.Output.ToArray());
+            EndNested(nested);
         }
 
         encoded.Sort(CompareEncodings);
@@ -424,8 +578,10 @@ internal sealed class OerWriter : Asn1Writer
         {
             // 20.1 note 3: an untagged CHOICE alternative has the tag of its own chosen alternative as its outermost
             // tag, so that tag appears twice: once for this CHOICE and once inside the nested CHOICE encoding.
-            var inner = Nested(w => alt.Encode(w, value));
-            Output.WriteBytes(inner.AsSpan(0, TagLength(inner)));
+            var nested = BeginNested();
+            alt.Encode(nested, value);
+            var inner = nested.Output.WrittenSpan;
+            Output.WriteBytes(inner[..TagLength(inner)]);
             if (alt.IsExtensionAddition)
             {
                 WriteLengthPrefixed(inner);
@@ -435,13 +591,16 @@ internal sealed class OerWriter : Asn1Writer
                 Output.WriteBytes(inner);
             }
 
+            EndNested(nested);
             return;
         }
 
         WriteTag(Output, alt.Type.Tags[0].Tag);
         if (alt.IsExtensionAddition)
         {
-            WriteLengthPrefixed(Nested(w => alt.Encode(w, value)));
+            var nested = BeginNested();
+            alt.Encode(nested, value);
+            EndNestedLengthPrefixed(nested);
         }
         else
         {
@@ -449,7 +608,7 @@ internal sealed class OerWriter : Asn1Writer
         }
     }
 
-    private static int TagLength(byte[] encoding)
+    private static int TagLength(ReadOnlySpan<byte> encoding)
     {
         if (encoding.Length == 0 || (encoding[0] & 0x3F) != 0x3F)
         {
@@ -478,6 +637,8 @@ internal sealed class OerWriter : Asn1Writer
             return;
         }
 
-        WriteLengthPrefixed(Nested(w => value.Type!.EncodeBoxed(w, value.Value)));
+        var nested = BeginNested();
+        value.Type!.EncodeBoxed(nested, value.Value);
+        EndNestedLengthPrefixed(nested);
     }
 }

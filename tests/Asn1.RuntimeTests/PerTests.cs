@@ -39,6 +39,22 @@ public class PerTests
     private static string VectorCanonical(string json) => System.Text.Json.Nodes.JsonNode.Parse(json)!.ToJsonString();
 
     [Theory]
+    [InlineData("OCTET STRING (SIZE (2..10))", "\"000102030405060708090A0B0C0D0E0F10111213\"")] // 20 octets
+    [InlineData("OCTET STRING (SIZE (2..10))", "\"00\"")]
+    [InlineData("SEQUENCE (SIZE (1..4)) OF BOOLEAN", "[]")]
+    [InlineData("SEQUENCE (SIZE (1..4)) OF BOOLEAN", "[true, true, true, true, true]")]
+    [InlineData("IA5String (SIZE (1..4))", "\"abcdef\"")]
+    public void LengthsOutsideTheSizeConstraintAreRejectedWithoutValidation(string type, string json)
+    {
+        // Without constraint validation the length still has to fit its constrained length field (X.691 11.9.4.1).
+        var schema = new Schema("T ::= " + type);
+        var value = DynamicJson.Parse(schema["T"], json);
+        var options = new Asn1EncodingOptions { ValidateConstraints = false };
+        Assert.Throws<Asn1EncodeException>(() => Uper.Encode(schema["T"], value, options));
+        Assert.Throws<Asn1EncodeException>(() => Aper.Encode(schema["T"], value, options));
+    }
+
+    [Theory]
     [InlineData(127, "7F")]
     [InlineData(128, "8080")]
     [InlineData(16383, "BFFF")]

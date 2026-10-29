@@ -21,6 +21,13 @@ public enum BerProfile
 internal sealed class BerWriter : Asn1Writer
 {
     private const int CerFragmentSize = 1000;
+
+    // Reused writers keep their buffers; larger ones are dropped so a huge encoding does not pin its memory.
+    private const int MaxReusedBytes = 64 * 1024;
+
+    [ThreadStatic]
+    private static BerWriter? t_cached;
+
     private readonly BerProfile _profile;
     private readonly bool _indefinite;
     private readonly bool _encodeDefaults;
@@ -36,6 +43,37 @@ internal sealed class BerWriter : Asn1Writer
     }
 
     public TlvWriter Output { get; }
+
+    /// <summary>A writer for one encoding, reusing this thread's previous one when it has the same settings.</summary>
+    public static BerWriter Rent(BerProfile profile, Asn1EncodingOptions options, bool useIndefiniteLength, bool encodeDefaults)
+    {
+        var cached = t_cached;
+        var indefinite = profile == BerProfile.Cer || (profile == BerProfile.Ber && useIndefiniteLength);
+        if (cached is null || cached._profile != profile || cached._indefinite != indefinite
+            || cached._encodeDefaults != (profile == BerProfile.Ber && encodeDefaults) || !ReferenceEquals(cached.Options, options))
+        {
+            return new BerWriter(new TlvWriter(256, options.MaxEncodedSize), profile, options, useIndefiniteLength, encodeDefaults);
+        }
+
+        // Taken out of the slot, so an encoding started while this one runs gets its own writer.
+        t_cached = null;
+        cached.ResetForReuse();
+        cached._marks.Clear();
+        cached.Output.Reset(options.MaxEncodedSize);
+        return cached;
+    }
+
+    /// <summary>Releases the buffer or keeps the writer for this thread's next encoding.</summary>
+    public void Return()
+    {
+        if (Output.Capacity > MaxReusedBytes)
+        {
+            Output.Release();
+            return;
+        }
+
+        t_cached = this;
+    }
 
     private bool Canonical => _profile != BerProfile.Ber;
 
@@ -214,11 +252,11 @@ internal sealed class BerWriter : Asn1Writer
         BeginConstructed(InnermostTag(type));
         var contentStart = Output.Position;
         var segments = type.Kind == Asn1TypeKind.Set && _profile == BerProfile.Der ? new List<(int Start, int End)>() : null;
-        IEnumerable<SequenceComponent<T>> order = type.Components;
+        var order = type.Components;
         if (type.Kind == Asn1TypeKind.Set && _profile == BerProfile.Cer)
         {
             // CER 9.3: canonical order of X.680 8.6, untagged CHOICEs ordered by their smallest tag (static order).
-            order = type.Components.OrderBy(c => TagSets.CanonicalTag(c.Type) ?? default);
+            order = [.. type.Components.OrderBy(c => TagSets.CanonicalTag(c.Type) ?? default)];
         }
 
         foreach (var c in order)
