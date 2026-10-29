@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace Asn1.Runtime.Buffers;
 
@@ -8,9 +9,10 @@ namespace Asn1.Runtime.Buffers;
 /// </summary>
 public sealed class BitWriter
 {
+    // Invariant: every bit at or after _bitPosition is zero, so writes can OR into the current octet.
     private byte[] _buffer;
     private long _bitPosition;
-    private readonly long _maxBytes;
+    private long _maxBytes;
 
     /// <summary>Creates a writer.</summary>
     public BitWriter(int initialCapacity = 64, long maxBytes = long.MaxValue)
@@ -25,24 +27,40 @@ public sealed class BitWriter
     /// <summary>True when the position is on an octet boundary.</summary>
     public bool IsAligned => (_bitPosition & 7) == 0;
 
+    /// <summary>The size of the buffer in octets.</summary>
+    public int Capacity => _buffer.Length;
+
+    /// <summary>Clears the written bits so the writer (and its buffer) can be reused.</summary>
+    public void Reset(long maxBytes = long.MaxValue)
+    {
+        _buffer.AsSpan(0, (int)((_bitPosition + 7) >> 3)).Clear();
+        _bitPosition = 0;
+        _maxBytes = maxBytes;
+    }
+
     private void Ensure(long bits)
     {
         var neededBytes = (_bitPosition + bits + 7) >> 3;
+        if (neededBytes > _buffer.Length || neededBytes > _maxBytes)
+        {
+            Grow(neededBytes);
+        }
+    }
+
+    private void Grow(long neededBytes)
+    {
         if (neededBytes > _maxBytes)
         {
             throw new Asn1EncodeException($"Encoding exceeds the maximum size of {_maxBytes} bytes");
         }
 
-        if (neededBytes > _buffer.Length)
+        var size = (long)_buffer.Length;
+        while (size < neededBytes)
         {
-            var size = (long)_buffer.Length;
-            while (size < neededBytes)
-            {
-                size *= 2;
-            }
-
-            Array.Resize(ref _buffer, (int)Math.Min(size, Array.MaxLength));
+            size *= 2;
         }
+
+        Array.Resize(ref _buffer, (int)Math.Min(size, Array.MaxLength));
     }
 
     /// <summary>Writes one bit.</summary>
@@ -60,20 +78,43 @@ public sealed class BitWriter
     /// <summary>Writes the low <paramref name="count"/> bits of <paramref name="value"/>, most significant first (count ≤ 64).</summary>
     public void WriteBits(ulong value, int count)
     {
-        if (count is < 0 or > 64)
+        if ((uint)count > 64)
         {
             throw new ArgumentOutOfRangeException(nameof(count));
         }
 
-        Ensure(count);
-        for (var i = count - 1; i >= 0; i--)
+        if (count == 0)
         {
-            if (((value >> i) & 1) != 0)
-            {
-                _buffer[_bitPosition >> 3] |= (byte)(0x80 >> (int)(_bitPosition & 7));
-            }
+            return;
+        }
 
-            _bitPosition++;
+        Ensure(count);
+        if (count < 64)
+        {
+            value &= (1UL << count) - 1;
+        }
+
+        var buffer = _buffer;
+        var index = (int)(_bitPosition >> 3);
+        var free = 8 - (int)(_bitPosition & 7);
+        _bitPosition += count;
+        if (count <= free)
+        {
+            buffer[index] |= (byte)(value << (free - count));
+            return;
+        }
+
+        var remaining = count - free;
+        buffer[index++] |= (byte)(value >> remaining);
+        while (remaining >= 8)
+        {
+            remaining -= 8;
+            buffer[index++] = (byte)(value >> remaining);
+        }
+
+        if (remaining > 0)
+        {
+            buffer[index] = (byte)(value << (8 - remaining));
         }
     }
 
@@ -101,17 +142,26 @@ public sealed class BitWriter
     /// <summary>Writes whole octets (at the current, possibly unaligned, position).</summary>
     public void WriteBytes(ReadOnlySpan<byte> bytes)
     {
-        Ensure(bytes.Length * 8L);
-        if (IsAligned)
+        if (bytes.IsEmpty)
         {
-            bytes.CopyTo(_buffer.AsSpan((int)(_bitPosition >> 3)));
-            _bitPosition += bytes.Length * 8L;
             return;
         }
 
+        Ensure(bytes.Length * 8L);
+        var index = (int)(_bitPosition >> 3);
+        var shift = (int)(_bitPosition & 7);
+        _bitPosition += bytes.Length * 8L;
+        if (shift == 0)
+        {
+            bytes.CopyTo(_buffer.AsSpan(index));
+            return;
+        }
+
+        var buffer = _buffer;
         foreach (var b in bytes)
         {
-            WriteBits(b, 8);
+            buffer[index] |= (byte)(b >> shift);
+            buffer[++index] = (byte)(b << (8 - shift));
         }
     }
 
@@ -139,7 +189,7 @@ public sealed class BitWriter
     }
 
     /// <summary>Returns the written bits as octets, padding the final octet with zero bits.</summary>
-    public byte[] ToArray() => _buffer.AsSpan(0, (int)((_bitPosition + 7) >> 3)).ToArray();
+    public byte[] ToArray() => WrittenSpan.ToArray();
 
     /// <summary>The written octets without copying (the final octet may be partial).</summary>
     public ReadOnlySpan<byte> WrittenSpan => _buffer.AsSpan(0, (int)((_bitPosition + 7) >> 3));
@@ -151,16 +201,14 @@ public sealed class BitWriter
 /// </summary>
 public sealed class BitReader
 {
-    private readonly ReadOnlyMemory<byte> _data;
-    private readonly long _bitLength;
+    private ReadOnlyMemory<byte> _data;
+    private byte[]? _array;
+    private int _offset;
+    private long _bitLength;
     private long _bitPosition;
 
     /// <summary>Creates a reader over all bits of <paramref name="data"/>.</summary>
-    public BitReader(ReadOnlyMemory<byte> data, long bitLength = -1)
-    {
-        _data = data;
-        _bitLength = bitLength < 0 ? data.Length * 8L : Math.Min(bitLength, data.Length * 8L);
-    }
+    public BitReader(ReadOnlyMemory<byte> data, long bitLength = -1) => Reset(data, bitLength);
 
     /// <summary>The current bit position.</summary>
     public long BitPosition => _bitPosition;
@@ -174,6 +222,36 @@ public sealed class BitReader
     /// <summary>The underlying data.</summary>
     public ReadOnlyMemory<byte> Data => _data;
 
+    // A span over an array is cheaper to create than ReadOnlyMemory.Span, which is read for every operation.
+    private ReadOnlySpan<byte> Span => _array is not null ? new ReadOnlySpan<byte>(_array, _offset, _data.Length) : _data.Span;
+
+    /// <summary>Starts reading other data from its first bit (so the reader can be reused).</summary>
+    public void Reset(ReadOnlyMemory<byte> data, long bitLength = -1)
+    {
+        _data = data;
+        if (MemoryMarshal.TryGetArray(data, out var segment))
+        {
+            _array = segment.Array;
+            _offset = segment.Offset;
+        }
+        else
+        {
+            _array = null;
+            _offset = 0;
+        }
+
+        _bitLength = bitLength < 0 ? data.Length * 8L : Math.Min(bitLength, data.Length * 8L);
+        _bitPosition = 0;
+    }
+
+    /// <summary>Moves to an earlier or later bit position within the data.</summary>
+    public void Seek(long bitPosition)
+    {
+        ArgumentOutOfRangeException.ThrowIfNegative(bitPosition);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(bitPosition, _bitLength);
+        _bitPosition = bitPosition;
+    }
+
     private void Require(long bits)
     {
         if (bits < 0 || bits > RemainingBits)
@@ -186,7 +264,7 @@ public sealed class BitReader
     public bool ReadBit()
     {
         Require(1);
-        var bit = (_data.Span[(int)(_bitPosition >> 3)] & (0x80 >> (int)(_bitPosition & 7))) != 0;
+        var bit = (Span[(int)(_bitPosition >> 3)] & (0x80 >> (int)(_bitPosition & 7))) != 0;
         _bitPosition++;
         return bit;
     }
@@ -194,18 +272,41 @@ public sealed class BitReader
     /// <summary>Reads <paramref name="count"/> (≤ 64) bits as an unsigned integer.</summary>
     public ulong ReadBits(int count)
     {
-        if (count is < 0 or > 64)
+        if ((uint)count > 64)
         {
             throw new ArgumentOutOfRangeException(nameof(count));
         }
 
         Require(count);
-        var span = _data.Span;
-        ulong value = 0;
-        for (var i = 0; i < count; i++)
+        if (count == 0)
         {
-            value = (value << 1) | (uint)((span[(int)(_bitPosition >> 3)] >> (7 - (int)(_bitPosition & 7))) & 1);
-            _bitPosition++;
+            return 0;
+        }
+
+        var span = Span;
+        var index = (int)(_bitPosition >> 3);
+        var used = (int)(_bitPosition & 7);
+        _bitPosition += count;
+        var remaining = count;
+        ulong value = 0;
+        if (used != 0)
+        {
+            var available = 8 - used;
+            var take = Math.Min(available, remaining);
+            value = (uint)((span[index] >> (available - take)) & ((1 << take) - 1));
+            remaining -= take;
+            index++;
+        }
+
+        while (remaining >= 8)
+        {
+            value = (value << 8) | span[index++];
+            remaining -= 8;
+        }
+
+        if (remaining > 0)
+        {
+            value = (value << remaining) | (uint)(span[index] >> (8 - remaining));
         }
 
         return value;
@@ -231,19 +332,33 @@ public sealed class BitReader
     {
         Require(count * 8);
         var result = new byte[count];
-        if (IsAligned)
-        {
-            _data.Span.Slice((int)(_bitPosition >> 3), (int)count).CopyTo(result);
-            _bitPosition += count * 8;
-            return result;
-        }
-
-        for (var i = 0; i < count; i++)
-        {
-            result[i] = (byte)ReadBits(8);
-        }
-
+        CopyBytes(result);
         return result;
+    }
+
+    /// <summary>Reads <paramref name="destination"/>.Length whole octets into <paramref name="destination"/>.</summary>
+    public void ReadBytes(Span<byte> destination)
+    {
+        Require(destination.Length * 8L);
+        CopyBytes(destination);
+    }
+
+    private void CopyBytes(Span<byte> destination)
+    {
+        var span = Span;
+        var index = (int)(_bitPosition >> 3);
+        var shift = (int)(_bitPosition & 7);
+        _bitPosition += destination.Length * 8L;
+        if (shift == 0)
+        {
+            span.Slice(index, destination.Length).CopyTo(destination);
+            return;
+        }
+
+        for (var i = 0; i < destination.Length; i++, index++)
+        {
+            destination[i] = (byte)((span[index] << shift) | (span[index + 1] >> (8 - shift)));
+        }
     }
 
     /// <summary>Reads <paramref name="bitCount"/> bits into a zero-padded byte array.</summary>
@@ -251,20 +366,8 @@ public sealed class BitReader
     {
         Require(bitCount);
         var result = new byte[(bitCount + 7) >> 3];
-        var whole = bitCount >> 3;
-        if (IsAligned)
-        {
-            _data.Span.Slice((int)(_bitPosition >> 3), (int)whole).CopyTo(result);
-            _bitPosition += whole * 8;
-        }
-        else
-        {
-            for (var i = 0; i < whole; i++)
-            {
-                result[i] = (byte)ReadBits(8);
-            }
-        }
-
+        var whole = (int)(bitCount >> 3);
+        CopyBytes(result.AsSpan(0, whole));
         var rest = (int)(bitCount & 7);
         if (rest > 0)
         {

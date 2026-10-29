@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Numerics;
 using System.Text;
 using Asn1.Runtime.Buffers;
@@ -11,13 +12,22 @@ namespace Asn1.Runtime.Oer;
 /// </summary>
 internal sealed class OerReader : Asn1Reader
 {
-    private readonly long _baseBit;
+    [ThreadStatic]
+    private static OerReader? t_basic;
+
+    [ThreadStatic]
+    private static OerReader? t_canonical;
+
+    // Readers for nested encodings, shared by the root reader and all its nested readers.
+    private readonly Stack<OerReader> _nested;
+    private long _baseBit;
 
     public OerReader(BitReader input, bool canonical, Asn1DecodingOptions options)
         : base(options)
     {
         Input = input;
         Canonical = canonical;
+        _nested = new Stack<OerReader>();
     }
 
     private OerReader(OerReader parent, BitReader input, long baseBit)
@@ -26,6 +36,45 @@ internal sealed class OerReader : Asn1Reader
         Input = input;
         Canonical = parent.Canonical;
         _baseBit = baseBit;
+        _nested = parent._nested;
+    }
+
+    /// <summary>A root reader for one decoding, reusing this thread's previous one when it has the same options.</summary>
+    public static OerReader Rent(ReadOnlyMemory<byte> data, bool canonical, Asn1DecodingOptions options)
+    {
+        var cached = canonical ? t_canonical : t_basic;
+        if (cached is null || !ReferenceEquals(cached.Options, options))
+        {
+            return new OerReader(new BitReader(data), canonical, options);
+        }
+
+        // Taken out of the slot, so a decoding started while this one runs gets its own reader.
+        if (canonical)
+        {
+            t_canonical = null;
+        }
+        else
+        {
+            t_basic = null;
+        }
+
+        cached.ResetForReuse();
+        cached.Input.Reset(data);
+        return cached;
+    }
+
+    /// <summary>Makes a reader from <see cref="Rent"/> available again; it no longer references the input.</summary>
+    public void Return()
+    {
+        Input.Reset(ReadOnlyMemory<byte>.Empty);
+        if (Canonical)
+        {
+            t_canonical = this;
+        }
+        else
+        {
+            t_basic = this;
+        }
     }
 
     public BitReader Input { get; }
@@ -55,13 +104,28 @@ internal sealed class OerReader : Asn1Reader
             throw Error(Asn1DecodeError.InvalidLength, "long-form length determinant with no subsequent octets");
         }
 
-        var bytes = Input.ReadBytes(n);
-        if (Canonical && bytes[0] == 0)
+        BigInteger length;
+        if (n <= 8)
         {
-            throw Error(Asn1DecodeError.NonCanonical, "COER requires a minimal long-form length (X.696 31.2)");
+            var bits = Input.ReadBits(n * 8);
+            if (Canonical && bits >> ((n - 1) * 8) == 0)
+            {
+                throw Error(Asn1DecodeError.NonCanonical, "COER requires a minimal long-form length (X.696 31.2)");
+            }
+
+            length = bits;
+        }
+        else
+        {
+            var bytes = Input.ReadBytes(n);
+            if (Canonical && bytes[0] == 0)
+            {
+                throw Error(Asn1DecodeError.NonCanonical, "COER requires a minimal long-form length (X.696 31.2)");
+            }
+
+            length = IntegerCodec.FromUnsigned(bytes);
         }
 
-        var length = IntegerCodec.FromUnsigned(bytes);
         if (Canonical && length < 128)
         {
             throw Error(Asn1DecodeError.NonCanonical, $"COER requires the short form for length {length} (X.696 31.2)");
@@ -92,18 +156,160 @@ internal sealed class OerReader : Asn1Reader
         return Input.ReadBytes(n);
     }
 
-    private OerReader Nested(byte[] bytes) => new(this, new BitReader(bytes), BitPosition - (bytes.Length * 8L));
-
-    private T DecodeNested<T>(byte[] bytes, Func<OerReader, T> decode)
+    /// <summary>A reader for a nested encoding, to pass to <see cref="EndNested"/>.</summary>
+    private OerReader BeginNested(byte[] bytes)
     {
-        var reader = Nested(bytes);
-        var value = decode(reader);
-        if (reader.Input.RemainingBits > 0)
+        var baseBit = BitPosition - (bytes.Length * 8L);
+        if (!_nested.TryPop(out var nested))
         {
-            throw Error(Asn1DecodeError.Malformed, $"{reader.Input.RemainingBits / 8} unused octet(s) inside an open type");
+            return new OerReader(this, new BitReader(bytes), baseBit);
         }
 
-        return value;
+        nested.Input.Reset(bytes);
+        nested._baseBit = baseBit;
+        nested.ContinueFrom(this);
+        return nested;
+    }
+
+    /// <summary>Checks that <paramref name="nested"/> consumed its encoding.</summary>
+    private void EndNested(OerReader nested)
+    {
+        if (nested.Input.RemainingBits > 0)
+        {
+            throw Error(Asn1DecodeError.Malformed, $"{nested.Input.RemainingBits / 8} unused octet(s) inside an open type");
+        }
+
+        nested.Input.Reset(ReadOnlyMemory<byte>.Empty);
+        _nested.Push(nested);
+    }
+
+    /// <summary>The length of a length-prefixed integer, with the checks of <see cref="ReadLengthPrefixed"/>.</summary>
+    private int ReadIntegerLength(string what)
+    {
+        var n = ReadLength();
+        if (n > Options.MaxIntegerLength)
+        {
+            throw Error(Asn1DecodeError.LimitExceeded, $"value of {n} octets exceeds the limit of {Options.MaxIntegerLength}");
+        }
+
+        if (n > Input.RemainingBits / 8)
+        {
+            throw Error(Asn1DecodeError.Truncated, $"length {n} exceeds the {Input.RemainingBits / 8} remaining octet(s)");
+        }
+
+        TrackAllocation(n);
+        if (n == 0)
+        {
+            throw Error(Asn1DecodeError.Malformed, $"empty {what} encoding");
+        }
+
+        return (int)n;
+    }
+
+    /// <summary>
+    /// Reads an INTEGER (10.3/10.4) into <paramref name="small"/>, or into <paramref name="big"/> (returning false) when it
+    /// has more than 8 octets, and checks it against the OER-visible bounds.
+    /// </summary>
+    private bool ReadIntegerValue(Asn1Type type, OerTypeInfo info, out Int128 small, out BigInteger big)
+    {
+        big = default;
+        switch (info.IntegerForm)
+        {
+            case OerIntegerForm.UnsignedFixed:
+                small = Input.ReadBits(info.FixedOctets * 8);
+                break;
+            case OerIntegerForm.SignedFixed:
+                {
+                    var shift = 64 - (info.FixedOctets * 8);
+                    small = (long)(Input.ReadBits(info.FixedOctets * 8) << shift) >> shift;
+                    break;
+                }
+
+            case OerIntegerForm.UnsignedVariable:
+                {
+                    var n = ReadIntegerLength("integer");
+                    if (n > 8)
+                    {
+                        small = 0;
+                        big = ReadVariableUnsignedContent(n, "integer");
+                        CheckBounds(type, info.Values, big);
+                        return false;
+                    }
+
+                    var bits = Input.ReadBits(n * 8);
+                    if (Canonical && n > 1 && bits >> ((n - 1) * 8) == 0)
+                    {
+                        throw Error(Asn1DecodeError.NonCanonical, "COER requires the minimal integer encoding (X.696 31.4/31.7)");
+                    }
+
+                    small = bits;
+                    break;
+                }
+
+            default:
+                {
+                    var n = ReadIntegerLength("integer");
+                    if (n > 8)
+                    {
+                        small = 0;
+                        big = ReadVariableSignedContent(n);
+                        CheckBounds(type, info.Values, big);
+                        return false;
+                    }
+
+                    var bits = Input.ReadBits(n * 8);
+                    if (Canonical && n > 1)
+                    {
+                        // X.690 8.3.2: the first nine bits must not be all zeros or all ones.
+                        var top = (bits >> ((n - 2) * 8)) & 0xFF80;
+                        if (top is 0 or 0xFF80)
+                        {
+                            throw Error(Asn1DecodeError.NonCanonical, "COER requires the minimal integer encoding (X.696 31.4)");
+                        }
+                    }
+
+                    var shift = 64 - (n * 8);
+                    small = (long)(bits << shift) >> shift;
+                    break;
+                }
+        }
+
+        if (small < info.Lower || small > info.Upper)
+        {
+            throw Error(Asn1DecodeError.ConstraintViolation, $"INTEGER value {small} lies outside the OER-visible range of {type.Name}");
+        }
+
+        return true;
+    }
+
+    private void CheckBounds(Asn1Type type, Asn1.Constraints.IntegerSet set, BigInteger value)
+    {
+        if ((set.LowerBound is { } min && value < min) || (set.UpperBound is { } max && value > max))
+        {
+            throw Error(Asn1DecodeError.ConstraintViolation, $"INTEGER value {value} lies outside the OER-visible range of {type.Name}");
+        }
+    }
+
+    private BigInteger ReadVariableUnsignedContent(int n, string what)
+    {
+        var octets = Input.ReadBytes(n);
+        if (Canonical && octets.Length > 1 && octets[0] == 0)
+        {
+            throw Error(Asn1DecodeError.NonCanonical, $"COER requires the minimal {what} encoding (X.696 31.4/31.7)");
+        }
+
+        return IntegerCodec.FromUnsigned(octets);
+    }
+
+    private BigInteger ReadVariableSignedContent(int n)
+    {
+        var octets = Input.ReadBytes(n);
+        if (Canonical && IntegerCodec.IsNonMinimalTwosComplement(octets))
+        {
+            throw Error(Asn1DecodeError.NonCanonical, "COER requires the minimal integer encoding (X.696 31.4)");
+        }
+
+        return IntegerCodec.FromTwosComplement(octets);
     }
 
     private BigInteger ReadVariableUnsigned(string what)
@@ -155,9 +361,40 @@ internal sealed class OerReader : Asn1Reader
     {
     }
 
+    public override bool TryReadInt64(Asn1Type type, out long value, out BigInteger large)
+    {
+        var info = OerTypeInfo.Get(type);
+        if (!info.HasSmallBounds)
+        {
+            return base.TryReadInt64(type, out value, out large);
+        }
+
+        if (!ReadIntegerValue(type, info, out var small, out large))
+        {
+            value = 0;
+            return false;
+        }
+
+        if (small >= long.MinValue && small <= long.MaxValue)
+        {
+            value = (long)small;
+            return true;
+        }
+
+        value = 0;
+        large = (BigInteger)small;
+        return false;
+    }
+
     public override BigInteger ReadInteger(Asn1Type type)
     {
-        var set = OerTypeInfo.Get(type).Values;
+        var info = OerTypeInfo.Get(type);
+        if (info.HasSmallBounds)
+        {
+            return ReadIntegerValue(type, info, out var small, out var big) ? (BigInteger)small : big;
+        }
+
+        var set = info.Values;
         var lb = set.LowerBound;
         var ub = set.UpperBound;
         BigInteger value;
@@ -196,6 +433,22 @@ internal sealed class OerReader : Asn1Reader
             if (n == 0)
             {
                 throw Error(Asn1DecodeError.Malformed, "long-form enumerated value with no subsequent octets");
+            }
+
+            if (n <= 8)
+            {
+                var bits = Input.ReadBits(n * 8);
+                var shift = 64 - (n * 8);
+                var v = (long)(bits << shift) >> shift;
+                var nonMinimal = n > 1 && ((bits >> ((n - 2) * 8)) & 0xFF80) is 0 or 0xFF80;
+                if (Canonical && (nonMinimal || v is >= 0 and < 128))
+                {
+                    throw Error(Asn1DecodeError.NonCanonical, $"COER requires the short or minimal long form for enumerated value {v} (X.696 31.5)");
+                }
+
+                return enumeration.FindByValue(v) ?? (enumeration.IsExtensible
+                    ? new EnumItemInfo(null, v, true, -1)
+                    : throw Error(Asn1DecodeError.Malformed, $"{v} is not a value of {type.Name}"));
             }
 
             var octets = Input.ReadBytes(n);
@@ -346,7 +599,8 @@ internal sealed class OerReader : Asn1Reader
         var info = OerTypeInfo.Get(type);
         var comps = type.Components;
         var value = type.CreateInstance();
-        var present = ReadComponents(comps, value, info.RootOrder, type.IsExtensible, out var extended);
+        Span<bool> present = comps.Length <= 128 ? stackalloc bool[comps.Length] : new bool[comps.Length];
+        ReadComponents(comps, value, info.RootOrder, type.IsExtensible, present, out var extended);
         if (extended)
         {
             // 16.4: extension addition presence bitmap.
@@ -374,23 +628,18 @@ internal sealed class OerReader : Asn1Reader
                 }
 
                 var item = info.Additions[a];
+                var nested = BeginNested(bytes);
                 if (info.AdditionIsGroup[a])
                 {
-                    var groupPresent = DecodeNested(bytes, r => r.ReadComponents(comps, value, item, false, out _));
-                    foreach (var (k, p) in groupPresent)
-                    {
-                        present[k] = p;
-                    }
+                    nested.ReadComponents(comps, value, item, false, present, out _);
                 }
                 else
                 {
-                    DecodeNested(bytes, r =>
-                    {
-                        comps[item[0]].Decode(r, value);
-                        return true;
-                    });
+                    comps[item[0]].Decode(nested, value);
                     present[item[0]] = true;
                 }
+
+                EndNested(nested);
             }
 
             if (Canonical && !any)
@@ -406,7 +655,7 @@ internal sealed class OerReader : Asn1Reader
                 continue;
             }
 
-            if (!present.GetValueOrDefault(i))
+            if (!present[i])
             {
                 comps[i].ApplyDefault(value);
             }
@@ -420,9 +669,8 @@ internal sealed class OerReader : Asn1Reader
     }
 
     /// <summary>Reads a preamble (optional extension bit, presence bits, zero padding) followed by the present components.</summary>
-    private Dictionary<int, bool> ReadComponents<T>(IReadOnlyList<SequenceComponent<T>> comps, T value, int[] order, bool extensible, out bool extended)
+    private void ReadComponents<T>(ImmutableArray<SequenceComponent<T>> comps, T value, int[] order, bool extensible, Span<bool> present, out bool extended)
     {
-        var present = new Dictionary<int, bool>();
         var bits = 0;
         extended = extensible && Input.ReadBit();
         bits += extensible ? 1 : 0;
@@ -452,16 +700,32 @@ internal sealed class OerReader : Asn1Reader
                 comps[i].Decode(this, value);
             }
         }
-
-        return present;
     }
 
     public override List<TElement> ReadCollection<TElement>(CollectionType<TElement> type)
     {
-        var quantity = ReadVariableUnsigned("quantity");
-        CheckCollectionCount(quantity > long.MaxValue ? long.MaxValue : (long)quantity);
-        var count = (long)quantity;
-        var list = new List<TElement>();
+        var n = ReadIntegerLength("quantity");
+        long count;
+        if (n <= 8)
+        {
+            var bits = Input.ReadBits(n * 8);
+            if (Canonical && n > 1 && bits >> ((n - 1) * 8) == 0)
+            {
+                throw Error(Asn1DecodeError.NonCanonical, "COER requires the minimal quantity encoding (X.696 31.4/31.7)");
+            }
+
+            count = bits > long.MaxValue ? long.MaxValue : (long)bits;
+        }
+        else
+        {
+            var quantity = ReadVariableUnsignedContent(n, "quantity");
+            count = quantity > long.MaxValue ? long.MaxValue : (long)quantity;
+        }
+
+        CheckCollectionCount(count);
+
+        // Bounded so that a large announced count is not allocated before its elements have been read.
+        var list = new List<TElement>((int)Math.Min(count, 1024));
         var checkOrder = Canonical && type.IsSet;
         byte[]? previous = null;
         for (long i = 0; i < count; i++)
@@ -545,7 +809,10 @@ internal sealed class OerReader : Asn1Reader
             if (alt.IsExtensionAddition)
             {
                 var bytes = ReadLengthPrefixed(Options.MaxStringLength);
-                return DecodeNested(bytes, r => alt.Decode(r));
+                var nested = BeginNested(bytes);
+                var result = alt.Decode(nested);
+                EndNested(nested);
+                return result;
             }
 
             // 20.1 note 3: for an untagged CHOICE alternative the nested CHOICE encoding repeats the tag just read.

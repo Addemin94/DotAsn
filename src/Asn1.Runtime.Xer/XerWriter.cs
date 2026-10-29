@@ -13,6 +13,15 @@ namespace Asn1.Runtime.Xer;
 /// </summary>
 internal sealed class XerWriter : Asn1Writer
 {
+    // Reused writers keep their text buffers; larger ones are dropped so a huge encoding does not pin its memory.
+    private const int MaxReusedChars = 32 * 1024;
+
+    [ThreadStatic]
+    private static XerWriter? t_basic;
+
+    [ThreadStatic]
+    private static XerWriter? t_canonical;
+
     private readonly StringBuilder _sb;
     private readonly bool _canonical;
     private string? _pending;
@@ -22,6 +31,52 @@ internal sealed class XerWriter : Asn1Writer
     {
         _sb = sb;
         _canonical = canonical;
+    }
+
+    /// <summary>The XML text written so far.</summary>
+    public StringBuilder Output => _sb;
+
+    /// <summary>A writer with empty text, reusing this thread's previous one when it has the same options.</summary>
+    public static XerWriter Rent(bool canonical, Asn1EncodingOptions options)
+    {
+        var cached = canonical ? t_canonical : t_basic;
+        if (cached is null || !ReferenceEquals(cached.Options, options))
+        {
+            return new XerWriter(new StringBuilder(256), canonical, options);
+        }
+
+        // Taken out of the slot, so an encoding started while this one runs gets its own writer.
+        if (canonical)
+        {
+            t_canonical = null;
+        }
+        else
+        {
+            t_basic = null;
+        }
+
+        cached.ResetForReuse();
+        cached._sb.Clear();
+        cached._pending = null;
+        return cached;
+    }
+
+    /// <summary>Makes a writer from <see cref="Rent"/> available again after its text has been copied.</summary>
+    public void Return()
+    {
+        if (_sb.Capacity > MaxReusedChars)
+        {
+            return;
+        }
+
+        if (_canonical)
+        {
+            t_canonical = this;
+        }
+        else
+        {
+            t_basic = this;
+        }
     }
 
     private XerWriter(XerWriter parent, StringBuilder sb)
@@ -105,6 +160,13 @@ internal sealed class XerWriter : Asn1Writer
 
     /// <summary>X.693 8.3.6: "XMLSignedNumber".</summary>
     public override void WriteInteger(Asn1Type type, BigInteger value) => Text(value.ToString(CultureInfo.InvariantCulture));
+
+    public override void WriteInteger(Asn1Type type, long value)
+    {
+        // Always at least one digit, so the start tag is written (like Text with a non-empty string).
+        Flush();
+        _sb.Append(CultureInfo.InvariantCulture, $"{value}");
+    }
 
     /// <summary>X.693 8.3.7: "EmptyElementEnumerated".</summary>
     public override void WriteEnumerated(Asn1Type type, EnumerationInfo enumeration, EnumItemInfo item)

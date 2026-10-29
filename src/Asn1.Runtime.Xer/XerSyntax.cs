@@ -156,6 +156,9 @@ internal static class XerSyntax
         return text.Length > 0 && !text.ContainsAnyExceptInRange('0', '9') && (text.Length == 1 || text[0] != '0');
     }
 
+    /// <summary>X.693 8.1.4: the white-space characters.</summary>
+    public const string WhiteSpace = " \t\n\r";
+
     /// <summary>X.693 8.1.4: white-space characters.</summary>
     public static bool IsWhiteSpace(char c) => c is ' ' or '\t' or '\n' or '\r';
 

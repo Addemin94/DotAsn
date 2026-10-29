@@ -47,20 +47,22 @@ internal sealed class XerElement(string name)
 /// </summary>
 internal static class XerDocument
 {
+    // Only read by XmlReader.Create, so one instance serves every thread.
+    private static readonly XmlReaderSettings s_settings = new()
+    {
+        DtdProcessing = DtdProcessing.Prohibit,
+        XmlResolver = null,
+        IgnoreComments = false,
+        IgnoreProcessingInstructions = false,
+        IgnoreWhitespace = false,
+        CheckCharacters = true,
+        ConformanceLevel = ConformanceLevel.Document,
+        MaxCharactersFromEntities = 0,
+    };
+
     public static XerElement Parse(string text, Asn1DecodingOptions options)
     {
-        var settings = new XmlReaderSettings
-        {
-            DtdProcessing = DtdProcessing.Prohibit,
-            XmlResolver = null,
-            IgnoreComments = false,
-            IgnoreProcessingInstructions = false,
-            IgnoreWhitespace = false,
-            CheckCharacters = true,
-            ConformanceLevel = ConformanceLevel.Document,
-            MaxCharactersFromEntities = 0,
-        };
-
+        var settings = s_settings;
         XerElement? root = null;
         var stack = new Stack<XerElement>();
         try

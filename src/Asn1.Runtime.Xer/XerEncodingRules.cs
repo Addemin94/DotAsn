@@ -31,22 +31,38 @@ public sealed class XerEncodingRule : Asn1EncodingRule
     /// <inheritdoc />
     public override void Encode<T>(Asn1Type<T> type, T value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(output);
         options ??= Asn1EncodingOptions.Default;
-        var sb = new StringBuilder();
-        var writer = new XerWriter(sb, IsCanonical, options);
+        var writer = XerWriter.Rent(IsCanonical, options);
 
         // X.693 8.1, 9.1.1: an empty prolog and the XMLTypedValue of the type.
         var name = XerTypeInfo.Get(type).TypeName;
         writer.Open(name);
         type.Encode(writer, value);
         writer.Close(name);
-        var bytes = Encoding.UTF8.GetBytes(sb.ToString());
-        if (bytes.Length > options.MaxEncodedSize)
+
+        // The text is copied once into a pooled buffer and transcoded from there, without a string or a byte array.
+        var text = writer.Output;
+        var chars = ArrayPool<char>.Shared.Rent(text.Length);
+        try
         {
-            throw new Asn1EncodeException($"the encoding of {bytes.Length} octets exceeds the limit of {options.MaxEncodedSize}");
+            text.CopyTo(0, chars, text.Length);
+            var source = chars.AsSpan(0, text.Length);
+            var count = Encoding.UTF8.GetByteCount(source);
+            if (count > options.MaxEncodedSize)
+            {
+                throw new Asn1EncodeException($"the encoding of {count} octets exceeds the limit of {options.MaxEncodedSize}");
+            }
+
+            var written = Encoding.UTF8.GetBytes(source, output.GetSpan(count));
+            output.Advance(written);
+        }
+        finally
+        {
+            ArrayPool<char>.Shared.Return(chars);
         }
 
-        output.Write(bytes);
+        writer.Return();
     }
 
     /// <inheritdoc />

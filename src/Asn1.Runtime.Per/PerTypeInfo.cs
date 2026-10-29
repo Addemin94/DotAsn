@@ -116,12 +116,63 @@ internal sealed class AlphabetInfo
     }
 }
 
+/// <summary>How an INTEGER is encoded (X.691 13), with bounds that fit in 64 bits; <see cref="Big"/> otherwise.</summary>
+internal enum PerIntegerForm
+{
+    Unconstrained,
+    SemiConstrained,
+    Constrained,
+    Big,
+}
+
 /// <summary>Per-descriptor data derived for PER encoding and cached on the descriptor.</summary>
 internal sealed class PerTypeInfo
 {
-    public EffectiveConstraint Values { get; private init; } = EffectiveConstraint.None;
+    private readonly EffectiveConstraint _values = EffectiveConstraint.None;
+    private readonly EffectiveConstraint _sizes = EffectiveConstraint.None;
 
-    public EffectiveConstraint Sizes { get; private init; } = EffectiveConstraint.None;
+    public EffectiveConstraint Values
+    {
+        get => _values;
+        private init
+        {
+            _values = value;
+            (IntegerForm, Lower, Upper) = (value.LowerBound, value.UpperBound) switch
+            {
+                ({ } lb, { } ub) => Fits(lb) && Fits(ub) ? (PerIntegerForm.Constrained, (long)lb, (long)ub) : (PerIntegerForm.Big, 0L, 0L),
+                ({ } lb, null) => Fits(lb) ? (PerIntegerForm.SemiConstrained, (long)lb, 0L) : (PerIntegerForm.Big, 0L, 0L),
+                _ => (PerIntegerForm.Unconstrained, 0L, 0L),
+            };
+        }
+    }
+
+    public EffectiveConstraint Sizes
+    {
+        get => _sizes;
+        private init
+        {
+            _sizes = value;
+            SizeLower = (long)(value.LowerBound ?? 0);
+            SizeUpper = value.UpperBound is { } u ? (u > long.MaxValue ? long.MaxValue : (long)u) : null;
+        }
+    }
+
+    /// <summary>INTEGER: the encoding procedure for values that fit in 64 bits.</summary>
+    public PerIntegerForm IntegerForm { get; private set; }
+
+    /// <summary>INTEGER: the lower bound (semi-constrained and constrained forms).</summary>
+    public long Lower { get; private set; }
+
+    /// <summary>INTEGER: the upper bound (constrained form).</summary>
+    public long Upper { get; private set; }
+
+    /// <summary>Sizes: the lower bound (0 when unbounded).</summary>
+    public long SizeLower { get; private set; }
+
+    /// <summary>Sizes: the upper bound, saturated to <see cref="long.MaxValue"/>, or null.</summary>
+    public long? SizeUpper { get; private set; }
+
+    private static bool Fits(System.Numerics.BigInteger value) => value.GetBitLength() < 64;
 
     public AlphabetInfo? Alphabet { get; private init; }
 
@@ -146,8 +197,10 @@ internal sealed class PerTypeInfo
     private static readonly Asn1RuleDataSlot<PerTypeInfo> s_unaligned = new();
     private static readonly Asn1RuleDataSlot<PerTypeInfo> s_aligned = new();
 
-    public static PerTypeInfo Get(Asn1Type type, bool aligned) =>
-        type.GetRuleData(aligned ? s_aligned : s_unaligned, t => Create(t, aligned));
+    // Static lambdas: a lambda capturing 'aligned' would allocate a delegate on every lookup.
+    public static PerTypeInfo Get(Asn1Type type, bool aligned) => aligned
+        ? type.GetRuleData(s_aligned, static t => Create(t, aligned: true))
+        : type.GetRuleData(s_unaligned, static t => Create(t, aligned: false));
 
     private static PerTypeInfo Create(Asn1Type type, bool aligned)
     {

@@ -50,6 +50,23 @@ public static class IntegerCodec
     /// <summary>Number of octets of the minimal non-negative binary integer encoding (at least one octet).</summary>
     public static int UnsignedLength(BigInteger value) => value.IsZero ? 1 : value.GetByteCount(isUnsigned: true);
 
+    /// <summary>Number of octets of the minimal non-negative binary integer encoding of a 64-bit value (at least one octet).</summary>
+    public static int UnsignedLength(ulong value) => value == 0 ? 1 : (71 - BitOperations.LeadingZeroCount(value)) / 8;
+
+    /// <summary>Converts <paramref name="value"/> to a <see cref="long"/> when it fits in 64 bits.</summary>
+    public static bool TryToInt64(BigInteger value, out long result)
+    {
+        // GetBitLength excludes the sign bit, so values of up to 63 bits fit (long.MinValue included).
+        if (value.GetBitLength() < 64)
+        {
+            result = (long)value;
+            return true;
+        }
+
+        result = 0;
+        return false;
+    }
+
     /// <summary>Minimal non-negative binary integer octets, big-endian (at least one octet).</summary>
     public static byte[] ToUnsigned(BigInteger value)
     {

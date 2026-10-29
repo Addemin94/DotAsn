@@ -23,10 +23,23 @@ public sealed class OerEncodingRule : Asn1EncodingRule
     /// <inheritdoc />
     public override void Encode<T>(Asn1Type<T> type, T value, IBufferWriter<byte> output, Asn1EncodingOptions? options = null)
     {
+        ArgumentNullException.ThrowIfNull(output);
         options ??= Asn1EncodingOptions.Default;
-        var bits = new BitWriter(64, options.MaxEncodedSize);
-        type.Encode(new OerWriter(bits, IsCanonical, options), value);
-        output.Write(bits.WrittenSpan);
+        var writer = OerWriter.Rent(IsCanonical, options);
+        type.Encode(writer, value);
+        output.Write(writer.Output.WrittenSpan);
+        writer.Return();
+    }
+
+    /// <inheritdoc />
+    public override byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null)
+    {
+        options ??= Asn1EncodingOptions.Default;
+        var writer = OerWriter.Rent(IsCanonical, options);
+        type.Encode(writer, value);
+        var result = writer.Output.ToArray();
+        writer.Return();
+        return result;
     }
 
     /// <inheritdoc />
@@ -34,14 +47,16 @@ public sealed class OerEncodingRule : Asn1EncodingRule
     {
         options ??= Asn1DecodingOptions.Default;
         CheckInputSize(data, options);
-        var bits = new BitReader(data);
-        var value = type.Decode(new OerReader(bits, IsCanonical, options));
+        var reader = OerReader.Rent(data, IsCanonical, options);
+        var bits = reader.Input;
+        var value = type.Decode(reader);
         bytesConsumed = (int)(bits.BitPosition / 8);
         if (options.RejectTrailingData && bytesConsumed != data.Length)
         {
             throw new Asn1DecodeException(Asn1DecodeError.TrailingData, $"{data.Length - bytesConsumed} octet(s) follow the encoded value", bits.BitPosition);
         }
 
+        reader.Return();
         return value;
     }
 }

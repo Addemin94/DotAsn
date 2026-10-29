@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **Encoding and decoding are 2–5× faster and allocate almost nothing beyond the values.** For a batch of 32
+  telemetry measurements, UPER/APER/OER/COER encode and decode about 4× faster and BER, CER, DER, JER and XER about
+  2× (docs/benchmarks.md). Writers and readers are reused per thread when the same options instance is passed (as
+  with the defaults); integers, lengths and indices use 64-bit arithmetic unless a value needs more.
+- PER: a length outside its SIZE constraint, encoded with `ValidateConstraints = false`, now throws an
+  `Asn1EncodeException` naming the permitted size (it was an `ArgumentOutOfRangeException`).
+
+### Added
+
+- `Asn1Reader.TryReadInt64` (rules override it to read INTEGERs without `BigInteger`), and for rule implementations
+  `Asn1Writer.ResetForReuse`/`ContinueFrom` and `Asn1Reader.ResetForReuse`/`ContinueFrom`.
+- `Asn1EncodingRule.Encode` (returning a byte array) is virtual, so rules can avoid an intermediate buffer.
+- `BitWriter.Reset` and `Capacity`; `BitReader.Reset`, `Seek` and `ReadBytes(Span<byte>)`;
+  `EnumerationInfo.FindByName(ReadOnlySpan<char>)`; `IntegerSet.Contains(long)`; `IntegerCodec.UnsignedLength(ulong)`
+  and `IntegerCodec.TryToInt64`.
+
 ## 0.2.1 - 2026-10-28
 
 ### Added

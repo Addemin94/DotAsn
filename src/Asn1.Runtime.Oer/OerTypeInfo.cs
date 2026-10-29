@@ -2,17 +2,91 @@ using Asn1.Constraints;
 
 namespace Asn1.Runtime.Oer;
 
+/// <summary>How an INTEGER is encoded (X.696 10).</summary>
+internal enum OerIntegerForm
+{
+    /// <summary>10.3: a fixed number of octets, unsigned.</summary>
+    UnsignedFixed,
+
+    /// <summary>10.3: length-prefixed, unsigned.</summary>
+    UnsignedVariable,
+
+    /// <summary>10.4: a fixed number of octets, two's complement.</summary>
+    SignedFixed,
+
+    /// <summary>10.4: length-prefixed, two's complement.</summary>
+    SignedVariable,
+}
+
 /// <summary>Cached OER layout data for a descriptor.</summary>
 internal sealed class OerTypeInfo
 {
     private static readonly Asn1RuleDataSlot<OerTypeInfo> s_slot = new();
+    private static readonly Int128 s_minimum = Int128.MinValue;
+    private readonly IntegerSet _values = IntegerSet.All;
 
-    public IntegerSet Values { get; private init; } = IntegerSet.All;
+    public IntegerSet Values
+    {
+        get => _values;
+        private init
+        {
+            _values = value;
+            var lb = value.LowerBound;
+            var ub = value.UpperBound;
+            if (lb is { } l && l.Sign >= 0)
+            {
+                FixedOctets = ub is not { } u ? 0 : u <= byte.MaxValue ? 1 : u <= ushort.MaxValue ? 2 : u <= uint.MaxValue ? 4 : u <= ulong.MaxValue ? 8 : 0;
+                IntegerForm = FixedOctets > 0 ? OerIntegerForm.UnsignedFixed : OerIntegerForm.UnsignedVariable;
+            }
+            else
+            {
+                FixedOctets = lb is { } sl && ub is { } su
+                    ? (sl >= sbyte.MinValue && su <= sbyte.MaxValue ? 1 : sl >= short.MinValue && su <= short.MaxValue ? 2 : sl >= int.MinValue && su <= int.MaxValue ? 4 : sl >= long.MinValue && su <= long.MaxValue ? 8 : 0)
+                    : 0;
+                IntegerForm = FixedOctets > 0 ? OerIntegerForm.SignedFixed : OerIntegerForm.SignedVariable;
+            }
 
-    public IntegerSet Sizes { get; private init; } = IntegerSet.Range(0, null);
+            // Bounds within 128 bits allow checks without BigInteger: Int128 holds every value of 8 octets or fewer.
+            HasSmallBounds = (lb is null || l128(lb.Value)) && (ub is null || l128(ub.Value));
+            if (HasSmallBounds)
+            {
+                Lower = lb is { } x ? (Int128)x : s_minimum;
+                Upper = ub is { } y ? (Int128)y : Int128.MaxValue;
+            }
+
+            static bool l128(System.Numerics.BigInteger v) => v.GetBitLength() < 128;
+        }
+    }
+
+    /// <summary>INTEGER: the encoding form.</summary>
+    public OerIntegerForm IntegerForm { get; private set; } = OerIntegerForm.SignedVariable;
+
+    /// <summary>INTEGER: octets of the fixed forms.</summary>
+    public int FixedOctets { get; private set; }
+
+    /// <summary>INTEGER: true when the bounds fit in <see cref="Int128"/> (<see cref="Lower"/> and <see cref="Upper"/> are valid).</summary>
+    public bool HasSmallBounds { get; private set; } = true;
+
+    /// <summary>INTEGER: the lower bound, or <see cref="Int128.MinValue"/> when there is none.</summary>
+    public Int128 Lower { get; private set; } = s_minimum;
+
+    /// <summary>INTEGER: the upper bound, or <see cref="Int128.MaxValue"/> when there is none.</summary>
+    public Int128 Upper { get; private set; } = Int128.MaxValue;
+
+    private readonly IntegerSet _sizes = IntegerSet.Range(0, null);
+
+    public IntegerSet Sizes
+    {
+        get => _sizes;
+        private init
+        {
+            _sizes = value;
+            FixedSize = value.LowerBound is { } lb && value.UpperBound is { } ub && lb == ub ? (long)lb : null;
+        }
+    }
 
     /// <summary>Fixed size when lb == ub (strings), otherwise null.</summary>
-    public long? FixedSize => Sizes.LowerBound is { } lb && Sizes.UpperBound is { } ub && lb == ub ? (long)lb : null;
+    public long? FixedSize { get; private set; }
 
     public int[] RootOrder { get; private init; } = [];
 

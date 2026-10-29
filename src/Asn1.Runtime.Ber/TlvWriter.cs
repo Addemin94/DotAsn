@@ -10,7 +10,7 @@ internal sealed class TlvWriter
 {
     private byte[] _buffer;
     private int _position;
-    private readonly long _maxBytes;
+    private long _maxBytes;
 
     public TlvWriter(int capacity, long maxBytes)
     {
@@ -19,6 +19,16 @@ internal sealed class TlvWriter
     }
 
     public int Position => _position;
+
+    /// <summary>The size of the buffer in octets.</summary>
+    public int Capacity => _buffer.Length;
+
+    /// <summary>Starts another encoding in the same buffer.</summary>
+    public void Reset(long maxBytes)
+    {
+        _position = 0;
+        _maxBytes = maxBytes;
+    }
 
     public ReadOnlySpan<byte> WrittenSpan => _buffer.AsSpan(0, _position);
 

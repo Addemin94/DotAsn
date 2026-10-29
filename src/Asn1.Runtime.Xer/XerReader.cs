@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Numerics;
 using System.Text;
 using Asn1.Constraints;
+using Asn1.Runtime.Primitives;
 
 namespace Asn1.Runtime.Xer;
 
@@ -67,13 +68,13 @@ internal sealed class XerReader : Asn1Reader
 
     private static bool IsEmpty(XerElement e) => e.Content.All(c => c is string s && s.Length == 0);
 
-    private T With<T>(XerElement element, Func<T> read)
+    private TElement DecodeElement<TElement>(CollectionType<TElement> type, XerElement element, int index)
     {
         var saved = _current;
         _current = element;
         try
         {
-            return read();
+            return type.DecodeElement(this, index);
         }
         finally
         {
@@ -105,6 +106,24 @@ internal sealed class XerReader : Asn1Reader
             throw Error(Asn1DecodeError.Malformed, "a NULL value must be empty");
         }
     }
+
+    public override bool TryReadInt64(Asn1Type type, out long value, out BigInteger large)
+    {
+        var text = TrimmedText("an INTEGER");
+        if (XerSyntax.IsSignedNumber(text) && text.Length <= Options.MaxIntegerLength * 3
+            && long.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out value))
+        {
+            large = default;
+            return true;
+        }
+
+        // Other text gets the checks and messages of ReadInteger.
+        large = ReadInteger(type);
+        return IntegerCodec.TryToInt64(large, out value);
+    }
+
+    /// <summary>The text content without leading and trailing white-space (no copy for a single text node).</summary>
+    private ReadOnlySpan<char> TrimmedText(string what) => TextContent(what).AsSpan().Trim(XerSyntax.WhiteSpace);
 
     public override BigInteger ReadInteger(Asn1Type type)
     {
@@ -275,9 +294,24 @@ internal sealed class XerReader : Asn1Reader
         var members = XerTypeInfo.Get(type).Members;
         var comps = type.Components;
         var value = type.CreateInstance();
-        var present = new bool[comps.Length];
-        foreach (var e in Elements(type.Name))
+        Span<bool> present = comps.Length <= 128 ? stackalloc bool[comps.Length] : new bool[comps.Length];
+
+        // Text between the component elements may only be white-space; checked before any component is decoded.
+        foreach (var item in _current.Content)
         {
+            if (item is string text && text.AsSpan().ContainsAnyExcept(XerSyntax.WhiteSpace))
+            {
+                throw Error(Asn1DecodeError.Malformed, $"unexpected text in {type.Name}");
+            }
+        }
+
+        foreach (var item in _current.Content)
+        {
+            if (item is not XerElement e)
+            {
+                continue;
+            }
+
             if (!members.TryGetValue(e.Name, out var i))
             {
                 if (type.IsExtensible)
@@ -295,11 +329,17 @@ internal sealed class XerReader : Asn1Reader
                 throw Error(Asn1DecodeError.Malformed, $"component <{e.Name}> appears more than once");
             }
 
-            With(e, () =>
+            var saved = _current;
+            _current = e;
+            try
             {
                 comps[i].Decode(this, value);
-                return true;
-            });
+            }
+            finally
+            {
+                _current = saved;
+            }
+
             present[i] = true;
         }
 
@@ -341,11 +381,11 @@ internal sealed class XerReader : Asn1Reader
                 // X.680 26.5-26.7: the item is the value itself (<true/>, <red/>, <alternative>...</alternative>).
                 var holder = new XerElement(e.Name);
                 holder.Content.Add(e);
-                list.Add(With(holder, () => type.DecodeElement(this, list.Count)));
+                list.Add(DecodeElement(type, holder, list.Count));
             }
             else if (e.Name == info.ItemName)
             {
-                list.Add(With(e, () => type.DecodeElement(this, list.Count)));
+                list.Add(DecodeElement(type, e, list.Count));
             }
             else
             {
@@ -362,7 +402,16 @@ internal sealed class XerReader : Asn1Reader
         if (XerTypeInfo.Get(type).Members.TryGetValue(e.Name, out var index))
         {
             var alt = type.Alternatives[index];
-            return With(e, () => alt.Decode(this));
+            var saved = _current;
+            _current = e;
+            try
+            {
+                return alt.Decode(this);
+            }
+            finally
+            {
+                _current = saved;
+            }
         }
 
         if (!type.IsExtensible)

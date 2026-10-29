@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using Asn1.Runtime.Primitives;
@@ -38,19 +39,74 @@ internal sealed class JerReader : Asn1Reader
 
     private string ExpectString(string what) => Expect(JsonValueKind.String, what).GetString()!;
 
-    private T With<T>(JsonElement element, Func<T> read)
+    /// <summary>
+    /// The UTF-8 contents of the current JSON string when it has no escapes and only ASCII characters (then each octet is
+    /// one character), so it can be used without creating a string; false otherwise.
+    /// </summary>
+    private bool TryGetSimpleString(out ReadOnlySpan<byte> utf8)
     {
-        var saved = _current;
-        _current = element;
-        try
+        var raw = JsonMarshal.GetRawUtf8Value(_current);
+        utf8 = raw[1..^1];
+        foreach (var b in utf8)
         {
-            return read();
+            if (b is (byte)'\\' or >= 0x80)
+            {
+                return false;
+            }
         }
-        finally
-        {
-            _current = saved;
-        }
+
+        return true;
     }
+
+    /// <summary>A property name as characters (written to <paramref name="buffer"/> when it has no escapes), or null.</summary>
+    private static ReadOnlySpan<char> SimpleName(JsonProperty property, Span<char> buffer, out bool simple)
+    {
+        var raw = JsonMarshal.GetRawUtf8PropertyName(property);
+        simple = raw.Length <= buffer.Length && raw.IndexOf((byte)'\\') < 0;
+        return simple ? buffer[..Encoding.UTF8.GetChars(raw, buffer)] : default;
+    }
+
+    private byte[] Hex(string what)
+    {
+        if (!TryGetSimpleString(out var utf8))
+        {
+            return Hex(_current.GetString()!, what);
+        }
+
+        if (utf8.Length % 2 != 0)
+        {
+            throw Error(Asn1DecodeError.Malformed, $"{what} must have an even number of hexadecimal digits");
+        }
+
+        if (utf8.Length / 2 > Options.MaxStringLength)
+        {
+            throw Error(Asn1DecodeError.LimitExceeded, $"{what} of {utf8.Length / 2} octets exceeds the limit of {Options.MaxStringLength}");
+        }
+
+        var bytes = new byte[utf8.Length / 2];
+        for (var i = 0; i < bytes.Length; i++)
+        {
+            var high = HexDigit(utf8[2 * i]);
+            var low = HexDigit(utf8[(2 * i) + 1]);
+            if ((high | low) < 0)
+            {
+                throw Error(Asn1DecodeError.Malformed, $"{what} contains characters other than hexadecimal digits");
+            }
+
+            bytes[i] = (byte)((high << 4) | low);
+        }
+
+        TrackAllocation(bytes.Length);
+        return bytes;
+    }
+
+    private static int HexDigit(byte c) => c switch
+    {
+        >= (byte)'0' and <= (byte)'9' => c - '0',
+        >= (byte)'A' and <= (byte)'F' => c - 'A' + 10,
+        >= (byte)'a' and <= (byte)'f' => c - 'a' + 10,
+        _ => -1,
+    };
 
     private byte[] Hex(string text, string what)
     {
@@ -95,6 +151,21 @@ internal sealed class JerReader : Asn1Reader
 
     public override void ReadNull(NullType type) => Expect(JsonValueKind.Null, "null");
 
+    public override bool TryReadInt64(Asn1Type type, out long value, out BigInteger large)
+    {
+        var raw = JsonMarshal.GetRawUtf8Value(Expect(JsonValueKind.Number, "a JSON number"));
+        if (raw.IndexOfAny("."u8 + "eE"u8) < 0 && raw.Length <= Options.MaxIntegerLength * 3
+            && long.TryParse(raw, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out value))
+        {
+            large = default;
+            return true;
+        }
+
+        // Other numbers get the checks and messages of ReadInteger.
+        large = ReadInteger(type);
+        return IntegerCodec.TryToInt64(large, out value);
+    }
+
     public override BigInteger ReadInteger(Asn1Type type)
     {
         var raw = Expect(JsonValueKind.Number, "a JSON number").GetRawText();
@@ -113,7 +184,18 @@ internal sealed class JerReader : Asn1Reader
 
     public override EnumItemInfo ReadEnumerated(Asn1Type type, EnumerationInfo enumeration)
     {
-        var name = ExpectString("an enumeration identifier");
+        Expect(JsonValueKind.String, "an enumeration identifier");
+        if (TryGetSimpleString(out var utf8) && utf8.Length <= 256)
+        {
+            Span<char> chars = stackalloc char[utf8.Length];
+            Encoding.ASCII.GetChars(utf8, chars);
+            if (enumeration.FindByName(chars) is { } item)
+            {
+                return item;
+            }
+        }
+
+        var name = _current.GetString()!;
         return enumeration.FindByName(name) ?? (enumeration.IsExtensible
             ? new EnumItemInfo(null, 0, true, -1)
             : throw Error(Asn1DecodeError.Malformed, $"'{name}' is not an identifier of {type.Name}"));
@@ -158,7 +240,8 @@ internal sealed class JerReader : Asn1Reader
         if (info.FixedSize is { } fixedSize)
         {
             // 24.2: hexadecimal string padded to a whole number of octets.
-            var bytes = Hex(ExpectString("a hexadecimal BIT STRING"), "BIT STRING");
+            Expect(JsonValueKind.String, "a hexadecimal BIT STRING");
+            var bytes = Hex("BIT STRING");
             if (bytes.Length != (fixedSize + 7) / 8)
             {
                 throw Error(Asn1DecodeError.Malformed, $"BIT STRING of fixed size {fixedSize} must have {(fixedSize + 7) / 8} octets, found {bytes.Length}");
@@ -202,7 +285,8 @@ internal sealed class JerReader : Asn1Reader
     public override byte[] ReadOctetString(OctetStringType type)
     {
         RejectContaining(JerTypeInfo.Get(type), type);
-        return Hex(ExpectString("a hexadecimal OCTET STRING"), "OCTET STRING");
+        Expect(JsonValueKind.String, "a hexadecimal OCTET STRING");
+        return Hex("OCTET STRING");
     }
 
     public override ObjectIdentifier ReadObjectIdentifier(ObjectIdentifierType type)
@@ -247,11 +331,14 @@ internal sealed class JerReader : Asn1Reader
         var members = JerTypeInfo.Get(type).Members;
         var comps = type.Components;
         var value = type.CreateInstance();
-        var seen = new bool[comps.Length];
-        var present = new bool[comps.Length];
+        Span<bool> seen = comps.Length <= 128 ? stackalloc bool[comps.Length] : new bool[comps.Length];
+        Span<bool> present = comps.Length <= 128 ? stackalloc bool[comps.Length] : new bool[comps.Length];
+        var byName = members.GetAlternateLookup<ReadOnlySpan<char>>();
+        Span<char> nameBuffer = stackalloc char[128];
         foreach (var m in obj.EnumerateObject())
         {
-            if (!members.TryGetValue(m.Name, out var i))
+            var name = SimpleName(m, nameBuffer, out var simple);
+            if (!(simple ? byName.TryGetValue(name, out var i) : members.TryGetValue(m.Name, out i)))
             {
                 if (type.IsExtensible)
                 {
@@ -274,11 +361,17 @@ internal sealed class JerReader : Asn1Reader
                 continue;
             }
 
-            With(m.Value, () =>
+            var saved = _current;
+            _current = m.Value;
+            try
             {
                 comps[i].Decode(this, value);
-                return true;
-            });
+            }
+            finally
+            {
+                _current = saved;
+            }
+
             present[i] = true;
         }
 
@@ -314,7 +407,16 @@ internal sealed class JerReader : Asn1Reader
                 Options.CancellationToken.ThrowIfCancellationRequested();
             }
 
-            list.Add(With(e, () => type.DecodeElement(this, list.Count)));
+            var saved = _current;
+            _current = e;
+            try
+            {
+                list.Add(type.DecodeElement(this, list.Count));
+            }
+            finally
+            {
+                _current = saved;
+            }
         }
 
         return list;
@@ -323,17 +425,35 @@ internal sealed class JerReader : Asn1Reader
     public override T ReadChoice<T>(ChoiceType<T> type)
     {
         var obj = Expect(JsonValueKind.Object, "a JSON object with one member");
-        var members = obj.EnumerateObject().ToList();
-        if (members.Count != 1)
+        var count = 0;
+        JsonProperty m = default;
+        foreach (var member in obj.EnumerateObject())
         {
-            throw Error(Asn1DecodeError.Malformed, $"a CHOICE must be an object with exactly one member, found {members.Count} (X.697 31.3)");
+            m = member;
+            count++;
         }
 
-        var m = members[0];
-        if (JerTypeInfo.Get(type).Members.TryGetValue(m.Name, out var index))
+        if (count != 1)
+        {
+            throw Error(Asn1DecodeError.Malformed, $"a CHOICE must be an object with exactly one member, found {count} (X.697 31.3)");
+        }
+
+        var members = JerTypeInfo.Get(type).Members;
+        Span<char> nameBuffer = stackalloc char[128];
+        var name = SimpleName(m, nameBuffer, out var simple);
+        if (simple ? members.GetAlternateLookup<ReadOnlySpan<char>>().TryGetValue(name, out var index) : members.TryGetValue(m.Name, out index))
         {
             var alt = type.Alternatives[index];
-            return With(m.Value, () => alt.Decode(this));
+            var saved = _current;
+            _current = m.Value;
+            try
+            {
+                return alt.Decode(this);
+            }
+            finally
+            {
+                _current = saved;
+            }
         }
 
         if (!type.IsExtensible)

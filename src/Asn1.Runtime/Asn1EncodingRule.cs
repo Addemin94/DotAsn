@@ -14,8 +14,8 @@ public abstract class Asn1EncodingRule
     /// <summary>True for binary rules; false for XML/JSON text rules.</summary>
     public virtual bool IsBinary => true;
 
-    /// <summary>Encodes a value into a new byte array.</summary>
-    public byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null)
+    /// <summary>Encodes a value into a new byte array. Rules may override this to avoid an intermediate buffer.</summary>
+    public virtual byte[] Encode<T>(Asn1Type<T> type, T value, Asn1EncodingOptions? options = null)
     {
         var buffer = new ArrayBufferWriter<byte>();
         Encode(type, value, buffer, options);

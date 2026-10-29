@@ -31,7 +31,9 @@ Status at the last update. Evidence refers to test projects under `tests/`.
 7. EXTERNAL, EMBEDDED PDV, CHARACTER STRING, OID-IRI, RELATIVE-OID-IRI in the runtime.
 8. Decimal REAL abstract values (exact representation), ISO 2022 for Teletex/Videotex/Graphic/General strings.
 9. MSBuild integration (`Asn1.Build`: generate C# during build), NuGet packaging.
-10. Performance of PER and OER (docs/benchmarks.md): they allocate about 2.5 KB per telemetry measurement and
-    encode more slowly than BER and JER. Suspected causes, not yet profiled: `PerWriter` does all INTEGER
-    arithmetic in `BigInteger` (it does not override `WriteInteger(Asn1Type, long)`), and extension additions are
-    encoded through a nested writer, a new `BitWriter` and a copied array.
+10. Performance (docs/benchmarks.md). The runtime no longer allocates beyond the values (done). Remaining:
+    C# generation spends about 90% of its time in `SourceFormatter` (`NormalizeWhitespace` and the `Layout` rewriter);
+    a printer that writes the same text directly, checked byte for byte against the current output on the corpus,
+    would remove most of it. The XER decoder costs about 11 KB per call for `XmlReader`. The per-thread writer and
+    reader reuse only applies when callers pass the same options instance, and its logic is repeated in each rule
+    (a shared helper would hold it once); PER and OER compute SEQUENCE presence with the same code.

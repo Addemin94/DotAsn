@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using Asn1.Runtime.Primitives;
 
@@ -7,19 +8,28 @@ namespace Asn1.Runtime.Ber;
 /// <summary>Reader for BER, CER and DER. All reads are confined to the current TLV region.</summary>
 internal sealed class BerReader : Asn1Reader
 {
-    private readonly ReadOnlyMemory<byte> _data;
+    [ThreadStatic]
+    private static BerReader? t_cached;
+
     private readonly BerProfile _profile;
     private readonly List<(int End, bool Indefinite)> _regions = [];
+    private ReadOnlyMemory<byte> _data;
+    private byte[]? _array;
+    private int _offset;
     private int _pos;
     private int _end;
     private bool _indefinite;
 
+    // The header last parsed by PeekHeader, which the following ReadHeader at the same position reuses.
+    private int _peekedAt = -1;
+    private TlvHeader _peeked;
+    private int _peekedNext;
+
     public BerReader(ReadOnlyMemory<byte> data, BerProfile profile, Asn1DecodingOptions options)
         : base(options)
     {
-        _data = data;
         _profile = profile;
-        _end = data.Length;
+        SetData(data);
     }
 
     public int Position => _pos;
@@ -28,13 +38,64 @@ internal sealed class BerReader : Asn1Reader
 
     private bool Canonical => _profile != BerProfile.Ber;
 
-    private ReadOnlySpan<byte> Span => _data.Span;
+    // A span over an array is cheaper to create than ReadOnlyMemory.Span, which is read for every header.
+    private ReadOnlySpan<byte> Span => _array is not null ? new ReadOnlySpan<byte>(_array, _offset, _data.Length) : _data.Span;
+
+    /// <summary>A reader for one decoding, reusing this thread's previous one when it has the same settings.</summary>
+    public static BerReader Rent(ReadOnlyMemory<byte> data, BerProfile profile, Asn1DecodingOptions options)
+    {
+        var cached = t_cached;
+        if (cached is null || cached._profile != profile || !ReferenceEquals(cached.Options, options))
+        {
+            return new BerReader(data, profile, options);
+        }
+
+        // Taken out of the slot, so a decoding started while this one runs gets its own reader.
+        t_cached = null;
+        cached.ResetForReuse();
+        cached._regions.Clear();
+        cached.SetData(data);
+        return cached;
+    }
+
+    /// <summary>Makes a reader from <see cref="Rent"/> available again; it no longer references the input.</summary>
+    public void Return()
+    {
+        SetData(ReadOnlyMemory<byte>.Empty);
+        t_cached = this;
+    }
+
+    private void SetData(ReadOnlyMemory<byte> data)
+    {
+        _data = data;
+        if (MemoryMarshal.TryGetArray(data, out var segment))
+        {
+            _array = segment.Array;
+            _offset = segment.Offset;
+        }
+        else
+        {
+            _array = null;
+            _offset = 0;
+        }
+
+        _pos = 0;
+        _end = data.Length;
+        _indefinite = false;
+        _peekedAt = -1;
+    }
 
     // ------------------------------------------------------------------ regions and headers
 
     private TlvHeader ReadHeader()
     {
-        if (!TlvReader.TryReadHeader(Span, ref _pos, _end, out var header, out var error))
+        TlvHeader header;
+        if (_peekedAt == _pos && _peekedAt >= 0)
+        {
+            header = _peeked;
+            _pos = _peekedNext;
+        }
+        else if (!TlvReader.TryReadHeader(Span, ref _pos, _end, out header, out var error))
         {
             throw Error(error!.StartsWith("truncated", StringComparison.Ordinal) ? Asn1DecodeError.Truncated : error.Contains("length", StringComparison.Ordinal) ? Asn1DecodeError.InvalidLength : Asn1DecodeError.InvalidTag, error);
         }
@@ -66,7 +127,21 @@ internal sealed class BerReader : Asn1Reader
             return false;
         }
 
+        if (_peekedAt == _pos && _peekedAt >= 0)
+        {
+            header = _peeked;
+            return true;
+        }
+
         var ok = TlvReader.TryReadHeader(Span, ref p, _end, out header, out _);
+        if (ok)
+        {
+            // Valid only within the same region: the limit (_end) is part of the check.
+            _peekedAt = _pos;
+            _peeked = header;
+            _peekedNext = p;
+        }
+
         return ok;
     }
 
@@ -82,6 +157,7 @@ internal sealed class BerReader : Asn1Reader
 
     private void EnterRegion(TlvHeader header)
     {
+        _peekedAt = -1;
         EnterNested();
         _regions.Add((_end, _indefinite));
         if (!header.IsIndefinite)
@@ -113,6 +189,7 @@ internal sealed class BerReader : Asn1Reader
 
         var (end, indefinite) = _regions[^1];
         _regions.RemoveAt(_regions.Count - 1);
+        _peekedAt = -1;
         _end = end;
         _indefinite = indefinite;
         ExitNested();
@@ -331,7 +408,36 @@ internal sealed class BerReader : Asn1Reader
         return value;
     }
 
+    public override bool TryReadInt64(Asn1Type type, out long value, out BigInteger large)
+    {
+        var c = ReadPrimitive(type, out var n);
+        CheckInteger(c);
+        var fits = c.Length <= 8;
+        value = fits ? ToInt64(c) : 0;
+        large = fits ? default : IntegerCodec.FromTwosComplement(c);
+        CloseRegions(n);
+        return fits;
+    }
+
+    /// <summary>Two's complement contents of at most 8 octets.</summary>
+    private static long ToInt64(ReadOnlySpan<byte> c)
+    {
+        long value = (sbyte)c[0];
+        for (var i = 1; i < c.Length; i++)
+        {
+            value = (value << 8) | c[i];
+        }
+
+        return value;
+    }
+
     private BigInteger ParseInteger(ReadOnlySpan<byte> c)
+    {
+        CheckInteger(c);
+        return IntegerCodec.FromTwosComplement(c);
+    }
+
+    private void CheckInteger(ReadOnlySpan<byte> c)
     {
         if (c.IsEmpty)
         {
@@ -347,14 +453,22 @@ internal sealed class BerReader : Asn1Reader
         {
             throw Error(Asn1DecodeError.LimitExceeded, $"INTEGER of {c.Length} octets exceeds the maximum of {Options.MaxIntegerLength}");
         }
-
-        return IntegerCodec.FromTwosComplement(c);
     }
 
     public override EnumItemInfo ReadEnumerated(Asn1Type type, EnumerationInfo enumeration)
     {
         var c = ReadPrimitive(type, out var n);
-        var value = ParseInteger(c);
+        CheckInteger(c);
+        if (c.Length <= 8)
+        {
+            var small = ToInt64(c);
+            CloseRegions(n);
+            return enumeration.FindByValue(small) ?? (enumeration.IsExtensible
+                ? new EnumItemInfo(null, small, true, -1)
+                : throw Error(Asn1DecodeError.Malformed, $"{small} is not a value of the enumeration {type.Name}"));
+        }
+
+        var value = IntegerCodec.FromTwosComplement(c);
         CloseRegions(n);
         if (value < long.MinValue || value > long.MaxValue || enumeration.FindByValue((long)value) is not { } item)
         {
@@ -477,7 +591,9 @@ internal sealed class BerReader : Asn1Reader
 
     // ------------------------------------------------------------------ structured
 
-    private static bool Matches(Asn1Type type, Asn1Tag tag) => TagSets.PossibleTags(type) is not { } set || set.Contains(tag);
+    // A tagged type can only begin with its outermost tag; the tag set is needed for untagged CHOICEs and open types.
+    private static bool Matches(Asn1Type type, Asn1Tag tag) =>
+        !type.Tags.IsEmpty ? type.Tags[0].Tag == tag : TagSets.PossibleTags(type) is not { } set || set.Contains(tag);
 
     public override T ReadSequence<T>(SequenceType<T> type)
     {
@@ -490,11 +606,12 @@ internal sealed class BerReader : Asn1Reader
         EnterRegion(h);
         var value = type.CreateInstance();
         var components = type.Components;
-        var present = new bool[components.Length];
+        Span<bool> present = components.Length <= 128 ? stackalloc bool[components.Length] : new bool[components.Length];
         if (type.Kind == Asn1TypeKind.Sequence)
         {
-            foreach (var (c, i) in components.Select((c, i) => (c, i)))
+            for (var i = 0; i < components.Length; i++)
             {
+                var c = components[i];
                 if (!PeekHeader(out var next) || !Matches(c.Type, next.Tag))
                 {
                     if (!c.IsOptional && !c.IsExtensionAddition)
@@ -603,7 +720,8 @@ internal sealed class BerReader : Asn1Reader
         }
 
         EnterRegion(h);
-        var list = new List<TElement>();
+        // A small initial capacity: the content length does not tell how many elements there are.
+        var list = new List<TElement>(h.IsIndefinite ? 4 : Math.Clamp(h.Length / 8, 4, 64));
         var previousStart = -1;
         var previousEnd = -1;
         while (!AtRegionEnd())

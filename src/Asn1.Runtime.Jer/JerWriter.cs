@@ -1,17 +1,101 @@
+using System.Buffers;
 using System.Globalization;
 using System.Numerics;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using Asn1.Runtime.Primitives;
 
 namespace Asn1.Runtime.Jer;
 
 /// <summary>Writer for JER (X.697) without encoding instructions.</summary>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001", Justification = "Utf8JsonWriter holds no unmanaged resources; it lives as long as the writer, which is reused for later encodings.")]
 internal sealed class JerWriter : Asn1Writer
 {
-    private readonly Utf8JsonWriter _json;
+    // Reused writers keep their buffers; larger ones are dropped so a huge encoding does not pin its memory.
+    private const int MaxReusedBytes = 64 * 1024;
 
-    public JerWriter(Utf8JsonWriter json, Asn1EncodingOptions options)
-        : base(options) => _json = json;
+    private static readonly JsonWriterOptions s_compact = new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+    private static readonly JsonWriterOptions s_indented = new() { Indented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
+
+    [ThreadStatic]
+    private static JerWriter? t_compact;
+
+    [ThreadStatic]
+    private static JerWriter? t_indented;
+
+    private readonly Utf8JsonWriter _json;
+    private readonly bool _isIndented;
+
+    private JerWriter(bool indented, Asn1EncodingOptions options)
+        : base(options)
+    {
+        _isIndented = indented;
+        Buffer = new ArrayBufferWriter<byte>(256);
+        _json = new Utf8JsonWriter(Buffer, indented ? s_indented : s_compact);
+    }
+
+    /// <summary>The JSON text written so far (after <see cref="Flush"/>).</summary>
+    public ArrayBufferWriter<byte> Buffer { get; }
+
+    /// <summary>A writer with an empty buffer, reusing this thread's previous one when it has the same options.</summary>
+    public static JerWriter Rent(bool indented, Asn1EncodingOptions options)
+    {
+        var cached = indented ? t_indented : t_compact;
+        if (cached is null || !ReferenceEquals(cached.Options, options))
+        {
+            return new JerWriter(indented, options);
+        }
+
+        // Taken out of the slot, so an encoding started while this one runs gets its own writer.
+        if (indented)
+        {
+            t_indented = null;
+        }
+        else
+        {
+            t_compact = null;
+        }
+
+        cached.ResetForReuse();
+        cached.Buffer.ResetWrittenCount();
+        cached._json.Reset(cached.Buffer);
+        return cached;
+    }
+
+    /// <summary>Commits the JSON text to <see cref="Buffer"/>.</summary>
+    public void Flush() => _json.Flush();
+
+    /// <summary>Makes a writer from <see cref="Rent"/> available again after its output has been copied.</summary>
+    public void Return()
+    {
+        if (Buffer.Capacity > MaxReusedBytes)
+        {
+            return;
+        }
+
+        if (_isIndented)
+        {
+            t_indented = this;
+        }
+        else
+        {
+            t_compact = this;
+        }
+    }
+
+    /// <summary>Writes octets as an upper-case hexadecimal JSON string.</summary>
+    private void WriteHexValue(ReadOnlySpan<byte> bytes)
+    {
+        if (bytes.Length > 256)
+        {
+            _json.WriteStringValue(Convert.ToHexString(bytes));
+            return;
+        }
+
+        Span<char> hex = stackalloc char[bytes.Length * 2];
+        Convert.TryToHexString(bytes, hex, out _);
+        _json.WriteStringValue(hex);
+    }
 
     // ------------------------------------------------------------------ primitives
 
@@ -80,19 +164,20 @@ internal sealed class JerWriter : Asn1Writer
                 throw Error($"BIT STRING of {value.Length} bits does not have the fixed size {fixedSize} of {type.Name}");
             }
 
-            _json.WriteStringValue(Convert.ToHexString(value.Bytes));
+            WriteHexValue(value.Bytes);
             return;
         }
 
         // 24.3: {"value": hex, "length": bits}.
         _json.WriteStartObject();
-        _json.WriteString("value", Convert.ToHexString(value.Bytes));
+        _json.WritePropertyName("value");
+        WriteHexValue(value.Bytes);
         _json.WriteNumber("length", value.Length);
         _json.WriteEndObject();
     }
 
     /// <summary>25.3: hexadecimal JSON string.</summary>
-    public override void WriteOctetString(OctetStringType type, ReadOnlySpan<byte> value) => _json.WriteStringValue(Convert.ToHexString(value));
+    public override void WriteOctetString(OctetStringType type, ReadOnlySpan<byte> value) => WriteHexValue(value);
 
     /// <summary>32: XMLObjectIdentifierValue (dotted numbers).</summary>
     public override void WriteObjectIdentifier(ObjectIdentifierType type, ObjectIdentifier value) => _json.WriteStringValue(value.ToString());
@@ -110,7 +195,7 @@ internal sealed class JerWriter : Asn1Writer
         }
 
         // 38.2 (and 7.4.5 for ObjectDescriptor): as an OCTET STRING of the X.690 8.23.5 octets.
-        _json.WriteStringValue(Convert.ToHexString(StringCodec.Encode(type.StringKind, value)));
+        WriteHexValue(StringCodec.Encode(type.StringKind, value));
     }
 
     /// <summary>40 and 7.4.5: the time value as a JSON string.</summary>

@@ -513,10 +513,7 @@ public sealed class CollectionType<TElement> : Asn1Type<List<TElement>>, ICollec
     {
         _element = element;
         ElementName = elementName;
-        if (Constraints.All(c => c.Root is SizeElement && (c.Additions is null or SizeElement)))
-        {
-            _sizeOnly = IntegerConstraintCheck.TryCreate([.. Constraints.Select(c => new Asn1Constraint(((SizeElement)c.Root!).Constraint.Root, c.IsExtensible, (c.Additions as SizeElement)?.Constraint.Root))]);
-        }
+        _sizeOnly = IntegerConstraintCheck.TryCreateSize(Constraints);
     }
 
     /// <summary>The element descriptor.</summary>
