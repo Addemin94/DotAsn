@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using Asn1.CodeGen.CSharp;
+using Asn1.CodeGen.Pawn;
 using Asn1.CodeGen.TypeScript;
 using Asn1.Diagnostics;
 using Asn1.Dynamic;
@@ -38,6 +39,7 @@ internal static class Program
         root.Subcommands.Add(CheckCommand());
         root.Subcommands.Add(GenerateCommand());
         root.Subcommands.Add(GenerateTypeScriptCommand());
+        root.Subcommands.Add(GeneratePawnCommand());
         root.Subcommands.Add(GenerateSchemaCommand());
         root.Subcommands.Add(EncodeCommand());
         root.Subcommands.Add(DecodeCommand());
@@ -237,6 +239,52 @@ internal static class Program
                 Modules = p.GetValue(modules) is { Length: > 0 } m ? m.SelectMany(x => x.Split(',')).ToHashSet(StringComparer.Ordinal) : null,
             };
             var result = TypeScriptGenerator.Generate(compilation, options);
+            diagnostics.AddRange(result.Diagnostics);
+            var dir = p.GetValue(output) ?? "generated";
+            Directory.CreateDirectory(dir);
+            foreach (var f in result.Files)
+            {
+                ct.ThrowIfCancellationRequested();
+                await File.WriteAllTextAsync(Path.Combine(dir, f.Path), f.Content, ct).ConfigureAwait(false);
+            }
+
+            if (!p.GetValue(s_quiet))
+            {
+                Console.Out.WriteLine($"Generated {result.Files.Length} file(s) in {Path.GetFullPath(dir)}");
+            }
+
+            return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+        });
+    }
+
+    private static Command GeneratePawnCommand()
+    {
+        var paths = Paths();
+        var output = new Option<string?>("--output", "-o") { Description = "Output directory (default: ./generated)." };
+        var modules = new Option<string[]>("--modules") { Description = "Only generate these modules.", AllowMultipleArgumentsPerToken = true };
+        var noManifest = new Option<bool>("--no-manifest") { Description = "Do not emit the JSON description of the value layouts." };
+        var cmd = new Command("generate-pawn", "Generate Pawn value layouts with canonical OER (COER) encoders and decoders.") { paths, output, modules, noManifest };
+        return Wrap(cmd, async (p, ct) =>
+        {
+            var diagnostics = new List<Diagnostic>();
+            var compilation = Compile(p, p.GetValue(paths)!, diagnostics);
+            if (compilation is null)
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            diagnostics.AddRange(compilation.Diagnostics);
+            if (diagnostics.Any(d => d.IsError))
+            {
+                return Report(p, diagnostics, DiagnosticOutputFormat.Text);
+            }
+
+            var options = new PawnGeneratorOptions
+            {
+                Modules = p.GetValue(modules) is { Length: > 0 } m ? m.SelectMany(x => x.Split(',')).ToHashSet(StringComparer.Ordinal) : null,
+                GenerateLayoutManifest = !p.GetValue(noManifest),
+            };
+            var result = PawnGenerator.Generate(compilation, options);
             diagnostics.AddRange(result.Diagnostics);
             var dir = p.GetValue(output) ?? "generated";
             Directory.CreateDirectory(dir);

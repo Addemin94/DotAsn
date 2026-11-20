@@ -14,6 +14,7 @@ third-party ASN.1 dependency. For browsers and Node.js, the same runtime is comp
 .asn files ─► parser ─► semantic model ─┬─► linter (asn1 lint)
                                          ├─► C# generator (asn1 generate-csharp)
                                          ├─► TypeScript generator (asn1 generate-typescript)
+                                         ├─► Pawn generator (asn1 generate-pawn)
                                          ├─► schema (asn1 generate-schema)
                                          └─► dynamic descriptors (asn1 encode/decode)
 generated C# ─► Asn1.Runtime descriptors ─► BER · CER · DER · APER · UPER · OER · COER · JER · XER · CXER
@@ -168,6 +169,7 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | [Encoding rules](docs/encoding-rules.md) | Details and limitations of each encoding rule |
 | [JSON value notation](docs/value-notation-json.md) | How values are written for the CLI, the studio and `DotAsn.Dynamic` |
 | [TypeScript guide](docs/typescript.md) | Generating TypeScript and encoding/decoding with `@dotasn/wasm` in Node.js and browsers |
+| [Pawn guide](docs/pawn.md) | Generating Pawn value layouts and COER encoders and decoders for scripts on small devices |
 | [Schema format](docs/schema-format.md) | The compiled description of types that the WebAssembly runtime loads |
 | [Diagnostics](docs/diagnostics.md) | Every diagnostic ID with its meaning |
 | [Security](docs/security.md) | Resource limits and hardening for untrusted input |
@@ -185,6 +187,7 @@ The first load downloads about 10 MB (the .NET runtime and the toolchain); the C
 | `src/Asn1.Linter` | Lint rules, configuration, suppressions |
 | `src/Asn1.CodeGen.CSharp` | C# generator (Roslyn syntax trees) |
 | `src/Asn1.CodeGen.TypeScript` | TypeScript generator (a TypeScript syntax model and printer) |
+| `src/Asn1.CodeGen.Pawn` | Pawn generator (value layouts and COER encoders and decoders, with the OER core) |
 | `src/Asn1.Runtime` | Descriptors, writer/reader contracts, buffers, shared content codecs, validation |
 | `src/Asn1.Runtime.Ber` | BER, CER, DER |
 | `src/Asn1.Runtime.Per` | APER, UPER |

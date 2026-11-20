@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Generates Pawn value layouts and canonical OER (COER) encoders and decoders from the resolved ASN.1 model, for scripts on small devices.</Description>
+    <RootNamespace>Asn1.CodeGen.Pawn</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Asn1.Semantics\Asn1.Semantics.csproj" />
+    <ProjectReference Include="..\Asn1.Runtime\Asn1.Runtime.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="dotasn_oer.inc" LogicalName="dotasn_oer.inc" />
+  </ItemGroup>
+</Project>
